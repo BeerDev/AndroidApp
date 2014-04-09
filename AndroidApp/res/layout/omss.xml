@@ -13,9 +13,9 @@
         android:layout_marginTop="70dp"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:text="@string/infoid"
+        android:text="@string/welcome"
         android:textColor="#FFFFFF"
-        android:textSize="40dp" />
+        android:textSize="30sp" />
 
     <EditText
         android:id="@+id/editText2"
@@ -25,9 +25,9 @@
         android:layout_below="@+id/editText1"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:text="Detta är en app som handlar om öl, en öl som är lika kall som hjärtat på en diktator, en vinterdag i december 1832, i Ryssland. "
+        android:text="@string/infoid"
         android:textColor="#FFFFFF"
-        android:textSize="30sp" >
+        android:textSize="20sp" >
 
         <requestFocus />
     </EditText>
