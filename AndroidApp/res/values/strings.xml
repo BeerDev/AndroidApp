@@ -5,12 +5,5 @@
     <string name="image_slide">Image slider</string>
     <string name="action_settings">Settings</string>
     <string name="infoid">Denna applikation hjälper dig att få en överblick över ölutbudet i Kistan. Kistan är INsektionens sektionslokal på KTH Campus Kista. Applikation är skapad av BeerDev, en projektgrupp bestående av 9 KTH studenter. Vi skapade denna applikation i en IT-projektkurs under våren 2014. Vi har arbetat med detta projekt under 5 veckor och har skapat en applikation anpassad för iOS och en för Andriod. Vi som har skapat applikationen är Maxim Frisk, Anne Golinski, Joakim Larsson, Jesper Nowak, Lina Poon, Christopher State, Patrik Stigeborn, Emma Ström, Jonathan Strömgren. *Observera att alla priser gälller medlemmar i INsektionen. </string>
-    <string name="hello_world">Hello world, Jonathan!</string>
-    <string name="action_settings">Settings</string>
-    <string name="infoid">Denna applikation hjälper dig att få en överblick över ölutbudet i Kistan. Kistan är INsektionens sektionslokal på KTH Campus Kista. 
-Applikation är skapad av BeerDev, en projektgrupp bestående av 9 KTH studenter. Vi skapade denna applikation i en IT-projektkurs under våren 2014. Vi har arbetat med detta projekt under 5 veckor och har skapat en applikation anpassad för iOS och en för Android.
-Vi som har skapat applikationen är Maxim Frisk, Anne Golinski, Joakim Larsson, Jesper Nowak, Lina Poon, Christopher State, Patrik Stigeborn, Emma Ström, Jonathan Strömgren.
-*Observera att alla priser gälller medlemmar i INsektionen. </string>
-    
     <string name="welcome">Välkommen!</string>
 </resources>
