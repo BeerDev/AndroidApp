@@ -1,65 +1,164 @@
 package com.beerdev.androidapp;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.ListActivity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
-public class MainActivity extends ActionBarActivity {
-	//Joakim kommenterar
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+public class MainActivity extends ListActivity {
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
-    }
+	private ProgressDialog pDialog;
 
+	// URL to get contacts JSON
+	private static String url = "http://www.beerdev.tk/json_android.php";
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+	// JSON Node names
+	private static final String TAG_Image="Produkter";
+	private static final String TAG_ID = "BildID";
+	private static final String TAG_NAME = "Artikelnamn";
+	private static final String TAG_PATH = "URL";
+	
+	// contacts JSONArray
+	JSONArray contacts = null;
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+	// Hashmap for ListView
+	ArrayList<HashMap<String, String>> contactList;
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
 
-        public PlaceholderFragment() {
-        }
+		contactList = new ArrayList<HashMap<String, String>>();
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            return rootView;
-        }
-    }
+		ListView lv = getListView();
+
+		// Listview on item click listener
+		lv.setOnItemClickListener(new OnItemClickListener() {
+		
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// getting values from selected ListItem
+				String imgid = ((TextView) view.findViewById(R.id.imageid))
+						.getText().toString();
+				String name = ((TextView) view.findViewById(R.id.name))
+						.getText().toString();
+				String path = ((TextView) view.findViewById(R.id.path))
+						.getText().toString();
+
+				// Starting single contact activity
+				Intent in = new Intent(getApplicationContext(),
+						ScreenSlidePagerActivity.class);
+				
+				//in.putExtra(TAG_PATH, path);
+				//in.putExtra(TAG_ID, imgid);
+				//in.putExtra(TAG_NAME, name);
+				in.putExtra("contactList", contactList);
+				startActivity(in);
+
+			}
+		});
+
+		// Calling async task to get json
+		new GetContacts().execute();
+	}
+
+	/**
+	 * Async task class to get json by making HTTP call
+	 * */
+	private class GetContacts extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			// Showing progress dialog
+			pDialog = new ProgressDialog(MainActivity.this);
+			pDialog.setMessage("I'm totaly Awesome...");
+			pDialog.setCancelable(false);
+			pDialog.show();
+			
+
+		}
+
+		@Override
+		protected Void doInBackground(Void... arg0) {
+			// Creating service handler class instance
+			ServiceHandler sh = new ServiceHandler();
+
+			// Making a request to url and getting response
+			String jsonStr = sh.makeServiceCall(url, ServiceHandler.GET);
+			Log.d("Response: ", "> " + jsonStr);
+
+			if (jsonStr != null) {
+				try {
+					JSONObject jsonObj = new JSONObject(jsonStr);
+					
+					// Getting JSON Array node
+					contacts = jsonObj.getJSONArray(TAG_Image);
+					
+					// looping through All Contacts
+					for (int i = 0; i < contacts.length(); i++) {
+						JSONObject c = contacts.getJSONObject(i);
+						
+						String id = c.getString(TAG_ID);
+						String name = c.getString(TAG_NAME);
+						String path = c.getString(TAG_PATH);
+		
+						// tmp hashmap for single contact
+						HashMap<String, String> contact = new HashMap<String, String>();
+
+						// adding each child node to HashMap key => value
+						contact.put(TAG_ID, id);
+						contact.put(TAG_NAME, name);
+						contact.put(TAG_PATH, path);
+
+						// adding contact to contact list
+						contactList.add(contact);
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			} else {
+				Log.e("ServiceHandler", "Couldn't get any data from the url");
+			}
+		
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			// Dismiss the progress dialog
+			if (pDialog.isShowing())
+				pDialog.dismiss();
+			/**
+			 * Updating parsed JSON data into ListView
+			 * */
+			ListAdapter adapter = new SimpleAdapter(
+					MainActivity.this, contactList,
+					R.layout.list_item, new String[] { TAG_ID, TAG_NAME,
+							TAG_PATH }, new int[] { R.id.imageid,
+							R.id.name, R.id.path });
+
+			setListAdapter(adapter);
+		}
+
+	}
 
 }
