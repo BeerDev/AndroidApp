@@ -3,12 +3,11 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
-  <!--  IMAGE!! from url -->
-	<ImageView android:id="@+id/image2"
-	    android:contentDescription="@string/image_slide"
-        android:layout_height="wrap_content"
+
+    <TextView style="?android:textAppearanceMedium"
+        android:padding="16dp"
+        android:lineSpacingMultiplier="1.2"
         android:layout_width="match_parent"
-        android:layout_margin="10dip"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_height="wrap_content"
+        android:text="@string/image_slide" />
 </ScrollView>

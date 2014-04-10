@@ -1,9 +1,5 @@
 package com.beerdev.androidapp;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -14,40 +10,27 @@ import android.support.v4.view.ViewPager;
 
 public class ScreenSlidePagerActivity extends FragmentActivity {
     /**
-     * The number of pages (wizard steps) to show in this demo, default value is zero.
+     * The number of pages (wizard steps) to show in this demo.
      */
-	private static int NUM_PAGES = 0;
-    
-	/**
+    private static final int NUM_PAGES = 5;
+
+    /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
      */
     private ViewPager mPager;
-    
-    /**
-     * The arraylist including all the products.
-     */
-    private static ArrayList<HashMap<String, String>> prodList;
-    
+
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
     private PagerAdapter mPagerAdapter;
- 	
-    @SuppressWarnings("unchecked")
-	@Override
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_slide);
-        
-        Intent intent = getIntent();
-        
-        //Gets the arraylist including all the products
-        prodList =(ArrayList<HashMap<String,String>>) intent.getSerializableExtra("contactList");
-        
-        //Define the number of viewpages that shall be included in the scrollview
-        NUM_PAGES = prodList.size();
-        
+
+        // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
@@ -64,21 +47,14 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
             mPager.setCurrentItem(mPager.getCurrentItem() - 1);
         }
     }
-    /**
-     * The method returns an arraylist which includes product with its information.
-     * @return prodList
-     */
-    public final static ArrayList<HashMap<String, String>> getArrayList() {
-        return prodList;
-    }
 
     /**
-     * A simple pager adapter that represents 4 ScreenSlidePageFragment objects, in
+     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
      * sequence.
      */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         public ScreenSlidePagerAdapter(FragmentManager fm) {
-        	super(fm);
+            super(fm);
         }
 
         @Override
