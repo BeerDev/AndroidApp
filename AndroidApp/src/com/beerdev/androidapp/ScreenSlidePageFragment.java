@@ -39,7 +39,7 @@ public class ScreenSlidePageFragment extends Fragment {
         // Imageview to show
         ImageView image = (ImageView) rootView.findViewById(R.id.image2);
 
-        int position = getArguments().getInt(KEY_POSITION, -1);
+ /*       int position = getArguments().getInt(KEY_POSITION, -1);
  
         // Image url
         String image_url = prodFragList.get(position).get("URL");
@@ -48,6 +48,7 @@ public class ScreenSlidePageFragment extends Fragment {
         ImageLoader imgLoader = new ImageLoader(rootView.getContext());
         
         imgLoader.DisplayImage(image_url, loader, image);
+        */
         
         return rootView;
     }
