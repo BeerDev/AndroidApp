@@ -2,12 +2,9 @@ package com.beerdev.androidapp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import android.annotation.SuppressLint;
+
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -56,9 +53,6 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
-        //Bitmap bitBackground = BitmapFactory.decodeResource(getResources(), R.drawable.testbild);
-        //Drawable d = new BitmapDrawable(getResources(),bitBackground); 
-        //this.getWindow().getDecorView().setBackground(d);
     }
 
     @Override
@@ -100,4 +94,26 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
             return NUM_PAGES;
         }
     }
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    // Raw height and width of image
+    final int height = options.outHeight;
+    final int width = options.outWidth;
+    int inSampleSize = 1;
+
+    if (height > reqHeight || width > reqWidth) {
+
+        final int halfHeight = height / 2;
+        final int halfWidth = width / 2;
+
+        // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+        // height and width larger than the requested height and width.
+        while ((halfHeight / inSampleSize) > reqHeight
+                && (halfWidth / inSampleSize) > reqWidth) {
+            inSampleSize *= 2;
+        }
+    }
+
+    return inSampleSize;
+}
 }
