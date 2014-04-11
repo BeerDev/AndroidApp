@@ -32,6 +32,9 @@ public class MainActivity extends ListActivity {
 	private static final String TAG_ID = "BildID";
 	private static final String TAG_NAME = "Artikelnamn";
 	private static final String TAG_PATH = "URL";
+	private static final String TAG_PRIS = "Utpris exkl moms";
+	private static final String TAG_INFO = "Info";
+	
 	
 	// contacts JSONArray
 	JSONArray contacts = null;
@@ -119,6 +122,8 @@ public class MainActivity extends ListActivity {
 						String id = c.getString(TAG_ID);
 						String name = c.getString(TAG_NAME);
 						String path = c.getString(TAG_PATH);
+						String pris = c.getString(TAG_PRIS);
+						String info = c.getString(TAG_INFO);
 		
 						// tmp hashmap for single contact
 						HashMap<String, String> contact = new HashMap<String, String>();
@@ -127,6 +132,8 @@ public class MainActivity extends ListActivity {
 						contact.put(TAG_ID, id);
 						contact.put(TAG_NAME, name);
 						contact.put(TAG_PATH, path);
+						contact.put(TAG_PRIS, pris);
+						contact.put(TAG_INFO, info);
 
 						// adding contact to contact list
 						contactList.add(contact);
