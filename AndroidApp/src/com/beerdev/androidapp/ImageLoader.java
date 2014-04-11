@@ -34,6 +34,12 @@ public class ImageLoader {
     }
   
     int stub_id = R.drawable.ic_launcher;
+    /**
+     * A function to load and display image.
+     * @param url - path to images URL
+     * @param loader - Image to view when other image is downloading
+     * @param imageView - Which ImageView to put downloaded image
+     */
     public void DisplayImage(String url, int loader, ImageView imageView)
     {
         stub_id = loader;

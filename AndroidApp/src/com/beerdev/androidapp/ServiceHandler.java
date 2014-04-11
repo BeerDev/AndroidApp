@@ -25,7 +25,7 @@ public class ServiceHandler {
 
 	}
 
-	/*
+	/**
 	 * Making service call
 	 * @url - url to make request
 	 * @method - http request method
@@ -34,7 +34,7 @@ public class ServiceHandler {
 		return this.makeServiceCall(url, method, null);
 	}
 
-	/*
+	/**
 	 * Making service call
 	 * @url - url to make request
 	 * @method - http request method

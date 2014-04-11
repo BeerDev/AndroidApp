@@ -35,6 +35,9 @@ public class ScreenSlidePageFragment extends Fragment {
         
         //Loader image
         int loader = R.drawable.ic_launcher;
+
+        // Imageview to show
+        ImageView image = (ImageView) rootView.findViewById(R.id.slideImageView);
         
         // Imageview to show
         ImageView image = (ImageView) rootView.findViewById(R.id.image2);
@@ -42,8 +45,10 @@ public class ScreenSlidePageFragment extends Fragment {
  /*       int position = getArguments().getInt(KEY_POSITION, -1);
  
         // Image url
-        String image_url = prodFragList.get(position).get("URL");
-         
+        String image_url = prodFragList.get(mCurrentPage).get("URL");
+        Log.i("URL", image_url);
+        Log.i("POSITION", Integer.toString(mCurrentPage));
+        
         // ImageLoader class instance
         ImageLoader imgLoader = new ImageLoader(rootView.getContext());
         

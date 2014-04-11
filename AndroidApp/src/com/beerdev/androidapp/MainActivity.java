@@ -25,7 +25,7 @@ public class MainActivity extends ListActivity {
 	private ProgressDialog pDialog;
 
 	// URL to get contacts JSON
-	private static String url = "http://www.beerdev.tk/json_android.php";
+	private static String url = "http://www.beerdev.tk/json_read.php";
 
 	// JSON Node names
 	private static final String TAG_Image="Produkter";
