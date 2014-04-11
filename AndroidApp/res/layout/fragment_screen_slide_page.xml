@@ -1,28 +1,62 @@
 <!-- fragment_screen_slide_page.xml -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
-    
+
     <LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
-        
-    <TextView style="?android:textAppearanceMedium"
-        android:padding="16dp"
-        android:id="@+id/slideTextView"
-        android:lineSpacingMultiplier="1.2"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/slideImageView"
+            android:layout_width="192dp"
+            android:layout_height="298dp"
+            android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:layout_alignParentTop="true"
+          android:orientation="horizontal" >
+
+          <TextView
+              android:id="@+id/slideBeerName"
+              style="?android:textAppearanceMedium"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_weight="0.74"
+              android:lineSpacingMultiplier="1.2"
+              android:padding="16dp"
+              android:textSize="18sp"
+              android:textStyle="normal|bold" />
+
+          <TextView
+              android:id="@+id/slideBeerPrice"
+              style="?android:textAppearanceMedium"
+              android:layout_width="104dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="0.21"
+              android:lineSpacingMultiplier="1.2"
+              android:padding="16dp"
+              android:textSize="15sp" />
+
+      </LinearLayout>
+
+    <TextView
+        android:id="@+id/slideBeerInfo"
+        style="?android:textAppearanceMedium"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/image_slide" />
-    
-    <ImageView
-        android:id="@+id/slideImageView"
-        android:layout_width="225dip"
-        android:layout_height="350dip" 
-        android:layout_gravity="center_horizontal"/>
+        android:layout_weight="0.21"
+        android:padding="16dp"
+        android:gravity="center_horizontal"
+        android:textSize="15sp" />
+
     </LinearLayout>
 
-</ScrollView>
+</RelativeLayout>
