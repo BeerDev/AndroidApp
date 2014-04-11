@@ -21,7 +21,6 @@ public class ScreenSlidePageFragment extends Fragment {
 	private ArrayList<HashMap<String, String>> prodFragList;
 	
 	private static int mCurrentPage;
-	private static final String DEBUG_TAG = "MOTION";
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

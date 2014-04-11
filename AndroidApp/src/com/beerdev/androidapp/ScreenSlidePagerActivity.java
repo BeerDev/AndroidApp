@@ -12,6 +12,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
 
 public class ScreenSlidePagerActivity extends FragmentActivity {
     /**
@@ -25,6 +29,8 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
      */
     private static ViewPager mPager;
 
+
+	private static final String DEBUG_TAG = "MOTION";
     /**
      * The arraylist including all the products.
      */
@@ -54,6 +60,17 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+        /*
+        mPager.findViewById(R.layout.activity_screen_slide)
+        	.setOnTouchListener(new OnTouchListener(){
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				Log.i(DEBUG_TAG, "MOTION");
+				return true;
+			}
+        	
+        });*/
     }
 
     @Override
