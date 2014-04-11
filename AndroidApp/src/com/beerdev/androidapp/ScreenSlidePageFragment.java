@@ -5,9 +5,12 @@ import java.util.HashMap;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MotionEventCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -17,8 +20,8 @@ public class ScreenSlidePageFragment extends Fragment {
 
 	private ArrayList<HashMap<String, String>> prodFragList;
 	
-	int mCurrentPage;
-	
+	private static int mCurrentPage;
+	private static final String DEBUG_TAG = "MOTION";
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
