@@ -5,26 +5,32 @@ import java.util.HashMap;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+
 public class ScreenSlidePageFragment extends Fragment {
-	
-	private static final String KEY_POSITION = "position";
-	
-	static ScreenSlidePageFragment newInstance(int position) {
-	    ScreenSlidePageFragment frag = new ScreenSlidePageFragment();
-	    Bundle args = new Bundle();
 
-	    args.putInt(KEY_POSITION, position);
-	    frag.setArguments(args);
 
-	    return(frag);
-	}
-	
 	private ArrayList<HashMap<String, String>> prodFragList;
+	
+	int mCurrentPage;
+	
+	@Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+ 
+        /** Getting the arguments to the Bundle object */
+        Bundle data = getArguments();
+ 
+        /** Getting integer data of the key current_page from the bundle */
+        mCurrentPage = data.getInt("current_page", 0);
+ 
+    }
+	
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -39,11 +45,6 @@ public class ScreenSlidePageFragment extends Fragment {
         // Imageview to show
         ImageView image = (ImageView) rootView.findViewById(R.id.slideImageView);
         
-        // Imageview to show
-        ImageView image = (ImageView) rootView.findViewById(R.id.image2);
-
- /*       int position = getArguments().getInt(KEY_POSITION, -1);
- 
         // Image url
         String image_url = prodFragList.get(mCurrentPage).get("URL");
         Log.i("URL", image_url);
@@ -53,7 +54,6 @@ public class ScreenSlidePageFragment extends Fragment {
         ImageLoader imgLoader = new ImageLoader(rootView.getContext());
         
         imgLoader.DisplayImage(image_url, loader, image);
-        */
         
         return rootView;
     }
