@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 public class ScreenSlidePageFragment extends Fragment {
@@ -39,20 +40,27 @@ public class ScreenSlidePageFragment extends Fragment {
         
         prodFragList = (ArrayList<HashMap<String, String>>) ScreenSlidePagerActivity.getArrayList();
         
+        //-----TEXT!--------
+        TextView textnamn= (TextView) rootView.findViewById(R.id.slideBeerName);
+        TextView textPrice= (TextView) rootView.findViewById(R.id.slideBeerPrice);
+        TextView textInfo= (TextView) rootView.findViewById(R.id.slideBeerInfo);
+        
+        String Namn_text = prodFragList.get(mCurrentPage).get("Artikelnamn");
+        String Price_text = prodFragList.get(mCurrentPage).get("Utpris exkl moms");
+        String Info_text = prodFragList.get(mCurrentPage).get("Info");
+        
+        
+       //-----IMAGE!--------- 
         //Loader image
         int loader = R.drawable.ic_launcher;
-
         // Imageview to show
-        ImageView image = (ImageView) rootView.findViewById(R.id.slideImageView);
-        
+        ImageView image = (ImageView) rootView.findViewById(R.id.slideImageView);        
         // Image url
         String image_url = prodFragList.get(mCurrentPage).get("URL");
         Log.i("URL", image_url);
-        Log.i("POSITION", Integer.toString(mCurrentPage));
-        
+        Log.i("POSITION", Integer.toString(mCurrentPage));        
         // ImageLoader class instance
-        ImageLoader imgLoader = new ImageLoader(rootView.getContext());
-        
+        ImageLoader imgLoader = new ImageLoader(rootView.getContext()); 
         imgLoader.DisplayImage(image_url, loader, image);
         
         return rootView;
