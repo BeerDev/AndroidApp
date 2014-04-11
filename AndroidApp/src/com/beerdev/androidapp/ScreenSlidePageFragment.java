@@ -3,6 +3,7 @@ package com.beerdev.androidapp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.R.string;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -41,14 +42,21 @@ public class ScreenSlidePageFragment extends Fragment {
         prodFragList = (ArrayList<HashMap<String, String>>) ScreenSlidePagerActivity.getArrayList();
         
         //-----TEXT!--------
+        //Getting TextView
         TextView textnamn= (TextView) rootView.findViewById(R.id.slideBeerName);
         TextView textPrice= (TextView) rootView.findViewById(R.id.slideBeerPrice);
         TextView textInfo= (TextView) rootView.findViewById(R.id.slideBeerInfo);
         
+        //Getting Objects from JSON
+        String Pris_text="first";
         String Namn_text = prodFragList.get(mCurrentPage).get("Artikelnamn");
-        String Price_text = prodFragList.get(mCurrentPage).get("Utpris exkl moms");
+        Pris_text = prodFragList.get(mCurrentPage).get("Utpris exkl moms");
         String Info_text = prodFragList.get(mCurrentPage).get("Info");
-        
+
+        //Setting TextViews
+        textnamn.setText(Namn_text);
+        textPrice.setText(Pris_text+"kr*");
+        textInfo.setText(Info_text);
         
        //-----IMAGE!--------- 
         //Loader image
