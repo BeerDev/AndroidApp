@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MotionEventCompat;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -20,19 +21,38 @@ public class ScreenSlidePageFragment extends Fragment {
 
 	private ArrayList<HashMap<String, String>> prodFragList;
 	
-	private static int mCurrentPage;
-	@Override
+	
+	/**
+     * The argument key for the page number this fragment represents.
+     */
+    public static final String ARG_PAGE = "page";
+
+    /**
+     * The fragment's page number, which is set to the argument value for {@link #ARG_PAGE}.
+     */
+    private int mPageNumber;
+
+    /**
+     * Factory method for this fragment class. Constructs a new fragment for the given page number.
+     */
+    public static ScreenSlidePageFragment create(int pageNumber) {
+        ScreenSlidePageFragment fragment = new ScreenSlidePageFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_PAGE, pageNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public ScreenSlidePageFragment() {
+    }
+     
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
- 
-        /** Getting the arguments to the Bundle object */
-        Bundle data = getArguments();
- 
-        /** Getting integer data of the key current_page from the bundle */
-        mCurrentPage = data.getInt("current_page", 0);
- 
+        mPageNumber = getArguments().getInt(ARG_PAGE);
     }
-	
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -47,16 +67,34 @@ public class ScreenSlidePageFragment extends Fragment {
         // Imageview to show
         ImageView image = (ImageView) rootView.findViewById(R.id.slideImageView);
         
-        // Image url
-        String image_url = prodFragList.get(mCurrentPage).get("URL");
-        Log.i("URL", image_url);
-        Log.i("POSITION", Integer.toString(mCurrentPage));
+        image.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				// This is important bit
+	              Fragment textFragment = TextFragment.create(mPageNumber);
+	              getChildFragmentManager()
+	              		.beginTransaction()
+	              		.addToBackStack(null)
+	              		.setCustomAnimations(R.anim.abc_slide_in_bottom, R.anim.abc_fade_out)
+	              		.replace(R.id.layout_slide, textFragment, "textFragment").commit();
+				
+			}
+          });
         
-        // ImageLoader class instance
+        //Loading and displaying image
+        String image_url = prodFragList.get(mPageNumber).get("URL");
+        
         ImageLoader imgLoader = new ImageLoader(rootView.getContext());
-        
         imgLoader.DisplayImage(image_url, loader, image);
         
         return rootView;
     }
+
+    /**
+     * Returns the page number represented by this fragment object.
+     */
+    public int getPageNumber() {
+        return mPageNumber;
+    }
+
 }

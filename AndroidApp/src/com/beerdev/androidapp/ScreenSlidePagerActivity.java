@@ -4,21 +4,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.MotionEvent;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 
 public class ScreenSlidePagerActivity extends FragmentActivity {
-    /**
+	
+	/**
      * The number of pages (wizard steps) to show in this demo.
      */
     private static int NUM_PAGES;
@@ -29,20 +30,17 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
      */
     private static ViewPager mPager;
 
-
-	private static final String DEBUG_TAG = "MOTION";
     /**
      * The arraylist including all the products.
      */
     private static ArrayList<HashMap<String, String>> prodList;
     
-    private static int currentPage;
     
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
     private PagerAdapter mPagerAdapter;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,17 +58,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
-        /*
-        mPager.findViewById(R.layout.activity_screen_slide)
-        	.setOnTouchListener(new OnTouchListener(){
 
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				Log.i(DEBUG_TAG, "MOTION");
-				return true;
-			}
-        	
-        });*/
     }
 
     @Override
@@ -93,11 +81,8 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         return prodList;
     }
     
-    public static int getCurrentItem(){
-    	return mPager.getCurrentItem();
-    }
     /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
+     * A simple pager adapter that represents X ScreenSlidePageFragment objects, in
      * sequence.
      */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter{
@@ -107,11 +92,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-        	ScreenSlidePageFragment myFragment = new ScreenSlidePageFragment();
-            Bundle data = new Bundle();
-            data.putInt("current_page", position);
-            myFragment.setArguments(data);
-            return myFragment;
+            return ScreenSlidePageFragment.create(position);
         }
 
         @Override
