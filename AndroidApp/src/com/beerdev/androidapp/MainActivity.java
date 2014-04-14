@@ -1,4 +1,5 @@
 package com.beerdev.androidapp;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,6 +10,7 @@ import org.json.JSONObject;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +18,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -153,13 +154,13 @@ public class MainActivity extends ListActivity {
 			/**
 			 * Updating parsed JSON data into ListView
 			 * */
+			
 			SimpleAdapter adapter = new SimpleAdapter(
 					getBaseContext(), contactList,
-					R.layout.list_item, new String[] {TAG_NAME,TAG_PATH,TAG_ID}, new int[] { R.id.listNamn, R.id.listImageURL, R.id.listID});
+					R.layout.list_item, new String[] {TAG_PATH,TAG_NAME,TAG_ID}, new int[] {R.id.listImageURL, R.id.listNamn, R.id.listID});
 
-			
 			setListAdapter(adapter);
-		}
+		} 
 
 	}
 
