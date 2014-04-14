@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -58,12 +59,13 @@ public class MainActivity extends ListActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// getting values from selected ListItem
-				String imgid = ((TextView) view.findViewById(R.id.imageid))
+				String imgid = ((TextView) view.findViewById(R.id.listNamn))
 						.getText().toString();
-				String name = ((TextView) view.findViewById(R.id.name))
-						.getText().toString();
-				String path = ((TextView) view.findViewById(R.id.path))
-						.getText().toString();
+				
+				String ID = ((TextView) view.findViewById(R.id.listID)).getText().toString();
+				int hej = Integer.parseInt(ID);
+			//	String name = ((TextView) view.findViewById(R.id.name)).getText().toString();
+			//	String path = ((TextView) view.findViewById(R.id.path)).getText().toString();
 
 				// Starting single contact activity
 				Intent in = new Intent(getApplicationContext(),
@@ -71,7 +73,7 @@ public class MainActivity extends ListActivity {
 				
 				//in.putExtra(TAG_PATH, path);
 				//in.putExtra(TAG_ID, imgid);
-				//in.putExtra(TAG_NAME, name);
+				in.putExtra("BildID", hej);
 				in.putExtra("contactList", contactList);
 				startActivity(in);
 
@@ -157,12 +159,11 @@ public class MainActivity extends ListActivity {
 			/**
 			 * Updating parsed JSON data into ListView
 			 * */
-			ListAdapter adapter = new SimpleAdapter(
-					MainActivity.this, contactList,
-					R.layout.list_item, new String[] { TAG_ID, TAG_NAME,
-							TAG_PATH }, new int[] { R.id.imageid,
-							R.id.name, R.id.path });
+			SimpleAdapter adapter = new SimpleAdapter(
+					getBaseContext(), contactList,
+					R.layout.list_item, new String[] {TAG_NAME,TAG_PATH,TAG_ID}, new int[] { R.id.listNamn, R.id.listImageid, R.id.listID});
 
+			
 			setListAdapter(adapter);
 		}
 

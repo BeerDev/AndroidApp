@@ -36,6 +36,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
      * The pager adapter, which provides the pages to the view pager widget.
      */
     private PagerAdapter mPagerAdapter;
+ 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +44,18 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         setContentView(R.layout.activity_screen_slide);
         
         Intent intent = getIntent();
+        int pos = intent.getIntExtra("BildID", 0);
         
+
         //Gets the arraylist including all the products
         prodList =(ArrayList<HashMap<String,String>>) intent.getSerializableExtra("contactList");
-        
         //Define the number of viewpages that shall be included in the scrollview
         NUM_PAGES = prodList.size();
         
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        mPager.setCurrentItem(pos);
         mPager.setAdapter(mPagerAdapter);
     }
 
@@ -83,7 +86,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
      * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
      * sequence.
      */
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter{
+    private static class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter{
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -95,6 +98,13 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
             data.putInt("current_page", position);
             myFragment.setArguments(data);
             return myFragment;
+        }
+        public static void setItem(int position) {
+        	ScreenSlidePageFragment myFragment = new ScreenSlidePageFragment();
+            Bundle data = new Bundle();
+            data.putInt("current_page", position);
+            myFragment.setArguments(data);
+            return;
         }
 
         @Override
