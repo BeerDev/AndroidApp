@@ -157,7 +157,7 @@ public class MainActivity extends ListActivity {
 			
 			SimpleAdapter adapter = new SimpleAdapter(
 					getBaseContext(), contactList,
-					R.layout.list_item, new String[] {TAG_PATH,TAG_NAME,TAG_ID}, new int[] {R.id.listImageURL, R.id.listNamn, R.id.listID});
+					R.layout.list_item, new String[] {TAG_NAME,TAG_ID}, new int[] {R.id.listNamn, R.id.listID});
 
 			setListAdapter(adapter);
 		} 
