@@ -54,9 +54,10 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
+        
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-        mPager.setCurrentItem(pos);
         mPager.setAdapter(mPagerAdapter);
+        mPager.setCurrentItem(pos-1);
     }
 
     @Override
@@ -67,7 +68,8 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
             super.onBackPressed();
         } else {
             // Otherwise, select the previous step.
-            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
+        	super.onBackPressed();
+           // mPager.setCurrentItem(mPager.getCurrentItem() - 1);
         }
     }
 
@@ -98,13 +100,6 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
             data.putInt("current_page", position);
             myFragment.setArguments(data);
             return myFragment;
-        }
-        public static void setItem(int position) {
-        	ScreenSlidePageFragment myFragment = new ScreenSlidePageFragment();
-            Bundle data = new Bundle();
-            data.putInt("current_page", position);
-            myFragment.setArguments(data);
-            return;
         }
 
         @Override

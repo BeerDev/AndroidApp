@@ -29,7 +29,7 @@ public class MainActivity extends ListActivity {
 	private static String url = "http://www.beerdev.tk/json_read.php";
 
 	// JSON Node names
-	private static final String TAG_Image="Produkter";
+	private static final String TAG_Produkter="Produkter";
 	private static final String TAG_ID = "BildID";
 	private static final String TAG_NAME = "Artikelnamn";
 	private static final String TAG_PATH = "URL";
@@ -58,22 +58,16 @@ public class MainActivity extends ListActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// getting values from selected ListItem
-				String imgid = ((TextView) view.findViewById(R.id.listNamn))
-						.getText().toString();
-				
+				// getting values from selected ListItem			
 				String ID = ((TextView) view.findViewById(R.id.listID)).getText().toString();
-				int hej = Integer.parseInt(ID);
-			//	String name = ((TextView) view.findViewById(R.id.name)).getText().toString();
-			//	String path = ((TextView) view.findViewById(R.id.path)).getText().toString();
+				int Index = Integer.parseInt(ID);
 
 				// Starting single contact activity
 				Intent in = new Intent(getApplicationContext(),
 						ScreenSlidePagerActivity.class);
 				
-				//in.putExtra(TAG_PATH, path);
-				//in.putExtra(TAG_ID, imgid);
-				in.putExtra("BildID", hej);
+				//Sending BildID and ContactList to ScreenSlidePagerActivity
+				in.putExtra("BildID", Index);
 				in.putExtra("contactList", contactList);
 				startActivity(in);
 
@@ -115,7 +109,7 @@ public class MainActivity extends ListActivity {
 					JSONObject jsonObj = new JSONObject(jsonStr);
 					
 					// Getting JSON Array node
-					contacts = jsonObj.getJSONArray(TAG_Image);
+					contacts = jsonObj.getJSONArray(TAG_Produkter);
 					
 					// looping through All Contacts
 					for (int i = 0; i < contacts.length(); i++) {
@@ -161,7 +155,7 @@ public class MainActivity extends ListActivity {
 			 * */
 			SimpleAdapter adapter = new SimpleAdapter(
 					getBaseContext(), contactList,
-					R.layout.list_item, new String[] {TAG_NAME,TAG_PATH,TAG_ID}, new int[] { R.id.listNamn, R.id.listImageid, R.id.listID});
+					R.layout.list_item, new String[] {TAG_NAME,TAG_PATH,TAG_ID}, new int[] { R.id.listNamn, R.id.listImageURL, R.id.listID});
 
 			
 			setListAdapter(adapter);
