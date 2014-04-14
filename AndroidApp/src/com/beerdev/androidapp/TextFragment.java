@@ -21,10 +21,11 @@ import java.util.HashMap;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.view.MotionEventCompat;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -65,23 +66,43 @@ public class TextFragment extends Fragment {
 
         prodFragList = (ArrayList<HashMap<String, String>>) ScreenSlidePagerActivity.getArrayList();
         
+      //-----TEXT!--------
+        //Getting TextView
+        TextView textNamn= (TextView) rootView.findViewById(R.id.textBeerName);
+        TextView textPrice= (TextView) rootView.findViewById(R.id.textBeerPrice);
+        TextView textInfo= (TextView) rootView.findViewById(R.id.textBeerInfo);
 
-        String info_text = prodFragList.get(mPageNumber).get("Artikelnamn");
+        final TextView textNamn2= (TextView) rootView.findViewById(R.id.slideBeerName);
+        final TextView textPrice2= (TextView) rootView.findViewById(R.id.slideBeerPrice);
+        final TextView textInfo2= (TextView) rootView.findViewById(R.id.slideBeerInfo);
         
-		TextView textView = (TextView) rootView.findViewById(R.id.text1);
-		textView.setText(info_text);
-		
-		textView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				// This is important bit
+        //Getting Objects from JSON
+        String namn_text = prodFragList.get(mPageNumber).get("Artikelnamn");
+        String pris_text = prodFragList.get(mPageNumber).get("Utpris exkl moms");
+        String info_text = prodFragList.get(mPageNumber).get("Info");
 
-				getFragmentManager()
-					.beginTransaction()
-					.setCustomAnimations(R.anim.abc_fade_out, R.anim.abc_fade_out)
-                	.remove(getFragmentManager().findFragmentByTag("textFragment"))
-                	.commit();
-				
+        //Setting TextViews
+        textNamn.setText(namn_text);
+        textPrice.setText(pris_text+"kr*");
+        textInfo.setText(info_text);
+		rootView.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View view, MotionEvent event) {
+				int action = MotionEventCompat.getActionMasked(event);
+				switch(action){
+					case(MotionEvent.ACTION_UP):
+
+						getFragmentManager()
+						.beginTransaction()
+						//.setCustomAnimations(R.anim.abc_fade_out, R.anim.abc_fade_out)
+		            	.remove(getFragmentManager().findFragmentByTag("textFragment"))
+		            	.commit();
+
+					  //textNamn2.setVisibility(View.VISIBLE);
+					  //textInfo2.setVisibility(View.VISIBLE);
+				  	  //textPrice2.setVisibility(View.VISIBLE);
+				}
+				return true;
 			}
           });
         return rootView;
