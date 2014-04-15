@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,9 +15,12 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -31,9 +35,9 @@ public class MainActivity extends ListActivity {
 
 	// JSON Node names
 	private static final String TAG_Produkter="Produkter";
-	private static final String TAG_ID = "BildID";
-	private static final String TAG_NAME = "Artikelnamn";
-	private static final String TAG_PATH = "URL";
+	static final String TAG_ID = "id";
+	static final String TAG_NAME = "Artikelnamn";
+	static final String TAG_PATH = "URL";
 	private static final String TAG_PRIS = "Utpris exkl moms";
 	private static final String TAG_INFO = "Info";
 	
@@ -155,13 +159,19 @@ public class MainActivity extends ListActivity {
 			 * Updating parsed JSON data into ListView
 			 * */
 			
-			SimpleAdapter adapter = new SimpleAdapter(
-					getBaseContext(), contactList,
-					R.layout.list_item, new String[] {TAG_NAME,TAG_ID}, new int[] {R.id.listNamn, R.id.listID});
-
+	/*		SimpleAdapter adapter = new SimpleAdapter(
+					MainActivity.this, contactList,
+					R.layout.list_item, new String[] {TAG_PATH,TAG_NAME,TAG_ID}, new int[] {R.id.listImageURL, R.id.listNamn, R.id.listID});
+		
 			setListAdapter(adapter);
-		} 
-
+			*/
+			//ListView list=(ListView)findViewById(R.id.list);
+			
+			// Getting adapter by passing xml data ArrayList
+	        LazyAdapter adapter=new LazyAdapter(MainActivity.this, contactList);        
+	        setListAdapter(adapter);
+			
+			
+		}
 	}
-
 }

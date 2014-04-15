@@ -15,10 +15,15 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
   
+
+
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
   
 public class ImageLoader {
@@ -40,6 +45,21 @@ public class ImageLoader {
      * @param loader - Image to view when other image is downloading
      * @param imageView - Which ImageView to put downloaded image
      */
+    
+    
+    public void DisplayImageIcon(String url, ImageView imageView)
+    {
+        imageViews.put(imageView, url);
+        Bitmap bitmap=memoryCache.get(url);
+        if(bitmap!=null)
+            imageView.setImageBitmap(bitmap);
+        else
+        {
+            queuePhoto(url, imageView);
+            imageView.setImageResource(stub_id);
+        }
+    }
+    
     public void DisplayImage(String url, int loader, ImageView imageView)
     {
         stub_id = loader;
