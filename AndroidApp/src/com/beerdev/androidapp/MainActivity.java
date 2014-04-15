@@ -16,7 +16,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -42,6 +46,8 @@ public class MainActivity extends ListActivity {
 	private static final String TAG_INFO = "Info";
 	
 	
+	
+	
 	// contacts JSONArray
 	JSONArray contacts = null;
 
@@ -52,7 +58,16 @@ public class MainActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		
+	//NAVIGATION MENU
+/*	findViewById(R.id.navListVy).setOnTouchListener(new OnTouchListener(){
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+				setContentView(R.layout.omss);
+				return true;
+			}
+		});
+*/		
+		
 		contactList = new ArrayList<HashMap<String, String>>();
 
 		ListView lv = getListView();
@@ -82,7 +97,16 @@ public class MainActivity extends ListActivity {
 		// Calling async task to get json
 		new GetContacts().execute();
 	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.navigation_menu, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
 
+	
+	
 	/**
 	 * Async task class to get json by making HTTP call
 	 * */

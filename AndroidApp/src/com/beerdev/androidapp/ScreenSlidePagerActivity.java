@@ -12,6 +12,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.widget.AdapterView;
+import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class ScreenSlidePagerActivity extends FragmentActivity {
     /**
@@ -58,6 +66,18 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         mPager.setCurrentItem(pos);
+        
+   /*    final TextView textnamn= (TextView) findViewById(R.id.slideBeerName);
+        
+      //listener
+        textnamn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        
     }
 
     @Override
@@ -70,7 +90,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
             // Otherwise, select the previous step.
         	super.onBackPressed();
            // mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-        }
+        }*/
     }
 
     /**
