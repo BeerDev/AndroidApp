@@ -38,7 +38,7 @@ public class ImageLoader {
         executorService=Executors.newFixedThreadPool(5);
     }
   
-    int stub_id = R.drawable.ic_launcher;
+    int stub_id = R.drawable.placeholder;
     /**
      * A function to load and display image.
      * @param url - path to images URL
