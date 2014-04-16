@@ -21,14 +21,10 @@ import java.util.HashMap;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MotionEventCompat;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class TextFragment extends Fragment {
@@ -83,6 +79,20 @@ public class TextFragment extends Fragment {
         textNamn.setText(namn_text);
         textPrice.setText(pris_text+"kr*");
         textInfo.setText(info_text);
+        
+        rootView.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				getChildFragmentManager()
+	        	.beginTransaction()
+	        	.setCustomAnimations(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
+	        	.remove(getFragmentManager().findFragmentByTag("textFragment"))
+	        	.commit();
+			}
+        	
+        });
 		
         return rootView;
     }

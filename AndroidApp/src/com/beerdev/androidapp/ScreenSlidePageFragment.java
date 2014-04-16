@@ -103,12 +103,10 @@ public class ScreenSlidePageFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Log.i("CLICK","CLICK");
-
 		        getChildFragmentManager()
 		        	.beginTransaction()
 		        	.setCustomAnimations(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
-		        	.add(R.id.content, TextFragment.create(mPageNumber))
+		        	.add(R.id.content, TextFragment.create(mPageNumber), "textFragment")
 		        	.addToBackStack(null)
 		        	.commit();
 			}
