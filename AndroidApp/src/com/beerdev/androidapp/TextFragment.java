@@ -25,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class TextFragment extends Fragment {
@@ -79,6 +80,8 @@ public class TextFragment extends Fragment {
         textNamn.setText(namn_text);
         textPrice.setText(pris_text+"kr*");
         textInfo.setText(info_text);
+
+        final RelativeLayout relL2 = (RelativeLayout) getParentFragment().getView().findViewById(R.id.text_layout);
         
         rootView.setOnClickListener(new OnClickListener(){
 
@@ -90,6 +93,7 @@ public class TextFragment extends Fragment {
 	        	.setCustomAnimations(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
 	        	.remove(getFragmentManager().findFragmentByTag("textFragment"))
 	        	.commit();
+				relL2.setVisibility(View.VISIBLE);
 			}
         	
         });

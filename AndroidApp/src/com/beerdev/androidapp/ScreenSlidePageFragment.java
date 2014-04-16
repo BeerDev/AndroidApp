@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -39,6 +39,7 @@ public class ScreenSlidePageFragment extends Fragment {
      * The fragment's page number, which is set to the argument value for {@link #ARG_PAGE}.
      */
     private int mPageNumber;
+    
 
     /**
      * Factory method for this fragment class. Constructs a new fragment for the given page number.
@@ -73,6 +74,8 @@ public class ScreenSlidePageFragment extends Fragment {
         
         prodFragList = (ArrayList<HashMap<String, String>>) ScreenSlidePagerActivity.getArrayList();
         
+        final RelativeLayout relL = (RelativeLayout) rootView.findViewById(R.id.text_layout);
+        
         ImageView imageView = (ImageView) rootView.findViewById(R.id.slideImageView);
           
         //Loader image
@@ -98,7 +101,9 @@ public class ScreenSlidePageFragment extends Fragment {
         textPrice.setText(pris_text+"kr*");
         textInfo.setText(info_text);
         
-        textNamn.setOnClickListener(new OnClickListener(){
+
+        
+        rootView.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
@@ -109,6 +114,7 @@ public class ScreenSlidePageFragment extends Fragment {
 		        	.add(R.id.content, TextFragment.create(mPageNumber), "textFragment")
 		        	.addToBackStack(null)
 		        	.commit();
+	        		relL.setVisibility(RelativeLayout.INVISIBLE);
 			}
         	
         });
