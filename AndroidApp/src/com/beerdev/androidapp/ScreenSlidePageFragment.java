@@ -5,14 +5,12 @@ import java.util.HashMap;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -20,16 +18,7 @@ public class ScreenSlidePageFragment extends Fragment {
 
 
 	private ArrayList<HashMap<String, String>> prodFragList;
-	private int mShortAnimationDuration;
-	
-	private ImageView imageView;
-	private TextView textViewName;
-	private TextView textViewPrice;
-	private TextView textViewInfo;
-	
-	private GestureDetector mGestureDetector;
 
-	 private Animation slideRight, slideLeft;
 	/**
      * The argument key for the page number this fragment represents.
      */
@@ -74,7 +63,7 @@ public class ScreenSlidePageFragment extends Fragment {
         
         prodFragList = (ArrayList<HashMap<String, String>>) ScreenSlidePagerActivity.getArrayList();
         
-        final RelativeLayout relL = (RelativeLayout) rootView.findViewById(R.id.text_layout);
+        final LinearLayout relL = (LinearLayout) rootView.findViewById(R.id.text_layout);
         
         ImageView imageView = (ImageView) rootView.findViewById(R.id.slideImageView);
           
@@ -87,19 +76,23 @@ public class ScreenSlidePageFragment extends Fragment {
         
         //-----TEXT!--------
         //Getting TextView
-        TextView textNamn= (TextView) rootView.findViewById(R.id.slideBeerName);
-        TextView textPrice= (TextView) rootView.findViewById(R.id.slideBeerPrice);
-        TextView textInfo= (TextView) rootView.findViewById(R.id.slideBeerInfo);
+        TextView textBeerName = (TextView) rootView.findViewById(R.id.swipeBeerName);
+        TextView textBeerPrice = (TextView) rootView.findViewById(R.id.swipeBeerPrice);
+        TextView textBeerSize = (TextView) rootView.findViewById(R.id.swipeBeerSize);
+        TextView textBeerPercent = (TextView) rootView.findViewById(R.id.swipeBeerPercent);
         
         //Getting Objects from JSON
-        String namn_text = prodFragList.get(mPageNumber).get("Artikelnamn");
-        String pris_text = prodFragList.get(mPageNumber).get("Utpris exkl moms");
-        String info_text = prodFragList.get(mPageNumber).get("Info");
+        String nameText = prodFragList.get(mPageNumber).get("Artikelnamn");
+        String priceText = prodFragList.get(mPageNumber).get("Utpris exkl moms");
+        String sizeText = prodFragList.get(mPageNumber).get("Storlek");
+        String percentText = prodFragList.get(mPageNumber).get("Alkoholhalt");
 
         //Setting TextViews
-        textNamn.setText(namn_text);
-        textPrice.setText(pris_text+"kr*");
-        textInfo.setText(info_text);
+        textBeerName.setText(nameText);
+        textBeerPrice.setText(priceText+"kr*");
+        textBeerSize.setText(sizeText+" ml");
+        textBeerPercent.setText(percentText);
+        
         
 
         
@@ -114,7 +107,7 @@ public class ScreenSlidePageFragment extends Fragment {
 		        	.add(R.id.content, TextFragment.create(mPageNumber), "textFragment")
 		        	.addToBackStack(null)
 		        	.commit();
-	        		relL.setVisibility(RelativeLayout.INVISIBLE);
+	        		relL.setVisibility(View.INVISIBLE);
 			}
         	
         });

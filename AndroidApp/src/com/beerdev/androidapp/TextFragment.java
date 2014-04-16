@@ -26,7 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class TextFragment extends Fragment {
@@ -68,21 +68,27 @@ public class TextFragment extends Fragment {
         
         //-----TEXT!--------
         //Getting TextView
-        TextView textNamn= (TextView) rootView.findViewById(R.id.textBeerName);
-        TextView textPrice= (TextView) rootView.findViewById(R.id.textBeerPrice);
-        TextView textInfo= (TextView) rootView.findViewById(R.id.textBeerInfo);
+        TextView textBeerNameInfo = (TextView) rootView.findViewById(R.id.swipeBeerNameInfo);
+        TextView textBeerPriceInfo = (TextView) rootView.findViewById(R.id.swipeBeerPriceInfo);
+        TextView textBeerSizeInfo = (TextView) rootView.findViewById(R.id.swipeBeerSizeInfo);
+        TextView textBeerPercentInfo = (TextView) rootView.findViewById(R.id.swipeBeerPercentInfo);
+        TextView textBeerInfoInfo = (TextView) rootView.findViewById(R.id.swipeBeerInfoInfo);
         
         //Getting Objects from JSON
-        String namn_text = prodFragList.get(mPageNumber).get("Artikelnamn");
-        String pris_text = prodFragList.get(mPageNumber).get("Utpris exkl moms");
-        String info_text = prodFragList.get(mPageNumber).get("Info");
+        String nameText = prodFragList.get(mPageNumber).get("Artikelnamn");
+        String priceText = prodFragList.get(mPageNumber).get("Utpris exkl moms");
+        String sizeText = prodFragList.get(mPageNumber).get("Storlek");
+        String percentText = prodFragList.get(mPageNumber).get("Alkoholhalt");
+        String infoText = prodFragList.get(mPageNumber).get("Info");
 
         //Setting TextViews
-        textNamn.setText(namn_text);
-        textPrice.setText(pris_text+"kr*");
-        textInfo.setText(info_text);
+        textBeerNameInfo.setText(nameText);
+        textBeerPriceInfo.setText(priceText+"kr*");
+        textBeerSizeInfo.setText(sizeText+" ml");
+        textBeerPercentInfo.setText(percentText+"%");
+        textBeerInfoInfo.setText(infoText);
 
-        final RelativeLayout relL2 = (RelativeLayout) getParentFragment().getView().findViewById(R.id.text_layout);
+        final LinearLayout relL2 = (LinearLayout) getParentFragment().getView().findViewById(R.id.text_layout);
 
         rootView.setOnClickListener(new OnClickListener(){
 

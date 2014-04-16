@@ -1,61 +1,83 @@
 <!-- fragment_screen_slide_page.xml -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/content"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <LinearLayout
-        android:layout_width="fill_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/content"
+		android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical" 
+        android:weightSum="1.0">
 
         <ImageView
             android:id="@+id/slideImageView"
-            android:layout_width="250dip"
-            android:layout_height="350dip"
-            android:layout_gravity="center_horizontal" 
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="0.8"
+            android:layout_gravity="center_horizontal|center_vertical" 
             android:layout_marginTop="50dip"/>
-	<RelativeLayout 
-	    android:id="@+id/text_layout"
-	    android:layout_width="fill_parent"
-          android:layout_height="wrap_content" 
-          android:layout_marginTop="20dip">	
-    	<LinearLayout
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal" >
+        
+		<!-- Container for TextViews -->
+		<LinearLayout 
+	    	android:id="@+id/text_layout"
+	    	android:layout_width="fill_parent"
+          	android:layout_height="0dip" 
+          	android:layout_weight="0.2"
+          	android:orientation="vertical"
+          	android:layout_gravity="bottom">
 
-          <TextView
-              android:id="@+id/slideBeerName"
-              style="?android:textAppearanceMedium"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_weight="0.74"
-              android:lineSpacingMultiplier="1.2"
-              android:textSize="18sp"
-              android:textStyle="normal|bold" />
+	    	<!-- First line of TextViews -->
+	    	<LinearLayout
+	          android:layout_width="fill_parent"
+	          android:layout_height="wrap_content"
+	          android:orientation="horizontal" 
+	          android:weightSum="1">
 
-          <TextView
-              android:id="@+id/slideBeerPrice"
-              style="?android:textAppearanceMedium"
-              android:layout_width="104dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="0.21"
-              android:lineSpacingMultiplier="1.2"
-              android:textSize="15sp" />
-
+		          <TextView
+		              android:id="@+id/swipeBeerName"
+		              style="?android:textAppearanceMedium"
+		              android:layout_width="0dip"
+		              android:layout_height="wrap_content"
+		              android:layout_weight="0.8"
+		              android:layout_gravity="left"
+		              android:lineSpacingMultiplier="1.2"
+		              android:textSize="18sp"
+		              android:textStyle="normal|bold" />
+		
+		          <TextView
+		              android:id="@+id/swipeBeerPrice"
+		              style="?android:textAppearanceMedium"
+		              android:layout_width="0dip"
+		              android:layout_height="wrap_content"
+		              android:layout_gravity="right"
+		              android:layout_weight="0.2"
+		              android:lineSpacingMultiplier="1.2"
+		              android:textSize="15sp" />		
       		</LinearLayout>
-
-	    <TextView
-	        android:id="@+id/slideBeerInfo"
-	        style="?android:textAppearanceMedium"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="30dip"
-	        android:padding="16dp"
-	        android:gravity="center_horizontal"
-	        android:textSize="15sp" />
-		</RelativeLayout>
-    </LinearLayout>
-
-</RelativeLayout>
+      		<!-- Second line of two TextViews -->
+    	    <LinearLayout
+		          android:layout_width="fill_parent"
+		          android:layout_height="fill_parent"
+		          android:orientation="horizontal"
+		          android:layout_gravity="bottom"
+		          android:weightSum="1">
+          		
+		          <TextView
+		              android:id="@+id/swipeBeerSize"
+		              style="?android:textAppearanceMedium"
+		              android:layout_width="0dip"
+		              android:layout_height="wrap_content"
+		              android:layout_weight="0.8"
+		              android:lineSpacingMultiplier="1.2"
+		              android:textSize="18sp"
+		              android:textStyle="normal|bold" />
+		
+		          <TextView
+		              android:id="@+id/swipeBeerPercent"
+		              style="?android:textAppearanceMedium"
+		              android:layout_width="0dip"
+		              android:layout_weight="0.2"
+		              android:layout_height="wrap_content"
+		              android:lineSpacingMultiplier="1.2"
+		              android:textSize="15sp" />
+		          
+      		</LinearLayout>
+		</LinearLayout>
+  </LinearLayout>
