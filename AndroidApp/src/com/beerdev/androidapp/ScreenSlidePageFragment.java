@@ -5,12 +5,13 @@ import java.util.HashMap;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MotionEventCompat;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,8 +20,16 @@ public class ScreenSlidePageFragment extends Fragment {
 
 
 	private ArrayList<HashMap<String, String>> prodFragList;
+	private int mShortAnimationDuration;
 	
+	private ImageView imageView;
+	private TextView textViewName;
+	private TextView textViewPrice;
+	private TextView textViewInfo;
 	
+	private GestureDetector mGestureDetector;
+
+	 private Animation slideRight, slideLeft;
 	/**
      * The argument key for the page number this fragment represents.
      */
@@ -56,55 +65,55 @@ public class ScreenSlidePageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.fragment_screen_slide_page, container, false);
-        prodFragList = (ArrayList<HashMap<String, String>>) ScreenSlidePagerActivity.getArrayList();
-     // Imageview to show
-        ImageView image = (ImageView) rootView.findViewById(R.id.slideImageView);
-      //-----TEXT!--------
-        //Getting TextView
-        final TextView textnamn= (TextView) rootView.findViewById(R.id.slideBeerName);
-        final TextView textPrice= (TextView) rootView.findViewById(R.id.slideBeerPrice);
-        final TextView textInfo= (TextView) rootView.findViewById(R.id.slideBeerInfo);
+                R.layout.swipe_fragment_layout, container, false);
         
-        //Getting Objects from JSON
-        String Pris_text="first";
-        String Namn_text = prodFragList.get(mPageNumber).get("Artikelnamn");
-        Pris_text = prodFragList.get(mPageNumber).get("Utpris exkl moms");
-        String Info_text = prodFragList.get(mPageNumber).get("Info");
-
-        //Setting TextViews
-        textnamn.setText(Namn_text);
-        textPrice.setText(Pris_text+"kr*");
-        textInfo.setText(Info_text);
-
-    	image.setOnTouchListener(new OnTouchListener() {
-			@Override
-			public boolean onTouch(View view, MotionEvent event) {
-				int action = MotionEventCompat.getActionMasked(event);
-				switch(action){
-					case(MotionEvent.ACTION_UP):
-						  textnamn.setVisibility(View.INVISIBLE);
-						  textInfo.setVisibility(View.INVISIBLE);
-					  	  textPrice.setVisibility(View.INVISIBLE);
-			              Fragment textFragment = TextFragment.create(mPageNumber);
-			              getChildFragmentManager()
-			              		.beginTransaction()
-			              		.addToBackStack(null)
-			              		.setCustomAnimations(R.anim.abc_slide_in_bottom, R.anim.abc_fade_out)
-			              		.replace(R.id.beer_container, textFragment, "textFragment").commit();
-				}
-				return true;
-			}
-          });
+   
+        //FrameLayout myLayout = (FrameLayout) rootView.findViewById(R.id.text_frame_layout);
+        //final FrameLayout fl = (FrameLayout) rootView.findViewById(R.id.frame_layout_text);
+        
+        prodFragList = (ArrayList<HashMap<String, String>>) ScreenSlidePagerActivity.getArrayList();
+        
+        ImageView imageView = (ImageView) rootView.findViewById(R.id.slideImageView);
+          
         //Loader image
         int loader = R.drawable.ic_launcher;
-
-        
-        //Loading and displaying image
         String image_url = prodFragList.get(mPageNumber).get("URL");
-        
         ImageLoader imgLoader = new ImageLoader(rootView.getContext());
-        imgLoader.DisplayImage(image_url, loader, image);
+        imgLoader.DisplayImage(image_url, loader, imageView);
+        
+        
+        //-----TEXT!--------
+        //Getting TextView
+        TextView textNamn= (TextView) rootView.findViewById(R.id.slideBeerName);
+        TextView textPrice= (TextView) rootView.findViewById(R.id.slideBeerPrice);
+        TextView textInfo= (TextView) rootView.findViewById(R.id.slideBeerInfo);
+        
+        //Getting Objects from JSON
+        String namn_text = prodFragList.get(mPageNumber).get("Artikelnamn");
+        String pris_text = prodFragList.get(mPageNumber).get("Utpris exkl moms");
+        String info_text = prodFragList.get(mPageNumber).get("Info");
+
+        //Setting TextViews
+        textNamn.setText(namn_text);
+        textPrice.setText(pris_text+"kr*");
+        textInfo.setText(info_text);
+        
+        textNamn.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Log.i("CLICK","CLICK");
+
+		        getChildFragmentManager()
+		        	.beginTransaction()
+		        	.setCustomAnimations(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
+		        	.add(R.id.content, TextFragment.create(mPageNumber))
+		        	.addToBackStack(null)
+		        	.commit();
+			}
+        	
+        });
         
         return rootView;
     }

@@ -27,6 +27,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class TextFragment extends Fragment {
@@ -61,20 +63,16 @@ public class TextFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.text_fragment, container, false);
+                R.layout.text_fragment2, container, false);
         
 
         prodFragList = (ArrayList<HashMap<String, String>>) ScreenSlidePagerActivity.getArrayList();
         
-      //-----TEXT!--------
+        //-----TEXT!--------
         //Getting TextView
         TextView textNamn= (TextView) rootView.findViewById(R.id.textBeerName);
         TextView textPrice= (TextView) rootView.findViewById(R.id.textBeerPrice);
         TextView textInfo= (TextView) rootView.findViewById(R.id.textBeerInfo);
-
-        final TextView textNamn2= (TextView) rootView.findViewById(R.id.slideBeerName);
-        final TextView textPrice2= (TextView) rootView.findViewById(R.id.slideBeerPrice);
-        final TextView textInfo2= (TextView) rootView.findViewById(R.id.slideBeerInfo);
         
         //Getting Objects from JSON
         String namn_text = prodFragList.get(mPageNumber).get("Artikelnamn");
@@ -85,26 +83,7 @@ public class TextFragment extends Fragment {
         textNamn.setText(namn_text);
         textPrice.setText(pris_text+"kr*");
         textInfo.setText(info_text);
-		rootView.setOnTouchListener(new OnTouchListener() {
-			@Override
-			public boolean onTouch(View view, MotionEvent event) {
-				int action = MotionEventCompat.getActionMasked(event);
-				switch(action){
-					case(MotionEvent.ACTION_UP):
-
-						getFragmentManager()
-						.beginTransaction()
-						//.setCustomAnimations(R.anim.abc_fade_out, R.anim.abc_fade_out)
-		            	.remove(getFragmentManager().findFragmentByTag("textFragment"))
-		            	.commit();
-
-					  //textNamn2.setVisibility(View.VISIBLE);
-					  //textInfo2.setVisibility(View.VISIBLE);
-				  	  //textPrice2.setVisibility(View.VISIBLE);
-				}
-				return true;
-			}
-          });
+		
         return rootView;
     }
 }

@@ -45,7 +45,6 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_slide);
-        
         Intent intent = getIntent();
         
         //Gets the arraylist including all the products
