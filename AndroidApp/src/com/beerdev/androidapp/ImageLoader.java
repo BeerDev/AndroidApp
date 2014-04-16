@@ -14,16 +14,11 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-  
-
-
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
   
 public class ImageLoader {
@@ -62,7 +57,8 @@ public class ImageLoader {
     
     public void DisplayImage(String url, int loader, ImageView imageView)
     {
-        stub_id = loader;
+        stub_id = R.drawable.placeholder;;
+        
         imageViews.put(imageView, url);
         Bitmap bitmap=memoryCache.get(url);
         if(bitmap!=null)

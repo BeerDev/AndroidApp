@@ -45,7 +45,7 @@ public class MainActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-				
+
 		contactList = new ArrayList<HashMap<String, String>>();
 
 		ListView lv = getListView();

@@ -3,20 +3,14 @@ package com.beerdev.androidapp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.R.string;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 
 public class ScreenSlidePageFragment extends Fragment {
@@ -66,7 +60,7 @@ public class ScreenSlidePageFragment extends Fragment {
         
        //-----IMAGE!--------- 
         //Loader image
-        int loader = R.drawable.ic_launcher;
+        int loader = R.drawable.placeholder;
         // Imageview to show
         ImageView image = (ImageView) rootView.findViewById(R.id.slideImageView);        
         // Image url
