@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,7 +83,7 @@ public class TextFragment extends Fragment {
         textInfo.setText(info_text);
 
         final RelativeLayout relL2 = (RelativeLayout) getParentFragment().getView().findViewById(R.id.text_layout);
-        
+
         rootView.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -90,14 +91,23 @@ public class TextFragment extends Fragment {
 				// TODO Auto-generated method stub
 				getChildFragmentManager()
 	        	.beginTransaction()
-	        	.setCustomAnimations(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
+	        	.setCustomAnimations(R.animator.slide_in_bottom, R.animator.slide_out_bottom)
 	        	.remove(getFragmentManager().findFragmentByTag("textFragment"))
 	        	.commit();
-				relL2.setVisibility(View.VISIBLE);
+				Handler handlerTimer = new Handler();
+		        handlerTimer.postDelayed(new Runnable(){
+
+					@Override
+					public void run() {
+
+						relL2.setVisibility(View.VISIBLE);
+					}
+		        }, getResources().getInteger(android.R.integer.config_mediumAnimTime));
 			}
         	
         });
 		
         return rootView;
     }
+
 }

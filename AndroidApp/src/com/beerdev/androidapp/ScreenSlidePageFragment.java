@@ -110,7 +110,7 @@ public class ScreenSlidePageFragment extends Fragment {
 				// TODO Auto-generated method stub
 		        getChildFragmentManager()
 		        	.beginTransaction()
-		        	.setCustomAnimations(R.anim.abc_slide_in_bottom, R.anim.abc_slide_out_bottom)
+		        	.setCustomAnimations(R.animator.slide_in_bottom, R.animator.slide_out_bottom)
 		        	.add(R.id.content, TextFragment.create(mPageNumber), "textFragment")
 		        	.addToBackStack(null)
 		        	.commit();
