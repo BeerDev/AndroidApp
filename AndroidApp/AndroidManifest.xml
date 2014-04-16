@@ -31,6 +31,11 @@
             android:label="Slider"
             android:name="com.beerdev.androidapp.ScreenSlidePagerActivity" >
         </activity>
+        <!-- Slide Image Activity -->
+        <activity
+            android:label="Omoss"
+            android:name="com.beerdev.androidapp.OmOss" >
+        </activity>
     
     </application>
 

@@ -1,5 +1,4 @@
 package com.beerdev.androidapp;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,36 +6,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MotionEvent;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 public class MainActivity extends ListActivity {
-
+	
 	private ProgressDialog pDialog;
-
 	// URL to get contacts JSON
 	private static String url = "http://www.beerdev.tk/json_read.php";
-
 	// JSON Node names
 	private static final String TAG_Produkter="Produkter";
 	static final String TAG_ID = "id";
@@ -44,8 +33,6 @@ public class MainActivity extends ListActivity {
 	static final String TAG_PATH = "URL";
 	private static final String TAG_PRIS = "Utpris exkl moms";
 	private static final String TAG_INFO = "Info";
-	
-	
 	
 	
 	// contacts JSONArray
@@ -58,16 +45,7 @@ public class MainActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-	//NAVIGATION MENU
-/*	findViewById(R.id.navListVy).setOnTouchListener(new OnTouchListener(){
-			public boolean onTouch(View arg0, MotionEvent arg1) {
-				setContentView(R.layout.omss);
-				return true;
-			}
-		});
-*/		
-		
+				
 		contactList = new ArrayList<HashMap<String, String>>();
 
 		ListView lv = getListView();
@@ -93,10 +71,11 @@ public class MainActivity extends ListActivity {
 
 			}
 		});
-
+		
 		// Calling async task to get json
 		new GetContacts().execute();
 	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -105,6 +84,34 @@ public class MainActivity extends ListActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
+	 @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	        case R.id.navListVy:
+	        	startActivity(new Intent(this, MainActivity.class));
+	            break;
+	        case R.id.navScrollvy:
+	        	// Starting single contact activity
+				Intent in = new Intent(getApplicationContext(),
+						ScreenSlidePagerActivity.class);
+				
+				//Sending BildID and ContactList to ScreenSlidePagerActivity
+				in.putExtra("BildID", 0);
+				in.putExtra("contactList", contactList);
+				startActivity(in);
+	            break;
+	        case R.id.navOmOss:
+				Intent omoss = new Intent(getApplicationContext(),
+						OmOss.class);
+				
+				//Sending BildID and ContactList to ScreenSlidePagerActivity
+				omoss.putExtra("BildID", 0);
+				omoss.putExtra("contactList", contactList);
+	        	startActivity(omoss);
+	            break;
+	        }
+	        return true;
+	    }
 	
 	
 	/**
@@ -182,20 +189,11 @@ public class MainActivity extends ListActivity {
 			/**
 			 * Updating parsed JSON data into ListView
 			 * */
-			
-	/*		SimpleAdapter adapter = new SimpleAdapter(
-					MainActivity.this, contactList,
-					R.layout.list_item, new String[] {TAG_PATH,TAG_NAME,TAG_ID}, new int[] {R.id.listImageURL, R.id.listNamn, R.id.listID});
 		
-			setListAdapter(adapter);
-			*/
-			//ListView list=(ListView)findViewById(R.id.list);
-			
 			// Getting adapter by passing xml data ArrayList
 	        LazyAdapter adapter=new LazyAdapter(MainActivity.this, contactList);        
 	        setListAdapter(adapter);
-			
-			
+		
 		}
 	}
 }
