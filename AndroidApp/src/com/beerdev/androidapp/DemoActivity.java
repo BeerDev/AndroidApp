@@ -36,7 +36,11 @@ public class DemoActivity extends FragmentActivity {
     private static final String TAG = "DemoActivity";
 
     
-    private static TextView textBeerName;
+    public static TextView textBeerName;
+    public static TextView textBeerPrice;
+    public static TextView textBeerSize;
+    public static TextView textBeerPercent;
+    public static TextView textBeerInfo;
     
     public static final String SAVED_STATE_ACTION_BAR_HIDDEN = "saved_state_action_bar_hidden";
     /**
@@ -114,19 +118,14 @@ public class DemoActivity extends FragmentActivity {
         
         //Define the number of viewpages that shall be included in the scrollview
         NUM_PAGES = prodList.size();
-
+        
+        // Initialize TextViews to later show info from fragment
         textBeerName = (TextView) findViewById(R.id.beerName);
-        //textBeerName.setText("NAME");
-        final TextView textBeerPrice = (TextView) findViewById(R.id.beerPrice);
-        textBeerPrice.setText("PRICE");
-        textBeerPrice.setMovementMethod(LinkMovementMethod.getInstance());
-        final TextView textBeerInfo = (TextView) findViewById(R.id.beerInfo);
-        textBeerInfo.setText("INFO fjeojeofjoefjoej foejfoejo j foejfojefoejo");
-        
+        textBeerPrice = (TextView) findViewById(R.id.beerPrice); 
+        textBeerInfo = (TextView) findViewById(R.id.beerInfo);
+        textBeerSize = (TextView) findViewById(R.id.beerSize);
+        textBeerPercent = (TextView) findViewById(R.id.beerPercent);
 
-        String nameText = prodList.get(0).get("Artikelnamn");
-        
-        textBeerName.setText(nameText);
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
@@ -153,9 +152,7 @@ public class DemoActivity extends FragmentActivity {
     public final static ArrayList<HashMap<String, String>> getArrayList() {
         return prodList;
     }
-    public final static TextView getNameTV(){
-    	return textBeerName;
-    }
+    
     @SuppressLint("NewApi")
     public void setActionBarTranslation(float y) {
         // Figure out the actionbar height
@@ -234,8 +231,19 @@ public class DemoActivity extends FragmentActivity {
 
 	        prodFragList = (ArrayList<HashMap<String, String>>) DemoActivity.getArrayList();
 	        
-	        TextView tv = DemoActivity.getNameTV();
-	        tv.setText(prodFragList.get(mPageNumber).get("Artikelnamn"));
+	        TextView textBeerName = DemoActivity.textBeerName;
+	        TextView textBeerPrice = DemoActivity.textBeerPrice;
+	        TextView textBeerSize = DemoActivity.textBeerSize;
+	        TextView textBeerPercent = DemoActivity.textBeerPercent;
+	        TextView textBeerInfo = DemoActivity.textBeerInfo;
+	        
+	        textBeerName.setText(prodFragList.get(mPageNumber).get("Artikelnamn"));
+	        textBeerPrice.setText(prodFragList.get(mPageNumber).get("Utpris exkl moms")+" kr*");
+	        textBeerSize.setText(prodFragList.get(mPageNumber).get("Storlek")+" ml*");
+	        textBeerPercent.setText(prodFragList.get(mPageNumber).get("Alkoholhalt")+" %");
+	        textBeerInfo.setText(prodFragList.get(mPageNumber).get("Info"));
+	        
+	        
 	        final ImageView imageView = (ImageView) rootView.findViewById(R.id.imageViewDemo);
 	        
 	      //Loader image
