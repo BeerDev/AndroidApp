@@ -35,6 +35,9 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelSlideListener;
 public class DemoActivity extends FragmentActivity {
     private static final String TAG = "DemoActivity";
 
+    
+    private static TextView textBeerName;
+    
     public static final String SAVED_STATE_ACTION_BAR_HIDDEN = "saved_state_action_bar_hidden";
     /**
      * The number of pages (wizard steps) to show in this demo.
@@ -99,13 +102,6 @@ public class DemoActivity extends FragmentActivity {
             }
         });
 
-        TextView t = (TextView) findViewById(R.id.beerName);
-        t.setText("NAME");
-        t = (TextView) findViewById(R.id.beerPrice);
-        t.setText("PRICE");
-        t.setMovementMethod(LinkMovementMethod.getInstance());
-
-
         boolean actionBarHidden = savedInstanceState != null ?
                 savedInstanceState.getBoolean(SAVED_STATE_ACTION_BAR_HIDDEN, false): false;
         if (actionBarHidden) {
@@ -118,7 +114,19 @@ public class DemoActivity extends FragmentActivity {
         
         //Define the number of viewpages that shall be included in the scrollview
         NUM_PAGES = prodList.size();
+
+        textBeerName = (TextView) findViewById(R.id.beerName);
+        //textBeerName.setText("NAME");
+        final TextView textBeerPrice = (TextView) findViewById(R.id.beerPrice);
+        textBeerPrice.setText("PRICE");
+        textBeerPrice.setMovementMethod(LinkMovementMethod.getInstance());
+        final TextView textBeerInfo = (TextView) findViewById(R.id.beerInfo);
+        textBeerInfo.setText("INFO fjeojeofjoefjoej foejfoejo j foejfojefoejo");
         
+
+        String nameText = prodList.get(0).get("Artikelnamn");
+        
+        textBeerName.setText(nameText);
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
@@ -138,7 +146,16 @@ public class DemoActivity extends FragmentActivity {
         getMenuInflater().inflate(R.menu.navigation_menu, menu);
         return true;
     }
-
+    /**
+     * The method returns an arraylist which includes product with its information.
+     * @return prodList
+     */
+    public final static ArrayList<HashMap<String, String>> getArrayList() {
+        return prodList;
+    }
+    public final static TextView getNameTV(){
+    	return textBeerName;
+    }
     @SuppressLint("NewApi")
     public void setActionBarTranslation(float y) {
         // Figure out the actionbar height
@@ -184,6 +201,8 @@ public class DemoActivity extends FragmentActivity {
     }
 
 	public static class ScreenSlidePageFragment extends Fragment {
+		private ArrayList<HashMap<String, String>> prodFragList;
+
 		/**
 	     * The argument key for the page number this fragment represents.
 	     */
@@ -213,8 +232,17 @@ public class DemoActivity extends FragmentActivity {
 	        ViewGroup rootView = (ViewGroup) inflater.inflate(
 	                R.layout.fragment_swipe, container, false);
 
-	        final TextView textView = (TextView) rootView.findViewById(R.id.brought_by);
-	        textView.setText(Integer.toString(mPageNumber));
+	        prodFragList = (ArrayList<HashMap<String, String>>) DemoActivity.getArrayList();
+	        
+	        TextView tv = DemoActivity.getNameTV();
+	        tv.setText(prodFragList.get(mPageNumber).get("Artikelnamn"));
+	        final ImageView imageView = (ImageView) rootView.findViewById(R.id.imageViewDemo);
+	        
+	      //Loader image
+	        int loader = R.drawable.ic_launcher;
+	        String image_url = prodFragList.get(mPageNumber).get("URL");
+	        ImageLoader imgLoader = new ImageLoader(rootView.getContext());
+	        imgLoader.DisplayImage(image_url, loader, imageView);
 	        return rootView;
 	    }
 	}

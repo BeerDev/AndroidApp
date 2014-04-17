@@ -13,7 +13,8 @@
         sothree:panelHeight="68dp"
         sothree:shadowHeight="4dp"
         sothree:paralaxOffset="100dp"
-        sothree:dragView="@+id/name">
+        sothree:dragView="@+id/name"
+        sothree:overlay="true">
 
         <LinearLayout 
             android:layout_width="match_parent"
@@ -60,13 +61,16 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:scaleType="fitStart"
-                android:src="@drawable/ic_launcher" >
-            </ImageView>
+            
+            <TextView
+                    android:id="@+id/beerInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    android:gravity="left"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"/>
         </LinearLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
