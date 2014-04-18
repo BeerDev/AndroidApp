@@ -64,7 +64,7 @@ public class MainActivity extends ListActivity {
 
 				// Starting single contact activity
 				Intent in = new Intent(getApplicationContext(),
-						DemoActivity.class);
+						SwipeViewActivity.class);
 				
 				//Sending BildID and ContactList to ScreenSlidePagerActivity
 				in.putExtra("BildID", Index);

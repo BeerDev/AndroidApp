@@ -40,7 +40,7 @@
         <!-- Demo Slide Image Activity -->
         <activity
             android:label="DemoSlide"
-            android:name="com.beerdev.androidapp.DemoActivity" >
+            android:name="com.beerdev.androidapp.SwipeViewActivity" >
         </activity>
     </application>
 

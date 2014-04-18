@@ -1,3 +1,4 @@
+
 package com.beerdev.androidapp;
 
 import java.util.ArrayList;
@@ -7,16 +8,19 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
+/**
+ * A fragmentclass for each page in the viewpager
+ * @author BeerDev
+ *
+ */
 public class ScreenSlidePageFragment extends Fragment {
-
-
+	/**
+	 * Local productlist for each fragment in the viewpager
+	 */
 	private ArrayList<HashMap<String, String>> prodFragList;
 
 	/**
@@ -29,23 +33,49 @@ public class ScreenSlidePageFragment extends Fragment {
      */
     private int mPageNumber;
     
+    /**
+     * Imageview to show the beer.
+     */
+    ImageView ivBeer;
+    
+    /**
+     * Textviewreference to update the name of the beer in this fragment.
+     */
+    TextView tvBeerName;
 
     /**
-     * Factory method for this fragment class. Constructs a new fragment for the given page number.
+     * Textviewreference to update the price of the beer in this fragment.
      */
-    public static ScreenSlidePageFragment create(int pageNumber) {
+    TextView tvBeerPrice;
+
+    /**
+     * Textviewreference to update the size of the beer in this fragment.
+     */
+    TextView tvBeerSize;
+
+    /**
+     * Textviewreference to update the percent of the beer in this fragment.
+     */
+    TextView tvBeerPercent;
+
+    /**
+     * Textviewreference to update the info of the beer in this fragment.
+     */
+    TextView tvBeerInfo;
+    
+    /**
+     * Creates a fragment of this class with information about current pagenumber
+     * @param pageNumber - current pagenumber
+     * @return fragment - ScreenSlidePageFragment with information about pagenumber
+     */
+	public static ScreenSlidePageFragment create(int pageNumber) {
         ScreenSlidePageFragment fragment = new ScreenSlidePageFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, pageNumber);
         fragment.setArguments(args);
         return fragment;
     }
-
-    public ScreenSlidePageFragment() {
-    }
-     
-
-    @Override
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPageNumber = getArguments().getInt(ARG_PAGE);
@@ -55,71 +85,30 @@ public class ScreenSlidePageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.swipe_fragment_layout, container, false);
+                R.layout.fragment_swipe, container, false);
+
+        prodFragList = (ArrayList<HashMap<String, String>>) SwipeViewActivity.getArrayList();
         
-   
-        //FrameLayout myLayout = (FrameLayout) rootView.findViewById(R.id.text_frame_layout);
-        //final FrameLayout fl = (FrameLayout) rootView.findViewById(R.id.frame_layout_text);
+        tvBeerName = SwipeViewActivity.tvBeerName;
+        tvBeerPrice = SwipeViewActivity.tvBeerPrice;
+        tvBeerSize = SwipeViewActivity.tvBeerSize;
+        tvBeerPercent = SwipeViewActivity.tvBeerPercent;
+        tvBeerInfo = SwipeViewActivity.tvBeerInfo;
         
-        prodFragList = (ArrayList<HashMap<String, String>>) ScreenSlidePagerActivity.getArrayList();
+        tvBeerName.setText(prodFragList.get(mPageNumber).get("Artikelnamn"));
+        tvBeerPrice.setText(prodFragList.get(mPageNumber).get("Utpris exkl moms")+" kr*");
+        tvBeerSize.setText(prodFragList.get(mPageNumber).get("Storlek")+" ml*");
+        tvBeerPercent.setText(prodFragList.get(mPageNumber).get("Alkoholhalt")+" %");
+        tvBeerInfo.setText(prodFragList.get(mPageNumber).get("Info"));
         
-        final LinearLayout relL = (LinearLayout) rootView.findViewById(R.id.text_layout);
         
-        ImageView imageView = (ImageView) rootView.findViewById(R.id.slideImageView);
-          
+        ivBeer = (ImageView) rootView.findViewById(R.id.imageViewDemo);
+        
         //Loader image
         int loader = R.drawable.ic_launcher;
         String image_url = prodFragList.get(mPageNumber).get("URL");
         ImageLoader imgLoader = new ImageLoader(rootView.getContext());
-        imgLoader.DisplayImage(image_url, loader, imageView);
-        
-        
-        //-----TEXT!--------
-        //Getting TextView
-        TextView textBeerName = (TextView) rootView.findViewById(R.id.swipeBeerName);
-        TextView textBeerPrice = (TextView) rootView.findViewById(R.id.swipeBeerPrice);
-        TextView textBeerSize = (TextView) rootView.findViewById(R.id.swipeBeerSize);
-        TextView textBeerPercent = (TextView) rootView.findViewById(R.id.swipeBeerPercent);
-        
-        //Getting Objects from JSON
-        String nameText = prodFragList.get(mPageNumber).get("Artikelnamn");
-        String priceText = prodFragList.get(mPageNumber).get("Utpris exkl moms");
-        String sizeText = prodFragList.get(mPageNumber).get("Storlek");
-        String percentText = prodFragList.get(mPageNumber).get("Alkoholhalt");
-
-        //Setting TextViews
-        textBeerName.setText(nameText);
-        textBeerPrice.setText(priceText+"kr*");
-        textBeerSize.setText(sizeText+" ml");
-        textBeerPercent.setText(percentText);
-        
-        
-
-        
-        rootView.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-		        getChildFragmentManager()
-		        	.beginTransaction()
-		        	.setCustomAnimations(R.animator.slide_in_bottom, R.animator.slide_out_bottom)
-		        	.add(R.id.content, TextFragment.create(mPageNumber), "textFragment")
-		        	.addToBackStack(null)
-		        	.commit();
-	        		relL.setVisibility(View.INVISIBLE);
-			}
-        	
-        });
-        
+        imgLoader.DisplayImage(image_url, loader, ivBeer);
         return rootView;
     }
-
-    /**
-     * Returns the page number represented by this fragment object.
-     */
-    public int getPageNumber() {
-        return mPageNumber;
-    }
-
 }
