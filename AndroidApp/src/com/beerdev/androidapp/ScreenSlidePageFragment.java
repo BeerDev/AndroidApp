@@ -105,7 +105,7 @@ public class ScreenSlidePageFragment extends Fragment {
         ivBeer = (ImageView) rootView.findViewById(R.id.imageViewDemo);
         
         //Loader image
-        int loader = R.drawable.ic_launcher;
+        int loader = R.drawable.placeholder;
         String image_url = prodFragList.get(mPageNumber).get("URL");
         ImageLoader imgLoader = new ImageLoader(rootView.getContext());
         imgLoader.DisplayImage(image_url, loader, ivBeer);

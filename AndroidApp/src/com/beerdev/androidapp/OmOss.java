@@ -11,10 +11,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-
+/**
+ * A view to show information about the developmentteam and the application
+ * @author BeerDev
+ *
+ */
 public class OmOss extends Activity {
 	
-	private static ArrayList<HashMap<String, String>> contactList;
+	/**
+	 * Information about the products
+	 */
+	private static ArrayList<HashMap<String, String>> productList;
 
 
 	@SuppressWarnings("unchecked")
@@ -23,9 +30,7 @@ public class OmOss extends Activity {
 		setContentView(R.layout.omss);	
 		
 		Intent intent = getIntent();
-        contactList =(ArrayList<HashMap<String,String>>) intent.getSerializableExtra("contactList");
-        
-		
+        productList =(ArrayList<HashMap<String,String>>) intent.getSerializableExtra("productList");
 	}
 	
 	@Override
@@ -45,28 +50,23 @@ public class OmOss extends Activity {
 	        case R.id.navScrollvy:
 	        	// Starting single contact activity
 				Intent in = new Intent(getApplicationContext(),
-						ScreenSlidePagerActivity.class);
+						SwipeViewActivity.class);
 				
-				//Sending BildID and ContactList to ScreenSlidePagerActivity
+				//Sending BildID and productList to SwipeViewActivity
 				in.putExtra("BildID", 0);
-				in.putExtra("contactList", contactList);
+				in.putExtra("productList", productList);
 				startActivity(in);
 	            break;
 	        case R.id.navOmOss:
 				Intent omoss = new Intent(getApplicationContext(),
 						OmOss.class);
 				
-				//Sending BildID and ContactList to ScreenSlidePagerActivity
+				//Sending BildID and ContactList to OmOssActivity
 				omoss.putExtra("BildID", 0);
-				omoss.putExtra("contactList", contactList);
+				omoss.putExtra("productList", productList);
 	        	startActivity(omoss);
 	            break;
 	        }
 	        return true;
 	    }
-	
-	
-	/**
-	 * Async task class to get json by making HTTP call
-	 * */
 }

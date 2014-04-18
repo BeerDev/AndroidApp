@@ -3,7 +3,12 @@ package com.beerdev.androidapp;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-  
+/**
+ * 
+ * The code have been taken from the Android Hive JSON parsing project  
+ * @author BeerDev
+ *
+ */
 public class Utils {
     public static void CopyStream(InputStream is, OutputStream os)
     {

@@ -14,22 +14,41 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * A LazyAdapter for showing thumbnails in the listview
+ * @author BeerDev
+ *
+ */
 public class LazyAdapter extends BaseAdapter {
-    
+    /**
+     * Activity related to the LazyAdapter
+     */
     private Activity activity;
-    private ArrayList<HashMap<String, String>> data;
+    
+    /**
+     * Data of the products
+     */
+    private ArrayList<HashMap<String, String>> productsData;
+    
+    /**
+     * Layoutinflater
+     */
     private static LayoutInflater inflater=null;
+    
+    /**
+     * Reference to the imageloader
+     */
     public ImageLoader imageLoader; 
     
     public LazyAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
         activity = a;
-        data=d;
+        productsData=d;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         imageLoader=new ImageLoader(activity.getApplicationContext());
     }
 
     public int getCount() {
-        return data.size();
+        return productsData.size();
     }
 
     public Object getItem(int position) {
@@ -44,21 +63,20 @@ public class LazyAdapter extends BaseAdapter {
         View vi=convertView;
         if(convertView==null)
             vi = inflater.inflate(R.layout.list_item, null);
-
-     //   TextView title = (TextView)vi.findViewById(R.id.title); // title
-        TextView Artikelnamn = (TextView)vi.findViewById(R.id.listNamn); // artist name
-        TextView ID = (TextView)vi.findViewById(R.id.listID); // duration
-        ImageView thumb_image=(ImageView)vi.findViewById(R.id.listImageURL); // thumb image
         
-        HashMap<String, String> contactList = new HashMap<String, String>();
-        contactList = data.get(position);
+        // Getting relevant information
+        TextView articleName = (TextView)vi.findViewById(R.id.listNamn); 
+        TextView id = (TextView)vi.findViewById(R.id.listID);
+        ImageView thumbnailImage = (ImageView)vi.findViewById(R.id.listImageURL);
+        
+        HashMap<String, String> productList = new HashMap<String, String>();
+        productList = productsData.get(position);
         
         // Setting all values in listview
-      //  title.setText(song.get(CustomizedListView.KEY_TITLE));
         int loader = R.drawable.ic_launcher;
-        Artikelnamn.setText(contactList.get(MainActivity.TAG_NAME));
-        ID.setText(contactList.get(MainActivity.TAG_ID));
-        imageLoader.DisplayImage(contactList.get(MainActivity.TAG_PATH),loader, thumb_image);
+        articleName.setText(productList.get(MainActivity.TAG_NAME));
+        id.setText(productList.get(MainActivity.TAG_ID));
+        imageLoader.DisplayImage(productList.get(MainActivity.TAG_PATH),loader, thumbnailImage);
         return vi;
     }
 }

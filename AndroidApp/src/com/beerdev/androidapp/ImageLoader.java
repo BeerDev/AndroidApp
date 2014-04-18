@@ -20,7 +20,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
-  
+  /**
+   * A class to load image to view
+   * 
+   * 
+   * The code have been taken from the Android Hive JSON parsing project
+   * @author BeerDev
+   *
+   */
 public class ImageLoader {
   
     MemoryCache memoryCache=new MemoryCache();
@@ -34,14 +41,13 @@ public class ImageLoader {
     }
   
     int stub_id = R.drawable.placeholder;
+    
     /**
      * A function to load and display image.
      * @param url - path to images URL
      * @param loader - Image to view when other image is downloading
      * @param imageView - Which ImageView to put downloaded image
      */
-    
-    
     public void DisplayImageIcon(String url, ImageView imageView)
     {
         imageViews.put(imageView, url);
@@ -133,7 +139,11 @@ public class ImageLoader {
         return null;
     }
   
-    //Task for the queue
+    /**
+     * Task for the queue
+     * @author BeerDev
+     *
+     */
     private class PhotoToLoad
     {
         public String url;
@@ -171,7 +181,11 @@ public class ImageLoader {
         return false;
     }
   
-    //Used to display bitmap in the UI thread
+    /**
+     * Used to display bitmap in the UI thread
+     * @author BeerDev
+     *
+     */
     class BitmapDisplayer implements Runnable
     {
         Bitmap bitmap;
@@ -187,7 +201,9 @@ public class ImageLoader {
                 photoToLoad.imageView.setImageResource(stub_id);
         }
     }
-  
+  /**
+   * Clears the cache
+   */
     public void clearCache() {
         memoryCache.clear();
         fileCache.clear();

@@ -70,7 +70,7 @@ public class SwipeViewActivity extends FragmentActivity {
     /**
      * The arraylist including all the products.
      */
-    private static ArrayList<HashMap<String, String>> prodList;
+    private static ArrayList<HashMap<String, String>> productList;
     
     /**
      * The pager adapter, which provides the pages to the view pager widget.
@@ -118,10 +118,10 @@ public class SwipeViewActivity extends FragmentActivity {
         Intent intent = getIntent();
         
         //Gets the arraylist including all the products
-        prodList =(ArrayList<HashMap<String,String>>) intent.getSerializableExtra("contactList");
+        productList =(ArrayList<HashMap<String,String>>) intent.getSerializableExtra("productList");
         
         //Define the number of viewpages that shall be included in the scrollview
-        NUM_PAGES = prodList.size();
+        NUM_PAGES = productList.size();
         
         // Initialize TextViews to later show info from fragment
         tvBeerName = (TextView) findViewById(R.id.beerName);
@@ -157,7 +157,7 @@ public class SwipeViewActivity extends FragmentActivity {
      * @return prodList
      */
     public final static ArrayList<HashMap<String, String>> getArrayList() {
-        return prodList;
+        return productList;
     }
     
     /**
