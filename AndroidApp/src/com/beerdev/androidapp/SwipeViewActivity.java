@@ -81,7 +81,7 @@ public class SwipeViewActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
-        setContentView(R.layout.activity_demo);
+        setContentView(R.layout.activity_swipe);
 
         final SlidingUpPanelLayout layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         layout.setPanelSlideListener(new PanelSlideListener() {
@@ -118,7 +118,7 @@ public class SwipeViewActivity extends FragmentActivity {
         Intent intent = getIntent();
 
         int pos = intent.getIntExtra("BildID", 0);
-        
+        Log.i("POS", Integer.toString(pos));
         //Gets the arraylist including all the products
         productList =(ArrayList<HashMap<String,String>>) intent.getSerializableExtra("productList");
         

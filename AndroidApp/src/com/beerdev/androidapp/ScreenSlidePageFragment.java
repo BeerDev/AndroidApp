@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,7 @@ public class ScreenSlidePageFragment extends Fragment {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, pageNumber);
         fragment.setArguments(args);
+        Log.i("pageNumber", Integer.toString(pageNumber));
         return fragment;
     }
 	@Override
@@ -94,13 +96,15 @@ public class ScreenSlidePageFragment extends Fragment {
         tvBeerSize = SwipeViewActivity.tvBeerSize;
         tvBeerPercent = SwipeViewActivity.tvBeerPercent;
         tvBeerInfo = SwipeViewActivity.tvBeerInfo;
+        Log.i("mPageNumber before text", Integer.toString(mPageNumber));
         
         tvBeerName.setText(prodFragList.get(mPageNumber).get("Artikelnamn"));
         tvBeerPrice.setText(prodFragList.get(mPageNumber).get("Utpris exkl moms")+" kr*");
         tvBeerSize.setText(prodFragList.get(mPageNumber).get("Storlek")+" ml*");
         tvBeerPercent.setText(prodFragList.get(mPageNumber).get("Alkoholhalt")+" %");
         tvBeerInfo.setText(prodFragList.get(mPageNumber).get("Info"));
-        
+
+        Log.i("mPageNumber after text", Integer.toString(mPageNumber));
         
         ivBeer = (ImageView) rootView.findViewById(R.id.imageViewDemo);
         
