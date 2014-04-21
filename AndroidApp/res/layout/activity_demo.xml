@@ -13,7 +13,6 @@
         android:gravity="bottom"
         sothree:panelHeight="100dp"
         sothree:shadowHeight="4dp"
-        sothree:paralaxOffset="100dp"
         sothree:dragView="@+id/name"
         sothree:overlay="true">
 
