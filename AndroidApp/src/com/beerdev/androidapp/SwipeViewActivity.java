@@ -16,9 +16,9 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.TextView;
 
 import com.nineoldandroids.view.animation.AnimatorProxy;
@@ -116,6 +116,8 @@ public class SwipeViewActivity extends FragmentActivity {
             getActionBar().hide();
         }
         Intent intent = getIntent();
+
+        int pos = intent.getIntExtra("BildID", 0);
         
         //Gets the arraylist including all the products
         productList =(ArrayList<HashMap<String,String>>) intent.getSerializableExtra("productList");
@@ -134,6 +136,7 @@ public class SwipeViewActivity extends FragmentActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+        mPager.setCurrentItem(pos);
     }
 
     @Override
@@ -150,8 +153,40 @@ public class SwipeViewActivity extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_menu, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
+    
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch (item.getItemId()) {
+    		case R.id.navListVy:
+    	        	startActivity(new Intent(this, MainActivity.class));
+    	            break;
+    	        case R.id.navScrollvy:
+    	        	// Starting single contact activity
+    				Intent in = new Intent(getApplicationContext(),
+    						SwipeViewActivity.class);
+    				
+    				//Sending BildID and ContactList to ScreenSlidePagerActivity
+    				in.putExtra("BildID", 0);
+    				in.putExtra("productList", productList);
+    				startActivity(in);
+    	            break;
+    	        case R.id.navOmOss:
+    				Intent omoss = new Intent(getApplicationContext(),
+    						OmOss.class);
+    				
+    				//Sending BildID and ContactList to ScreenSlidePagerActivity
+    				omoss.putExtra("BildID", 0);
+    				omoss.putExtra("productList", productList);
+    	        	startActivity(omoss);
+    	            break;
+    	        }
+    	        return true;
+    	        }
+    	 //---------MENU END---------------
+    
     /**
      * The method returns an arraylist which includes product with its information.
      * @return prodList
