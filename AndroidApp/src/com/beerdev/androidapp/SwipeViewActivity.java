@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -20,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nineoldandroids.view.animation.AnimatorProxy;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -64,9 +66,9 @@ public class SwipeViewActivity extends FragmentActivity {
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
      */
-    private static ViewPager mPager;
+    public static ViewPager mPager;
 
-
+    public static int currentItemActivity;
     /**
      * The arraylist including all the products.
      */
@@ -126,17 +128,39 @@ public class SwipeViewActivity extends FragmentActivity {
         NUM_PAGES = productList.size();
         
         // Initialize TextViews to later show info from fragment
-        tvBeerName = (TextView) findViewById(R.id.beerName);
+        /*tvBeerName = (TextView) findViewById(R.id.beerName);
         tvBeerPrice = (TextView) findViewById(R.id.beerPrice); 
         tvBeerInfo = (TextView) findViewById(R.id.beerInfo);
         tvBeerSize = (TextView) findViewById(R.id.beerSize);
-        tvBeerPercent = (TextView) findViewById(R.id.beerPercent);
+        tvBeerPercent = (TextView) findViewById(R.id.beerPercent);*/
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         mPager.setCurrentItem(pos);
+        mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+			
+			@Override
+			public void onPageSelected(int position) {
+				// TODO Auto-generated method stub
+				currentItemActivity = position;
+				
+			}
+			
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        
     }
 
     @Override
@@ -243,7 +267,7 @@ public class SwipeViewActivity extends FragmentActivity {
         public Fragment getItem(int position) {
             return ScreenSlidePageFragment.create(position);
         }
-
+        
         /**
          * Gets the number of pages for the viewpager.
          * @return NUM_PAGES - Number of pages for the viewpager

@@ -74,13 +74,15 @@ public class ScreenSlidePageFragment extends Fragment {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, pageNumber);
         fragment.setArguments(args);
-        Log.i("pageNumber", Integer.toString(pageNumber));
+        Log.i("create pageNumber", Integer.toString(pageNumber));
         return fragment;
     }
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPageNumber = getArguments().getInt(ARG_PAGE);
+        mPageNumber = getArguments() != null ? getArguments().getInt(ARG_PAGE) : 0;
+        
+        Log.i("onCreate mPageNumber", Integer.toString(mPageNumber));
     }
     
     @Override
@@ -90,29 +92,31 @@ public class ScreenSlidePageFragment extends Fragment {
                 R.layout.fragment_swipe, container, false);
 
         prodFragList = (ArrayList<HashMap<String, String>>) SwipeViewActivity.getArrayList();
-        
-        tvBeerName = SwipeViewActivity.tvBeerName;
-        tvBeerPrice = SwipeViewActivity.tvBeerPrice;
-        tvBeerSize = SwipeViewActivity.tvBeerSize;
-        tvBeerPercent = SwipeViewActivity.tvBeerPercent;
-        tvBeerInfo = SwipeViewActivity.tvBeerInfo;
-        Log.i("mPageNumber before text", Integer.toString(mPageNumber));
-        
-        tvBeerName.setText(prodFragList.get(mPageNumber).get("Artikelnamn"));
-        tvBeerPrice.setText(prodFragList.get(mPageNumber).get("Utpris exkl moms")+" kr*");
-        tvBeerSize.setText(prodFragList.get(mPageNumber).get("Storlek")+" ml*");
-        tvBeerPercent.setText(prodFragList.get(mPageNumber).get("Alkoholhalt")+" %");
-        tvBeerInfo.setText(prodFragList.get(mPageNumber).get("Info"));
 
-        Log.i("mPageNumber after text", Integer.toString(mPageNumber));
-        
         ivBeer = (ImageView) rootView.findViewById(R.id.imageViewDemo);
-        
+
         //Loader image
         int loader = R.drawable.placeholder;
         String image_url = prodFragList.get(mPageNumber).get("URL");
         ImageLoader imgLoader = new ImageLoader(rootView.getContext());
         imgLoader.DisplayImage(image_url, loader, ivBeer);
+        
+        int currentItemActivity = SwipeViewActivity.currentItemActivity;
+        
+        tvBeerName = (TextView) getActivity().findViewById(R.id.beerName);
+        tvBeerPrice = (TextView) getActivity().findViewById(R.id.beerPrice);
+        tvBeerSize = (TextView) getActivity().findViewById(R.id.beerSize);
+        tvBeerPercent = (TextView) getActivity().findViewById(R.id.beerPercent);
+        tvBeerInfo = (TextView) getActivity().findViewById(R.id.beerInfo);
+        
+        tvBeerName.setText(prodFragList.get(currentItemActivity).get("Artikelnamn"));
+        tvBeerPrice.setText(prodFragList.get(currentItemActivity).get("Utpris exkl moms")+" kr*");
+        tvBeerSize.setText(prodFragList.get(currentItemActivity).get("Storlek")+" ml*");
+        tvBeerPercent.setText(prodFragList.get(currentItemActivity).get("Alkoholhalt")+" %");
+        tvBeerInfo.setText(prodFragList.get(currentItemActivity).get("Info"));
+
+        Log.i("mPageNumber after text", Integer.toString(mPageNumber));
+        
         return rootView;
     }
 }
