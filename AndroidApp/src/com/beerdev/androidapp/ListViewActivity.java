@@ -18,26 +18,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class ListViewActivity extends ListActivity{
-	
-
-	/**
-	 * Hashmap for the products
-	 */
-	ArrayList<HashMap<String, String>> productList;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
-
-
-		Intent intent = getIntent();
-		productList = (ArrayList<HashMap<String,String>>) intent.getSerializableExtra("productList");
-
 		
 		ListView lv = getListView();
 		// Getting adapter by passing xml data ArrayList
-        LazyAdapter adapter=new LazyAdapter(ListViewActivity.this, productList);        
+        LazyAdapter adapter=new LazyAdapter(ListViewActivity.this, MainActivity.productList);        
         setListAdapter(adapter);
         
 		// Listview on item click listener
@@ -56,7 +45,6 @@ public class ListViewActivity extends ListActivity{
 				
 				//Sending BildID and ContactList to SwipeViewActivity
 				in.putExtra("BildID", Index);
-				in.putExtra("productList", productList);
 				startActivity(in);
 
 			}
@@ -83,7 +71,6 @@ public class ListViewActivity extends ListActivity{
 							ListViewActivity.class);
 					//Sending BildID and productList to ListViewActivity
 					intentList.putExtra("BildID", 0);
-					intentList.putExtra("productList", productList);
 					startActivity(intentList);
     	            break;
     	        case R.id.navScrollvy:
@@ -92,7 +79,6 @@ public class ListViewActivity extends ListActivity{
     						SwipeViewActivity.class);
     				//Sending BildID and productList to SwipeViewActivity
     				intentSwipe.putExtra("BildID", 0);
-    				intentSwipe.putExtra("productList", productList);
     				startActivity(intentSwipe);
     	            break;
     	        case R.id.navOmOss:
@@ -100,7 +86,6 @@ public class ListViewActivity extends ListActivity{
     						OmOss.class);
     				//Sending BildID and productList to OmOssActivity
     				intentOmoss.putExtra("BildID", 0);
-    				intentOmoss.putExtra("productList", productList);
     	        	startActivity(intentOmoss);
     	            break;
     	        }

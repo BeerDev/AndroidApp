@@ -73,8 +73,6 @@ public class SwipeViewActivity extends FragmentActivity {
      */
     public static int mCurrentPageActivity;
     
-    private static ArrayList<HashMap<String, String>> productList;
-    
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
@@ -87,31 +85,6 @@ public class SwipeViewActivity extends FragmentActivity {
         setContentView(R.layout.activity_swipe);
 
         final SlidingUpPanelLayout layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-        layout.setPanelSlideListener(new PanelSlideListener() {
-            @Override
-            public void onPanelSlide(View panel, float slideOffset) {
-                Log.i(TAG, "onPanelSlide, offset " + slideOffset);
-                setActionBarTranslation(layout.getCurrentParalaxOffset());
-            }
-
-            @Override
-            public void onPanelExpanded(View panel) {
-                Log.i(TAG, "onPanelExpanded");
-
-            }
-
-            @Override
-            public void onPanelCollapsed(View panel) {
-                Log.i(TAG, "onPanelCollapsed");
-
-            }
-
-            @Override
-            public void onPanelAnchored(View panel) {
-                Log.i(TAG, "onPanelAnchored");
-
-            }
-        });
 
         boolean actionBarHidden = savedInstanceState != null ?
                 savedInstanceState.getBoolean(SAVED_STATE_ACTION_BAR_HIDDEN, false): false;
@@ -121,12 +94,9 @@ public class SwipeViewActivity extends FragmentActivity {
         Intent intent = getIntent();
 
         int pos = intent.getIntExtra("BildID", 0);
-        Log.i("POS", Integer.toString(pos));
-        //Gets the arraylist including all the products
-        productList =(ArrayList<HashMap<String,String>>) intent.getSerializableExtra("productList");
         
         //Define the number of viewpages that shall be included in the scrollview
-        NUM_PAGES = productList.size();
+        NUM_PAGES = MainActivity.productList.size();
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -141,30 +111,30 @@ public class SwipeViewActivity extends FragmentActivity {
 
             @Override
             public void onPageSelected(int position) {
-
+            	/*
                 switch (position) {
                 case 0: 
                 	mCurrentPageActivity = 0;
-
-                    /*Update textviews from here because the minimum length of viewpager is 2
-                     *this is only for position 0.*/
-                    tvBeerName = (TextView) findViewById(R.id.beerName);
-                    tvBeerPrice = (TextView) findViewById(R.id.beerPrice);
-                    tvBeerSize = (TextView) findViewById(R.id.beerSize);
-                    tvBeerPercent = (TextView) findViewById(R.id.beerPercent);
-                    tvBeerInfo = (TextView) findViewById(R.id.beerInfo);
-                    
-                    tvBeerName.setText(productList.get(0).get("Artikelnamn"));
-                    tvBeerPrice.setText(productList.get(0).get("Utpris exkl moms")+" kr*");
-                    tvBeerSize.setText(productList.get(0).get("Storlek")+" ml*");
-                    tvBeerPercent.setText(productList.get(0).get("Alkoholhalt")+" %");
-                    tvBeerInfo.setText(productList.get(0).get("Info"));
                 	break;
 
                 default:
                 	mCurrentPageActivity = position;
                 	break;
-                }
+                }*/
+                /*Update textviews from here because the minimum length of viewpager is 2
+                 *this is only for position 0.*/
+                tvBeerName = (TextView) findViewById(R.id.beerName);
+                tvBeerPrice = (TextView) findViewById(R.id.beerPrice);
+                tvBeerSize = (TextView) findViewById(R.id.beerSize);
+                tvBeerPercent = (TextView) findViewById(R.id.beerPercent);
+                tvBeerInfo = (TextView) findViewById(R.id.beerInfo);
+                
+                tvBeerName.setText(MainActivity.productList.get(position).get("Artikelnamn"));
+                tvBeerPrice.setText(MainActivity.productList.get(position).get("Utpris exkl moms")+" kr*");
+                tvBeerSize.setText(MainActivity.productList.get(position).get("Storlek")+" ml*");
+                tvBeerPercent.setText(MainActivity.productList.get(position).get("Alkoholhalt")+" %");
+                tvBeerInfo.setText(MainActivity.productList.get(position).get("Info"));
+            	
             }
         };
         mPager.setOnPageChangeListener(pageChangeListener);
@@ -192,7 +162,6 @@ public class SwipeViewActivity extends FragmentActivity {
 							ListViewActivity.class);
 					//Sending BildID and productList to ListViewActivity
 					intentList.putExtra("BildID", 0);
-					intentList.putExtra("productList", productList);
 					startActivity(intentList);
     	            break;
     	        case R.id.navScrollvy:
@@ -201,7 +170,6 @@ public class SwipeViewActivity extends FragmentActivity {
     						SwipeViewActivity.class);
     				//Sending BildID and productList to SwipeViewActivity
     				intentSwipe.putExtra("BildID", 0);
-    				intentSwipe.putExtra("productList", productList);
     				startActivity(intentSwipe);
     	            break;
     	        case R.id.navOmOss:
@@ -209,7 +177,6 @@ public class SwipeViewActivity extends FragmentActivity {
     						OmOss.class);
     				//Sending BildID and productList to OmOssActivity
     				intentOmoss.putExtra("BildID", 0);
-    				intentOmoss.putExtra("productList", productList);
     	        	startActivity(intentOmoss);
     	            break;
     	        }
@@ -222,46 +189,7 @@ public class SwipeViewActivity extends FragmentActivity {
         super.onSaveInstanceState(outState);
         outState.putBoolean(SAVED_STATE_ACTION_BAR_HIDDEN, !getActionBar().isShowing());
     }
-
-    /**
-     * The method returns an arraylist which includes product with its information.
-     * @return prodList
-     */
-    public final static ArrayList<HashMap<String, String>> getArrayList() {
-        return productList;
-    }
     
-    /**
-     * A method related to the SlidingUpPanel that makes the actionbar slideup when the panel is sliding up.
-     * @param y - number of pixels that the actionbar will slide
-     */
-    @SuppressLint("NewApi")
-    public void setActionBarTranslation(float y) {
-        // Figure out the actionbar height
-        int actionBarHeight = 0;
-        TypedValue tv = new TypedValue();
-        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
-        }
-        // A hack to add the translation to the action bar
-        ViewGroup content = ((ViewGroup) findViewById(android.R.id.content).getParent());
-        int children = content.getChildCount();
-        for (int i = 0; i < children; i++) {
-            View child = content.getChildAt(i);
-            if (child.getId() != android.R.id.content) {
-                if (y <= -actionBarHeight) {
-                    child.setVisibility(View.GONE);
-                } else {
-                    child.setVisibility(View.VISIBLE);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                        child.setTranslationY(y);
-                    } else {
-                        AnimatorProxy.wrap(child).setTranslationY(y);
-                    }
-                }
-            }
-        }
-    }
     /**
      * A private PagerAdapter class, related to the viewpager
      * @author BeerDev

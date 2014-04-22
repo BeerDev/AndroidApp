@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
 	/**
 	 * Hashmap for the products
 	 */
-	ArrayList<HashMap<String, String>> productList;
+	public static ArrayList<HashMap<String, String>> productList;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -159,8 +159,6 @@ public class MainActivity extends Activity {
 				
 				Intent in = new Intent(getApplicationContext(),
 						SwipeViewActivity.class);
-
-				in.putExtra("productList", productList);
 				startActivity(in);
 				
 			} else {

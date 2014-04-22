@@ -28,9 +28,6 @@ public class OmOss extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.omss);	
-		
-		Intent intent = getIntent();
-        productList =(ArrayList<HashMap<String,String>>) intent.getSerializableExtra("productList");
 	}
 	
 	/**
@@ -54,7 +51,6 @@ public class OmOss extends Activity {
 							ListViewActivity.class);
 					//Sending BildID and productList to ListViewActivity
 					intentList.putExtra("BildID", 0);
-					intentList.putExtra("productList", productList);
 					startActivity(intentList);
     	            break;
     	        case R.id.navScrollvy:
@@ -63,7 +59,6 @@ public class OmOss extends Activity {
     						SwipeViewActivity.class);
     				//Sending BildID and productList to SwipeViewActivity
     				intentSwipe.putExtra("BildID", 0);
-    				intentSwipe.putExtra("productList", productList);
     				startActivity(intentSwipe);
     	            break;
     	        case R.id.navOmOss:
@@ -71,7 +66,6 @@ public class OmOss extends Activity {
     						OmOss.class);
     				//Sending BildID and productList to OmOssActivity
     				intentOmoss.putExtra("BildID", 0);
-    				intentOmoss.putExtra("productList", productList);
     	        	startActivity(intentOmoss);
     	            break;
     	        }
