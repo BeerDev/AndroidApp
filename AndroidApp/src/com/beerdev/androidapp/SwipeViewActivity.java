@@ -68,10 +68,11 @@ public class SwipeViewActivity extends FragmentActivity {
      */
     public static ViewPager mPager;
 
-    public static int currentItemActivity;
     /**
-     * The arraylist including all the products.
+     * An integer that holds the current page of viewpager, is used in ScreenSlidePageFragment to update textviews.
      */
+    public static int mCurrentPageActivity;
+    
     private static ArrayList<HashMap<String, String>> productList;
     
     /**
@@ -126,41 +127,49 @@ public class SwipeViewActivity extends FragmentActivity {
         
         //Define the number of viewpages that shall be included in the scrollview
         NUM_PAGES = productList.size();
-        
-        // Initialize TextViews to later show info from fragment
-        /*tvBeerName = (TextView) findViewById(R.id.beerName);
-        tvBeerPrice = (TextView) findViewById(R.id.beerPrice); 
-        tvBeerInfo = (TextView) findViewById(R.id.beerInfo);
-        tvBeerSize = (TextView) findViewById(R.id.beerSize);
-        tvBeerPercent = (TextView) findViewById(R.id.beerPercent);*/
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+        OnPageChangeListener pageChangeListener = new OnPageChangeListener() {
+            @Override
+            public void onPageScrollStateChanged(int arg0) { }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) { }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                switch (position) {
+                case 0: 
+                	mCurrentPageActivity = 0;
+
+                    /*Update textviews from here because the minimum length of viewpager is 2
+                     *this is only for position 0.*/
+                    tvBeerName = (TextView) findViewById(R.id.beerName);
+                    tvBeerPrice = (TextView) findViewById(R.id.beerPrice);
+                    tvBeerSize = (TextView) findViewById(R.id.beerSize);
+                    tvBeerPercent = (TextView) findViewById(R.id.beerPercent);
+                    tvBeerInfo = (TextView) findViewById(R.id.beerInfo);
+                    
+                    tvBeerName.setText(productList.get(0).get("Artikelnamn"));
+                    tvBeerPrice.setText(productList.get(0).get("Utpris exkl moms")+" kr*");
+                    tvBeerSize.setText(productList.get(0).get("Storlek")+" ml*");
+                    tvBeerPercent.setText(productList.get(0).get("Alkoholhalt")+" %");
+                    tvBeerInfo.setText(productList.get(0).get("Info"));
+                	break;
+
+                default:
+                	mCurrentPageActivity = position;
+                	break;
+                }
+            }
+        };
+        mPager.setOnPageChangeListener(pageChangeListener);
+        pageChangeListener.onPageSelected(0);
         mPager.setCurrentItem(pos);
-        mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-			
-			@Override
-			public void onPageSelected(int position) {
-				// TODO Auto-generated method stub
-				currentItemActivity = position;
-				
-			}
-			
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-        
     }
 
     @Override

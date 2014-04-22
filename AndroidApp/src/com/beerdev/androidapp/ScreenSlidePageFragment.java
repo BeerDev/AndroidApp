@@ -101,8 +101,9 @@ public class ScreenSlidePageFragment extends Fragment {
         ImageLoader imgLoader = new ImageLoader(rootView.getContext());
         imgLoader.DisplayImage(image_url, loader, ivBeer);
         
-        int currentItemActivity = SwipeViewActivity.currentItemActivity;
+        int currentItemActivity = SwipeViewActivity.mCurrentPageActivity; 
         
+        Log.i("current Item", Integer.toString(currentItemActivity));
         tvBeerName = (TextView) getActivity().findViewById(R.id.beerName);
         tvBeerPrice = (TextView) getActivity().findViewById(R.id.beerPrice);
         tvBeerSize = (TextView) getActivity().findViewById(R.id.beerSize);
