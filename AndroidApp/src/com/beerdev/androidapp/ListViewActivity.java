@@ -1,38 +1,67 @@
 package com.beerdev.androidapp;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.FrameLayout.LayoutParams;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-/**
- * A view to show information about the developmentteam and the application
- * @author BeerDev
- *
- */
-public class OmOss extends Activity {
+public class ListViewActivity extends ListActivity{
 	
+
 	/**
-	 * Information about the products
+	 * Hashmap for the products
 	 */
-	private static ArrayList<HashMap<String, String>> productList;
+	ArrayList<HashMap<String, String>> productList;
 
-
-	@SuppressWarnings("unchecked")
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.omss);	
-		
+		setContentView(R.layout.activity_list);
+
+
 		Intent intent = getIntent();
-        productList =(ArrayList<HashMap<String,String>>) intent.getSerializableExtra("productList");
+		productList = (ArrayList<HashMap<String,String>>) intent.getSerializableExtra("productList");
+
+		
+		ListView lv = getListView();
+		// Getting adapter by passing xml data ArrayList
+        LazyAdapter adapter=new LazyAdapter(ListViewActivity.this, productList);        
+        setListAdapter(adapter);
+        
+		// Listview on item click listener
+		lv.setOnItemClickListener(new OnItemClickListener() {
+		
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// getting values from selected ListItem			
+				String ID = ((TextView) view.findViewById(R.id.listID)).getText().toString();
+				int Index = Integer.parseInt(ID);
+
+				// Starting single contact activity
+				Intent in = new Intent(getApplicationContext(),
+						SwipeViewActivity.class);
+				
+				//Sending BildID and ContactList to SwipeViewActivity
+				in.putExtra("BildID", Index);
+				in.putExtra("productList", productList);
+				startActivity(in);
+
+			}
+		});
 	}
-	
 	/**
      * A method to create menu-
      * @return true - to create menu
@@ -79,4 +108,6 @@ public class OmOss extends Activity {
     	        }
     	 //---------MENU END---------------
     
+
+
 }

@@ -171,13 +171,6 @@ public class SwipeViewActivity extends FragmentActivity {
         pageChangeListener.onPageSelected(0);
         mPager.setCurrentItem(pos);
     }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(SAVED_STATE_ACTION_BAR_HIDDEN, !getActionBar().isShowing());
-    }
-
     /**
      * A method to create menu-
      * @return true - to create menu
@@ -194,32 +187,42 @@ public class SwipeViewActivity extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
     		case R.id.navListVy:
-    	        	startActivity(new Intent(this, MainActivity.class));
+	    			// Starting single contact activity
+					Intent intentList = new Intent(getApplicationContext(),
+							ListViewActivity.class);
+					//Sending BildID and productList to ListViewActivity
+					intentList.putExtra("BildID", 0);
+					intentList.putExtra("productList", productList);
+					startActivity(intentList);
     	            break;
     	        case R.id.navScrollvy:
     	        	// Starting single contact activity
-    				Intent in = new Intent(getApplicationContext(),
+    				Intent intentSwipe = new Intent(getApplicationContext(),
     						SwipeViewActivity.class);
-    				
-    				//Sending BildID and ContactList to ScreenSlidePagerActivity
-    				in.putExtra("BildID", 0);
-    				in.putExtra("productList", productList);
-    				startActivity(in);
+    				//Sending BildID and productList to SwipeViewActivity
+    				intentSwipe.putExtra("BildID", 0);
+    				intentSwipe.putExtra("productList", productList);
+    				startActivity(intentSwipe);
     	            break;
     	        case R.id.navOmOss:
-    				Intent omoss = new Intent(getApplicationContext(),
+    				Intent intentOmoss = new Intent(getApplicationContext(),
     						OmOss.class);
-    				
-    				//Sending BildID and ContactList to ScreenSlidePagerActivity
-    				omoss.putExtra("BildID", 0);
-    				omoss.putExtra("productList", productList);
-    	        	startActivity(omoss);
+    				//Sending BildID and productList to OmOssActivity
+    				intentOmoss.putExtra("BildID", 0);
+    				intentOmoss.putExtra("productList", productList);
+    	        	startActivity(intentOmoss);
     	            break;
     	        }
     	        return true;
     	        }
     	 //---------MENU END---------------
     
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(SAVED_STATE_ACTION_BAR_HIDDEN, !getActionBar().isShowing());
+    }
+
     /**
      * The method returns an arraylist which includes product with its information.
      * @return prodList

@@ -28,8 +28,8 @@
         </activity>
     	<!-- Slide Image Activity -->
         <activity
-            android:label="Slider"
-            android:name="com.beerdev.androidapp.ScreenSlidePagerActivity" >
+            android:label="ListView"
+            android:name="com.beerdev.androidapp.ListViewActivity" >
         </activity>
         <!-- Slide Image Activity -->
         <activity
