@@ -15,6 +15,11 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+/**
+ * The code have been taken from the Android Hive JSON parsing project
+ * @author BeerDev
+ * 
+ */
 public class ServiceHandler {
 
 	static String response = null;

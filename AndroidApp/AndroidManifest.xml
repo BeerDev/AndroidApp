@@ -28,10 +28,20 @@
         </activity>
     	<!-- Slide Image Activity -->
         <activity
-            android:label="Slider"
-            android:name="com.beerdev.androidapp.ScreenSlidePagerActivity" >
+            android:label="ListView"
+            android:name="com.beerdev.androidapp.ListViewActivity" >
+        </activity>
+        <!-- Slide Image Activity -->
+        <activity
+            android:label="Omoss"
+            android:name="com.beerdev.androidapp.OmOss" >
         </activity>
     
+        <!-- Demo Slide Image Activity -->
+        <activity
+            android:label="DemoSlide"
+            android:name="com.beerdev.androidapp.SwipeViewActivity" >
+        </activity>
     </application>
 
 </manifest>
