@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" 
-    >
-        
-    <item 
-	        android:id="@+id/Menyimg"
-	        android:icon="@drawable/testbeer"
-	        android:showAsAction="ifRoom"
-	        />
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+        <!-- 
+	  <item android:id="@+id/search"
+          android:title="@string/search"
+          android:icon="@drawable/icon_mini"
+          android:showAsAction="collapseActionView|ifRoom"
+          android:actionViewClass="android.widget.SearchView" />		-->
       <item 
 	        android:id="@+id/navListVy"
 	        android:title="ListView"
-	        android:showAsAction="never"
-        />
+	        android:showAsAction="never"/>
        <item 
 	        android:id="@+id/navScrollvy"
 	        android:title="Scrollview"
-	        android:showAsAction="never"
-        />
+	        android:showAsAction="never"/>
         <item 
 	        android:id="@+id/navOmOss"
 	        android:title="Om oss"
-	        android:showAsAction="never"
-        />
+	        android:showAsAction="never"/>
       
-
 </menu>

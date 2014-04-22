@@ -18,7 +18,7 @@
         android:icon="@drawable/icon_mini"
         android:label="@string/app_name" >
         <activity
-            android:label=""
+            android:label="@string/app_name"
             android:name="com.beerdev.androidapp.MainActivity" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +30,8 @@
         <activity
             android:label=""
             android:name="com.beerdev.androidapp.ListViewActivity" >
+           <!--  <meta-data android:name="com.beerdev.androidapp.searchable"
+            	android:resource="@xml/searchable" /> -->
         </activity>
         <!-- OmOss Activity -->
         <activity
@@ -40,8 +42,16 @@
         <!-- Demo Slide Image Activity -->
         <activity
             android:label=""
+            android:theme="@style/CustomActionBarTheme"
             android:name="com.beerdev.androidapp.SwipeViewActivity" >
         </activity>
+        <!-- 
+        <activity android:name="com.beerdev.androidapp.SearchResultsActivity" >
+		    <intent-filter>
+		        <action android:name="android.intent.action.SEARCH" />
+		    </intent-filter>
+
+		</activity> -->
     </application>
 
 </manifest>

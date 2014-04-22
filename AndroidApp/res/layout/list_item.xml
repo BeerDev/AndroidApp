@@ -21,8 +21,12 @@
         android:paddingBottom="5dip"
         android:paddingTop="15dip"
         android:paddingLeft="20dip"
-        android:textColor="#43bd00"
+        android:textColor="#FFFFFF"
         android:textSize="16sp"
+        android:shadowColor="#000000"
+	    android:shadowDx="-3"
+	    android:shadowDy="3"
+	    android:shadowRadius="1.1"
         android:textStyle="bold" 
         android:layout_gravity="center_horizontal"/>
     <TextView 
