@@ -3,10 +3,9 @@ package com.beerdev.androidapp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.beerdev.androidapp.R;
-
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,12 +38,15 @@ public class LazyAdapter extends BaseAdapter {
      * Reference to the imageloader
      */
     public ImageLoader imageLoader; 
+    MemoryCache memoryCache;
     
     public LazyAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
         activity = a;
         productsData=d;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         imageLoader=new ImageLoader(activity.getApplicationContext());
+        memoryCache=new MemoryCache();
+        
     }
 
     public int getCount() {
@@ -72,11 +74,12 @@ public class LazyAdapter extends BaseAdapter {
         HashMap<String, String> productList = new HashMap<String, String>();
         productList = productsData.get(position);
         
-        // Setting all values in listview
-        int loader = R.drawable.placeholder;
-        articleName.setText(productList.get(MainActivity.TAG_NAME));
-        id.setText(productList.get(MainActivity.TAG_ID));
-        imageLoader.DisplayImage(productList.get(MainActivity.TAG_PATH),loader, thumbnailImage);
+            // Setting all values in listview
+            int loader = R.drawable.placeholder;
+            articleName.setText(productList.get(MainActivity.TAG_NAME));
+            id.setText(productList.get(MainActivity.TAG_ID));
+            imageLoader.DisplayImage(productList.get(MainActivity.TAG_PATH),loader, thumbnailImage);
+        
         return vi;
     }
 }

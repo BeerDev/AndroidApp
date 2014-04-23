@@ -1,8 +1,5 @@
 package com.beerdev.androidapp;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
@@ -20,9 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.view.Window;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nineoldandroids.view.animation.AnimatorProxy;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -82,11 +78,10 @@ public class SwipeViewActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_swipe);
 
         final SlidingUpPanelLayout layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-
         boolean actionBarHidden = savedInstanceState != null ?
                 savedInstanceState.getBoolean(SAVED_STATE_ACTION_BAR_HIDDEN, false): false;
         if (actionBarHidden) {
@@ -112,16 +107,7 @@ public class SwipeViewActivity extends FragmentActivity {
 
             @Override
             public void onPageSelected(int position) {
-            	/*
-                switch (position) {
-                case 0: 
-                	mCurrentPageActivity = 0;
-                	break;
 
-                default:
-                	mCurrentPageActivity = position;
-                	break;
-                }*/
                 /*Update textviews from here because the minimum length of viewpager is 2
                  *this is only for position 0.*/
                 tvBeerName = (TextView) findViewById(R.id.beerName);
@@ -152,7 +138,6 @@ public class SwipeViewActivity extends FragmentActivity {
         getMenuInflater().inflate(R.menu.navigation_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-    
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

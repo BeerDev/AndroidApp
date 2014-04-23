@@ -156,7 +156,7 @@ public class MainActivity extends Activity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-				
+				Sort.sortAlphabetic();
 				Intent in = new Intent(getApplicationContext(),
 						SwipeViewActivity.class);
 				startActivity(in);

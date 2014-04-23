@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="@drawable/testbild">
+    android:background="@drawable/testbild"
+    android:paddingTop="?android:attr/actionBarSize">
 
     <ListView 
         android:id="@android:id/list"

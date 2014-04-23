@@ -32,14 +32,13 @@ public class ListViewActivity extends ListActivity{
 					int position, long id) {
 				// getting values from selected ListItem			
 				String ID = ((TextView) view.findViewById(R.id.listID)).getText().toString();
-				int index = Integer.parseInt(ID);
 				
 				// Starting single contact activity
 				Intent in = new Intent(getApplicationContext(),
 						SwipeViewActivity.class);
 				
 				//Sending BildID and ContactList to SwipeViewActivity
-				in.putExtra("BildID", index);
+				in.putExtra("BildID", position);
 				startActivity(in);
 
 			}

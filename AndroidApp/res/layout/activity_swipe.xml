@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SwipeViewActivity" 
+    android:paddingTop="?android:attr/actionBarSize"
     android:background="@drawable/testbild">
 
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
@@ -13,14 +14,14 @@
         android:gravity="bottom"
         sothree:panelHeight="100dp"
         sothree:shadowHeight="4dp"
+        sothree:paralaxOffset="0dp"
         sothree:dragView="@+id/name"
         sothree:overlay="true">
 
         <!-- Main Layout -->
         <LinearLayout 
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="?android:attr/actionBarSize">
+            android:layout_height="match_parent">
 	        <android.support.v4.view.ViewPager
 			    xmlns:android="http://schemas.android.com/apk/res/android"
 			    xmlns:app="http://schemas.android.com/apk/res-auto"
