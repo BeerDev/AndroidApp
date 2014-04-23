@@ -30,8 +30,7 @@
         <activity
             android:label=""
             android:name="com.beerdev.androidapp.ListViewActivity" >
-           <!--  <meta-data android:name="com.beerdev.androidapp.searchable"
-            	android:resource="@xml/searchable" /> -->
+             
         </activity>
         <!-- OmOss Activity -->
         <activity
@@ -45,13 +44,15 @@
             android:theme="@style/CustomActionBarTheme"
             android:name="com.beerdev.androidapp.SwipeViewActivity" >
         </activity>
-        <!-- 
-        <activity android:name="com.beerdev.androidapp.SearchResultsActivity" >
-		    <intent-filter>
-		        <action android:name="android.intent.action.SEARCH" />
-		    </intent-filter>
+		
+		<!-- Search results activity -->
+        <activity android:name=".SearchResultsActivity"
+            android:parentActivityName="com.beerdev.androidapp.ListViewActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
 
-		</activity> -->
+        </activity>
     </application>
 
 </manifest>

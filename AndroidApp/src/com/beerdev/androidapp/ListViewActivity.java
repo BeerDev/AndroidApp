@@ -1,27 +1,25 @@
 package com.beerdev.androidapp;
 
 import android.app.ListActivity;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class ListViewActivity extends ListActivity{
-
+	private ListView lv;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
 		
-		ListView lv = getListView();
+		lv = getListView();
 		// Getting adapter by passing xml data ArrayList
         LazyAdapter adapter=new LazyAdapter(ListViewActivity.this, MainActivity.productList);        
         setListAdapter(adapter);
@@ -34,14 +32,14 @@ public class ListViewActivity extends ListActivity{
 					int position, long id) {
 				// getting values from selected ListItem			
 				String ID = ((TextView) view.findViewById(R.id.listID)).getText().toString();
-				int Index = Integer.parseInt(ID);
-
+				int index = Integer.parseInt(ID);
+				
 				// Starting single contact activity
 				Intent in = new Intent(getApplicationContext(),
 						SwipeViewActivity.class);
 				
 				//Sending BildID and ContactList to SwipeViewActivity
-				in.putExtra("BildID", Index);
+				in.putExtra("BildID", index);
 				startActivity(in);
 
 			}
@@ -56,13 +54,6 @@ public class ListViewActivity extends ListActivity{
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_menu, menu);
         
-        /*// Associate searchable configuration with the SearchView
-        SearchManager searchManager =
-               (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.search_bar).getActionView();
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));*/
         
         return super.onCreateOptionsMenu(menu);
     }
@@ -71,6 +62,14 @@ public class ListViewActivity extends ListActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
+    		case R.id.sortAlphab:
+    			Sort.sortAlphabetic();
+    			((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+    			break;
+    		case R.id.sortPrice:
+    			Sort.sortPrice();
+    			((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+    			break;
     		case R.id.navListVy:
 	    			// Starting single contact activity
 					Intent intentList = new Intent(getApplicationContext(),

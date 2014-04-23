@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -156,6 +157,24 @@ public class SwipeViewActivity extends FragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
+	    	case R.id.sortAlphab:
+				Sort.sortAlphabetic();
+				Intent intentSortAlpha = new Intent(getApplicationContext(),
+						SwipeViewActivity.class);
+				//Sending BildID and productList to SwipeViewActivity
+				intentSortAlpha.putExtra("BildID", 0);
+				startActivity(intentSortAlpha);
+	            
+				break;
+			case R.id.sortPrice:
+				Sort.sortPrice();
+				Intent intentSortPrice = new Intent(getApplicationContext(),
+						SwipeViewActivity.class);
+				//Sending BildID and productList to SwipeViewActivity
+				intentSortPrice.putExtra("BildID", 0);
+				startActivity(intentSortPrice);
+	            
+				break;
     		case R.id.navListVy:
 	    			// Starting single contact activity
 					Intent intentList = new Intent(getApplicationContext(),
