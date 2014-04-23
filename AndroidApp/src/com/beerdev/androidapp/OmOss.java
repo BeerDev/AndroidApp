@@ -28,49 +28,45 @@ public class OmOss extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.omss);	
+		
+		Intent intent = getIntent();
+        productList =(ArrayList<HashMap<String,String>>) intent.getSerializableExtra("productList");
 	}
 	
-	/**
-     * A method to create menu-
-     * @return true - to create menu
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-    	switch (item.getItemId()) {
-    		case R.id.navListVy:
-	    			// Starting single contact activity
-					Intent intentList = new Intent(getApplicationContext(),
-							ListViewActivity.class);
-					//Sending BildID and productList to ListViewActivity
-					intentList.putExtra("BildID", 0);
-					startActivity(intentList);
-    	            break;
-    	        case R.id.navScrollvy:
-    	        	// Starting single contact activity
-    				Intent intentSwipe = new Intent(getApplicationContext(),
-    						SwipeViewActivity.class);
-    				//Sending BildID and productList to SwipeViewActivity
-    				intentSwipe.putExtra("BildID", 0);
-    				startActivity(intentSwipe);
-    	            break;
-    	        case R.id.navOmOss:
-    				Intent intentOmoss = new Intent(getApplicationContext(),
-    						OmOss.class);
-    				//Sending BildID and productList to OmOssActivity
-    				intentOmoss.putExtra("BildID", 0);
-    	        	startActivity(intentOmoss);
-    	            break;
-    	        }
-    	        return true;
-    	        }
-    	 //---------MENU END---------------
-    
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.navigation_menu, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	 @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	        case R.id.navListVy:
+	        	startActivity(new Intent(this, MainActivity.class));
+	            break;
+	        case R.id.navScrollvy:
+	        	// Starting single contact activity
+				Intent in = new Intent(getApplicationContext(),
+						SwipeViewActivity.class);
+				
+				//Sending BildID and productList to SwipeViewActivity
+				in.putExtra("BildID", 0);
+				in.putExtra("productList", productList);
+				startActivity(in);
+	            break;
+	        case R.id.navOmOss:
+				Intent omoss = new Intent(getApplicationContext(),
+						OmOss.class);
+				
+				//Sending BildID and ContactList to OmOssActivity
+				omoss.putExtra("BildID", 0);
+				omoss.putExtra("productList", productList);
+	        	startActivity(omoss);
+	            break;
+	        }
+	        return true;
+	    }
 }

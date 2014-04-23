@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-	
-		<item android:id="@+id/sortAlphab"
-	      android:title="A-Ö"
-	      android:showAsAction="always"/>
-       <item android:id="@+id/sortPrice"
-	      android:title="$"
-	      android:showAsAction="always"/>
-       <item 
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+    >
+        
+    <item 
+	        android:id="@+id/sortAlphab"
+	        android:icon="@drawable/testbeer"
+	        android:showAsAction="ifRoom"
+	        />
+    <item 
+	        android:id="@+id/sortPrice"
+	        android:icon="@drawable/testbeer"
+	        android:showAsAction="ifRoom"
+	        />
+
+      <item 
 	        android:id="@+id/navListVy"
 	        android:title="ListView"
-	        android:showAsAction="never"/>
+	        android:showAsAction="never"
+	        />
        <item 
 	        android:id="@+id/navScrollvy"
 	        android:title="Scrollview"
-	        android:showAsAction="never"/>
+	        android:showAsAction="never"
+        />
         <item 
 	        android:id="@+id/navOmOss"
 	        android:title="Om oss"
-	        android:showAsAction="never"/>
+	        android:showAsAction="never"
+        />
       
+
 </menu>

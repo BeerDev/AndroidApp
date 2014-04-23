@@ -19,6 +19,10 @@ import android.widget.TextView;
  *
  */
 public class ScreenSlidePageFragment extends Fragment {
+	/**
+	 * Local productlist for each fragment in the viewpager
+	 */
+	private ArrayList<HashMap<String, String>> prodFragList;
 
 	/**
      * The argument key for the page number this fragment represents.
@@ -34,6 +38,31 @@ public class ScreenSlidePageFragment extends Fragment {
      * Imageview to show the beer.
      */
     ImageView ivBeer;
+    
+    /**
+     * Textviewreference to update the name of the beer in this fragment.
+     */
+    TextView tvBeerName;
+
+    /**
+     * Textviewreference to update the price of the beer in this fragment.
+     */
+    TextView tvBeerPrice;
+
+    /**
+     * Textviewreference to update the size of the beer in this fragment.
+     */
+    TextView tvBeerSize;
+
+    /**
+     * Textviewreference to update the percent of the beer in this fragment.
+     */
+    TextView tvBeerPercent;
+
+    /**
+     * Textviewreference to update the info of the beer in this fragment.
+     */
+    TextView tvBeerInfo;
     
     /**
      * Creates a fragment of this class with information about current pagenumber
@@ -61,15 +90,34 @@ public class ScreenSlidePageFragment extends Fragment {
             Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_swipe, container, false);
-        
+
+        prodFragList = (ArrayList<HashMap<String, String>>) SwipeViewActivity.getArrayList();
+
         ivBeer = (ImageView) rootView.findViewById(R.id.imageViewDemo);
 
         //Loader image
         int loader = R.drawable.placeholder;
-        String image_url = MainActivity.productList.get(mPageNumber).get("URL");
+        String image_url = prodFragList.get(mPageNumber).get("URL");
         ImageLoader imgLoader = new ImageLoader(rootView.getContext());
         imgLoader.DisplayImage(image_url, loader, ivBeer);
+        
+        int currentItemActivity = SwipeViewActivity.mCurrentPageActivity; 
+        
+        Log.i("current Item", Integer.toString(currentItemActivity));
+        tvBeerName = (TextView) getActivity().findViewById(R.id.beerName);
+        tvBeerPrice = (TextView) getActivity().findViewById(R.id.beerPrice);
+        tvBeerSize = (TextView) getActivity().findViewById(R.id.beerSize);
+        tvBeerPercent = (TextView) getActivity().findViewById(R.id.beerPercent);
+        tvBeerInfo = (TextView) getActivity().findViewById(R.id.beerInfo);
+        
+        tvBeerName.setText(prodFragList.get(currentItemActivity).get("Artikelnamn"));
+        tvBeerPrice.setText(prodFragList.get(currentItemActivity).get("Utpris exkl moms")+" kr*");
+        tvBeerSize.setText(prodFragList.get(currentItemActivity).get("Storlek")+" ml*");
+        tvBeerPercent.setText(prodFragList.get(currentItemActivity).get("Alkoholhalt")+" %");
+        tvBeerInfo.setText(prodFragList.get(currentItemActivity).get("Info"));
 
+        Log.i("mPageNumber after text", Integer.toString(mPageNumber));
+        
         return rootView;
     }
 }

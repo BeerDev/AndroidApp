@@ -6,7 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -15,13 +15,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * The mainactivity for the application, creates backgroundthreads for downloading JSON information and sends the infromation tho other activities.
  * @author BeerDev
  *
  */
-public class MainActivity extends Activity {
+public class MainActivity extends ListActivity {
 	/**
 	 * pDialog for showing progress dialog
 	 */
@@ -80,7 +85,7 @@ public class MainActivity extends Activity {
 	/**
 	 * Hashmap for the products
 	 */
-	public static ArrayList<HashMap<String, String>> productList;
+	ArrayList<HashMap<String, String>> productList;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -88,11 +93,73 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		productList = new ArrayList<HashMap<String, String>>();
+
+		ListView lv = getListView();
+
+		// Listview on item click listener
+		lv.setOnItemClickListener(new OnItemClickListener() {
+		
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// getting values from selected ListItem			
+				String ID = ((TextView) view.findViewById(R.id.listID)).getText().toString();
+				int Index = Integer.parseInt(ID);
+
+				// Starting single contact activity
+				Intent in = new Intent(getApplicationContext(),
+						SwipeViewActivity.class);
+				
+				//Sending BildID and ContactList to SwipeViewActivity
+				in.putExtra("BildID", Index);
+				in.putExtra("productList", productList);
+				startActivity(in);
+
+			}
+		});
 		
 		// Calling async task to get json
 		new GetProducts().execute();
-
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.navigation_menu, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	 @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	        switch (item.getItemId()) {
+	        case R.id.navListVy:
+	        	startActivity(new Intent(this, MainActivity.class));
+	            break;
+	        case R.id.navScrollvy:
+	        	// Starting single product activity
+				Intent in = new Intent(getApplicationContext(),
+						SwipeViewActivity.class);
+				
+				//Sending BildID and productList to SwipeViewActivity
+				in.putExtra("BildID", 0);
+				in.putExtra("productList", productList);
+				startActivity(in);
+	            break;
+	        case R.id.navOmOss:
+				Intent omoss = new Intent(getApplicationContext(),
+						OmOss.class);
+				
+				//Sending BildID and productList to OmOss
+				omoss.putExtra("BildID", 0);
+				omoss.putExtra("productList", productList);
+	        	startActivity(omoss);
+	            break;
+	        }
+	        return true;
+	    }
+	
+	
 	/**
 	 * Async task class to get json by making HTTP call
 	 * */
@@ -156,11 +223,6 @@ public class MainActivity extends Activity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-				
-				Intent in = new Intent(getApplicationContext(),
-						SwipeViewActivity.class);
-				startActivity(in);
-				
 			} else {
 				Log.e("ServiceHandler", "Couldn't get any data from the url");
 			}
@@ -174,6 +236,10 @@ public class MainActivity extends Activity {
 			// Dismiss the progress dialog
 			if (pDialog.isShowing())
 				pDialog.dismiss();
+		
+			// Getting adapter by passing xml data ArrayList
+	        LazyAdapter adapter=new LazyAdapter(MainActivity.this, productList);        
+	        setListAdapter(adapter);
 		
 		}
 	}
