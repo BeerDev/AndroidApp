@@ -1,21 +1,19 @@
 package com.beerdev.androidapp;
 
 import android.app.ListActivity;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class ListViewActivity extends ListActivity{
-
+	private ListView lv;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -71,6 +69,10 @@ public class ListViewActivity extends ListActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
+    		case R.id.sortPrice:
+    			Sort.sortprice();
+    			((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+    		break;
     		case R.id.navListVy:
 	    			// Starting single contact activity
 					Intent intentList = new Intent(getApplicationContext(),
