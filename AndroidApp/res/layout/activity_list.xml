@@ -6,6 +6,29 @@
     android:background="@drawable/testbild"
     android:paddingTop="?android:attr/actionBarSize">
 
+    <LinearLayout
+        android:id="@+id/SearchBar"
+        android:layout_width="fill_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:orientation="horizontal"
+        android:visibility="gone" 
+        android:weightSum="1">
+
+        <EditText
+            android:id="@+id/searchText"
+            android:layout_width="146dp"
+            android:layout_height="?android:attr/actionBarSize"
+            android:layout_weight="0.75" />
+        <Button
+            android:id="@+id/searchButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:text="Sök" />
+
+    </LinearLayout>
+
     <ListView 
         android:id="@android:id/list"
         android:layout_width="fill_parent"

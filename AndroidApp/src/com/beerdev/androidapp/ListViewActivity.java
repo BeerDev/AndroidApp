@@ -1,14 +1,18 @@
 package com.beerdev.androidapp;
 
+import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,6 +22,21 @@ public class ListViewActivity extends ListActivity{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
+		
+		Button knapp = (Button) findViewById(R.id.searchButton);
+		knapp.setOnClickListener(new OnClickListener() {
+			EditText searchFor = (EditText) findViewById(R.id.searchText);
+			String searching = searchFor.getText().toString();
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Sort.Filter(searching);
+				((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+			}
+			
+		});
+		
 		
 		lv = getListView();
 		// Getting adapter by passing xml data ArrayList
@@ -52,7 +71,7 @@ public class ListViewActivity extends ListActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_menu, menu);
-        
+        getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         
         return super.onCreateOptionsMenu(menu);
     }
@@ -61,6 +80,11 @@ public class ListViewActivity extends ListActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
+    		
+    		case R.id.searchIcon:
+    			findViewById(R.id.SearchBar).setVisibility(View.VISIBLE);
+				((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+				break;	
     		case R.id.sortAlphab:
     			Sort.sortAlphabetic();
     			((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();

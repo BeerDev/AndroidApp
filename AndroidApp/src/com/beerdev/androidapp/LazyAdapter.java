@@ -76,9 +76,10 @@ public class LazyAdapter extends BaseAdapter {
         
             // Setting all values in listview
             int loader = R.drawable.placeholder;
+            imageLoader.DisplayImage(productList.get(MainActivity.TAG_PATH),NO_SELECTION, thumbnailImage);
             articleName.setText(productList.get(MainActivity.TAG_NAME));
             id.setText(productList.get(MainActivity.TAG_ID));
-            imageLoader.DisplayImage(productList.get(MainActivity.TAG_PATH),loader, thumbnailImage);
+           
         
         return vi;
     }
