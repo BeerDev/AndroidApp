@@ -5,9 +5,16 @@
     android:orientation="vertical"
     android:background="@drawable/testbild"
     android:paddingTop="?android:attr/actionBarSize">
-
+	<EditText  
+        android:id="@+id/editText"
+        android:layout_width="fill_parent"
+        android:layout_height="150dip"
+        android:layout_gravity="top"
+        android:hint="Sök..."
+        android:visibility="invisible"/>"
     <ListView 
         android:id="@android:id/list"
         android:layout_width="fill_parent"
+        
         android:layout_height="wrap_content"/>
 </LinearLayout>

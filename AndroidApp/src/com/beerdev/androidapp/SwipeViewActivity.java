@@ -1,8 +1,10 @@
 package com.beerdev.androidapp;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,17 +14,12 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.nineoldandroids.view.animation.AnimatorProxy;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelSlideListener;
 
 public class SwipeViewActivity extends FragmentActivity {
     private static final String TAG = "DemoActivity";
@@ -86,6 +83,11 @@ public class SwipeViewActivity extends FragmentActivity {
         if (actionBarHidden) {
             getActionBar().hide();
         }
+        
+
+		registerReceiver(new NetworkStateReceiver(), 
+		           new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+		
         Intent intent = getIntent();
 
         int pos = intent.getIntExtra("BildID", 0);
@@ -165,6 +167,9 @@ public class SwipeViewActivity extends FragmentActivity {
 							ListViewActivity.class);
 					//Sending BildID and productList to ListViewActivity
 					intentList.putExtra("BildID", 0);
+
+					intentList.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+					intentList.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					startActivity(intentList);
     	            break;
     	        case R.id.navScrollvy:
@@ -192,6 +197,7 @@ public class SwipeViewActivity extends FragmentActivity {
         super.onSaveInstanceState(outState);
         outState.putBoolean(SAVED_STATE_ACTION_BAR_HIDDEN, !getActionBar().isShowing());
     }
+    
     
     /**
      * A private PagerAdapter class, related to the viewpager
@@ -221,4 +227,30 @@ public class SwipeViewActivity extends FragmentActivity {
         }
 
     }
+
+    @Override
+    protected void onPause(){
+    	super.onPause();
+    	ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = cm.getActiveNetworkInfo();
+		if (info != null && info.isConnectedOrConnecting()) {
+			MainActivity.isOnline = true;
+			Log.d("onPauseSwipe", "isOnline true");
+		}
+		else{
+			MainActivity.isOnline = false;
+			Log.d("onPauseSwipe", "isOnline false");			
+		}
+    }
+	@Override
+	protected void onResume(){
+		super.onResume();
+		if(MainActivity.isOnline == NetworkStateReceiver.netCheckChange){
+			Log.i("NETWORK", "is the SAME after resume in Swipe.");
+		}
+		else{
+			Log.i("NETWORK", "is NOT the SAME after resume in Swipe.");
+		}
+	}
+
 }
