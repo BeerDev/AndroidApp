@@ -15,6 +15,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
       <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
     <application
         android:icon="@drawable/icon_mini"
         android:label="@string/app_name" 
@@ -24,28 +26,39 @@
             android:name="com.beerdev.androidapp.MainActivity" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
-
+				
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     	<!-- ListView Activity -->
         <activity
+            
+          android:screenOrientation="portrait"
             android:label=""
+            android:launchMode="singleTop"
             android:name="com.beerdev.androidapp.ListViewActivity" >
              
         </activity>
         <!-- OmOss Activity -->
         <activity
+            
             android:label=""
             android:name="com.beerdev.androidapp.OmOss" >
         </activity>
     
-        <!-- Demo Slide Image Activity -->
+        <!-- Swipe View Activity -->
         <activity
+            android:launchMode="singleTop"
+          android:screenOrientation="portrait"
             android:label=""
             android:name="com.beerdev.androidapp.SwipeViewActivity" >
+             
         </activity>
-		
+		<receiver android:name=".NetworkStateReceiver">
+			   <intent-filter>
+			      <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+			   </intent-filter>
+		</receiver>
 		<!-- Search results activity -->
         <activity android:name=".SearchResultsActivity"
             android:parentActivityName="com.beerdev.androidapp.ListViewActivity" >
@@ -53,6 +66,11 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
 
+        </activity>
+        <!-- OmKistan activity -->
+        <activity
+            android:label=""
+            android:name="com.beerdev.androidapp.OmKistan" >
         </activity>
     </application>
 

@@ -1,8 +1,10 @@
 package com.beerdev.androidapp;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,17 +14,12 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.nineoldandroids.view.animation.AnimatorProxy;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelSlideListener;
 
 public class SwipeViewActivity extends FragmentActivity {
     private static final String TAG = "DemoActivity";
@@ -78,7 +75,6 @@ public class SwipeViewActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_swipe);
 
         final SlidingUpPanelLayout layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
@@ -87,6 +83,7 @@ public class SwipeViewActivity extends FragmentActivity {
         if (actionBarHidden) {
             getActionBar().hide();
         }
+		
         Intent intent = getIntent();
 
         int pos = intent.getIntExtra("BildID", 0);
@@ -166,6 +163,9 @@ public class SwipeViewActivity extends FragmentActivity {
 							ListViewActivity.class);
 					//Sending BildID and productList to ListViewActivity
 					intentList.putExtra("BildID", 0);
+
+					intentList.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+					intentList.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					startActivity(intentList);
     	            break;
     	        case R.id.navScrollvy:
@@ -183,9 +183,16 @@ public class SwipeViewActivity extends FragmentActivity {
     				intentOmoss.putExtra("BildID", 0);
     	        	startActivity(intentOmoss);
     	            break;
-    	        }
-    	        return true;
-    	        }
+    	        case R.id.navOmKistan:
+    				Intent intentOmKistan = new Intent(getApplicationContext(),
+    						OmKistan.class);
+    				//Sending BildID and productList to OmOssActivity
+    				intentOmKistan.putExtra("BildID", 0);
+    	        	startActivity(intentOmKistan);
+    	            break;
+    		}
+    		return true;
+    	}
     	 //---------MENU END---------------
     
     @Override
@@ -193,6 +200,7 @@ public class SwipeViewActivity extends FragmentActivity {
         super.onSaveInstanceState(outState);
         outState.putBoolean(SAVED_STATE_ACTION_BAR_HIDDEN, !getActionBar().isShowing());
     }
+    
     
     /**
      * A private PagerAdapter class, related to the viewpager
@@ -222,4 +230,34 @@ public class SwipeViewActivity extends FragmentActivity {
         }
 
     }
+
+    @Override
+    protected void onPause(){
+    	super.onPause();
+    	ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = cm.getActiveNetworkInfo();
+		if (info != null && info.isConnectedOrConnecting()) {
+			MainActivity.wasOnline = true;
+			Log.d("onPauseSwipe", "wasOnline true");
+		}else{
+			MainActivity.wasOnline = false;
+			Log.d("onPauseSwipe", "wasOnline false");
+		}
+    }
+	@Override
+	protected void onResume(){
+		super.onResume();
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = cm.getActiveNetworkInfo();
+		if (info != null && info.isConnectedOrConnecting()) {
+			if(MainActivity.wasOnline == false){
+				Intent in = new Intent(getApplicationContext(), MainActivity.class);
+				startActivity(in);
+			}
+			Log.d("onResumeSwipe", "isOnline true");
+		}else{
+			Log.d("onResumeSwipe", "isOnline false");
+		}
+	}
+
 }
