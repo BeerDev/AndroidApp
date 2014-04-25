@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/testbild" 
+    android:paddingTop="?android:attr/actionBarSize"
+    >
+    
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="0dip" 
+    android:orientation="vertical"
+    android:padding="10dip"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/omKistanTextHeader"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:shadowDx="-3"
+	    android:shadowDy="3"
+	    android:shadowColor="#000000"
+	    android:shadowRadius="1.1"
+        android:text="@string/kistan"
+        android:textColor="#FFFFFF"
+		style="?android:textAppearanceLarge"
+        android:layout_weight="0.2"
+        android:layout_gravity="center_vertical">
+     
+    </TextView>
+
+    <TextView
+        android:id="@+id/OmKistanTextContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:shadowDx="-2"
+	    android:shadowDy="2"
+	    android:shadowColor="#000000"
+	    android:shadowRadius="1.1"
+        android:text="@string/omKistan"
+        android:textColor="#FFFFFF"
+		style="?android:textAppearanceMedium"
+        android:layout_weight="0.8"/>
+</LinearLayout>
+</ScrollView>

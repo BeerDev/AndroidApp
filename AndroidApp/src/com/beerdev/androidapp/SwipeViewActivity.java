@@ -83,10 +83,6 @@ public class SwipeViewActivity extends FragmentActivity {
         if (actionBarHidden) {
             getActionBar().hide();
         }
-        
-
-		registerReceiver(new NetworkStateReceiver(), 
-		           new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 		
         Intent intent = getIntent();
 
@@ -187,9 +183,16 @@ public class SwipeViewActivity extends FragmentActivity {
     				intentOmoss.putExtra("BildID", 0);
     	        	startActivity(intentOmoss);
     	            break;
-    	        }
-    	        return true;
-    	        }
+    	        case R.id.navOmKistan:
+    				Intent intentOmKistan = new Intent(getApplicationContext(),
+    						OmKistan.class);
+    				//Sending BildID and productList to OmOssActivity
+    				intentOmKistan.putExtra("BildID", 0);
+    	        	startActivity(intentOmKistan);
+    	            break;
+    		}
+    		return true;
+    	}
     	 //---------MENU END---------------
     
     @Override
@@ -234,22 +237,26 @@ public class SwipeViewActivity extends FragmentActivity {
     	ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo info = cm.getActiveNetworkInfo();
 		if (info != null && info.isConnectedOrConnecting()) {
-			MainActivity.isOnline = true;
-			Log.d("onPauseSwipe", "isOnline true");
-		}
-		else{
-			MainActivity.isOnline = false;
-			Log.d("onPauseSwipe", "isOnline false");			
+			MainActivity.wasOnline = true;
+			Log.d("onPauseSwipe", "wasOnline true");
+		}else{
+			MainActivity.wasOnline = false;
+			Log.d("onPauseSwipe", "wasOnline false");
 		}
     }
 	@Override
 	protected void onResume(){
 		super.onResume();
-		if(MainActivity.isOnline == NetworkStateReceiver.netCheckChange){
-			Log.i("NETWORK", "is the SAME after resume in Swipe.");
-		}
-		else{
-			Log.i("NETWORK", "is NOT the SAME after resume in Swipe.");
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = cm.getActiveNetworkInfo();
+		if (info != null && info.isConnectedOrConnecting()) {
+			if(MainActivity.wasOnline == false){
+				Intent in = new Intent(getApplicationContext(), MainActivity.class);
+				startActivity(in);
+			}
+			Log.d("onResumeSwipe", "isOnline true");
+		}else{
+			Log.d("onResumeSwipe", "isOnline false");
 		}
 	}
 

@@ -66,6 +66,11 @@
             </intent-filter>
 
         </activity>
+        <!-- OmKistan activity -->
+        <activity
+            android:label=""
+            android:name="com.beerdev.androidapp.OmKistan" >
+        </activity>
     </application>
 
 </manifest>

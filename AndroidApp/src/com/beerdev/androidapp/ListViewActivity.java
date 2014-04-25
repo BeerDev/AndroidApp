@@ -111,6 +111,13 @@ public class ListViewActivity extends ListActivity{
     				intentOmoss.putExtra("BildID", 0);
     	        	startActivity(intentOmoss);
     	            break;
+    	        case R.id.navOmKistan:
+    				Intent intentOmKistan = new Intent(getApplicationContext(),
+    						OmKistan.class);
+    				//Sending BildID and productList to OmOssActivity
+    				intentOmKistan.putExtra("BildID", 0);
+    	        	startActivity(intentOmKistan);
+    	            break;
     	        }
     	        return true;
     }
@@ -122,22 +129,26 @@ public class ListViewActivity extends ListActivity{
     	ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo info = cm.getActiveNetworkInfo();
 		if (info != null && info.isConnectedOrConnecting()) {
-			MainActivity.isOnline = true;
-			Log.d("onPauseList", "isOnline true");
+			MainActivity.wasOnline = true;
+			Log.d("onPauseList", "wasOnline true");
+		}else{
+			MainActivity.wasOnline = false;
+			Log.d("onPauseList", "wasOnline false");
 		}
-		else{
-			MainActivity.isOnline = false;
-			Log.d("onPauseList", "isOnline false");
-		}
-	}
+    }
 	@Override
 	protected void onResume(){
 		super.onResume();
-		if(MainActivity.isOnline == NetworkStateReceiver.netCheckChange){
-			Log.i("NETWORK", "is the SAME after resume in List.");
-		}
-		else{
-			Log.i("NETWORK", "is NOT the SAME after resume in List.");
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = cm.getActiveNetworkInfo();
+		if (info != null && info.isConnectedOrConnecting()) {
+			if(MainActivity.wasOnline == false){
+				Intent in = new Intent(getApplicationContext(), MainActivity.class);
+				startActivity(in);
+			}
+			Log.d("onResumeList", "isOnline true");
+		}else{
+			Log.d("onResumeMain", "isOnline false");
 		}
 	}
 

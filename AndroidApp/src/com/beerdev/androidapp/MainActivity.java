@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
 	/**
 	 * URL to get products JSON
 	 */
-	private static String url = "http://www.beerdev.tk/json_read.php";
+	private static String url = "http://www.beerdev.tk/sortimentA.json";
 	
 	/**
 	 * JSON Node for finding products
@@ -80,6 +80,7 @@ public class MainActivity extends Activity {
 	JSONArray products = null;
 	
 	public static boolean isOnline = false;
+	public static boolean wasOnline = false;
 	/**
 	 * Hashmap for the products
 	 */
@@ -98,10 +99,9 @@ public class MainActivity extends Activity {
 		}
 		else{
 			 Toast.makeText(this, "Vänligen kolla din nätverksanslutning och försök igen..", Toast.LENGTH_LONG).show();
+			 Intent in = new Intent(getApplicationContext(),ListViewActivity.class);
+			 startActivity(in);
 		}
-
-		registerReceiver(new NetworkStateReceiver(), 
-		           new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
 	}
 	/**
@@ -206,27 +206,25 @@ public class MainActivity extends Activity {
     	ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo info = cm.getActiveNetworkInfo();
 		if (info != null && info.isConnectedOrConnecting()) {
-			isOnline = true;
-			Log.d("onPauseMain", "isOnline true");
+			wasOnline = true;
+			Log.d("onPauseMain", "wasOnline true");
 		}else{
-			isOnline = false;
-			Log.d("onPauseMain", "isOnline false");
-
+			wasOnline = false;
+			Log.d("onPauseMain", "wasOnline false");
 		}
     }
 	@Override
 	protected void onResume(){
 		super.onResume();
-		if(isOnline == NetworkStateReceiver.netCheckChange){
-			
-			Log.i("NETWORK", "is the SAME after resume in Main.");
-		}
-		else{
-			if(NetworkStateReceiver.netCheckChange == true){
-				productList.clear();
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = cm.getActiveNetworkInfo();
+		if (info != null && info.isConnectedOrConnecting()) {
+			if(wasOnline == false){
 				new GetProducts().execute();
 			}
-			Log.i("NETWORK", "is NOT the SAME after resume in Main.");
+			Log.d("onResumeMain", "isOnline true");
+		}else{
+			Log.d("onResumeMain", "isOnline false");
 		}
 	}
 }
