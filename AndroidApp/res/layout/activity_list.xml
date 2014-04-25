@@ -17,15 +17,22 @@
         <EditText
             android:id="@+id/searchText"
             android:layout_width="146dp"
-            android:layout_height="?android:attr/actionBarSize"
-            android:layout_weight="0.75" />
+            android:layout_height="match_parent"
+            android:layout_weight="0.70" />
         <Button
-            android:id="@+id/searchButton"
+            android:id="@+id/searchStart"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25"
+            android:layout_weight="0.20"
             android:text="Sök" />
+        <Button
+            android:id="@+id/searchClear"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.10"
+            android:text="Clear" />
 
     </LinearLayout>
 

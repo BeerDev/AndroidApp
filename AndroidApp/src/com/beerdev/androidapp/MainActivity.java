@@ -97,8 +97,8 @@ public class MainActivity extends Activity {
 	 */
 	public static ArrayList<HashMap<String, String>> productList;
 	
-	public static int bool = 0;
-	
+	public ArrayList<HashMap<String, String>> getproductList;
+		
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -106,9 +106,8 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		productList = new ArrayList<HashMap<String, String>>();
+		getproductList = new ArrayList<HashMap<String, String>>();
 		CheckingNetwork();	
-		
-		bool=1;
 	}
 	
 	
@@ -171,6 +170,7 @@ public class MainActivity extends Activity {
 						
 						// adding contact to contact list
 						productList.add(contact);
+
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -220,7 +220,7 @@ public class MainActivity extends Activity {
 		{
 			Toast.makeText(this, "No internet connection..", Toast.LENGTH_LONG).show();
 			offlineMode();	
-			// Sort.sortAlphabetic();
+			Sort.sortAlphabetic();
 				Intent in = new Intent(getApplicationContext(),
 						SwipeViewActivity.class);
 				startActivity(in);
@@ -260,6 +260,7 @@ public void offlineMode(){
 			hashlist.put(TAG_PERC, percent);
 	
 	     productList.add(hashlist);
+	     getproductList.add(hashlist);
 	      }
 		} catch (JSONException e) {
 			e.printStackTrace();

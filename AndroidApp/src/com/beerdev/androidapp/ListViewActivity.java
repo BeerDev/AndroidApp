@@ -1,9 +1,12 @@
 package com.beerdev.androidapp;
 
+import org.json.JSONException;
+
 import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,18 +26,39 @@ public class ListViewActivity extends ListActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
 		
-		Button knapp = (Button) findViewById(R.id.searchButton);
-		knapp.setOnClickListener(new OnClickListener() {
-			EditText searchFor = (EditText) findViewById(R.id.searchText);
-			String searching = searchFor.getText().toString();
-			
+		Button knappSearch = (Button) findViewById(R.id.searchStart);
+		Button knappClear = (Button) findViewById(R.id.searchClear);
+		
+		knappSearch.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				Sort.Filter(searching);
-				((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+				try {
+					EditText searchFor = (EditText) findViewById(R.id.searchText);
+					String searching = searchFor.getText().toString();
+					Log.d("--EDITTEXT---", searching);
+					Sort.Filter(searching);
+					((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 			
+		});
+		
+		knappClear.setOnClickListener(new OnClickListener() {			
+			@Override
+			public void onClick(View arg0) {
+				
+				Intent in = new Intent(getApplicationContext(),
+						MainActivity.class);
+
+				startActivity(in);
+				//((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();				
+			}
 		});
 		
 		
