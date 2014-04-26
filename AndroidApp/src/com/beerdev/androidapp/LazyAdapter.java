@@ -2,14 +2,17 @@ package com.beerdev.androidapp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,17 +21,16 @@ import android.widget.TextView;
  * @author BeerDev
  *
  */
-public class LazyAdapter extends BaseAdapter {
+public class LazyAdapter extends BaseAdapter implements Filterable{
     /**
      * Activity related to the LazyAdapter
      */
     private Activity activity;
-    
-    /**
-     * Data of the products
-     */
-    private ArrayList<HashMap<String, String>> productsData;
-    
+	
+	private ItemsFilter mFilter;
+
+	public ArrayList<HashMap<String, String>> data;
+	public ArrayList<HashMap<String, String>> allData;
     /**
      * Layoutinflater
      */
@@ -40,17 +42,19 @@ public class LazyAdapter extends BaseAdapter {
     public ImageLoader imageLoader; 
     MemoryCache memoryCache;
     
-    public LazyAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
+    @SuppressWarnings("unchecked")
+	public LazyAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
         activity = a;
-        productsData=d;
-        inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        data = (ArrayList<HashMap<String, String>>) d;
+        //allData = (ArrayList<HashMap<String, String>>) data.clone();
+        inflater = (LayoutInflater)activity.getLayoutInflater();
         imageLoader=new ImageLoader(activity.getApplicationContext());
         memoryCache=new MemoryCache();
         
     }
 
     public int getCount() {
-        return productsData.size();
+        return data.size();
     }
 
     public Object getItem(int position) {
@@ -72,7 +76,7 @@ public class LazyAdapter extends BaseAdapter {
         ImageView thumbnailImage = (ImageView)vi.findViewById(R.id.listImageURL);
         
         HashMap<String, String> productList = new HashMap<String, String>();
-        productList = productsData.get(position);
+        productList = data.get(position);
         
             // Setting all values in listview
             int loader = R.drawable.placeholder;
@@ -82,5 +86,55 @@ public class LazyAdapter extends BaseAdapter {
            
         
         return vi;
+    }
+    @Override
+    public Filter getFilter() {
+        if (mFilter == null) {
+            mFilter = new ItemsFilter();
+        }
+        return mFilter;
+    }
+
+    private class ItemsFilter extends Filter {
+        @SuppressWarnings("unchecked")
+        @Override
+        public String convertResultToString(Object resultValue) {
+            return ((HashMap<String, String>) (resultValue))
+                    .get(MainActivity.TAG_NAME);
+        }
+
+        @Override
+        protected FilterResults performFiltering(CharSequence s) {
+
+            if (s != null) {
+                ArrayList<HashMap<String, String>> tmpAllData = data;
+                ArrayList<HashMap<String, String>> tmpDataShown = (ArrayList<HashMap<String, String>>) tmpAllData.clone();
+                tmpDataShown.clear();
+                for (int i = 0; i < tmpAllData.size(); i++) {
+                    if (tmpAllData.get(i).get(MainActivity.TAG_NAME)
+                            .toLowerCase()
+                            .startsWith(s.toString().toLowerCase())) {
+                        tmpDataShown.add(tmpAllData.get(i));
+                    }
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = tmpDataShown;
+                filterResults.count = tmpDataShown.size();
+                return filterResults;
+            } else {
+                return new FilterResults();
+            }
+        }
+
+        @SuppressWarnings("unchecked")
+        protected void publishResults(CharSequence prefix, FilterResults results) {
+            data = (ArrayList<HashMap<String, String>>) results.values;
+            if (results.count > 0) {
+                notifyDataSetChanged();
+            } else {
+                notifyDataSetInvalidated();
+            }
+        }
     }
 }
