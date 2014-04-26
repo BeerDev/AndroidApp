@@ -29,8 +29,8 @@ public class LazyAdapter extends BaseAdapter implements Filterable{
 	
 	private ItemsFilter mFilter;
 
-	public ArrayList<HashMap<String, String>> data;
-	public ArrayList<HashMap<String, String>> allData;
+	public ArrayList<HashMap<String, String>> productsData;
+	public ArrayList<HashMap<String, String>> allProductsData;
     /**
      * Layoutinflater
      */
@@ -45,8 +45,8 @@ public class LazyAdapter extends BaseAdapter implements Filterable{
     @SuppressWarnings("unchecked")
 	public LazyAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
         activity = a;
-        data = (ArrayList<HashMap<String, String>>) d;
-        //allData = (ArrayList<HashMap<String, String>>) data.clone();
+        productsData = (ArrayList<HashMap<String, String>>) d;
+        allProductsData = (ArrayList<HashMap<String, String>>) productsData.clone();
         inflater = (LayoutInflater)activity.getLayoutInflater();
         imageLoader=new ImageLoader(activity.getApplicationContext());
         memoryCache=new MemoryCache();
@@ -54,7 +54,7 @@ public class LazyAdapter extends BaseAdapter implements Filterable{
     }
 
     public int getCount() {
-        return data.size();
+        return productsData.size();
     }
 
     public Object getItem(int position) {
@@ -76,7 +76,7 @@ public class LazyAdapter extends BaseAdapter implements Filterable{
         ImageView thumbnailImage = (ImageView)vi.findViewById(R.id.listImageURL);
         
         HashMap<String, String> productList = new HashMap<String, String>();
-        productList = data.get(position);
+        productList = productsData.get(position);
         
             // Setting all values in listview
             int loader = R.drawable.placeholder;
@@ -107,8 +107,8 @@ public class LazyAdapter extends BaseAdapter implements Filterable{
         protected FilterResults performFiltering(CharSequence s) {
 
             if (s != null) {
-                ArrayList<HashMap<String, String>> tmpAllData = data;
-                ArrayList<HashMap<String, String>> tmpDataShown = (ArrayList<HashMap<String, String>>) tmpAllData.clone();
+                ArrayList<HashMap<String, String>> tmpAllData = allProductsData;
+                ArrayList<HashMap<String, String>> tmpDataShown = productsData;
                 tmpDataShown.clear();
                 for (int i = 0; i < tmpAllData.size(); i++) {
                     if (tmpAllData.get(i).get(MainActivity.TAG_NAME)
@@ -129,10 +129,12 @@ public class LazyAdapter extends BaseAdapter implements Filterable{
 
         @SuppressWarnings("unchecked")
         protected void publishResults(CharSequence prefix, FilterResults results) {
-            data = (ArrayList<HashMap<String, String>>) results.values;
+            productsData = (ArrayList<HashMap<String, String>>) results.values;
             if (results.count > 0) {
+            	MainActivity.productList=productsData;
                 notifyDataSetChanged();
             } else {
+            	MainActivity.productList=allProductsData;
                 notifyDataSetInvalidated();
             }
         }
