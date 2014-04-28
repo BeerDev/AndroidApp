@@ -35,7 +35,6 @@ public class ListViewActivity extends ListActivity{
 
 		// Getting adapter by passing xml data ArrayList
         final LazyAdapter adapter=new LazyAdapter(ListViewActivity.this, MainActivity.completeProductList);      
-        final LazyAdapter searchAdapter=new LazyAdapter(ListViewActivity.this, MainActivity.completeProductList);      
         setListAdapter(adapter);
         	
 		Button knappSearch = (Button) findViewById(R.id.searchStart);
@@ -94,25 +93,7 @@ public class ListViewActivity extends ListActivity{
 
 			}
 		});
-		ActionBar actionBar = getActionBar(); // you can use ABS or the non-bc ActionBar
-	    actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_SHOW_HOME
-	            | ActionBar.DISPLAY_HOME_AS_UP); // what's mainly important here is DISPLAY_SHOW_CUSTOM. the rest is optional
-	    
-	    LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    // inflate the view that we created before
-	    View v = inflater.inflate(R.layout.actionbar_search, null);
-	    AutoCompleteTextView textView =  (AutoCompleteTextView) v.findViewById(R.id.search_box);
-	 
-	    textView.setAdapter(searchAdapter);
-	 
-	    textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-	 
-	        @Override
-	    	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	            // do something when the user clicks
-	        }
-	    });
-	    actionBar.setCustomView(v);
+
 	}
 	
 	/**

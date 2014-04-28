@@ -37,7 +37,9 @@
             android:label=""
             android:launchMode="singleTop"
             android:name="com.beerdev.androidapp.ListViewActivity" >
-             
+             <intent-filter>
+            <action android:name="android.intent.action.SEARCH" />
+        </intent-filter>
         </activity>
         <!-- OmOss Activity -->
         <activity
@@ -60,11 +62,10 @@
 			   </intent-filter>
 		</receiver>
 		<!-- Search results activity -->
-        <activity android:name=".SearchResultsActivity"
-            android:parentActivityName="com.beerdev.androidapp.ListViewActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
+        <activity 
+            android:label=""
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            android:name=".SearchActivity" >
 
         </activity>
         <!-- OmKistan activity -->

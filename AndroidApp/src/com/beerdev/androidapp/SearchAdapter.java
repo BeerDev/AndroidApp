@@ -2,11 +2,9 @@ package com.beerdev.androidapp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import android.app.Activity;
-import android.content.Context;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +27,8 @@ public class SearchAdapter extends BaseAdapter implements Filterable{
 	
 	private ItemsFilter mFilter;
 
-	public ArrayList<HashMap<String, String>> productsData;
-	public ArrayList<HashMap<String, String>> allProductsData;
+	public static ArrayList<HashMap<String, String>> searchData;
+	public ArrayList<HashMap<String, String>> allSearchData;
     /**
      * Layoutinflater
      */
@@ -45,8 +43,8 @@ public class SearchAdapter extends BaseAdapter implements Filterable{
     @SuppressWarnings("unchecked")
 	public SearchAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
         activity = a;
-        productsData = (ArrayList<HashMap<String, String>>) d;
-        allProductsData = (ArrayList<HashMap<String, String>>) productsData.clone();
+        searchData = (ArrayList<HashMap<String, String>>) d;
+        allSearchData = (ArrayList<HashMap<String, String>>) searchData.clone();
         inflater = (LayoutInflater)activity.getLayoutInflater();
         imageLoader=new ImageLoader(activity.getApplicationContext());
         memoryCache=new MemoryCache();
@@ -54,7 +52,7 @@ public class SearchAdapter extends BaseAdapter implements Filterable{
     }
 
     public int getCount() {
-        return productsData.size();
+        return searchData.size();
     }
 
     public Object getItem(int position) {
@@ -76,7 +74,7 @@ public class SearchAdapter extends BaseAdapter implements Filterable{
         ImageView thumbnailImage = (ImageView)vi.findViewById(R.id.listImageURL);
         
         HashMap<String, String> productList = new HashMap<String, String>();
-        productList = productsData.get(position);
+        productList = searchData.get(position);
         
             // Setting all values in listview
             int loader = R.drawable.placeholder;
@@ -96,44 +94,41 @@ public class SearchAdapter extends BaseAdapter implements Filterable{
     }
 
     private class ItemsFilter extends Filter {
-        @SuppressWarnings("unchecked")
-        @Override
-        public String convertResultToString(Object resultValue) {
-            return ((HashMap<String, String>) (resultValue))
-                    .get(MainActivity.TAG_NAME);
-        }
 
         @Override
         protected FilterResults performFiltering(CharSequence s) {
-
-            if (s != null) {
-                ArrayList<HashMap<String, String>> tmpAllData = allProductsData;
-                ArrayList<HashMap<String, String>> tmpDataShown = productsData;
+        	
+        	FilterResults filterResults = new FilterResults();
+        	
+        	if(s == null || s.length() == 0){
+        		filterResults.values = allSearchData;
+        		filterResults.count = allSearchData.size();
+        	}
+        	else{
+                ArrayList<HashMap<String, String>> tmpAllData = allSearchData;
+                ArrayList<HashMap<String, String>> tmpDataShown = searchData;
                 tmpDataShown.clear();
                 for (int i = 0; i < tmpAllData.size(); i++) {
                     if (tmpAllData.get(i).get(MainActivity.TAG_NAME)
                             .toLowerCase()
-                            .startsWith(s.toString().toLowerCase())) {
+                            .contains(s.toString().toLowerCase())) {
                         tmpDataShown.add(tmpAllData.get(i));
                     }
                 }
-
-                FilterResults filterResults = new FilterResults();
                 filterResults.values = tmpDataShown;
                 filterResults.count = tmpDataShown.size();
-                return filterResults;
-            } else {
-                return new FilterResults();
-            }
+        	}
+        	return filterResults;
         }
 
-        @SuppressWarnings("unchecked")
+		@Override
         protected void publishResults(CharSequence prefix, FilterResults results) {
-            productsData = (ArrayList<HashMap<String, String>>) results.values;
-            if (results.count > 0) {
-            	MainActivity.productList=productsData;
-                notifyDataSetChanged();
+            if (results!=null && results.count > 0) {
+                Log.i("PUBLISH RESULT", Integer.toString(results.count));
+            	notifyDataSetChanged();
             } else {
+
+                Log.i("PUBLISH RESULT", Integer.toString(results.count));
             	notifyDataSetInvalidated();
             }
         }

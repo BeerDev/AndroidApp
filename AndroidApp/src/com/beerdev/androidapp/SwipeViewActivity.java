@@ -128,46 +128,7 @@ public class SwipeViewActivity extends FragmentActivity {
         };
         mPager.setOnPageChangeListener(pageChangeListener);
         pageChangeListener.onPageSelected(0);
-        mPager.setCurrentItem(pos);
-        
-        final LazyAdapter searchAdapter=new LazyAdapter(SwipeViewActivity.this, MainActivity.completeProductList);      
-        
-    	ActionBar actionBar = getActionBar(); // you can use ABS or the non-bc ActionBar
-	    actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_SHOW_HOME); // what's mainly important here is DISPLAY_SHOW_CUSTOM. the rest is optional
-	    
-	    LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    // inflate the view that we created before
-	    View v = inflater.inflate(R.layout.actionbar_search, null);
-	    AutoCompleteTextView textView =  (AutoCompleteTextView) v.findViewById(R.id.search_box);
-	 
-	    textView.setAdapter(searchAdapter);
-	 
-	    textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-	 
-	        @Override
-	    	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	            // do something when the user clicks
-	        }
-	    });
-	    textView.addTextChangedListener(new TextWatcher() {         
-	        @Override
-	        public void onTextChanged(CharSequence s, int start, int before, int count) {
-	        	searchAdapter.getFilter().filter(s);
-	        }
-
-	        @Override
-	        public void beforeTextChanged(CharSequence s, int start, int count,
-	                int after) {                
-
-	        }
-
-	        @Override
-	        public void afterTextChanged(Editable s) {
-
-	        }
-	    });
-	    actionBar.setCustomView(v);
-	    
+        mPager.setCurrentItem(pos);	    
     }
     
     /**
@@ -184,6 +145,14 @@ public class SwipeViewActivity extends FragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
+    		case R.id.searchButton:
+				Intent intentSearch = new Intent(getApplicationContext(),
+						SearchActivity.class);
+				//Sending BildID and productList to SwipeViewActivity
+				intentSearch.putExtra("BildID", 0);
+				startActivity(intentSearch);
+	            
+			break;
 	    	case R.id.sortAlphab:
 				Sort.sortAlphabetic();
 				Intent intentSortAlpha = new Intent(getApplicationContext(),
