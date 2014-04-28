@@ -39,6 +39,7 @@
         android:textSize="22sp"
         android:textStyle="bold" 
         android:layout_weight="0.65"
+        android:paddingBottom="5dp"
         android:gravity="center"/>
             
     <TextView
@@ -66,6 +67,7 @@
         android:text="@string/lagerHead"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
+        android:paddingBottom="5dp"
         android:textStyle="bold" />
 
     <TextView
@@ -92,6 +94,7 @@
         android:textSize="22sp"
         android:textStyle="bold" 
         android:layout_weight="0.65"
+        android:paddingBottom="5dp"
         android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/pilsnerBodyTextContent"
@@ -117,6 +120,7 @@
         android:textSize="22sp"
         android:textStyle="bold" 
         android:layout_weight="0.65"
+        android:paddingBottom="5dp"
         android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/bitterBodyTextContent"
@@ -142,6 +146,7 @@
         android:textSize="22sp"
         android:textStyle="bold" 
         android:layout_weight="0.65"
+        android:paddingBottom="5dp"
         android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/ipaBodyTextContent"
@@ -167,6 +172,7 @@
         android:textSize="22sp"
         android:textStyle="bold" 
         android:layout_weight="0.65"
+        android:paddingBottom="5dp"
         android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/impIpaBodyTextContent"
@@ -192,6 +198,7 @@
         android:textSize="22sp"
         android:textStyle="bold" 
         android:layout_weight="0.65"
+        android:paddingBottom="5dp"
         android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/stoutBodyTextContent"
@@ -217,6 +224,7 @@
         android:textSize="22sp"
         android:textStyle="bold" 
         android:layout_weight="0.65"
+        android:paddingBottom="5dp"
         android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/impStoutBodyTextContent"
@@ -242,6 +250,7 @@
         android:textSize="22sp"
         android:textStyle="bold" 
         android:layout_weight="0.65"
+        android:paddingBottom="5dp"
         android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/porterBodyTextContent"
@@ -267,6 +276,7 @@
         android:textSize="22sp"
         android:textStyle="bold" 
         android:layout_weight="0.65"
+        android:paddingBottom="5dp"
         android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/veteBodyTextContent"
@@ -292,6 +302,7 @@
         android:textSize="22sp"
         android:textStyle="bold" 
         android:layout_weight="0.65"
+        android:paddingBottom="5dp"
         android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/trappistBodyTextContent"
@@ -317,6 +328,7 @@
         android:textSize="22sp"
         android:textStyle="bold" 
         android:layout_weight="0.65"
+        android:paddingBottom="5dp"
         android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/lambikBodyTextContent"
@@ -342,6 +354,7 @@
         android:textSize="22sp"
         android:textStyle="bold" 
         android:layout_weight="0.65"
+        android:paddingBottom="5dp"
         android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/barleyBodyTextContent"
@@ -367,6 +380,7 @@
         android:textSize="22sp"
         android:textStyle="bold" 
         android:layout_weight="0.65"
+        android:paddingBottom="5dp"
         android:layout_gravity="center_vertical"/>	
     <TextView
         android:id="@+id/saisonTextContent"
@@ -392,6 +406,7 @@
         android:textSize="22dp"
         android:textStyle="bold" 
         android:layout_weight="0.65"
+        android:paddingBottom="5dp"
         android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/surBodyTextContent"
@@ -417,6 +432,7 @@
         android:textSize="22sp"
         android:textStyle="bold" 
         android:layout_weight="0.65"
+        android:paddingBottom="5dp"
         android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/mjodBodyTextContent"
@@ -442,6 +458,7 @@
         android:textSize="22sp"
         android:textStyle="bold" 
         android:layout_weight="0.65"
+        android:paddingBottom="5dp"
         android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/specBodyTextContent"
