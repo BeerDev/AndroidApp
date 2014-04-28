@@ -1,8 +1,14 @@
 package com.beerdev.androidapp;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -14,10 +20,14 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Filter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
@@ -76,7 +86,27 @@ public class SwipeViewActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
-
+        
+        ActionBar actionBar = getActionBar(); // you can use ABS or the non-bc ActionBar
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_SHOW_HOME
+                | ActionBar.DISPLAY_HOME_AS_UP); // what's mainly important here is DISPLAY_SHOW_CUSTOM. the rest is optional
+        
+        LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        // inflate the view that we created before
+        View v = inflater.inflate(R.layout.actionbar_search, null);
+        AutoCompleteTextView textView =  (AutoCompleteTextView) v.findViewById(R.id.search_box);
+     
+        textView.setAdapter(new SearchAdapter(SwipeViewActivity.this, MainActivity.productList));
+     
+        textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+     
+            @Override
+        	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // do something when the user clicks
+            }
+        });
+        actionBar.setCustomView(v);
+        
         final SlidingUpPanelLayout layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         boolean actionBarHidden = savedInstanceState != null ?
                 savedInstanceState.getBoolean(SAVED_STATE_ACTION_BAR_HIDDEN, false): false;
@@ -125,11 +155,12 @@ public class SwipeViewActivity extends FragmentActivity {
         pageChangeListener.onPageSelected(0);
         mPager.setCurrentItem(pos);
     }
+    
     /**
      * A method to create menu-
      * @return true - to create menu
      */
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_menu, menu);
@@ -194,7 +225,7 @@ public class SwipeViewActivity extends FragmentActivity {
     		return true;
     	}
     	 //---------MENU END---------------
-    
+    */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

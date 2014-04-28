@@ -12,17 +12,22 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.beerdev.androidapp.ClearableAutoCompleteTextView.OnClearListener;
 
 public class ListViewActivity extends ListActivity{
 	private ListView lv;
@@ -30,7 +35,48 @@ public class ListViewActivity extends ListActivity{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
-
+		
+		ActionBar actionBar = getActionBar(); // you can use ABS or the non-bc ActionBar
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_USE_LOGO | ActionBar.DISPLAY_SHOW_HOME
+		       | ActionBar.DISPLAY_HOME_AS_UP); // what's mainly important here is DISPLAY_SHOW_CUSTOM. the rest is optional
+	 
+		LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		// inflate the view that we created before
+		View v = inflater.inflate(R.layout.actionbar_search, null);
+		// the view that contains the search "magnifier" icon
+		final ImageView searchIcon = (ImageView) v.findViewById(R.id.searchIcon);
+		// the view that contains the new clearable autocomplete text view
+		final ClearableAutoCompleteTextView searchBox =  (ClearableAutoCompleteTextView) v.findViewById(R.id.search_box);
+		
+		// start with the text view hidden in the action bar
+		searchBox.setVisibility(View.INVISIBLE);
+		searchIcon.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				toggleSearch(false);
+			}
+		});
+		
+		searchBox.setOnClearListener(new OnClearListener() {
+			
+			@Override
+			public void onClear() {
+				toggleSearch(true);
+			}
+		});
+		
+		searchBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+	 
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// handle clicks on search resaults here	
+			}
+			
+		});
+		
+		actionBar.setCustomView(v);
+		
 		Button knappSearch = (Button) findViewById(R.id.searchStart);
 		Button knappClear = (Button) findViewById(R.id.searchClear);
 		 
@@ -104,6 +150,31 @@ public class ListViewActivity extends ListActivity{
 
 			}
 		});
+	}
+	// this toggles between the visibility of the search icon and the search box
+	// to show search icon - reset = true
+	// to show search box - reset = false
+	protected void toggleSearch(boolean reset) {
+		ClearableAutoCompleteTextView searchBox = (ClearableAutoCompleteTextView) findViewById(R.id.search_box);
+		ImageView searchIcon = (ImageView) findViewById(R.id.searchIcon);
+		if (reset) {
+			// hide search box and show search icon
+			searchBox.setText("");
+			searchBox.setVisibility(View.GONE);
+			searchIcon.setVisibility(View.VISIBLE);
+			// hide the keyboard
+			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(searchBox.getWindowToken(), 0);
+		} else {
+			// hide search icon and show search box
+			searchIcon.setVisibility(View.GONE);
+			searchBox.setVisibility(View.VISIBLE);
+			searchBox.requestFocus();
+			// show the keyboard
+			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.showSoftInput(searchBox, InputMethodManager.SHOW_IMPLICIT);
+		}
+		
 	}
 	/**
      * A method to create menu-
