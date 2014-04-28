@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -21,7 +20,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.BaseAdapter;
 import android.widget.Toast;
 
 /**
@@ -93,14 +91,14 @@ public class MainActivity extends Activity {
 	JSONArray productsOff = null;
 	
 
-	public static boolean wasOnline = false;
-
+	public static boolean wasOnline;
+	public boolean downloadFinished;
 	/**
 	 * Hashmap for the products
 	 */
 	public static ArrayList<HashMap<String, String>> productList;
-
-	//public ArrayList<HashMap<String, String>> getproductList;
+	
+	public static ArrayList<HashMap<String, String>> completeProductList;
 
 
 	@Override
@@ -110,6 +108,7 @@ public class MainActivity extends Activity {
 
 		productList = new ArrayList<HashMap<String, String>>();
 		//getproductList = new ArrayList<HashMap<String, String>>();
+		
 		CheckingNetwork();	
 	}
 
@@ -173,16 +172,13 @@ public class MainActivity extends Activity {
 
 						// adding contact to contact list
 						productList.add(contact);
-
+						
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-				Sort.sortAlphabetic();
-				Intent in = new Intent(getApplicationContext(),
-						SwipeViewActivity.class);
-				startActivity(in);
-
+				
+				downloadFinished = true;
 			} else {
 				Log.i("ServiceHandler", "Couldn't get any data from the url");
 
@@ -195,9 +191,20 @@ public class MainActivity extends Activity {
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			// Dismiss the progress dialog
+			if(downloadFinished == true){
+				Sort.sortAlphabetic();
+
+				completeProductList = (ArrayList<HashMap<String,String>>) productList.clone();
+				Intent in = new Intent(getApplicationContext(),
+						SwipeViewActivity.class);
+
+				in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+				in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(in);
+				finish();
+			}
 			if (pDialog.isShowing())
 				pDialog.dismiss();
-
 		}
 	}
 	@Override
@@ -219,9 +226,10 @@ public class MainActivity extends Activity {
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo info = cm.getActiveNetworkInfo();
 		if (info != null && info.isConnectedOrConnecting()) {
-			/*if(wasOnline == false){
+			if(wasOnline == false){
 				new GetProducts().execute();
-			}*/
+				Sort.sortAlphabetic();
+			}
 			Log.d("onResumeMain", "isOnline true");
 		}else{
 			Log.d("onResumeMain", "isOnline false");
@@ -242,17 +250,17 @@ public class MainActivity extends Activity {
 		if(isOnline()){
 			Log.i("ONLINE", "ONLINE");		
 			// Calling async task to get json
+			wasOnline = true;
+			downloadFinished = false;
 			new GetProducts().execute();
+			
 
 		}
 		else if(!isOnline())
 		{
 			Toast.makeText(this, "No internet connection..", Toast.LENGTH_LONG).show();
 			offlineMode();	
-			Sort.sortAlphabetic();
-				Intent in = new Intent(getApplicationContext(),
-						SwipeViewActivity.class);
-				startActivity(in);
+			wasOnline = false;		
 		}
 	}
 

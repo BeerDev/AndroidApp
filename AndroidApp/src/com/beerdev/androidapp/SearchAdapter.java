@@ -2,8 +2,11 @@ package com.beerdev.androidapp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Activity;
+import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +16,13 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * A LazyAdapter for showing thumbnails in the listview
+ * @author BeerDev
+ *
+ */
 public class SearchAdapter extends BaseAdapter implements Filterable{
-	 /**
+    /**
      * Activity related to the LazyAdapter
      */
     private Activity activity;
@@ -60,7 +68,7 @@ public class SearchAdapter extends BaseAdapter implements Filterable{
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
         if(convertView==null)
-            vi = inflater.inflate(R.layout.search_item, null);
+            vi = inflater.inflate(R.layout.list_item, null);
         
         // Getting relevant information
         TextView articleName = (TextView)vi.findViewById(R.id.listNamn); 
@@ -123,11 +131,11 @@ public class SearchAdapter extends BaseAdapter implements Filterable{
         protected void publishResults(CharSequence prefix, FilterResults results) {
             productsData = (ArrayList<HashMap<String, String>>) results.values;
             if (results.count > 0) {
+            	MainActivity.productList=productsData;
                 notifyDataSetChanged();
             } else {
-                notifyDataSetInvalidated();
+            	notifyDataSetInvalidated();
             }
         }
     }
-
 }

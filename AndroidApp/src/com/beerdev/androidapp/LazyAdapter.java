@@ -134,8 +134,7 @@ public class LazyAdapter extends BaseAdapter implements Filterable{
             	MainActivity.productList=productsData;
                 notifyDataSetChanged();
             } else {
-            	MainActivity.productList=allProductsData;
-                notifyDataSetInvalidated();
+            	notifyDataSetInvalidated();
             }
         }
     }
