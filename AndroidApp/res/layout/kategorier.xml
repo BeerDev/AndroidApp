@@ -31,16 +31,15 @@
     <!-- Information om Ale -->   
             <TextView
         android:id="@+id/aleHeadTextContent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:ems="10"
-        android:gravity="center"
         android:text="@string/aleHead"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
         android:textStyle="bold" 
         android:layout_weight="0.65"
-        android:layout_gravity="center_vertical"/>
+        android:gravity="center"/>
             
     <TextView
         android:id="@+id/aleBodyTextContent"
@@ -58,7 +57,7 @@
 
     <TextView
         android:id="@+id/lagerHeadTextContent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_vertical"
         android:layout_weight="0.01"
@@ -84,7 +83,7 @@
     <!-- Information om Pilsner -->
             <TextView
         android:id="@+id/PilsnerHeadTextContent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:ems="10"
         android:gravity="center"
@@ -109,7 +108,7 @@
     <!-- Information om Bitter -->
             <TextView
         android:id="@+id/BitterHeadTextContent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:ems="10"
         android:gravity="center"
@@ -134,7 +133,7 @@
     <!-- Information om India Pale Ale (IPA) -->
             <TextView
         android:id="@+id/ipaHeadTextContent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:ems="10"
         android:gravity="center"
@@ -159,7 +158,7 @@
     <!-- Information om Imperial IPA -->
             <TextView
         android:id="@+id/impIpaHeadTextContent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:ems="10"
         android:gravity="center"
@@ -184,7 +183,7 @@
     <!-- Information om Stout -->
             <TextView
       android:id="@+id/stoutHeadTextContent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:ems="10"
         android:gravity="center"
@@ -209,7 +208,7 @@
     <!-- Information om Imperial Stout -->
             <TextView
        android:id="@+id/impStoutHeadTextContent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:ems="10"
         android:gravity="center"
@@ -234,7 +233,7 @@
     <!-- Information om Porter -->
             <TextView
        android:id="@+id/porterHeadTextContent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:ems="10"
         android:gravity="center"
@@ -259,7 +258,7 @@
     <!-- Information om Veteöl -->
             <TextView
         android:id="@+id/veteHeadTextContent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:ems="10"
         android:gravity="center"
@@ -284,7 +283,7 @@
     <!-- Information om Trappist/Abbey -->
             <TextView
         android:id="@+id/trappistHeadTextContent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:ems="10"
         android:gravity="center"
@@ -309,7 +308,7 @@
     <!-- Information om Lambik -->
             <TextView
         android:id="@+id/lambikHeadTextContent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:ems="10"
         android:gravity="center"
@@ -334,7 +333,7 @@
     <!-- Information om Barley Wine -->
             <TextView
         android:id="@+id/barleyHeadTextContent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:ems="10"
         android:gravity="center"
@@ -359,7 +358,7 @@
     <!-- Information om Saison -->
             <TextView
         android:id="@+id/saisonHeadTextContent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:ems="10"
         android:gravity="center"
@@ -384,7 +383,7 @@
     <!-- Information om Suröl -->
             <TextView
         android:id="@+id/surHeadTextContent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:ems="10"
         android:gravity="center"
@@ -409,7 +408,7 @@
     <!-- Information om Mjöd -->
             <TextView
         android:id="@+id/mjodHeadTextContent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:ems="10"
         android:gravity="center"
@@ -434,7 +433,7 @@
     <!-- Information om Specialöl -->
             <TextView
         android:id="@+id/specHeadTextContent"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:ems="10"
         android:gravity="center"
