@@ -83,7 +83,7 @@ public class SwipeViewActivity extends FragmentActivity {
         if (actionBarHidden) {
             getActionBar().hide();
         }
-		
+
         Intent intent = getIntent();
 
         int pos = intent.getIntExtra("BildID", 0);
@@ -146,7 +146,7 @@ public class SwipeViewActivity extends FragmentActivity {
 				//Sending BildID and productList to SwipeViewActivity
 				intentSortAlpha.putExtra("BildID", 0);
 				startActivity(intentSortAlpha);
-	            
+
 				break;
 			case R.id.sortPrice:
 				Sort.sortPrice();
@@ -155,7 +155,7 @@ public class SwipeViewActivity extends FragmentActivity {
 				//Sending BildID and productList to SwipeViewActivity
 				intentSortPrice.putExtra("BildID", 0);
 				startActivity(intentSortPrice);
-	            
+
 				break;
     		case R.id.navListVy:
 	    			// Starting single contact activity
@@ -189,6 +189,13 @@ public class SwipeViewActivity extends FragmentActivity {
     				//Sending BildID and productList to OmOssActivity
     				intentOmKistan.putExtra("BildID", 0);
     	        	startActivity(intentOmKistan);
+    	            break;
+    	        case R.id.navOmKategorier:
+    				Intent intentOmKategorier = new Intent(getApplicationContext(),
+    						OmKategorier.class);
+    				//Sending BildID and productList to OmOssActivity
+    				intentOmKategorier.putExtra("BildID", 0);
+    	        	startActivity(intentOmKategorier);
     	            break;
     		}
     		return true;

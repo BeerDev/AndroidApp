@@ -28,4 +28,8 @@
 	        android:id="@+id/navOmKistan"
 	        android:title="Om Kistan"
 	        android:showAsAction="never"/>
+      <item 
+	        android:id="@+id/navOmKategorier"
+	        android:title="Kategorier"
+	        android:showAsAction="never"/>
 </menu>

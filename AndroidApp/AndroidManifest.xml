@@ -72,6 +72,11 @@
             android:label=""
             android:name="com.beerdev.androidapp.OmKistan" >
         </activity>
+    	<!-- OmKategorier activity -->
+        <activity
+            android:label=""
+            android:name="com.beerdev.androidapp.OmKategorier" >
+        </activity>
     </application>
 
 </manifest>
