@@ -9,7 +9,9 @@
     android:layout_width="match_parent"
     android:layout_height="0dip" 
     android:orientation="vertical"
+    android:paddingBottom="20dp"
     android:weightSum="1">
+    
 
     <TextView
         android:id="@+id/kategorierTextHeader"
@@ -21,6 +23,7 @@
         android:textColor="#FFFFFF"
         android:textSize="30sp" 
         android:layout_weight="0.2"
+        android:paddingBottom="30dp"
         android:layout_gravity="center_vertical">
      
     </TextView>
@@ -28,14 +31,17 @@
     <!-- Information om Ale -->   
             <TextView
         android:id="@+id/aleHeadTextContent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:ems="10"
+        android:gravity="center"
         android:text="@string/aleHead"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" 
+        android:textSize="22sp"
         android:textStyle="bold" 
-        android:layout_weight="0.65"/>
+        android:layout_weight="0.65"
+        android:layout_gravity="center_vertical"/>
+            
     <TextView
         android:id="@+id/aleBodyTextContent"
         android:layout_width="match_parent"
@@ -43,20 +49,26 @@
         android:ems="10"
         android:text="@string/aleBody"
         android:textColor="#FFFFFF"
-        android:textSize="16sp" 
+        android:textSize="16sp"
+        android:layout_gravity="center_vertical" 
+        android:gravity="center"
         android:layout_weight="0.65"/>
 
       <!-- Information om Lager -->
-            <TextView
+
+    <TextView
         android:id="@+id/lagerHeadTextContent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.01"
         android:ems="10"
+        android:gravity="center"
         android:text="@string/lagerHead"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" 
-        android:textStyle="bold" 
-        android:layout_weight="0.65"/>
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/lagerBodyTextContent"
         android:layout_width="match_parent"
@@ -65,19 +77,23 @@
         android:text="@string/lagerBody"
         android:textColor="#FFFFFF"
         android:textSize="16sp" 
+        android:paddingBottom="25dp"
+        android:gravity="center"
         android:layout_weight="0.65"/>
     
     <!-- Information om Pilsner -->
             <TextView
-        android:id="@+id/pilsnerHeadTextContent"
-        android:layout_width="match_parent"
+        android:id="@+id/PilsnerHeadTextContent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:ems="10"
+        android:gravity="center"
         android:text="@string/pilsnerHead"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" 
+        android:textSize="22sp"
         android:textStyle="bold" 
-        android:layout_weight="0.65"/>
+        android:layout_weight="0.65"
+        android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/pilsnerBodyTextContent"
         android:layout_width="match_parent"
@@ -86,19 +102,23 @@
         android:text="@string/pilsnerBody"
         android:textColor="#FFFFFF"
         android:textSize="16sp" 
+        android:paddingBottom="25dp"
+        android:gravity="center"
         android:layout_weight="0.65"/>
     
     <!-- Information om Bitter -->
             <TextView
-        android:id="@+id/bitterHeadTextContent"
-        android:layout_width="match_parent"
+        android:id="@+id/BitterHeadTextContent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:ems="10"
+        android:gravity="center"
         android:text="@string/bitterHead"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" 
+        android:textSize="22sp"
         android:textStyle="bold" 
-        android:layout_weight="0.65"/>
+        android:layout_weight="0.65"
+        android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/bitterBodyTextContent"
         android:layout_width="match_parent"
@@ -107,19 +127,23 @@
         android:text="@string/bitterBody"
         android:textColor="#FFFFFF"
         android:textSize="16sp" 
+        android:paddingBottom="25dp"
+        android:gravity="center"
         android:layout_weight="0.65"/>
     
     <!-- Information om India Pale Ale (IPA) -->
             <TextView
         android:id="@+id/ipaHeadTextContent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:ems="10"
+        android:gravity="center"
         android:text="@string/ipaHead"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" 
+        android:textSize="22sp"
         android:textStyle="bold" 
-        android:layout_weight="0.65"/>
+        android:layout_weight="0.65"
+        android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/ipaBodyTextContent"
         android:layout_width="match_parent"
@@ -128,19 +152,23 @@
         android:text="@string/ipaBody"
         android:textColor="#FFFFFF"
         android:textSize="16sp" 
+        android:paddingBottom="25dp"
+        android:gravity="center"
         android:layout_weight="0.65"/>
     
     <!-- Information om Imperial IPA -->
             <TextView
         android:id="@+id/impIpaHeadTextContent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:ems="10"
+        android:gravity="center"
         android:text="@string/impIpaHead"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" 
+        android:textSize="22sp"
         android:textStyle="bold" 
-        android:layout_weight="0.65"/>
+        android:layout_weight="0.65"
+        android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/impIpaBodyTextContent"
         android:layout_width="match_parent"
@@ -149,19 +177,23 @@
         android:text="@string/impIpaBody"
         android:textColor="#FFFFFF"
         android:textSize="16sp" 
+        android:paddingBottom="25dp"
+        android:gravity="center"
         android:layout_weight="0.65"/>
     
     <!-- Information om Stout -->
             <TextView
-        android:id="@+id/stoutHeadTextContent"
-        android:layout_width="match_parent"
+      android:id="@+id/stoutHeadTextContent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:ems="10"
+        android:gravity="center"
         android:text="@string/stoutHead"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" 
+        android:textSize="22sp"
         android:textStyle="bold" 
-        android:layout_weight="0.65"/>
+        android:layout_weight="0.65"
+        android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/stoutBodyTextContent"
         android:layout_width="match_parent"
@@ -170,19 +202,23 @@
         android:text="@string/stoutBody"
         android:textColor="#FFFFFF"
         android:textSize="16sp" 
+        android:paddingBottom="25dp"
+        android:gravity="center"
         android:layout_weight="0.65"/>
     
     <!-- Information om Imperial Stout -->
             <TextView
-        android:id="@+id/impStoutTextContent"
-        android:layout_width="match_parent"
+       android:id="@+id/impStoutHeadTextContent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:ems="10"
+        android:gravity="center"
         android:text="@string/impStoutHead"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" 
+        android:textSize="22sp"
         android:textStyle="bold" 
-        android:layout_weight="0.65"/>
+        android:layout_weight="0.65"
+        android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/impStoutBodyTextContent"
         android:layout_width="match_parent"
@@ -191,19 +227,23 @@
         android:text="@string/impStoutBody"
         android:textColor="#FFFFFF"
         android:textSize="16sp" 
+        android:paddingBottom="25dp"
+        android:gravity="center"
         android:layout_weight="0.65"/>
     
     <!-- Information om Porter -->
             <TextView
-        android:id="@+id/porterHeadTextContent"
-        android:layout_width="match_parent"
+       android:id="@+id/porterHeadTextContent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:ems="10"
+        android:gravity="center"
         android:text="@string/porterHead"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" 
+        android:textSize="22sp"
         android:textStyle="bold" 
-        android:layout_weight="0.65"/>
+        android:layout_weight="0.65"
+        android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/porterBodyTextContent"
         android:layout_width="match_parent"
@@ -212,21 +252,23 @@
         android:text="@string/porterBody"
         android:textColor="#FFFFFF"
         android:textSize="16sp" 
+        android:paddingBottom="25dp"
+        android:gravity="center"
         android:layout_weight="0.65"/>
-    
-    
     
     <!-- Information om Veteöl -->
             <TextView
         android:id="@+id/veteHeadTextContent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:ems="10"
+        android:gravity="center"
         android:text="@string/veteHead"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" 
+        android:textSize="22sp"
         android:textStyle="bold" 
-        android:layout_weight="0.65"/>
+        android:layout_weight="0.65"
+        android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/veteBodyTextContent"
         android:layout_width="match_parent"
@@ -235,19 +277,23 @@
         android:text="@string/veteBody"
         android:textColor="#FFFFFF"
         android:textSize="16sp" 
+        android:paddingBottom="25dp"
+        android:gravity="center"
         android:layout_weight="0.65"/>
     
     <!-- Information om Trappist/Abbey -->
             <TextView
         android:id="@+id/trappistHeadTextContent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:ems="10"
+        android:gravity="center"
         android:text="@string/trappistHead"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" 
+        android:textSize="22sp"
         android:textStyle="bold" 
-        android:layout_weight="0.65"/>
+        android:layout_weight="0.65"
+        android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/trappistBodyTextContent"
         android:layout_width="match_parent"
@@ -256,19 +302,23 @@
         android:text="@string/trappistBody"
         android:textColor="#FFFFFF"
         android:textSize="16sp" 
+        android:paddingBottom="25dp"
+        android:gravity="center"
         android:layout_weight="0.65"/>
     
     <!-- Information om Lambik -->
             <TextView
         android:id="@+id/lambikHeadTextContent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:ems="10"
+        android:gravity="center"
         android:text="@string/lambikHead"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" 
+        android:textSize="22sp"
         android:textStyle="bold" 
-        android:layout_weight="0.65"/>
+        android:layout_weight="0.65"
+        android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/lambikBodyTextContent"
         android:layout_width="match_parent"
@@ -277,19 +327,23 @@
         android:text="@string/lambikBody"
         android:textColor="#FFFFFF"
         android:textSize="16sp" 
+        android:paddingBottom="25dp"
+        android:gravity="center"
         android:layout_weight="0.65"/>
     
     <!-- Information om Barley Wine -->
             <TextView
         android:id="@+id/barleyHeadTextContent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:ems="10"
+        android:gravity="center"
         android:text="@string/barleyHead"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" 
+        android:textSize="22sp"
         android:textStyle="bold" 
-        android:layout_weight="0.65"/>
+        android:layout_weight="0.65"
+        android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/barleyBodyTextContent"
         android:layout_width="match_parent"
@@ -298,19 +352,23 @@
         android:text="@string/barleyBody"
         android:textColor="#FFFFFF"
         android:textSize="16sp" 
+        android:paddingBottom="25dp"
+        android:gravity="center"
         android:layout_weight="0.65"/>
     
     <!-- Information om Saison -->
             <TextView
         android:id="@+id/saisonHeadTextContent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:ems="10"
+        android:gravity="center"
         android:text="@string/saisonHead"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" 
+        android:textSize="22sp"
         android:textStyle="bold" 
-        android:layout_weight="0.65"/>
+        android:layout_weight="0.65"
+        android:layout_gravity="center_vertical"/>	
     <TextView
         android:id="@+id/saisonTextContent"
         android:layout_width="match_parent"
@@ -319,19 +377,23 @@
         android:text="@string/saisonBody"
         android:textColor="#FFFFFF"
         android:textSize="16sp" 
+        android:paddingBottom="25dp"
+        android:gravity="center"
         android:layout_weight="0.65"/>
     
     <!-- Information om Suröl -->
             <TextView
         android:id="@+id/surHeadTextContent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:ems="10"
+        android:gravity="center"
         android:text="@string/surHead"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" 
+        android:textSize="22dp"
         android:textStyle="bold" 
-        android:layout_weight="0.65"/>
+        android:layout_weight="0.65"
+        android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/surBodyTextContent"
         android:layout_width="match_parent"
@@ -340,19 +402,23 @@
         android:text="@string/surBody"
         android:textColor="#FFFFFF"
         android:textSize="16sp" 
+        android:paddingBottom="25dp"
+        android:gravity="center"
         android:layout_weight="0.65"/>
     
     <!-- Information om Mjöd -->
             <TextView
         android:id="@+id/mjodHeadTextContent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:ems="10"
+        android:gravity="center"
         android:text="@string/mjodHead"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" 
+        android:textSize="22sp"
         android:textStyle="bold" 
-        android:layout_weight="0.65"/>
+        android:layout_weight="0.65"
+        android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/mjodBodyTextContent"
         android:layout_width="match_parent"
@@ -361,19 +427,23 @@
         android:text="@string/mjodBody"
         android:textColor="#FFFFFF"
         android:textSize="16sp" 
+        android:paddingBottom="25dp"
+        android:gravity="center"
         android:layout_weight="0.65"/>
     
     <!-- Information om Specialöl -->
             <TextView
         android:id="@+id/specHeadTextContent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:ems="10"
+        android:gravity="center"
         android:text="@string/specHead"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" 
+        android:textSize="22sp"
         android:textStyle="bold" 
-        android:layout_weight="0.65"/>
+        android:layout_weight="0.65"
+        android:layout_gravity="center_vertical"/>
     <TextView
         android:id="@+id/specBodyTextContent"
         android:layout_width="match_parent"
@@ -381,7 +451,8 @@
         android:ems="10"
         android:text="@string/specBody"
         android:textColor="#FFFFFF"
-        android:textSize="16sp" 
+        android:textSize="16sp"
+        android:gravity="center"
         android:layout_weight="0.65"/>
     
 </LinearLayout>

@@ -55,21 +55,22 @@
         De flesta Ale innehåller humle, vilket bevarar ölet och ger en bitter örtsmak som balanserar upp sötman från malten. 
         </string>
         
-    <string name="lagerBody">Lager är en typ av öl som fermenteras och processeras vid låga temperaturer. 
+    <string name="lagerBody">Lager är en typ av öl som fermenteras och processas vid låga temperaturer. 
         Ljus Lager är den mest konsumerade och kommersiellt tillgängliga stilen av öl i världen. Bock, Pilsner och Märzen är alla stilar av lager. 
         Det finns också Mörk Lager, såsom Dunkel och Schwarz. 
-        Termen Lager är besläktat med ligrs, gotiska för "plats för liggande (ner)".</string>
+        Termen Lager är besläktat med ligrs, gotiska för "plats för liggande (ner)".
+        </string>
         
     <string name="pilsnerBody">Pilsner (även Pilsener eller helt enkelt Pils) är en typ av Ljus Lager. Det tog sitt namn från staden Pilsen (Plzeň, Böhmen, Tjeckien, där det började tillverkas 1842). Det ursprungliga ölet, Pilsner Urquell, produceras fortfarande där i dagens läge. 
 Pilsner är en ljus, underjäst och förhållandevis beskt öl.</string>
 
     <string name="bitterBody">Bitter är en överjäst öl och en engelsk term för Pale Ale. Överjäst öl kännetecknas av att jästen ger betydligt mer smak (ofta fruktig smak) till ölet än vid underjäsning. När det gäller Bitter, är det dock vanligt att doften är betydligt fylligare och fruktigare än vad smaken sedan är.
-        Bitters varierar i färg från guld till mörkt bärnstensfärgad och med en styrka på 3-7% alkohol. </string>
+        Bitters varierar i färg från guld till mörkt bärnstensfärgade och med en styrka på 3-7%. </string>
         
     <string name="ipaBody">India Pale Ale eller IPA är en ölstil inom den bredare kategorin Pale Ale. De bryggdes först i England på 1800-talet.
-        En typisk IPA känns normalt igen på sin doft och smak av humle, sin färg som sträcker sig från guld till bärnstensfärgad, och avsaknad av en rostad karaktär som mörkare öl besitter. </string>
+        En typisk IPA känns normalt igen på sin doft och smak av humle, sin färg som sträcker sig från guld till bärnstensfärgad, och avsaknaden av den rostad karaktär som mörkare öl besitter. </string>
     
-    <string name="impIpaBody">Karakteristiskt för en Imperial/Double IPA är att de är lite starkare för att de har mer humle än en vanlig IPA, även mer malt läggs till för att balansera upp humlen.
+    <string name="impIpaBody">Karaktäristiskt för en Imperial/Double IPA är att de är lite starkare för att de har mer humle än en vanlig IPA, även mer malt läggs till för att balansera upp humlen.
         Imperial/Double IPA får då en stark humlekaraktär och hög alkoholhalt som närmar Barley Wine i styrka, men utan den fulla maltigheten av Barley Wine. </string>
         
     <string name="apaBody">En American Pale Ale tenderar till att använda aningen fräschare jäst och aningen mer humle än dess närbesläktade Indian Pale Ale. I grund och botten är dock en American Pale Ale mer eller mindre en Indian Pale Ale gjort på amerikanska humlesorter. Typiska amerikanska humlesorter är Cascade, Zeus, och Columbus/Tomahawk. 
@@ -102,7 +103,7 @@ Namnet kommer av att alkholhalten kan vara lika hög som hos vin, men råvaran �
     
     <string name="surBody">Suröl är en ölstil som kännetecknas av sin avsiktligt sura, skarpa och syrliga smak. I teorin kan vilken typ av öl som helst vara Suröl, men i praktiken är de vanligaste Surölerna belgiska Lambiks, Gueuzes och Flandern Red Ale.</string>
     
-    <string name="mjodBody">Mjöd, ibland även kallat honungsvin, är en alkoholhaltig dryck som får sin etanolhalt genom jäsning av honung. Även andra råvaror får förekomma i ett mjöd.
+    <string name="mjodBody">Mjöd, ibland även kallat honungsvin, är en dryck som får sin etanolhalt genom jäsning av honung. Även andra råvaror får förekomma i ett mjöd.
         Vid tillverkning av mjöd används ofta samma tekniker som för vin, förutom att man använder vatten och honung istället för druvsaft. Mjöd betyder på ryska honung.</string>
     
     <string name="specBody">Under denna kategori har vi lagt öler som inte riktigt passar in under någon annan. I denna kategori finns tillexempel öl med kraftig smaksättning av ingefära. </string>
