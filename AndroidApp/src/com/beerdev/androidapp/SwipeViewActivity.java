@@ -1,5 +1,8 @@
 package com.beerdev.androidapp;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
@@ -52,6 +55,16 @@ public class SwipeViewActivity extends FragmentActivity {
      */
     public static TextView tvBeerInfo;
     
+    /**
+     * A textview to show the Category of the beer
+     */
+    public static TextView tvBeerType;
+    
+    /**
+     * A textview to show the brewery of the beer
+     */
+    public static TextView tvBeerBrew;
+    
     public static final String SAVED_STATE_ACTION_BAR_HIDDEN = "saved_state_action_bar_hidden";
     
     /**
@@ -92,7 +105,7 @@ public class SwipeViewActivity extends FragmentActivity {
         int pos = intent.getIntExtra("BildID", 0);
         
         //Define the number of viewpages that shall be included in the scrollview
-        NUM_PAGES = MainActivity.productList.size();
+        NUM_PAGES = ListViewActivity.searchList.size();
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -115,12 +128,17 @@ public class SwipeViewActivity extends FragmentActivity {
                 tvBeerSize = (TextView) findViewById(R.id.beerSize);
                 tvBeerPercent = (TextView) findViewById(R.id.beerPercent);
                 tvBeerInfo = (TextView) findViewById(R.id.beerInfo);
-                
-                tvBeerName.setText(MainActivity.productList.get(position).get("Artikelnamn"));
-                tvBeerPrice.setText(MainActivity.productList.get(position).get("Utpris exkl moms")+" kr*");
-                tvBeerSize.setText(MainActivity.productList.get(position).get("Storlek")+" ml*");
-                tvBeerPercent.setText(MainActivity.productList.get(position).get("Alkoholhalt")+" %");
-                tvBeerInfo.setText(MainActivity.productList.get(position).get("Info"));
+                tvBeerType = (TextView) findViewById(R.id.beerType);
+                tvBeerBrew = (TextView) findViewById(R.id.beerBrewery);
+                 
+                tvBeerName.setText(ListViewActivity.searchList.get(position).get("Artikelnamn"));
+                tvBeerPrice.setText(ListViewActivity.searchList.get(position).get("Utpris exkl moms")+" kr*");
+                tvBeerSize.setText(ListViewActivity.searchList.get(position).get("Storlek")+" ml*");
+                tvBeerPercent.setText(ListViewActivity.searchList.get(position).get("Alkoholhalt")+" %");
+                tvBeerBrew.setText(ListViewActivity.searchList.get(position).get("Bryggeri"));
+                tvBeerType.setText(ListViewActivity.searchList.get(position).get("Kategori"));
+                tvBeerInfo.setText(ListViewActivity.searchList.get(position).get("Info"));
+               
             	
             }
         };

@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -21,7 +20,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.BaseAdapter;
 import android.widget.Toast;
 
 /**
@@ -34,10 +32,6 @@ public class MainActivity extends Activity {
 	 * pDialog for showing progress dialog
 	 */
 	private ProgressDialog pDialog;
-	/**
-	 * Show if no internet connection
-	 */
-	private ProgressDialog netDialog;
 	
 	/**
 	 * URL to get products JSON
@@ -86,6 +80,11 @@ public class MainActivity extends Activity {
 	 */
 	private static final String TAG_PERC = "Alkoholhalt";
 	
+	private static final String TAG_KATE = "Kategori";
+	
+	private static final String TAG_BREW = "Bryggeri";
+	
+	
 	/**
 	 * Products JSONArray
 	 */
@@ -97,17 +96,18 @@ public class MainActivity extends Activity {
 	 */
 	public static ArrayList<HashMap<String, String>> productList;
 	
-	public ArrayList<HashMap<String, String>> getproductList;
 		
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
 		productList = new ArrayList<HashMap<String, String>>();
-		getproductList = new ArrayList<HashMap<String, String>>();
 		CheckingNetwork();	
+		ListViewActivity.searchList=(ArrayList<HashMap<String, String>>) MainActivity.productList.clone();
+
 	}
 	
 	
@@ -128,6 +128,7 @@ public class MainActivity extends Activity {
 			
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		protected Void doInBackground(Void... arg0) {
 			// Creating service handler class instance
@@ -155,6 +156,8 @@ public class MainActivity extends Activity {
 						String info = c.getString(TAG_INFO);
 						String size = c.getString(TAG_SIZE);
 						String percent = c.getString(TAG_PERC);
+						String kategori = c.getString(TAG_KATE);
+						String brewery = c.getString(TAG_BREW);
 						
 						// tmp hashmap for single contact
 						HashMap<String, String> contact = new HashMap<String, String>();
@@ -167,6 +170,8 @@ public class MainActivity extends Activity {
 						contact.put(TAG_INFO, info);
 						contact.put(TAG_SIZE, size);
 						contact.put(TAG_PERC, percent);
+						contact.put(TAG_KATE, kategori);
+						contact.put(TAG_BREW, brewery);
 						
 						// adding contact to contact list
 						productList.add(contact);
@@ -175,10 +180,6 @@ public class MainActivity extends Activity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-				Sort.sortAlphabetic();
-				Intent in = new Intent(getApplicationContext(),
-						SwipeViewActivity.class);
-				startActivity(in);
 				
 			} else {
 				Log.i("ServiceHandler", "Couldn't get any data from the url");
@@ -191,8 +192,14 @@ public class MainActivity extends Activity {
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
+			
+			Sort.sortAlphabetic();
+			ListViewActivity.searchList=(ArrayList<HashMap<String, String>>) MainActivity.productList.clone();
+			Intent in = new Intent(getApplicationContext(),
+					SwipeViewActivity.class);
+			startActivity(in);
 			// Dismiss the progress dialog
-			if (pDialog.isShowing())
+				if (pDialog.isShowing())
 				pDialog.dismiss();
 		
 		}
@@ -212,6 +219,8 @@ public class MainActivity extends Activity {
 		
 		if(isOnline()){
 			Log.i("ONLINE", "ONLINE");		
+			Toast.makeText(this, "Online mode..", Toast.LENGTH_LONG).show();
+
 			// Calling async task to get json
 			new GetProducts().execute();
 			
@@ -247,6 +256,7 @@ public void offlineMode(){
 			String info = Offc.getString(TAG_INFO);
 			String size = Offc.getString(TAG_SIZE);
 			String percent = Offc.getString(TAG_PERC);
+			String kategori = Offc.getString(TAG_KATE);
 	
 	      //Add your values in your `ArrayList` as below:
 			HashMap<String, String> hashlist = new HashMap<String,String>();
@@ -258,9 +268,9 @@ public void offlineMode(){
 			hashlist.put(TAG_INFO, info);
 			hashlist.put(TAG_SIZE, size);
 			hashlist.put(TAG_PERC, percent);
+			hashlist.put(TAG_KATE, kategori);
 	
-	     productList.add(hashlist);
-	     getproductList.add(hashlist);
+	     productList.add(hashlist);	     
 	      }
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -275,7 +285,7 @@ public void offlineMode(){
 	        InputStream is = getResources().getAssets().open("JsonAndroidOffline.json");
 
 	        int size = is.available();
-
+ 
 	        byte[] buffer = new byte[size];
 
 	        is.read(buffer);

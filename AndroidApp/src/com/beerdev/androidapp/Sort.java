@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 public class Sort {
@@ -64,52 +65,42 @@ public class Sort {
         });
 	}
 	
+	@SuppressLint("DefaultLocale")
 	public static void Filter(String word) throws JSONException{
 		
 		// Getting JSON Array node
-		filterProductList=new ArrayList<HashMap<String, String>>();
+		//filterProductList=new ArrayList<HashMap<String, String>>();
 		// looping through All products
-		for (int i = 0; i < MainActivity.productList.size();) {
+		for (int i = 0; i < MainActivity.productList.size();i++) 
+		{
 			String c = MainActivity.productList.get(i).get(TAG_NAME);
 			
-			if(!c.contains(word))
+			if(c.toLowerCase().contains(word.toLowerCase()))
 			{			
-				MainActivity.productList.remove(i);
+				//ListViewActivity.searchList.remove(i);
 				
-		/*		MainActivity.productList.get(i).remove(TAG_NAME);
-				MainActivity.productList.get(i).remove(TAG_PATH);
-				MainActivity.productList.get(i).remove(TAG_PRIS);
-				MainActivity.productList.get(i).remove(TAG_INFO);
-				MainActivity.productList.get(i).remove(TAG_SIZE);
-				MainActivity.productList.get(i).remove(TAG_PERC);
-				*/
-/*			String id = MainActivity.productList.get(i).get(TAG_ID);
-			String name = MainActivity.productList.get(i).get(TAG_NAME);
-			String path = MainActivity.productList.get(i).get(TAG_PATH);
-			String pris = MainActivity.productList.get(i).get(TAG_PRIS);
-			String info = MainActivity.productList.get(i).get(TAG_INFO);
-			String size = MainActivity.productList.get(i).get(TAG_SIZE);
-			String percent = MainActivity.productList.get(i).get(TAG_PERC);
-			
-			HashMap<String, String> contact = new HashMap<String, String>();
+				String id = MainActivity.productList.get(i).get(TAG_ID);
+				String name = MainActivity.productList.get(i).get(TAG_NAME);
+				String path = MainActivity.productList.get(i).get(TAG_PATH);
+				String pris = MainActivity.productList.get(i).get(TAG_PRIS);
+				String info = MainActivity.productList.get(i).get(TAG_INFO);
+				String size = MainActivity.productList.get(i).get(TAG_SIZE);
+				String percent = MainActivity.productList.get(i).get(TAG_PERC);
+				
+				HashMap<String, String> contact = new HashMap<String, String>();
 
-			// Adding each child node to HashMap key => value
-			contact.put(TAG_ID, id);
-			contact.put(TAG_NAME, name);
-			contact.put(TAG_PATH, path);
-			contact.put(TAG_PRIS, pris);
-			contact.put(TAG_INFO, info);
-			contact.put(TAG_SIZE, size);
-			contact.put(TAG_PERC, percent);
-	*/		
-			// adding contact to contact list
-			//filterProductList.add(contact);
-		}
-			else{
-				i++;
+				// Adding each child node to HashMap key => value
+				contact.put(TAG_ID, id);
+				contact.put(TAG_NAME, name);
+				contact.put(TAG_PATH, path);
+				contact.put(TAG_PRIS, pris);
+				contact.put(TAG_INFO, info);
+				contact.put(TAG_SIZE, size);
+				contact.put(TAG_PERC, percent);	
+				// adding contact to contact list
+				ListViewActivity.searchList.add(contact);
 			}
-} 
+		} 
 		return;
-	}
-	
+	}	
 }

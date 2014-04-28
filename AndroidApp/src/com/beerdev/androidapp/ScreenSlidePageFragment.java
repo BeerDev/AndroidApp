@@ -66,7 +66,7 @@ public class ScreenSlidePageFragment extends Fragment {
 
         //Loader image
         int loader = R.drawable.placeholder;
-        String image_url = MainActivity.productList.get(mPageNumber).get("URL");
+        String image_url = ListViewActivity.searchList.get(mPageNumber).get("URL");
         ImageLoader imgLoader = new ImageLoader(rootView.getContext());
         imgLoader.DisplayImage(image_url, loader, ivBeer);
 

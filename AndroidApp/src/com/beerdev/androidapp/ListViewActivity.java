@@ -1,11 +1,16 @@
 package com.beerdev.androidapp;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.json.JSONException;
 
 import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,11 +25,58 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class ListViewActivity extends ListActivity{
+	
+	public static ArrayList<HashMap<String, String>> searchList;
 	private ListView lv;
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
+		searchList=(ArrayList<HashMap<String, String>>) MainActivity.productList.clone();
+		
+		
+///-------------------------------------------------------------------
+		
+		final EditText edt = (EditText) findViewById(R.id.searchText);
+		edt.addTextChangedListener(new TextWatcher()
+		{  
+		@Override
+		public void afterTextChanged(Editable s) {
+		    // TODO Auto-generated method stub
+		   // CharSequence cs=convert(edt.getText().toString());
+		   //         edt.setText(cs);
+		   try {         
+			 EditText searchFor = (EditText) findViewById(R.id.searchText);
+			 String searching = searchFor.getText().toString();
+			 Log.d("--EDITTEXT---", searching);
+			 searchList.clear();
+			 
+			 Sort.Filter(searching);
+			 ((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+		 } catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,
+		        int after) {
+		    // TODO Auto-generated method stub
+
+
+		}
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+		    // TODO Auto-generated method stub
+
+		}
+		});
+//-----------------------------------------------------
+		
+		
+		
+		
 		
 		Button knappSearch = (Button) findViewById(R.id.searchStart);
 		Button knappClear = (Button) findViewById(R.id.searchClear);
@@ -33,38 +85,42 @@ public class ListViewActivity extends ListActivity{
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				try {
+				try 
+				{
 					EditText searchFor = (EditText) findViewById(R.id.searchText);
 					String searching = searchFor.getText().toString();
 					Log.d("--EDITTEXT---", searching);
+					searchList.clear();
 					Sort.Filter(searching);
 					((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
 					
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} 
+				catch (JSONException e) 
+				{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						
 				}
-				
+			
 			}
 			
 		});
 		
 		knappClear.setOnClickListener(new OnClickListener() {			
+			@SuppressWarnings("unchecked")
 			@Override
 			public void onClick(View arg0) {
-				
-				Intent in = new Intent(getApplicationContext(),
-						MainActivity.class);
-
-				startActivity(in);
-				//((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();				
+				findViewById(R.id.SearchBar).setVisibility(View.GONE);
+				((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+				searchList=(ArrayList<HashMap<String, String>>) MainActivity.productList.clone();
+				((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();				
 			}
 		});
 		
 		
 		lv = getListView();
 		// Getting adapter by passing xml data ArrayList
-        LazyAdapter adapter=new LazyAdapter(ListViewActivity.this, MainActivity.productList);        
+        LazyAdapter adapter=new LazyAdapter(ListViewActivity.this, searchList);        
         setListAdapter(adapter);
         
 		// Listview on item click listener
@@ -87,6 +143,10 @@ public class ListViewActivity extends ListActivity{
 			}
 		});
 	}
+	private CharSequence convert(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	/**
      * A method to create menu-
      * @return true - to create menu
@@ -95,8 +155,7 @@ public class ListViewActivity extends ListActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_menu, menu);
-        getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        
+     
         return super.onCreateOptionsMenu(menu);
     }
     

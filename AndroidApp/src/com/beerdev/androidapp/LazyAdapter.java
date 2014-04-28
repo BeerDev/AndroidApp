@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,7 +74,7 @@ public class LazyAdapter extends BaseAdapter {
         productList = productsData.get(position);
         
             // Setting all values in listview
-            int loader = R.drawable.placeholder;
+          //  int loader = R.drawable.placeholder;
             imageLoader.DisplayImage(productList.get(MainActivity.TAG_PATH),NO_SELECTION, thumbnailImage);
             articleName.setText(productList.get(MainActivity.TAG_NAME));
             id.setText(productList.get(MainActivity.TAG_ID));
