@@ -34,7 +34,7 @@ public class ListViewActivity extends ListActivity{
 		setContentView(R.layout.activity_list);
 
 		// Getting adapter by passing xml data ArrayList
-        final LazyAdapter adapter=new LazyAdapter(ListViewActivity.this, MainActivity.completeProductList);      
+        final LazyAdapter adapter=new LazyAdapter(ListViewActivity.this, MainActivity.productList);      
         setListAdapter(adapter);
         	
 		Button knappSearch = (Button) findViewById(R.id.searchStart);

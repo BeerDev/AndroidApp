@@ -224,7 +224,11 @@ public class SwipeViewActivity extends FragmentActivity {
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
         }
-
+        
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
         /**
          * @return Returns a new fragment for the viewpager.
          */
@@ -260,7 +264,7 @@ public class SwipeViewActivity extends FragmentActivity {
 	@Override
 	protected void onResume(){
 		super.onResume();
-		mPagerAdapter.notifyDataSetChanged();
+		mPager.getAdapter().notifyDataSetChanged();
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo info = cm.getActiveNetworkInfo();
 		if (info != null && info.isConnectedOrConnecting()) {

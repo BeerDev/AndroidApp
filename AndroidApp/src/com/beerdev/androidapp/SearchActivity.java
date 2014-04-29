@@ -35,9 +35,9 @@ public class SearchActivity extends Activity{
 	    	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 	            // do something when the user clicks
 	        	// getting values from selected ListItem			
-				Log.i("Size of compl. ProdList", Integer.toString(MainActivity.completeProductList.size()));
+				//Log.i("Size of compl. ProdList", Integer.toString(MainActivity.completeProductList.size()));
 				// Starting single contact activity
-				Intent in = new Intent(getApplicationContext(),
+	        	Intent in = new Intent(getApplicationContext(),
 						SwipeViewActivity.class);
 				
 				//Sending BildID and ContactList to SwipeViewActivity
@@ -56,15 +56,26 @@ public class SearchActivity extends Activity{
 	            if(event.getAction() == MotionEvent.ACTION_UP) {
 	                if(event.getX() >= (textView.getRight() - textView.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
 	        			textView.setText("");
+
+	    				Log.i("Size of compl. ProdList before", Integer.toString(MainActivity.completeProductList.size()));
+
+	    				Log.i("Size of ProdList before", Integer.toString(MainActivity.productList.size()));
+	    				MainActivity.productList = (ArrayList<HashMap<String, String>>) MainActivity.completeProductList.clone();
+
+	    				Log.i("Size of compl. ProdList after", Integer.toString(MainActivity.completeProductList.size()));
+
+	    				Log.i("Size of ProdList after", Integer.toString(MainActivity.productList.size()));
 	        			finish();
 	                }
 	            }
 	            return false;
 	        }
 	    });
+
 	    textView.requestFocus();
 	    textView.setFocusableInTouchMode(true);
 	    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.showSoftInput(textView, InputMethodManager.SHOW_IMPLICIT);
-	} 
+		imm.showSoftInput(textView, InputMethodManager.SHOW_FORCED);
+	}
+    
 }
