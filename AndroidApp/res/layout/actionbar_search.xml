@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="fill_horizontal"
-    android:focusable="true" 
-    android:paddingTop="?android:attr/actionBarSize">
+    android:focusable="true">
  
     <AutoCompleteTextView
         android:id="@+id/search_box"

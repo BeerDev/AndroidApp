@@ -7,25 +7,22 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.TextView;
 
 public class SearchActivity extends Activity{
 	
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actionbar_search);
         
-        final SearchAdapter searchAdapter=new SearchAdapter(SearchActivity.this, MainActivity.completeProductList);      
+        final SearchAdapter searchAdapter=new SearchAdapter(SearchActivity.this, MainActivity.productList);      
         
     	final AutoCompleteTextView textView =  (AutoCompleteTextView) findViewById(R.id.search_box);
 	 
@@ -38,12 +35,10 @@ public class SearchActivity extends Activity{
 	    	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 	            // do something when the user clicks
 	        	// getting values from selected ListItem			
-				String ID = ((TextView) view.findViewById(R.id.listID)).getText().toString();
-
+				Log.i("Size of compl. ProdList", Integer.toString(MainActivity.completeProductList.size()));
 				// Starting single contact activity
 				Intent in = new Intent(getApplicationContext(),
 						SwipeViewActivity.class);
-				MainActivity.productList = (ArrayList<HashMap<String, String>>) SearchAdapter.searchData.clone();
 				
 				//Sending BildID and ContactList to SwipeViewActivity
 				in.putExtra("BildID", position);
@@ -61,32 +56,15 @@ public class SearchActivity extends Activity{
 	            if(event.getAction() == MotionEvent.ACTION_UP) {
 	                if(event.getX() >= (textView.getRight() - textView.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
 	        			textView.setText("");
-	        			searchAdapter.notifyDataSetChanged();
+	        			finish();
 	                }
 	            }
 	            return false;
 	        }
 	    });
-	    textView.addTextChangedListener(new TextWatcher() {         
-	        @Override
-	        public void onTextChanged(CharSequence s, int start, int before, int count) {
-	        	searchAdapter.getFilter().filter(s);
-	        }
-
-	        @Override
-	        public void beforeTextChanged(CharSequence s, int start, int count,
-	                int after) {                
-
-	        }
-
-	        @Override
-	        public void afterTextChanged(Editable s) {
-
-	        }
-	    });
 	    textView.requestFocus();
 	    textView.setFocusableInTouchMode(true);
 	    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.showSoftInput(textView, InputMethodManager.SHOW_FORCED);
-	}
+		imm.showSoftInput(textView, InputMethodManager.SHOW_IMPLICIT);
+	} 
 }

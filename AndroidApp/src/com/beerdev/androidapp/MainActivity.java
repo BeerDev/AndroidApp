@@ -124,9 +124,6 @@ public class MainActivity extends Activity {
 			super.onPreExecute();			
 			// Showing progress dialog
 			pDialog = new ProgressDialog(MainActivity.this);
-			pDialog.setMessage("Loading...");
-			pDialog.setCancelable(false);
-			pDialog.show();
 
 		}
 
@@ -172,7 +169,6 @@ public class MainActivity extends Activity {
 
 						// adding contact to contact list
 						productList.add(contact);
-						
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -194,7 +190,7 @@ public class MainActivity extends Activity {
 			if(downloadFinished == true){
 				Sort.sortAlphabetic();
 
-				completeProductList = (ArrayList<HashMap<String,String>>) productList.clone();
+				completeProductList = new ArrayList<HashMap<String,String>>(productList);
 				Intent in = new Intent(getApplicationContext(),
 						SwipeViewActivity.class);
 
@@ -248,7 +244,6 @@ public class MainActivity extends Activity {
 	public void CheckingNetwork(){
 
 		if(isOnline()){
-			Log.i("ONLINE", "ONLINE");		
 			// Calling async task to get json
 			wasOnline = true;
 			downloadFinished = false;
@@ -328,47 +323,4 @@ public void offlineMode(){
 	    }
 
 	}
-
-	//-------Menu---------
-	 @Override
-	    public boolean onCreateOptionsMenu(Menu menu) {
-	        // Inflate the menu; this adds items to the action bar if it is present.
-	        getMenuInflater().inflate(R.menu.navigation_menu, menu);
-	        getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-
-	        return super.onCreateOptionsMenu(menu);
-	    }
-
-
-	    @Override
-	    public boolean onOptionsItemSelected(MenuItem item) {
-	    	switch (item.getItemId()) {
-	    		case R.id.navListVy:
-		    			// Starting single contact activity
-						Intent intentList = new Intent(getApplicationContext(),
-								ListViewActivity.class);
-						//Sending BildID and productList to ListViewActivity
-						intentList.putExtra("BildID", 0);
-						startActivity(intentList);
-	    	            break;
-	    	        case R.id.navScrollvy:
-	    	        	// Starting single contact activity
-	    				Intent intentSwipe = new Intent(getApplicationContext(),
-	    						SwipeViewActivity.class);
-	    				//Sending BildID and productList to SwipeViewActivity
-	    				intentSwipe.putExtra("BildID", 0);
-	    				startActivity(intentSwipe);
-	    	            break;
-	    	        case R.id.navOmOss:
-	    				Intent intentOmoss = new Intent(getApplicationContext(),
-	    						OmOss.class);
-	    				//Sending BildID and productList to OmOssActivity
-	    				intentOmoss.putExtra("BildID", 0);
-	    	        	startActivity(intentOmoss);
-	    	            break;
-	    	        }
-	    	        return true;
-	    	        }
-	    	 //---------MENU END---------------
-
 }

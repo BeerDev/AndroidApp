@@ -260,6 +260,7 @@ public class SwipeViewActivity extends FragmentActivity {
 	@Override
 	protected void onResume(){
 		super.onResume();
+		mPagerAdapter.notifyDataSetChanged();
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo info = cm.getActiveNetworkInfo();
 		if (info != null && info.isConnectedOrConnecting()) {

@@ -123,12 +123,11 @@ public class SearchAdapter extends BaseAdapter implements Filterable{
 
 		@Override
         protected void publishResults(CharSequence prefix, FilterResults results) {
-            if (results!=null && results.count > 0) {
-                Log.i("PUBLISH RESULT", Integer.toString(results.count));
-            	notifyDataSetChanged();
+            searchData = (ArrayList<HashMap<String, String>>) results.values;
+            MainActivity.productList = (ArrayList<HashMap<String, String>>) searchData.clone();
+			if (results!=null && results.count > 0) {
+                notifyDataSetChanged();
             } else {
-
-                Log.i("PUBLISH RESULT", Integer.toString(results.count));
             	notifyDataSetInvalidated();
             }
         }
