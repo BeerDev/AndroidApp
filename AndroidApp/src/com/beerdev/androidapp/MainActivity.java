@@ -190,7 +190,7 @@ public class MainActivity extends Activity {
 			if(downloadFinished == true){
 				Sort.sortAlphabetic();
 
-				completeProductList = new ArrayList<HashMap<String,String>>(productList);
+				completeProductList = (ArrayList<HashMap<String,String>>) productList.clone();
 				Intent in = new Intent(getApplicationContext(),
 						SwipeViewActivity.class);
 

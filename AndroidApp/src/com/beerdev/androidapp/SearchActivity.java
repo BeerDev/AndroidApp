@@ -55,16 +55,10 @@ public class SearchActivity extends Activity{
 
 	            if(event.getAction() == MotionEvent.ACTION_UP) {
 	                if(event.getX() >= (textView.getRight() - textView.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-	        			textView.setText("");
+	                	//textView.setText("");
 
-	    				Log.i("Size of compl. ProdList before", Integer.toString(MainActivity.completeProductList.size()));
-
-	    				Log.i("Size of ProdList before", Integer.toString(MainActivity.productList.size()));
 	    				MainActivity.productList = (ArrayList<HashMap<String, String>>) MainActivity.completeProductList.clone();
 
-	    				Log.i("Size of compl. ProdList after", Integer.toString(MainActivity.completeProductList.size()));
-
-	    				Log.i("Size of ProdList after", Integer.toString(MainActivity.productList.size()));
 	        			finish();
 	                }
 	            }

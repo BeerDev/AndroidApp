@@ -13,17 +13,17 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.beerdev.androidapp.ClearableAutoCompleteTextView.OnClearListener;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 public class SwipeViewActivity extends FragmentActivity {
@@ -129,8 +129,99 @@ public class SwipeViewActivity extends FragmentActivity {
         mPager.setOnPageChangeListener(pageChangeListener);
         pageChangeListener.onPageSelected(0);
         mPager.setCurrentItem(pos);	    
+        
+        ActionBar actionBar = getActionBar(); // you can use ABS or the non-bc ActionBar
+    	actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+    	
+    	LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    	
+    	View v = inflater.inflate(R.layout.actionbar_search, null);
+    	final ImageView searchIcon = (ImageView) v.findViewById(R.id.search_icon);
+    	
+        final SearchAdapter searchAdapter=new SearchAdapter(SwipeViewActivity.this, MainActivity.productList);      
+        
+        // the view that contains the new clearable autocomplete text view
+    	final ClearableAutoCompleteTextView searchBox =  (ClearableAutoCompleteTextView) v.findViewById(R.id.search_box);
+    	
+	    //searchBox.setThreshold(1);
+	    //searchBox.setAdapter(searchAdapter);
+	    //searchAdapter.notifyDataSetChanged();
+    	// start with the text view hidden in the action bar
+    	searchBox.setVisibility(View.INVISIBLE);
+    	searchIcon.setOnClickListener(new View.OnClickListener() {
+    		
+    		@Override
+    		public void onClick(View v) {
+    			toggleSearch(false);
+    		}
+    	});
+    	searchBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+	 
+	        @Override
+	    	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	            // do something when the user clicks
+	        	// getting values from selected ListItem			
+				//Log.i("Size of compl. ProdList", Integer.toString(MainActivity.completeProductList.size()));
+				// Starting single contact activity
+	        	Intent in = new Intent(getApplicationContext(),
+						SwipeViewActivity.class);
+				
+				//Sending BildID and ContactList to SwipeViewActivity
+				in.putExtra("BildID", position);
+				startActivity(in);
+	        }
+	    });
+	    /*searchBox.setOnTouchListener(new OnTouchListener() {
+	        @Override
+	        public boolean onTouch(View v, MotionEvent event) {
+	            final int DRAWABLE_LEFT = 0;
+	            final int DRAWABLE_TOP = 1;
+	            final int DRAWABLE_RIGHT = 2;
+	            final int DRAWABLE_BOTTOM = 3;
+
+	            if(event.getAction() == MotionEvent.ACTION_UP) {
+	                if(event.getX() >= (searchBox.getRight() - searchBox.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+	                	//textView.setText("");
+
+	    				MainActivity.productList = (ArrayList<HashMap<String, String>>) MainActivity.completeProductList.clone();
+
+	        			finish();
+	                }
+	            }
+	            return false;
+	        }
+	    });*/
+    	searchBox.setOnClearListener(new OnClearListener() {
+    		
+    		@Override
+    		public void onClear() {
+    			toggleSearch(true);
+    		}
+    	});
+	    actionBar.setCustomView(v);
     }
-    
+    protected void toggleSearch(boolean reset) {
+    	ClearableAutoCompleteTextView searchBox = (ClearableAutoCompleteTextView) findViewById(R.id.search_box);
+    	ImageView searchIcon = (ImageView) findViewById(R.id.search_icon);
+    	if (reset) {
+    		// hide search box and show search icon
+    		searchBox.setText("");
+    		searchBox.setVisibility(View.GONE);
+    		searchIcon.setVisibility(View.VISIBLE);
+    		// hide the keyboard
+    		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+    		imm.hideSoftInputFromWindow(searchBox.getWindowToken(), 0);
+    	} else {
+    		// hide search icon and show search box
+    		searchIcon.setVisibility(View.GONE);
+    		searchBox.setVisibility(View.VISIBLE);
+    		searchBox.requestFocus();
+    		// show the keyboard
+    		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+    		imm.showSoftInput(searchBox, InputMethodManager.SHOW_IMPLICIT);
+    	}
+    	
+    }
     /**
      * A method to create menu-
      * @return true - to create menu
@@ -140,19 +231,13 @@ public class SwipeViewActivity extends FragmentActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_menu, menu);
         return super.onCreateOptionsMenu(menu);
+        
     }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
-    		case R.id.searchButton:
-				Intent intentSearch = new Intent(getApplicationContext(),
-						SearchActivity.class);
-				//Sending BildID and productList to SwipeViewActivity
-				intentSearch.putExtra("BildID", 0);
-				startActivity(intentSearch);
-	            
-			break;
+    		
 	    	case R.id.sortAlphab:
 				Sort.sortAlphabetic();
 				Intent intentSortAlpha = new Intent(getApplicationContext(),

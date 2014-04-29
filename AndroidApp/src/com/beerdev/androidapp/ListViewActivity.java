@@ -112,13 +112,7 @@ public class ListViewActivity extends ListActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
-	    	case R.id.searchButton:
-				Intent intentSearch = new Intent(getApplicationContext(),
-						SearchActivity.class);
-				//Sending BildID and productList to SwipeViewActivity
-				intentSearch.putExtra("BildID", 0);
-				startActivity(intentSearch);
-				break;
+	    
     		case R.id.sortAlphab:
     			Sort.sortAlphabetic();
     			((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
