@@ -62,18 +62,22 @@
 			      <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
 			   </intent-filter>
 		</receiver>
-		<!-- Search results activity -->
-        <activity 
-            android:label=""
-		    android:theme="@style/NoActionBar"
-            android:windowSoftInputMode="stateVisible|adjustResize"
-            android:name=".SearchActivity" >
 
-        </activity>
         <!-- OmKistan activity -->
         <activity
             android:label=""
             android:name="com.beerdev.androidapp.OmKistan" >
+        </activity>
+        
+         <activity android:name=".SearchActivity"
+            android:parentActivityName="com.beerdev.androidapp.SwipeViewActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+ 
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
     </application>
 

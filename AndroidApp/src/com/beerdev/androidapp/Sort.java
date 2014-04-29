@@ -65,22 +65,40 @@ public class Sort {
 	}
 	
 	public static void Filter(String word) throws JSONException{
-		
+		MainActivity.productList.clear();
 		// Getting JSON Array node
-		filterProductList=new ArrayList<HashMap<String, String>>();
+		//filterProductList=new ArrayList<HashMap<String, String>>();
 		// looping through All products
-		for (int i = 0; i < MainActivity.productList.size();) {
-			String c = MainActivity.productList.get(i).get(TAG_NAME);
-			
-			if(!c.toLowerCase().contains(word.toLowerCase()))
+		for (int i = 0; i < MainActivity.completeProductList.size();i++) 
+		{
+			String c = MainActivity.completeProductList.get(i).get(TAG_NAME);
+
+			if(c.toLowerCase().contains(word.toLowerCase()))
 			{			
-				MainActivity.productList.remove(i);			
-			}
-			else{
-				i++;
+				//ListViewActivity.searchList.remove(i);
+
+				String id = MainActivity.completeProductList.get(i).get(TAG_ID);
+				String name = MainActivity.completeProductList.get(i).get(TAG_NAME);
+				String path = MainActivity.completeProductList.get(i).get(TAG_PATH);
+				String pris = MainActivity.completeProductList.get(i).get(TAG_PRIS);
+				String info = MainActivity.completeProductList.get(i).get(TAG_INFO);
+				String size = MainActivity.completeProductList.get(i).get(TAG_SIZE);
+				String percent = MainActivity.completeProductList.get(i).get(TAG_PERC);
+
+				HashMap<String, String> contact = new HashMap<String, String>();
+
+				// Adding each child node to HashMap key => value
+				contact.put(TAG_ID, id);
+				contact.put(TAG_NAME, name);
+				contact.put(TAG_PATH, path);
+				contact.put(TAG_PRIS, pris);
+				contact.put(TAG_INFO, info);
+				contact.put(TAG_SIZE, size);
+				contact.put(TAG_PERC, percent);	
+				// adding contact to contact list
+				MainActivity.productList.add(contact);
 			}
 		} 
 		return;
 	}
-	
 }

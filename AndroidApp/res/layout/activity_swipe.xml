@@ -5,7 +5,7 @@
     tools:context=".SwipeViewActivity" 
     android:paddingTop="?android:attr/actionBarSize"
     android:background="@drawable/testbild">
-
+	
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         xmlns:sothree="http://schemas.android.com/apk/res-auto"
         android:id="@+id/sliding_layout"
@@ -98,5 +98,5 @@
                     android:paddingLeft="10dp"/>
         </LinearLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-
+    
 </RelativeLayout>

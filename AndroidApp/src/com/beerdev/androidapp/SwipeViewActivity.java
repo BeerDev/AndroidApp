@@ -1,6 +1,11 @@
 package com.beerdev.androidapp;
 
-import android.app.ActionBar;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.json.JSONException;
+
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -14,19 +19,17 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ImageView;
+import android.widget.SearchView;
+import android.widget.SearchView.OnCloseListener;
+import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.beerdev.androidapp.ClearableAutoCompleteTextView.OnClearListener;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-public class SwipeViewActivity extends FragmentActivity {
+public class SwipeViewActivity extends FragmentActivity implements OnQueryTextListener {
     private static final String TAG = "DemoActivity";
 
     /**
@@ -76,6 +79,7 @@ public class SwipeViewActivity extends FragmentActivity {
      * The pager adapter, which provides the pages to the view pager widget.
      */
     private PagerAdapter mPagerAdapter;
+    public OnPageChangeListener pageChangeListener;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,12 +87,7 @@ public class SwipeViewActivity extends FragmentActivity {
         setContentView(R.layout.activity_swipe);
         
         final SlidingUpPanelLayout layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-        boolean actionBarHidden = savedInstanceState != null ?
-                savedInstanceState.getBoolean(SAVED_STATE_ACTION_BAR_HIDDEN, false): false;
-        if (actionBarHidden) {
-            getActionBar().hide();
-        }
-		
+        
         Intent intent = getIntent();
 
         int pos = intent.getIntExtra("BildID", 0);
@@ -100,7 +99,7 @@ public class SwipeViewActivity extends FragmentActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
-        OnPageChangeListener pageChangeListener = new OnPageChangeListener() {
+        pageChangeListener = new OnPageChangeListener() {
             @Override
             public void onPageScrollStateChanged(int arg0) { }
 
@@ -129,99 +128,9 @@ public class SwipeViewActivity extends FragmentActivity {
         mPager.setOnPageChangeListener(pageChangeListener);
         pageChangeListener.onPageSelected(0);
         mPager.setCurrentItem(pos);	    
-        
-        ActionBar actionBar = getActionBar(); // you can use ABS or the non-bc ActionBar
-    	actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-    	
-    	LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    	
-    	View v = inflater.inflate(R.layout.actionbar_search, null);
-    	final ImageView searchIcon = (ImageView) v.findViewById(R.id.search_icon);
-    	
-        final SearchAdapter searchAdapter=new SearchAdapter(SwipeViewActivity.this, MainActivity.productList);      
-        
-        // the view that contains the new clearable autocomplete text view
-    	final ClearableAutoCompleteTextView searchBox =  (ClearableAutoCompleteTextView) v.findViewById(R.id.search_box);
-    	
-	    //searchBox.setThreshold(1);
-	    //searchBox.setAdapter(searchAdapter);
-	    //searchAdapter.notifyDataSetChanged();
-    	// start with the text view hidden in the action bar
-    	searchBox.setVisibility(View.INVISIBLE);
-    	searchIcon.setOnClickListener(new View.OnClickListener() {
-    		
-    		@Override
-    		public void onClick(View v) {
-    			toggleSearch(false);
-    		}
-    	});
-    	searchBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-	 
-	        @Override
-	    	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	            // do something when the user clicks
-	        	// getting values from selected ListItem			
-				//Log.i("Size of compl. ProdList", Integer.toString(MainActivity.completeProductList.size()));
-				// Starting single contact activity
-	        	Intent in = new Intent(getApplicationContext(),
-						SwipeViewActivity.class);
-				
-				//Sending BildID and ContactList to SwipeViewActivity
-				in.putExtra("BildID", position);
-				startActivity(in);
-	        }
-	    });
-	    /*searchBox.setOnTouchListener(new OnTouchListener() {
-	        @Override
-	        public boolean onTouch(View v, MotionEvent event) {
-	            final int DRAWABLE_LEFT = 0;
-	            final int DRAWABLE_TOP = 1;
-	            final int DRAWABLE_RIGHT = 2;
-	            final int DRAWABLE_BOTTOM = 3;
 
-	            if(event.getAction() == MotionEvent.ACTION_UP) {
-	                if(event.getX() >= (searchBox.getRight() - searchBox.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-	                	//textView.setText("");
-
-	    				MainActivity.productList = (ArrayList<HashMap<String, String>>) MainActivity.completeProductList.clone();
-
-	        			finish();
-	                }
-	            }
-	            return false;
-	        }
-	    });*/
-    	searchBox.setOnClearListener(new OnClearListener() {
-    		
-    		@Override
-    		public void onClear() {
-    			toggleSearch(true);
-    		}
-    	});
-	    actionBar.setCustomView(v);
     }
-    protected void toggleSearch(boolean reset) {
-    	ClearableAutoCompleteTextView searchBox = (ClearableAutoCompleteTextView) findViewById(R.id.search_box);
-    	ImageView searchIcon = (ImageView) findViewById(R.id.search_icon);
-    	if (reset) {
-    		// hide search box and show search icon
-    		searchBox.setText("");
-    		searchBox.setVisibility(View.GONE);
-    		searchIcon.setVisibility(View.VISIBLE);
-    		// hide the keyboard
-    		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-    		imm.hideSoftInputFromWindow(searchBox.getWindowToken(), 0);
-    	} else {
-    		// hide search icon and show search box
-    		searchIcon.setVisibility(View.GONE);
-    		searchBox.setVisibility(View.VISIBLE);
-    		searchBox.requestFocus();
-    		// show the keyboard
-    		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-    		imm.showSoftInput(searchBox, InputMethodManager.SHOW_IMPLICIT);
-    	}
-    	
-    }
+
     /**
      * A method to create menu-
      * @return true - to create menu
@@ -230,8 +139,20 @@ public class SwipeViewActivity extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-        
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView  searchView = (SearchView) menu.findItem(R.id.search)
+                .getActionView();
+        searchView.setSearchableInfo(searchManager
+                .getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(this);
+        searchView.setOnCloseListener(new OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                System.out.println("Testing. 1, 2, 3...");
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);        
     }
     
     @Override
@@ -361,6 +282,36 @@ public class SwipeViewActivity extends FragmentActivity {
 		}else{
 			Log.d("onResumeSwipe", "isOnline false");
 		}
+	}
+
+	@Override
+	public boolean onQueryTextSubmit(String query) {
+		Log.i("Query", "Query");
+		return false;
+	}
+
+	@Override
+	public boolean onQueryTextChange(String newText) {
+		// TODO Auto-generated method stub
+			try {
+				ArrayList<HashMap<String,String>> tempProductList = (ArrayList<HashMap<String, String>>) MainActivity.productList.clone();
+				Sort.Filter(newText);
+				Log.i("INFO", Integer.toString(MainActivity.productList.size()));
+				if(MainActivity.productList.size()==0){
+					MainActivity.productList = (ArrayList<HashMap<String, String>>) tempProductList.clone();
+
+					Toast.makeText(this, "Inga resultat", Toast.LENGTH_SHORT).show();
+				}
+				mPager.getAdapter().notifyDataSetChanged();
+
+				pageChangeListener.onPageSelected(0);
+		        mPager.setCurrentItem(0);	 
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		return false;
 	}
 
 }

@@ -4,6 +4,7 @@ import org.json.JSONException;
 
 import android.app.ActionBar;
 import android.app.ListActivity;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -24,19 +25,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 
-public class ListViewActivity extends ListActivity{
+public class ListViewActivity extends ListActivity implements OnQueryTextListener{
 	private ListView lv;
+	public static LazyAdapter adapter;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
 
 		// Getting adapter by passing xml data ArrayList
-        final LazyAdapter adapter=new LazyAdapter(ListViewActivity.this, MainActivity.productList);      
+        adapter=new LazyAdapter(ListViewActivity.this, MainActivity.productList);      
         setListAdapter(adapter);
-        	
 		Button knappSearch = (Button) findViewById(R.id.searchStart);
 		Button knappClear = (Button) findViewById(R.id.searchClear);
 		 
@@ -104,7 +107,12 @@ public class ListViewActivity extends ListActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_menu, menu);
-        
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView  searchView = (SearchView) menu.findItem(R.id.search)
+                .getActionView();
+        searchView.setSearchableInfo(searchManager
+                .getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(this);;
         return super.onCreateOptionsMenu(menu);
     }
     
@@ -175,6 +183,19 @@ public class ListViewActivity extends ListActivity{
 		}else{
 			Log.d("onResumeMain", "isOnline false");
 		}
+	}
+
+	@Override
+	public boolean onQueryTextSubmit(String query) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean onQueryTextChange(String newText) {
+		// TODO Auto-generated method stub
+		adapter.getFilter().filter(newText);
+		return false;
 	}
 
 
