@@ -28,7 +28,7 @@
      
     </TextView>
     
-    <!-- Information om Ale -->   
+    <!-- Information om Ale  -->   
             <TextView
         android:id="@+id/aleHeadTextContent"
         android:layout_width="fill_parent"
