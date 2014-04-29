@@ -63,26 +63,26 @@ public class MainActivity extends Activity {
 	/**
 	 * JSON Node for finding price
 	 */
-	private static final String TAG_PRIS = "Utpris exkl moms";
+	public static final String TAG_PRIS = "Utpris exkl moms";
 	
 	/**
 	 * JSON Node for finding description of beer
 	 */
-	private static final String TAG_INFO = "Info";
+	public static final String TAG_INFO = "Info";
 	
 	/**
 	 * JSON Node for finding size of beer
 	 */
-	private static final String TAG_SIZE = "Storlek";
+	public static final String TAG_SIZE = "Storlek";
 	
 	/**
 	 * JSON Node for finding percent of beer
 	 */
-	private static final String TAG_PERC = "Alkoholhalt";
+	public static final String TAG_PERC = "Alkoholhalt";
 	
-	private static final String TAG_KATE = "Kategori";
+	public static final String TAG_KATE = "Kategori";
 	
-	private static final String TAG_BREW = "Bryggeri";
+	public static final String TAG_BREW = "Bryggeri";
 	
 	
 	/**

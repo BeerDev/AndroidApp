@@ -41,7 +41,7 @@ public class ListViewActivity extends ListActivity{
 		final EditText edt = (EditText) findViewById(R.id.searchText);
 		edt.addTextChangedListener(new TextWatcher()
 		{  
-		@Override
+		@Override 
 		public void afterTextChanged(Editable s) {
 		    // TODO Auto-generated method stub
 		   // CharSequence cs=convert(edt.getText().toString());
@@ -126,7 +126,7 @@ public class ListViewActivity extends ListActivity{
 		// Listview on item click listener
 		lv.setOnItemClickListener(new OnItemClickListener() {
 		
-			@Override
+			@Override 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// getting values from selected ListItem			

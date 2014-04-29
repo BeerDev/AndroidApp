@@ -67,16 +67,20 @@ public class LazyAdapter extends BaseAdapter {
         
         // Getting relevant information
         TextView articleName = (TextView)vi.findViewById(R.id.listNamn); 
+        TextView articlePris = (TextView)vi.findViewById(R.id.listPris);
+        TextView articleTyp = (TextView)vi.findViewById(R.id.listType);
         TextView id = (TextView)vi.findViewById(R.id.listID);
         ImageView thumbnailImage = (ImageView)vi.findViewById(R.id.listImageURL);
         
         HashMap<String, String> productList = new HashMap<String, String>();
         productList = productsData.get(position);
         
-            // Setting all values in listview
+           // Setting all values in listview
           //  int loader = R.drawable.placeholder;
             imageLoader.DisplayImage(productList.get(MainActivity.TAG_PATH),NO_SELECTION, thumbnailImage);
             articleName.setText(productList.get(MainActivity.TAG_NAME));
+            articlePris.setText(productList.get(MainActivity.TAG_PRIS)+ " kr");
+            articleTyp.setText(productList.get(MainActivity.TAG_KATE));
             id.setText(productList.get(MainActivity.TAG_ID));
            
         
