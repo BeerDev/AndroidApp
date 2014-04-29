@@ -1,50 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/testbild" 
+    android:background="@drawable/testbild"
+    android:paddingTop="?android:attr/actionBarSize"
     >
 <LinearLayout 
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
+    android:layout_height="0dip" 
     android:orientation="vertical"
+    android:paddingBottom="20dp"
     android:weightSum="1">
 
     <TextView
         android:id="@+id/omossTextHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:ems="10"
-        android:gravity="center"
         android:text="@string/welcome"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp" 
-        android:layout_weight="0.2"
-        android:layout_gravity="center_vertical">
-     
-    </TextView>
+        style="@style/HeadLineText"/>
 
     <TextView
         android:id="@+id/OmossTextContent"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:ems="10"
-        android:text="@string/infoid"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp" 
-        android:layout_weight="0.65"/>
-    
-       <TextView
+        style="@style/BodyText"
+        android:text="@string/infoid" />
+        
+   	<TextView
            android:id="@+id/OmossTextFooter"
-           android:layout_width="match_parent"
-           android:layout_height="0dp"
-           android:ems="10"
            android:text="@string/observera"
-           android:textColor="#FFFFFF"
-           android:textSize="18sp"
-           android:textStyle="bold" 
-           android:layout_gravity="bottom"
-           android:layout_weight="0.15"/>
-
-</LinearLayout>
-</RelativeLayout>
+           style="@style/TitleText"/>
+	</LinearLayout>
+</ScrollView>
