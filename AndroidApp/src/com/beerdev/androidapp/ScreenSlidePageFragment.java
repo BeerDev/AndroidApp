@@ -45,15 +45,12 @@ public class ScreenSlidePageFragment extends Fragment {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, pageNumber);
         fragment.setArguments(args);
-        Log.i("create pageNumber", Integer.toString(pageNumber));
         return fragment;
     }
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPageNumber = getArguments() != null ? getArguments().getInt(ARG_PAGE) : 0;
-        
-        Log.i("onCreate mPageNumber", Integer.toString(mPageNumber));
     }
     
     @Override

@@ -148,7 +148,7 @@ public class MainActivity extends Activity {
 					// looping through All products
 					for (int i = 0; i < products.length(); i++) {
 						JSONObject c = products.getJSONObject(i);
-						
+						 
 						String id = c.getString(TAG_ID);
 						String name = c.getString(TAG_NAME);
 						String path = c.getString(TAG_PATH);
