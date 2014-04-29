@@ -2,9 +2,10 @@ package com.beerdev.androidapp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import org.json.JSONException;
-
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -21,12 +22,12 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 public class SwipeViewActivity extends FragmentActivity implements OnQueryTextListener {
@@ -158,7 +159,11 @@ public class SwipeViewActivity extends FragmentActivity implements OnQueryTextLi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
-    		
+    		case R.id.menu2:
+    			Intent intent = new Intent(this, MenuActivity.class);
+    			startActivity(intent);
+    			overridePendingTransition(R.animator.slide_in_right,R.animator.slide_out_left);
+    			break;
 	    	case R.id.sortAlphab:
 				Sort.sortAlphabetic();
 				Intent intentSortAlpha = new Intent(getApplicationContext(),

@@ -45,4 +45,7 @@
 			        android:showAsAction="never"/> 
 		    </menu>
 		</item>
+		<item android:id="@+id/menu2"
+		    android:icon="@drawable/menu"
+		    android:showAsAction="always"/>
 </menu>

@@ -4,8 +4,14 @@
     android:layout_height="match_parent"
     tools:context=".SwipeViewActivity" 
     android:paddingTop="?android:attr/actionBarSize"
-    android:background="@drawable/testbild">
+    android:background="@drawable/testbild"
+    android:animateLayoutChanges="true">
 	
+    <RelativeLayout 
+    	android:id="@+id/main_layout"
+       android:layout_width="match_parent"
+    	android:layout_height="match_parent" 
+    	android:visibility="visible">
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         xmlns:sothree="http://schemas.android.com/apk/res-auto"
         android:id="@+id/sliding_layout"
@@ -98,5 +104,18 @@
                     android:paddingLeft="10dp"/>
         </LinearLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+    </RelativeLayout>
+    
+    <!-- MENU LAYOUT -->
+    <RelativeLayout 
+    	android:id="@+id/menu_layout"
+       	android:layout_width="match_parent"
+    	android:layout_height="match_parent" 
+    	android:visibility="gone">
+		    <ImageView 
+		        android:layout_width="200dip"
+		        android:layout_height="50dip"
+		        android:src="@drawable/ic_launcher"/>
+		    </RelativeLayout>
     
 </RelativeLayout>
