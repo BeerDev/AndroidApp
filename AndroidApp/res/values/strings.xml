@@ -50,12 +50,12 @@
     <string name="specHead">Specialöl</string>
     
     <string name="aleBody">
-        Ale är en typ av öl som bryggs från mältat korn med hjälp av varm fermentation och bryggeriets jäst. 
+        Ale är en typ av öl som bryggs från mältat korn med hjälp av varm jäsning. 
         Jästen jäser ölet snabbt, vilket ger en söt, fyllig och fruktig smak. 
         De flesta Ale innehåller humle, vilket bevarar ölet och ger en bitter örtsmak som balanserar upp sötman från malten. 
         </string>
         
-    <string name="lagerBody">Lager är en typ av öl som fermenteras och processas vid låga temperaturer. 
+    <string name="lagerBody">Lager är en typ av öl som får jäsa och processas vid låga temperaturer. 
         Ljus Lager är den mest konsumerade och kommersiellt tillgängliga stilen av öl i världen. Bock, Pilsner och Märzen är alla stilar av lager. 
         Det finns också Mörk Lager, såsom Dunkel och Schwarz. 
         Termen Lager är besläktat med ligrs, gotiska för "plats för liggande (ner)".
