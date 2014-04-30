@@ -2,15 +2,15 @@ package com.beerdev.androidapp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import org.json.JSONException;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.SuppressLint;
+
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -23,11 +23,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 public class SwipeViewActivity extends FragmentActivity implements OnQueryTextListener {
@@ -129,6 +132,81 @@ public class SwipeViewActivity extends FragmentActivity implements OnQueryTextLi
         mPager.setOnPageChangeListener(pageChangeListener);
         pageChangeListener.onPageSelected(0);
         mPager.setCurrentItem(pos);	    
+        
+        
+        //*******Functions For MENU*********
+       
+		ImageView imgGalleri = (ImageView) findViewById(R.id.imageGalleri);
+		imgGalleri.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				// Starting single contact activity
+				Intent intentSwipe = new Intent(getApplicationContext(),
+						SwipeViewActivity.class);
+				//Sending BildID and productList to SwipeViewActivity
+				intentSwipe.putExtra("BildID", 0);
+				startActivity(intentSwipe);
+			}
+		});
+	ImageView imgLista = (ImageView) findViewById(R.id.imageLista);
+	imgLista.setOnClickListener(new OnClickListener(){
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			// Starting single contact activity
+			Intent intentList = new Intent(getApplicationContext(),
+					ListViewActivity.class);
+			//Sending BildID and productList to SwipeViewActivity
+			intentList.putExtra("BildID", 0);
+			startActivity(intentList);
+		}
+	});
+	/*
+	ImageView imgOltyper = (ImageView) findViewById(R.id.imageOltyper);
+	imgGalleri.setOnClickListener(new OnClickListener(){
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			// Starting single contact activity
+			Intent intentList = new Intent(getApplicationContext(),
+					OmKista.class);
+			//Sending BildID and productList to SwipeViewActivity
+			intentList.putExtra("BildID", 0);
+			startActivity(intentList);
+		}
+	});
+	*/
+	ImageView imgKistan= (ImageView) findViewById(R.id.imageKistan);
+	imgKistan.setOnClickListener(new OnClickListener(){
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			// Starting single contact activity
+			Intent intentKistan = new Intent(getApplicationContext(),
+					OmKistan.class);
+			//Sending BildID and productList to SwipeViewActivity
+			intentKistan.putExtra("BildID", 0);
+			startActivity(intentKistan);
+		}
+	});
+	ImageView imgUtvecklare = (ImageView) findViewById(R.id.imageUtvecklare);
+	imgUtvecklare.setOnClickListener(new OnClickListener(){
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			// Starting single contact activity
+			Intent intentUtvecklare = new Intent(getApplicationContext(),
+					OmOss.class);
+			//Sending BildID and productList to SwipeViewActivity
+			intentUtvecklare.putExtra("BildID", 0);
+			startActivity(intentUtvecklare);
+		}
+	});
+        	
+        	
+        	
+        //*******END OF MENU*********
 
     }
 
@@ -160,9 +238,16 @@ public class SwipeViewActivity extends FragmentActivity implements OnQueryTextLi
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
     		case R.id.menu2:
-    			Intent intent = new Intent(this, MenuActivity.class);
-    			startActivity(intent);
-    			overridePendingTransition(R.animator.slide_in_right,R.animator.slide_out_left);
+    			View v=findViewById(R.id.main_layout);
+    			if(v.getVisibility()==View.VISIBLE){
+    				findViewById(R.id.menu_layout).setVisibility(View.VISIBLE);
+    				findViewById(R.id.main_layout).setVisibility(View.GONE);
+    			}
+    			else{
+    				findViewById(R.id.main_layout).setVisibility(View.VISIBLE);
+	    			findViewById(R.id.menu_layout).setVisibility(View.GONE);
+    			}
+    			
     			break;
 	    	case R.id.sortAlphab:
 				Sort.sortAlphabetic();
@@ -295,6 +380,7 @@ public class SwipeViewActivity extends FragmentActivity implements OnQueryTextLi
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean onQueryTextChange(String newText) {
 		// TODO Auto-generated method stub
@@ -302,19 +388,20 @@ public class SwipeViewActivity extends FragmentActivity implements OnQueryTextLi
 				ArrayList<HashMap<String,String>> tempProductList = (ArrayList<HashMap<String, String>>) MainActivity.productList.clone();
 				Sort.Filter(newText);
 				Log.i("INFO", Integer.toString(MainActivity.productList.size()));
-				if(MainActivity.productList.size()==0){
+				if(MainActivity.productList.size()<=1){
 					MainActivity.productList = (ArrayList<HashMap<String, String>>) tempProductList.clone();
-
 					Toast.makeText(this, "Inga resultat", Toast.LENGTH_SHORT).show();
 				}
-				mPager.getAdapter().notifyDataSetChanged();
-
-				pageChangeListener.onPageSelected(0);
-		        mPager.setCurrentItem(0);	 
+					 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+				pageChangeListener.onPageSelected(0);
+				mPager.setCurrentItem(0);
+			mPager.getAdapter().notifyDataSetChanged();
+				pageChangeListener.onPageSelected(0);
+		        mPager.setCurrentItem(0);
 		
 		return false;
 	}
