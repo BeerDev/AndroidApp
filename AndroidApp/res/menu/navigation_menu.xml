@@ -1,51 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-		
-		<item 
-		    android:id="@+id/filter"
-		    android:icon="@drawable/filter"
-		    android:showAsAction="always">
-		    <menu>
-		    	<item 
-				  android:id="@+id/sortAlphab"
-				  android:icon="@drawable/alphabetic"
-			      android:title="Sortera A-Z"
-			      android:showAsAction="always"/>
-		       	<item android:id="@+id/sortPrice"
-			      android:title="$"
-			      android:showAsAction="always"/>
-		    </menu>
-		</item>	
-		<item 
-			android:id="@+id/search"
-			android:icon="@drawable/search"
-			android:showAsAction="always"
-     		 android:actionViewClass="android.widget.SearchView">    
-		</item>
 		<item
-		    android:id="@+id/menu"
-		    android:icon="@drawable/menu"
-		    android:showAsAction="always">
-		    <menu>
-		       	<item 
-			        android:id="@+id/navListVy"
-			        android:title="ListView"
-			        android:showAsAction="never"/>
-		      	 <item 
-			        android:id="@+id/navScrollvy"
-			        android:title="Scrollview"
-			        android:showAsAction="never"/>
-		        <item 
-			        android:id="@+id/navOmOss"
-			        android:title="Om oss"
-			        android:showAsAction="never"/>
-		      <item 
-			        android:id="@+id/navOmKistan"
-			        android:title="Om Kistan"
-			        android:showAsAction="never"/> 
-		    </menu>
-		</item>
-		<item android:id="@+id/menu2"
-		    android:icon="@drawable/menu"
-		    android:showAsAction="always"/>
+	        android:id="@+id/menu_settings"
+	        android:icon="@drawable/menu"
+	        android:orderInCategory="100"
+	        android:showAsAction="always"
+	        android:title="@string/menu_settings"/>
+    	<item
+	        android:id="@+id/menu_search"
+	        android:actionLayout="@layout/search"
+	        android:icon="@drawable/ic_action_search"
+	        android:orderInCategory="0"
+	        android:showAsAction="always|collapseActionView"
+	        android:title="Search"/>
 </menu>

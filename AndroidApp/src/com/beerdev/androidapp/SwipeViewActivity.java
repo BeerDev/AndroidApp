@@ -2,11 +2,11 @@ package com.beerdev.androidapp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
+
 import org.json.JSONException;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.SuppressLint;
-import android.app.SearchManager;
+
+import android.R;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -19,15 +19,19 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.SearchView;
-import android.widget.SearchView.OnCloseListener;
+import android.view.MenuItem.OnActionExpandListener;
+import android.view.MenuItem.OnMenuItemClickListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 public class SwipeViewActivity extends FragmentActivity implements OnQueryTextListener {
@@ -81,7 +85,8 @@ public class SwipeViewActivity extends FragmentActivity implements OnQueryTextLi
      */
     private PagerAdapter mPagerAdapter;
     public OnPageChangeListener pageChangeListener;
-    
+
+    EditText editsearch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,6 +135,7 @@ public class SwipeViewActivity extends FragmentActivity implements OnQueryTextLi
         pageChangeListener.onPageSelected(0);
         mPager.setCurrentItem(pos);	    
 
+        
     }
 
     /**
@@ -140,7 +146,7 @@ public class SwipeViewActivity extends FragmentActivity implements OnQueryTextLi
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_menu, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+       /* SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView  searchView = (SearchView) menu.findItem(R.id.search)
                 .getActionView();
         searchView.setSearchableInfo(searchManager
@@ -153,12 +159,90 @@ public class SwipeViewActivity extends FragmentActivity implements OnQueryTextLi
                 return false;
             }
         });
-        return super.onCreateOptionsMenu(menu);        
+        return super.onCreateOptionsMenu(menu);    */    
+     // Locate the EditText in menu.xml
+        editsearch = (EditText) menu.findItem(R.id.menu_search).getActionView();
+ 
+        // Capture Text in EditText
+        editsearch.addTextChangedListener(textWatcher);
+ 
+        // Show the search menu item in menu.xml
+        MenuItem menuSearch = menu.findItem(R.id.menu_search);
+ 
+        menuSearch.setOnActionExpandListener(new OnActionExpandListener() {
+ 
+            // Menu Action Collapse
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                // Empty EditText to remove text filtering
+                editsearch.setText("");
+                editsearch.clearFocus();
+                return true;
+            }
+ 
+            // Menu Action Expand
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                // Focus on EditText
+                editsearch.requestFocus();
+ 
+                // Force the keyboard to show on EditText focus
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                return true;
+            }
+        });
+ 
+        // Show the settings menu item in menu.xml
+        MenuItem menuSettings = menu.findItem(R.id.menu_settings);
+ 
+        // Capture menu item clicks
+        menuSettings.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+ 
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // TODO Auto-generated method stub
+                // Do something here
+                Toast.makeText(getApplicationContext(), "Nothing here!",
+                        Toast.LENGTH_LONG).show();
+                return false;
+            }
+ 
+        });
+ 
+        return true;
     }
-    
+ // EditText TextWatcher
+    private TextWatcher textWatcher = new TextWatcher() {
+ 
+        @Override
+        public void afterTextChanged(Editable s) {
+            // TODO Auto-generated method stub
+            String text = editsearch.getText().toString()
+                    .toLowerCase(Locale.getDefault());
+            adapter.filter(text);
+        }
+ 
+        @Override
+        public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                int arg3) {
+            // TODO Auto-generated method stub
+ 
+        }
+ 
+        @Override
+        public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+                int arg3) {
+            // TODO Auto-generated method stub
+ 
+        }
+ 
+    };
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
+    		case R.id.search:
+    			break;
     		case R.id.menu2:
     			Intent intent = new Intent(this, MenuActivity.class);
     			startActivity(intent);
