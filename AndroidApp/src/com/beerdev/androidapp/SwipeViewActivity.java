@@ -5,12 +5,13 @@ import java.util.HashMap;
 
 import org.json.JSONException;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -24,10 +25,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -162,21 +165,21 @@ public class SwipeViewActivity extends FragmentActivity implements OnQueryTextLi
 			startActivity(intentList);
 		}
 	});
-	/*
+	
 	ImageView imgOltyper = (ImageView) findViewById(R.id.imageOltyper);
-	imgGalleri.setOnClickListener(new OnClickListener(){
+	imgOltyper.setOnClickListener(new OnClickListener(){
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			// Starting single contact activity
-			Intent intentList = new Intent(getApplicationContext(),
-					OmKista.class);
+			Intent intentKategori = new Intent(getApplicationContext(),
+					Kategori.class);
 			//Sending BildID and productList to SwipeViewActivity
-			intentList.putExtra("BildID", 0);
-			startActivity(intentList);
+			intentKategori.putExtra("BildID", 0);
+			startActivity(intentKategori);
 		}
 	});
-	*/
+	
 	ImageView imgKistan= (ImageView) findViewById(R.id.imageKistan);
 	imgKistan.setOnClickListener(new OnClickListener(){
 		@Override
@@ -224,28 +227,43 @@ public class SwipeViewActivity extends FragmentActivity implements OnQueryTextLi
         searchView.setSearchableInfo(searchManager
                 .getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(this);
-        searchView.setOnCloseListener(new OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                System.out.println("Testing. 1, 2, 3...");
-                return false;
-            }
-        });
         return super.onCreateOptionsMenu(menu);        
     }
     
+    /* (non-Javadoc)
+     * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
     		case R.id.menu2:
     			View v=findViewById(R.id.main_layout);
-    			if(v.getVisibility()==View.VISIBLE){
-    				findViewById(R.id.menu_layout).setVisibility(View.VISIBLE);
-    				findViewById(R.id.main_layout).setVisibility(View.GONE);
+    			final View MenuLayout= findViewById(R.id.menu_layout);
+				final View MainLayout = findViewById(R.id.main_layout);
+				final int menuWidth = MenuLayout.getWidth();
+    			if(MenuLayout.getAlpha()<1){
+    				AnimatorSet set = new AnimatorSet();
+    				set.playTogether(
+    						ObjectAnimator.ofFloat(MainLayout, "translationX",  0, -menuWidth),
+    				        ObjectAnimator.ofFloat(MenuLayout, "translationX",  menuWidth, 0),
+    				        ObjectAnimator.ofFloat(MenuLayout, "alpha", 0, 0.25f, 1)
+    				        // add other animations if you wish
+    				    );
+    				    //set.setStartDelay(500);
+    				    set.setDuration(200).start();
+    				
+    				
     			}
-    			else{
-    				findViewById(R.id.main_layout).setVisibility(View.VISIBLE);
-	    			findViewById(R.id.menu_layout).setVisibility(View.GONE);
+    			else{    				
+    				AnimatorSet set = new AnimatorSet();
+    				set.playTogether(
+    						ObjectAnimator.ofFloat(MainLayout, "translationX",  -menuWidth, 0),
+    				        ObjectAnimator.ofFloat(MenuLayout, "translationX",  0, menuWidth),
+    				        ObjectAnimator.ofFloat(MenuLayout, "alpha", 1, 0.25f, 0)
+    				        // add other animations if you wish
+    				    );
+    				    //set.setStartDelay(500);
+    				    set.setDuration(200).start();
     			}
     			
     			break;

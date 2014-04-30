@@ -1,60 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/testbild" 
+    >
+    <FrameLayout
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:paddingTop="?android:attr/actionBarSize"
     >
     <RelativeLayout 
         android:id="@+id/main_layout"
        	android:layout_width="match_parent"
     	android:layout_height="match_parent" 
-    	android:visibility="gone">
-<LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="0dip" 
-    android:orientation="vertical"
-    android:padding="10dip"
-    android:weightSum="1">
-
-    <TextView
-        android:id="@+id/omKistanTextHeader"
+    	android:visibility="visible">
+    	<ScrollView
+    	    android:layout_width="match_parent"
+    		android:layout_height="match_parent"
+    	    >
+<LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:shadowDx="-3"
-	    android:shadowDy="3"
-	    android:shadowColor="#000000"
-	    android:shadowRadius="1.1"
-        android:text="@string/kistan"
-        android:textColor="#FFFFFF"
-		style="?android:textAppearanceLarge"
-        android:layout_weight="0.2"
-        android:layout_gravity="center_vertical">
-     
-    </TextView>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:weightSum="1" >
 
-    <TextView
-        android:id="@+id/OmKistanTextContent"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:shadowDx="-2"
-	    android:shadowDy="2"
-	    android:shadowColor="#000000"
-	    android:shadowRadius="1.1"
-        android:text="@string/omKistan"
-        android:textColor="#FFFFFF"
-		style="?android:textAppearanceMedium"
-        android:layout_weight="0.8"/>
-</LinearLayout>
+        <TextView
+            android:id="@+id/omKistanHeader"
+            style="@style/HeadlineText"
+            android:text="@string/kistan" />
+
+        <TextView
+            android:id="@+id/OmKistanTextContent"
+            style="@style/BodyText"
+            android:text="@string/omKistan" />
+    </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
     <!-- MENU LAYOUT -->
     <RelativeLayout 
     	android:id="@+id/menu_layout"
        	android:layout_width="match_parent"
     	android:layout_height="match_parent" 
-    	android:visibility="gone">
+    	android:visibility="visible"
+    	android:alpha="0">
 <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -126,4 +116,5 @@
 </LinearLayout>  
         
 	</RelativeLayout>
-</ScrollView>
+	</FrameLayout>
+</RelativeLayout>

@@ -2,6 +2,8 @@ package com.beerdev.androidapp;
 
 import org.json.JSONException;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.ActionBar;
 import android.app.ListActivity;
 import android.app.SearchManager;
@@ -40,41 +42,6 @@ public class ListViewActivity extends ListActivity implements OnQueryTextListene
 		// Getting adapter by passing xml data ArrayList
         adapter=new LazyAdapter(ListViewActivity.this, MainActivity.productList);      
         setListAdapter(adapter);
-		Button knappSearch = (Button) findViewById(R.id.searchStart);
-		Button knappClear = (Button) findViewById(R.id.searchClear);
-		 
-		knappSearch.setOnClickListener(new OnClickListener() {			
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				try {
-					EditText searchFor = (EditText) findViewById(R.id.searchText);
-					String searching = searchFor.getText().toString();
-					Log.d("--EDITTEXT---", searching);
-					Sort.Filter(searching);
-					((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
-
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-
-		});
-
-		knappClear.setOnClickListener(new OnClickListener() {			
-			@Override
-			public void onClick(View arg0) {
-
-				Intent in = new Intent(getApplicationContext(),
-						MainActivity.class);
-
-				startActivity(in);
-				//((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();				
-			}
-		});
-
 
 		lv = getListView();
 		// Listview on item click listener
@@ -96,6 +63,80 @@ public class ListViewActivity extends ListActivity implements OnQueryTextListene
 
 			}
 		});
+		
+		
+		 //*******Functions For MENU*********
+	       
+		ImageView imgGalleri = (ImageView) findViewById(R.id.imageGalleri);
+		imgGalleri.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				// Starting single contact activity
+				Intent intentSwipe = new Intent(getApplicationContext(),
+						SwipeViewActivity.class);
+				//Sending BildID and productList to SwipeViewActivity
+				intentSwipe.putExtra("BildID", 0);
+				startActivity(intentSwipe);
+			}
+		});
+	ImageView imgLista = (ImageView) findViewById(R.id.imageLista);
+	imgLista.setOnClickListener(new OnClickListener(){
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			// Starting single contact activity
+			Intent intentList = new Intent(getApplicationContext(),
+					ListViewActivity.class);
+			//Sending BildID and productList to SwipeViewActivity
+			intentList.putExtra("BildID", 0);
+			startActivity(intentList);
+		}
+	});
+	
+	ImageView imgOltyper = (ImageView) findViewById(R.id.imageOltyper);
+	imgOltyper.setOnClickListener(new OnClickListener(){
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			// Starting single contact activity
+			Intent intentList = new Intent(getApplicationContext(),
+					Kategori.class);
+			//Sending BildID and productList to SwipeViewActivity
+			intentList.putExtra("BildID", 0);
+			startActivity(intentList);
+		}
+	});
+	
+	ImageView imgKistan= (ImageView) findViewById(R.id.imageKistan);
+	imgKistan.setOnClickListener(new OnClickListener(){
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			// Starting single contact activity
+			Intent intentKistan = new Intent(getApplicationContext(),
+					OmKistan.class);
+			//Sending BildID and productList to SwipeViewActivity
+			intentKistan.putExtra("BildID", 0);
+			startActivity(intentKistan);
+		}
+	});
+	ImageView imgUtvecklare = (ImageView) findViewById(R.id.imageUtvecklare);
+	imgUtvecklare.setOnClickListener(new OnClickListener(){
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			// Starting single contact activity
+			Intent intentUtvecklare = new Intent(getApplicationContext(),
+					OmOss.class);
+			//Sending BildID and productList to SwipeViewActivity
+			intentUtvecklare.putExtra("BildID", 0);
+			startActivity(intentUtvecklare);
+		}
+	});
+        	
+        //*******END OF MENU*********
+		
 
 	}
 	
@@ -117,24 +158,70 @@ public class ListViewActivity extends ListActivity implements OnQueryTextListene
     }
     
     
+    /* (non-Javadoc)
+     * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
-	    
-    		case R.id.sortAlphab:
-    			Sort.sortAlphabetic();
-    			((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+    		case R.id.menu2:
+    			View v=findViewById(R.id.main_layout);
+    			final View MenuLayout= findViewById(R.id.menu_layout);
+				final View MainLayout = findViewById(R.id.main_layout);
+				final int menuWidth = MenuLayout.getWidth();
+    			if(MenuLayout.getAlpha()<1){
+    				AnimatorSet set = new AnimatorSet();
+    				set.playTogether(
+    						ObjectAnimator.ofFloat(MainLayout, "translationX",  0, -menuWidth),
+    				        ObjectAnimator.ofFloat(MenuLayout, "translationX",  menuWidth, 0),
+    				        ObjectAnimator.ofFloat(MenuLayout, "alpha", 0, 0.25f, 1)
+    				        // add other animations if you wish
+    				    );
+    				    //set.setStartDelay(500);
+    				    set.setDuration(200).start();
+    				
+    				
+    			}
+    			else{    				
+    				AnimatorSet set = new AnimatorSet();
+    				set.playTogether(
+    						ObjectAnimator.ofFloat(MainLayout, "translationX",  -menuWidth, 0),
+    				        ObjectAnimator.ofFloat(MenuLayout, "translationX",  0, menuWidth),
+    				        ObjectAnimator.ofFloat(MenuLayout, "alpha", 1, 0.25f, 0)
+    				        // add other animations if you wish
+    				    );
+    				    //set.setStartDelay(500);
+    				    set.setDuration(200).start();
+    			}
+    			
     			break;
-    		case R.id.sortPrice:
-    			Sort.sortPrice();
-    			((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
-    			break;
+	    	case R.id.sortAlphab:
+				Sort.sortAlphabetic();
+				Intent intentSortAlpha = new Intent(getApplicationContext(),
+						SwipeViewActivity.class);
+				//Sending BildID and productList to SwipeViewActivity
+				intentSortAlpha.putExtra("BildID", 0);
+				startActivity(intentSortAlpha);
+	            
+				break;
+			case R.id.sortPrice:
+				Sort.sortPrice();
+				Intent intentSortPrice = new Intent(getApplicationContext(),
+						SwipeViewActivity.class);
+				//Sending BildID and productList to SwipeViewActivity
+				intentSortPrice.putExtra("BildID", 0);
+				startActivity(intentSortPrice);
+	            
+				break;
     		case R.id.navListVy:
 	    			// Starting single contact activity
 					Intent intentList = new Intent(getApplicationContext(),
 							ListViewActivity.class);
 					//Sending BildID and productList to ListViewActivity
 					intentList.putExtra("BildID", 0);
+
+					intentList.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+					intentList.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					startActivity(intentList);
     	            break;
     	        case R.id.navScrollvy:
@@ -152,10 +239,18 @@ public class ListViewActivity extends ListActivity implements OnQueryTextListene
     				intentOmoss.putExtra("BildID", 0);
     	        	startActivity(intentOmoss);
     	            break;
-    	        }
-    	        return true;
-    	        }
+    	        case R.id.navOmKistan:
+    				Intent intentOmKistan = new Intent(getApplicationContext(),
+    						OmKistan.class);
+    				//Sending BildID and productList to OmOssActivity
+    				intentOmKistan.putExtra("BildID", 0);
+    	        	startActivity(intentOmKistan);
+    	            break;
+    		}
+    		return true;
+    	}
     	 //---------MENU END---------------
+
     @Override
     protected void onPause(){
     	super.onPause();

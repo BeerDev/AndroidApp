@@ -4,11 +4,18 @@
     android:layout_height="match_parent"
     android:background="@drawable/testbild" 
     >
+    	<FrameLayout
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:paddingTop="?android:attr/actionBarSize"
+     >
     <RelativeLayout 
         android:id="@+id/main_layout"
        	android:layout_width="match_parent"
     	android:layout_height="match_parent" 
-    	android:visibility="gone">
+    	android:visibility="visible">
 <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
@@ -58,7 +65,8 @@
     	android:id="@+id/menu_layout"
        	android:layout_width="match_parent"
     	android:layout_height="match_parent" 
-    	android:visibility="gone">
+    	android:visibility="visible"
+    	android:alpha="0">
 <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -128,6 +136,6 @@
 
     </LinearLayout>
 </LinearLayout>  
-        
 	</RelativeLayout>
+	</FrameLayout>
 </RelativeLayout>

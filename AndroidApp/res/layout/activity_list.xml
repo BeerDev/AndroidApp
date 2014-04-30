@@ -5,41 +5,102 @@
     android:orientation="vertical"
     android:background="@drawable/testbild"
     android:paddingTop="?android:attr/actionBarSize">
-
-    <LinearLayout
-        android:id="@+id/SearchBar"
-        android:layout_width="fill_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:orientation="horizontal"
-        android:animateLayoutChanges="true"
-        android:visibility="gone" 
-        android:weightSum="1">
-
-        <EditText
-            android:id="@+id/searchText"
-            android:layout_width="146dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.70" />
-        <Button
-            android:id="@+id/searchStart"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.20"
-            android:text="Sök" />
-
-        <Button
-            android:id="@+id/searchClear"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.10"
-            android:text="Clear" />
-
-    </LinearLayout>
-
+    
+    <FrameLayout
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1" >
+    <RelativeLayout 
+        android:id="@+id/main_layout"
+       	android:layout_width="match_parent"
+    	android:layout_height="match_parent" 
+    	android:visibility="visible">
+    	
     <ListView 
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
+    
+    </RelativeLayout>
+    <!-- MENU LAYOUT -->
+    <RelativeLayout 
+    	android:id="@+id/menu_layout"
+       	android:layout_width="match_parent"
+    	android:layout_height="match_parent" 
+    	android:visibility="visible"
+    	android:alpha="0">
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="3"
+    android:background="#80000000">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageGalleri"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_gravity="center_vertical|left"
+            android:layout_marginLeft="@dimen/abc_action_button_min_width"
+            android:background="@drawable/galleri" />
+
+        <ImageView
+            android:id="@+id/imageLista"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginLeft="@dimen/abc_action_button_min_width"
+            android:background="@drawable/lista" />
+
+    </LinearLayout>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageOltyper"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_gravity="center_vertical|left"
+            android:layout_marginLeft="@dimen/abc_action_button_min_width"
+            android:background="@drawable/oltyper" />
+
+        <ImageView
+            android:id="@+id/imageKistan"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginLeft="@dimen/abc_action_button_min_width"
+            android:layout_marginRight="@dimen/abc_action_button_min_width"
+            android:background="@drawable/kistan" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/imageUtvecklare"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_marginLeft="135dip"
+            android:background="@drawable/utvecklare" />
+
+    </LinearLayout>
+</LinearLayout>  
+        
+	</RelativeLayout>
+	</FrameLayout>
+    
 </LinearLayout>

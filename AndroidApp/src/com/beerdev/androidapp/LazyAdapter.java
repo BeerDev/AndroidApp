@@ -113,7 +113,7 @@ public class LazyAdapter extends BaseAdapter implements Filterable{
                 for (int i = 0; i < tmpAllData.size(); i++) {
                     if (tmpAllData.get(i).get(MainActivity.TAG_NAME)
                             .toLowerCase()
-                            .startsWith(s.toString().toLowerCase())) {
+                            .contains(s.toString().toLowerCase())) {
                         tmpDataShown.add(tmpAllData.get(i));
                     }
                 }

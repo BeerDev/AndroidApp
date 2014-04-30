@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/testbild">
+<FrameLayout
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="?android:attr/actionBarSize"
+    >
+    <RelativeLayout 
+        android:id="@+id/main_layout"
+       	android:layout_width="match_parent"
+    	android:layout_height="match_parent" 
+    	android:visibility="visible">
+    	<ScrollView
+    	    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+    	    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:weightSum="1" >
+
+        <TextView
+            android:id="@+id/kategoriTextContent"
+            style="@style/HeadlineText"
+            android:text="@string/kategoriHead" />
+
+        <!-- Information om Ale -->
+
+        <TextView
+            android:id="@+id/aleHeadTextContent"
+            style="@style/TitleText"
+            android:text="@string/aleHead" />
+
+        <TextView
+            android:id="@+id/aleBodyTextContent"
+            style="@style/BodyText"
+            android:text="@string/aleBody" />
+
+        <!-- Information om Lager -->
+
+        <TextView
+            android:id="@+id/lagerHeadTextContent"
+            style="@style/TitleText"
+            android:text="@string/lagerHead" />
+
+        <TextView
+            android:id="@+id/lagerBodyTextContent"
+            style="@style/BodyText"
+            android:text="@string/lagerBody" />
+
+        <!-- Information om Pilsner -->
+
+        <TextView
+            android:id="@+id/PilsnerHeadTextContent"
+            style="@style/TitleText"
+            android:text="@string/pilsnerHead" />
+
+        <TextView
+            android:id="@+id/pilsnerBodyTextContent"
+            style="@style/BodyText"
+            android:text="@string/pilsnerBody" />
+
+        <!-- Information om Bitter -->
+
+        <TextView
+            android:id="@+id/BitterHeadTextContent"
+            style="@style/TitleText"
+            android:text="@string/bitterHead" />
+
+        <TextView
+            android:id="@+id/bitterBodyTextContent"
+            style="@style/BodyText"
+            android:text="@string/bitterBody" />
+
+        <!-- Information om India Pale Ale (IPA) -->
+
+        <TextView
+            android:id="@+id/ipaHeadTextContent"
+            style="@style/TitleText"
+            android:text="@string/ipaHead" />
+
+        <TextView
+            android:id="@+id/ipaBodyTextContent"
+            style="@style/BodyText"
+            android:text="@string/ipaBody" />
+
+        <!-- Information om Imperial IPA -->
+
+        <TextView
+            android:id="@+id/impIpaHeadTextContent"
+            style="@style/TitleText"
+            android:text="@string/impIpaHead" />
+
+        <TextView
+            android:id="@+id/impIpaBodyTextContent"
+            style="@style/BodyText"
+            android:text="@string/impIpaBody" />
+
+        <!-- Information om Stout -->
+
+        <TextView
+            android:id="@+id/stoutHeadTextContent"
+            style="@style/TitleText"
+            android:text="@string/stoutHead" />
+
+        <TextView
+            android:id="@+id/stoutBodyTextContent"
+            style="@style/BodyText"
+            android:text="@string/stoutBody" />
+
+        <!-- Information om Imperial Stout -->
+
+        <TextView
+            android:id="@+id/impStoutHeadTextContent"
+            style="@style/TitleText"
+            android:text="@string/impStoutHead" />
+
+        <TextView
+            android:id="@+id/impStoutBodyTextContent"
+            style="@style/BodyText"
+            android:text="@string/impStoutBody" />
+
+        <!-- Information om Porter -->
+
+        <TextView
+            android:id="@+id/porterHeadTextContent"
+            style="@style/TitleText"
+            android:text="@string/porterHead" />
+
+        <TextView
+            android:id="@+id/porterBodyTextContent"
+            style="@style/BodyText"
+            android:text="@string/porterBody" />
+
+        <!-- Information om Veteöl -->
+
+        <TextView
+            android:id="@+id/veteHeadTextContent"
+            style="@style/TitleText"
+            android:text="@string/veteHead" />
+
+        <TextView
+            android:id="@+id/veteBodyTextContent"
+            style="@style/BodyText"
+            android:text="@string/veteBody" />
+
+        <!-- Information om Trappist/Abbey -->
+
+        <TextView
+            android:id="@+id/trappistHeadTextContent"
+            style="@style/TitleText"
+            android:text="@string/trappistHead" />
+
+        <TextView
+            android:id="@+id/trappistBodyTextContent"
+            style="@style/BodyText"
+            android:text="@string/trappistBody" />
+
+        <!-- Information om Lambik -->
+
+        <TextView
+            android:id="@+id/lambikHeadTextContent"
+            style="@style/TitleText"
+            android:text="@string/lambikHead" />
+
+        <TextView
+            android:id="@+id/lambikBodyTextContent"
+            style="@style/BodyText"
+            android:text="@string/lambikBody" />
+
+        <!-- Information om Barley Wine -->
+
+        <TextView
+            android:id="@+id/barleyHeadTextContent"
+            style="@style/TitleText"
+            android:text="@string/barleyHead" />
+
+        <TextView
+            android:id="@+id/barleyBodyTextContent"
+            style="@style/BodyText"
+            android:text="@string/barleyBody" />
+
+        <!-- Information om Saison -->
+
+        <TextView
+            android:id="@+id/saisonHeadTextContent"
+            style="@style/TitleText"
+            android:text="@string/saisonHead" />
+
+        <TextView
+            android:id="@+id/saisonBodyTextContent"
+            style="@style/BodyText"
+            android:text="@string/saisonBody" />
+
+        <!-- Information om Suröl -->
+
+        <TextView
+            android:id="@+id/surHeadTextContent"
+            style="@style/TitleText"
+            android:text="@string/surHead" />
+
+        <TextView
+            android:id="@+id/surBodyTextContent"
+            style="@style/BodyText"
+            android:text="@string/surBody" />
+
+        <!-- Information om Mjöd -->
+
+        <TextView
+            android:id="@+id/mjodHeadTextContent"
+            style="@style/TitleText"
+            android:text="@string/mjodHead" />
+
+        <TextView
+            android:id="@+id/mjodBodyTextContent"
+            style="@style/BodyText"
+            android:text="@string/mjodBody" />
+
+        <!-- Information om Specialöl -->
+
+        <TextView
+            android:id="@+id/specHeadTextContent"
+            style="@style/TitleText"
+            android:text="@string/specHead" />
+
+        <TextView
+            android:id="@+id/specBodyTextContent"
+            style="@style/BodyText"
+            android:text="@string/specBody" />
+    </LinearLayout>
+</ScrollView>
+</RelativeLayout>
+
+<!-- MENU LAYOUT -->
+    <RelativeLayout 
+    	android:id="@+id/menu_layout"
+       	android:layout_width="match_parent"
+    	android:layout_height="match_parent" 
+    	android:visibility="visible"
+    	android:alpha="0">
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="3"
+    android:background="#80000000">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageGalleri"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_gravity="center_vertical|left"
+            android:layout_marginLeft="@dimen/abc_action_button_min_width"
+            android:background="@drawable/galleri" />
+
+        <ImageView
+            android:id="@+id/imageLista"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginLeft="@dimen/abc_action_button_min_width"
+            android:background="@drawable/lista" />
+
+    </LinearLayout>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageOltyper"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_gravity="center_vertical|left"
+            android:layout_marginLeft="@dimen/abc_action_button_min_width"
+            android:background="@drawable/oltyper" />
+
+        <ImageView
+            android:id="@+id/imageKistan"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginLeft="@dimen/abc_action_button_min_width"
+            android:layout_marginRight="@dimen/abc_action_button_min_width"
+            android:background="@drawable/kistan" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/imageUtvecklare"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_marginLeft="135dip"
+            android:background="@drawable/utvecklare" />
+
+    </LinearLayout>
+</LinearLayout>  
+        
+	</RelativeLayout>
+	</FrameLayout>
+</RelativeLayout>

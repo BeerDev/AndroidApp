@@ -1,44 +1,40 @@
 package com.beerdev.androidapp;
 
-
+//testar
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.SearchView;
-import android.widget.SearchView.OnCloseListener;
-import android.widget.SearchView.OnQueryTextListener;
 
 /**
  * A view to show information about the developmentteam and the application
  * @author BeerDev
  *
  */
-public class OmOss extends Activity {
-	
+public class Kategori extends Activity {
+ 
 	/**
-	 * Information about the products
-	 */
+	* Information about the products
+	*/
 	private static ArrayList<HashMap<String, String>> productList;
-
-
-	@SuppressWarnings("unchecked")
+	
+	
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.omss);	
-		
+		setContentView(R.layout.kategori);
+		 
+		Intent intent = getIntent();
+		productList =(ArrayList<HashMap<String,String>>) intent.getSerializableExtra("productList");
 		 //*******Functions For MENU*********
 	       
 		ImageView imgGalleri = (ImageView) findViewById(R.id.imageGalleri);
@@ -108,7 +104,6 @@ public class OmOss extends Activity {
 			startActivity(intentUtvecklare);
 		}
 	});
-        	
         	
         	
         //*******END OF MENU*********
@@ -218,5 +213,5 @@ public class OmOss extends Activity {
     		return true;
     	}
     	 //---------MENU END---------------
-    
+	    
 }

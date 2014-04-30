@@ -6,7 +6,11 @@
     android:paddingTop="?android:attr/actionBarSize"
     android:background="@drawable/testbild"
     android:animateLayoutChanges="true">
-	
+	<FrameLayout
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1" >
     <RelativeLayout 
     	android:id="@+id/main_layout"
        android:layout_width="match_parent"
@@ -111,7 +115,8 @@
     	android:id="@+id/menu_layout"
        	android:layout_width="match_parent"
     	android:layout_height="match_parent" 
-    	android:visibility="gone">
+    	android:visibility="visible"
+    	android:alpha="0">
 <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -183,5 +188,5 @@
 </LinearLayout>  
         
 	</RelativeLayout>
-    
+    </FrameLayout>
 </RelativeLayout>

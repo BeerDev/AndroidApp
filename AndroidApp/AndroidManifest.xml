@@ -68,6 +68,10 @@
             android:label=""
             android:name="com.beerdev.androidapp.OmKistan" >
         </activity>
+        <activity
+            android:label=""
+            android:name="com.beerdev.androidapp.Kategori" >
+        </activity>
  		<activity
             android:label=""
             android:name="com.beerdev.androidapp.MenuActivity" >
