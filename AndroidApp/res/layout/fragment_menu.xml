@@ -15,6 +15,7 @@
             android:id="@+id/imageGalleri"
             android:layout_width="93dp"
             android:layout_height="93dp"
+            android:clickable="true"
             android:layout_gravity="center_vertical|left"
             android:layout_marginLeft="@dimen/abc_action_button_min_width"
             android:background="@drawable/galleri" />

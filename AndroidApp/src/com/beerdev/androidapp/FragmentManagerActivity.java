@@ -1,26 +1,44 @@
 package com.beerdev.androidapp;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class FragmentManagerActivity extends FragmentActivity{
-	public static boolean menuShowing = false;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+
+public class FragmentManagerActivity extends SlidingFragmentActivity {
+	public static SlidingMenu sm;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragmentactivity_root);
-		FragmentManager fm = getSupportFragmentManager();
+		// set the Above View
+		// set the Behind View
+			setContentView(R.layout.fragmentactivity_root);
+			
+			FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
+			SwipeViewFragment mFrag = new SwipeViewFragment();
+			t.replace(R.id.root_container, mFrag);
+			t.commit();
+			
+				setBehindContentView(R.layout.menu_frame);
+				FragmentTransaction t2 = this.getSupportFragmentManager().beginTransaction();
+				MenuFragment mFrag2 = new MenuFragment();
+				t2.replace(R.id.menu_frame, mFrag2);
+				t2.commit();
 
-        FragmentTransaction ft = fm.beginTransaction();
-
-        // Add the first Fragment to the container.
-        ft.replace(R.id.root_container, new SwipeViewFragment(), "swipeFrag");
-        ft.addToBackStack("swipeFrag");
-        ft.commit();
+				// customize the SlidingMenu
+				sm = getSlidingMenu();
+				sm.setShadowWidthRes(R.dimen.shadow_width);
+				sm.setShadowDrawable(R.drawable.shadow);
+				sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+				sm.setFadeDegree(0.35f);
+				sm.showSecondaryMenu();
+				sm.setMode(SlidingMenu.RIGHT);
+				sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+				getActionBar().setDisplayHomeAsUpEnabled(false);
+				getActionBar().setDisplayShowHomeEnabled(false);
 	}
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -33,23 +51,7 @@ public class FragmentManagerActivity extends FragmentActivity{
 	    public boolean onOptionsItemSelected(MenuItem item) {
 	    	switch (item.getItemId()) {
 	    		case R.id.menu_navigation:
-	    			FragmentManager fm = getSupportFragmentManager();
-	    			FragmentTransaction ft1 = fm.beginTransaction();
-	    			
-	    			if(!menuShowing){
-	    				// Show the second Fragment.
-
-	    		        ft1.replace(R.id.root_container, new MenuFragment());
-		    			ft1.addToBackStack(null);
-		    			menuShowing = true;
-	    			}
-	    			else{
-	    				// Show the first Fragment by popping the back stack!
-	    		        fm.popBackStack();
-	    				menuShowing = false;
-	    			}
-
-		    		ft1.commit();
+	    			toggle();
 	    			break;
 	    			
 	    		}
