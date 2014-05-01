@@ -4,30 +4,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="3"
-    android:background="@drawable/testbild">
-
+    android:background="#80000000">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:layout_weight="1"
         android:weightSum="1">
 
-        <ImageButton
-            android:id="@+id/imageButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imageGalleri"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
             android:layout_gravity="center_vertical|left"
             android:layout_marginLeft="@dimen/abc_action_button_min_width"
-            android:src="@drawable/ic_launcher" />
+            android:background="@drawable/galleri" />
 
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imageLista"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
             android:layout_gravity="right|center_vertical"
             android:layout_marginLeft="@dimen/abc_action_button_min_width"
-            android:layout_marginRight="@dimen/abc_action_button_min_width"
-            android:src="@drawable/ic_launcher" />
+            android:background="@drawable/lista" />
 
     </LinearLayout>
 
@@ -37,22 +35,22 @@
         android:layout_weight="1"
         android:weightSum="1">
 
-        <ImageButton
-            android:id="@+id/imageButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imageOltyper"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
             android:layout_gravity="center_vertical|left"
             android:layout_marginLeft="@dimen/abc_action_button_min_width"
-            android:src="@drawable/ic_launcher" />
+            android:background="@drawable/oltyper" />
 
-        <ImageButton
-            android:id="@+id/imageButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imageKistan"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
             android:layout_gravity="right|center_vertical"
             android:layout_marginLeft="@dimen/abc_action_button_min_width"
             android:layout_marginRight="@dimen/abc_action_button_min_width"
-            android:src="@drawable/ic_launcher" />
+            android:background="@drawable/kistan" />
 
     </LinearLayout>
 
@@ -60,12 +58,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:layout_weight="1">
-        <ImageButton
-            android:id="@+id/imageButton5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_launcher" />
-    </LinearLayout>
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/imageUtvecklare"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_marginLeft="135dip"
+            android:background="@drawable/utvecklare" />
+
+    </LinearLayout>
+</LinearLayout>  

@@ -72,7 +72,6 @@ public class LazyAdapter extends BaseAdapter implements Filterable{
         
         // Getting relevant information
         TextView articleName = (TextView)vi.findViewById(R.id.listNamn); 
-        TextView id = (TextView)vi.findViewById(R.id.listID);
         ImageView thumbnailImage = (ImageView)vi.findViewById(R.id.listImageURL);
         
         HashMap<String, String> productList = new HashMap<String, String>();
@@ -82,8 +81,6 @@ public class LazyAdapter extends BaseAdapter implements Filterable{
             int loader = R.drawable.placeholder;
             imageLoader.DisplayImage(productList.get(MainActivity.TAG_PATH),NO_SELECTION, thumbnailImage);
             articleName.setText(productList.get(MainActivity.TAG_NAME));
-            id.setText(productList.get(MainActivity.TAG_ID));
-           
         
         return vi;
     }

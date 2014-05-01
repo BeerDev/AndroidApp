@@ -15,7 +15,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
       <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     
     <application
         android:icon="@drawable/icon_mini"
@@ -31,58 +30,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    	<!-- ListView Activity -->
-        <activity
-            
-          android:screenOrientation="portrait"
-            android:label=""
-            android:launchMode="singleTop"
-            android:name="com.beerdev.androidapp.ListViewActivity" >
-             <intent-filter>
-            <action android:name="android.intent.action.SEARCH" />
-        </intent-filter>
-        </activity>
-        <!-- OmOss Activity -->
-        <activity
-            
-            android:label=""
-            android:name="com.beerdev.androidapp.OmOss" >
-        </activity>
+    	
     
         <!-- Swipe View Activity -->
         <activity
-            android:launchMode="singleTop"
-          android:screenOrientation="portrait"
+          	android:screenOrientation="portrait"
             android:label=""
-            android:name="com.beerdev.androidapp.SwipeViewActivity" >
-             
-        </activity>
-		<receiver android:name=".NetworkStateReceiver">
-			   <intent-filter>
-			      <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-			   </intent-filter>
-		</receiver>
-
-        <!-- OmKistan activity -->
-        <activity
-            android:label=""
-            android:name="com.beerdev.androidapp.OmKistan" >
-        </activity>
- 		<activity
-            android:label=""
-            android:name="com.beerdev.androidapp.MenuActivity" >
-        </activity>
-        
-         <activity android:name=".SearchActivity"
-            android:parentActivityName="com.beerdev.androidapp.SwipeViewActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
- 
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-        </activity>
+            android:name="com.beerdev.androidapp.FragmentManagerActivity" >
+        </activity>        
+   
     </application>
 
 </manifest>

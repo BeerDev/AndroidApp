@@ -29,4 +29,9 @@
 
 \n \n Välkommen! </string>
 
+    <string-array name="search_array">
+        <item>Namn</item>
+        <item>Kategorier</item>
+    </string-array>
+
 </resources>

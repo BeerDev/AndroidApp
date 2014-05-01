@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<EditText xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:cursorVisible="true"
-    android:hint="@string/search_hint"
-    android:imeOptions="actionDone"
-    android:inputType="text" >
- 
-</EditText>
+    android:layout_gravity="fill_horizontal"
+    android:orientation="horizontal"
+    android:focusable="true" 
+    android:weightSum="10">
+
+    <AutoCompleteTextView
+        android:id="@+id/menu_autosearch"
+        android:layout_width="0dip"
+        android:layout_weight="6"
+        android:layout_height="fill_parent"
+        android:dropDownVerticalOffset="5dp"
+        android:dropDownWidth="wrap_content"
+        android:ems="6"
+        android:hint="@string/search_hint"
+        android:inputType="textAutoComplete|textAutoCorrect"
+        android:popupBackground="#800000"
+        android:textColor="#FFFFFF" />
+
+    <Spinner
+        android:id="@+id/search_chooser"
+        android:layout_width="0dip"
+        android:layout_weight="3"
+        android:entries="@array/search_array"
+        android:prompt="@string/search_hint"
+        android:layout_height="fill_parent"/>
+    	
+    <ImageButton 
+        android:id="@+id/menu_navigation"
+        android:layout_weight="2"
+        android:layout_height="fill_parent"
+        android:layout_width="0dip"
+        android:background="@drawable/menu"/>
+    
+</LinearLayout>

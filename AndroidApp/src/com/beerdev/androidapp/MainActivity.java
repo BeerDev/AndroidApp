@@ -192,7 +192,7 @@ public class MainActivity extends Activity {
 
 				completeProductList = (ArrayList<HashMap<String,String>>) productList.clone();
 				Intent in = new Intent(getApplicationContext(),
-						SwipeViewActivity.class);
+						FragmentManagerActivity.class);
 
 				in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
 				in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
