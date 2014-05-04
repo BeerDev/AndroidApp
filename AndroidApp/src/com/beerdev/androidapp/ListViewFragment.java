@@ -2,7 +2,8 @@ package com.beerdev.androidapp;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ListView;
 
@@ -34,4 +35,5 @@ public class ListViewFragment extends ListFragment{
 			.addToBackStack("swipeFrag")
 			.commit();
 	 }
+
 }

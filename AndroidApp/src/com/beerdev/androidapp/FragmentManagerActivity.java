@@ -5,12 +5,14 @@ import java.util.HashMap;
 
 import org.json.JSONException;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +33,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	public static SlidingMenu sm;
 	private boolean mToggleChecked = false;
 	private SearchView searchView;
+	private MenuItem filter;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -94,6 +97,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
         searchView.setOnQueryTextListener(this);
         searchView.setOnSearchClickListener(this);
         searchView.setOnCloseListener(this);
+        filter = menu.findItem(R.id.menu_filter);
         //searchView.setIconified(true);
         return super.onCreateOptionsMenu(menu);        
     }
@@ -103,7 +107,18 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    		case R.id.menu_navigation:
 	    			toggle();
 	    			break;
-	    			
+	    		case R.id.menu_filter_sortName:
+	    			Sort.sortAlphabetic();
+	    			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
+			        	ListViewFragment.adapter.notifyDataSetChanged();
+			        }
+	    			break;
+	    		case R.id.menu_filter_sortPrice:
+	    			Sort.sortPrice();
+	    			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
+			        	ListViewFragment.adapter.notifyDataSetChanged();
+			        }
+	    			break;
 	    		}
 	    		return true;
 	    	}
@@ -165,10 +180,16 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		@Override
 		public void onClick(View v) {
 			findViewById(R.id.search_container).setVisibility(View.VISIBLE);
+			filter.setVisible(false);
+			
 		}
 		@Override
 		public boolean onClose() {
 			findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
+			filter.setVisible(true);
+			filter.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+			//filter.setIcon(R.drawable.filter);
+			//filter.setEnabled(true);
 			InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
 		    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 			return false;

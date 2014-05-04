@@ -72,7 +72,8 @@ public class SwipeViewFragment extends Fragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		 final ViewGroup swipeView = (ViewGroup) inflater.inflate(R.layout.fragment_swipe, container, false);
-    
+		 //setHasOptionsMenu(false);
+		 
         final SlidingUpPanelLayout layout = (SlidingUpPanelLayout) swipeView.findViewById(R.id.sliding_layout);
         Bundle extras = getActivity().getIntent().getExtras();
 
