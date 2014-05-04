@@ -7,6 +7,8 @@
     <string name="action_search">Search</string>
     <string name="search_hint">Sök...</string>
     <string name="action_settings">Settings</string>
+    <string name="toggle_ontext">Kategori</string>
+    <string name="toggle_offtext">Artikelnamn</string>
     <string name="infoid">
         
   \n    Denna applikation hjälper dig att få en överblick över ölutbudet i Kistan. Kistan är INsektionens sektionslokal på KTH Campus Kista. 

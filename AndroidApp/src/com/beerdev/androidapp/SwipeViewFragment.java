@@ -88,7 +88,7 @@ public class SwipeViewFragment extends Fragment {
      * The pager adapter, which provides the pages to the view pager widget.
      */
     private PagerAdapter mPagerAdapter;
-    public OnPageChangeListener pageChangeListener;
+    public static OnPageChangeListener pageChangeListener;
 
 
     private boolean isChangedStat = false;

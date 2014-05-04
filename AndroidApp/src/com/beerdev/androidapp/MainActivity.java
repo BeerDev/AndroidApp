@@ -85,6 +85,11 @@ public class MainActivity extends Activity {
 	private static final String TAG_PERC = "Alkoholhalt";
 
 	/**
+	 * JSON Node for finding percent of beer
+	 */
+	private static final String TAG_CAT = "Kategori";
+
+	/**
 	 * Products JSONArray
 	 */
 	JSONArray products = null;
@@ -154,7 +159,8 @@ public class MainActivity extends Activity {
 						String info = c.getString(TAG_INFO);
 						String size = c.getString(TAG_SIZE);
 						String percent = c.getString(TAG_PERC);
-
+						String cat = c.getString(TAG_CAT);
+						
 						// tmp hashmap for single contact
 						HashMap<String, String> contact = new HashMap<String, String>();
 
@@ -166,6 +172,7 @@ public class MainActivity extends Activity {
 						contact.put(TAG_INFO, info);
 						contact.put(TAG_SIZE, size);
 						contact.put(TAG_PERC, percent);
+						contact.put(TAG_CAT, cat);
 
 						// adding contact to contact list
 						productList.add(contact);
