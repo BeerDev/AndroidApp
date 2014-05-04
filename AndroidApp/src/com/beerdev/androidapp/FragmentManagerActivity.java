@@ -39,8 +39,11 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 			setContentView(R.layout.fragmentactivity_root);
 			
 			FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
-			SwipeViewFragment mFrag = new SwipeViewFragment();
-			t.replace(R.id.root_container, mFrag);
+			SwipeViewFragment mSwipeFrag = new SwipeViewFragment();
+			ListViewFragment mListFrag = new ListViewFragment();
+			t.replace(R.id.root_container, mSwipeFrag, "swipeFrag");
+			t.add(mListFrag, "listFrag");
+			t.hide(mListFrag);
 			t.commit();
 			
 				setBehindContentView(R.layout.menu_frame);
@@ -91,7 +94,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
         searchView.setOnQueryTextListener(this);
         searchView.setOnSearchClickListener(this);
         searchView.setOnCloseListener(this);
-        searchView.setIconified(true);
+        //searchView.setIconified(true);
         return super.onCreateOptionsMenu(menu);        
     }
 	 @Override
@@ -118,7 +121,9 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 
 			findViewById(R.id.search_container).setVisibility(View.VISIBLE);
 			InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-		    imm.toggleSoftInput(0, InputMethodManager.SHOW_IMPLICIT);
+		    if(!imm.isActive()){
+				imm.toggleSoftInput(0, InputMethodManager.SHOW_IMPLICIT);
+		    }
 				try {
 					ArrayList<HashMap<String,String>> tempProductList = (ArrayList<HashMap<String, String>>) MainActivity.productList.clone();
 					String cat;
