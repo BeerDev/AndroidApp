@@ -30,6 +30,7 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 public class FragmentManagerActivity extends SlidingFragmentActivity implements OnQueryTextListener, OnClickListener, OnCloseListener {
 	public static SlidingMenu sm;
 	private boolean mToggleChecked = false;
+	private SearchView searchView;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,6 +75,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				sm.showSecondaryMenu();
 				sm.setMode(SlidingMenu.RIGHT);
 				sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+				//setSlidingActionBarEnabled(false);
 				getActionBar().setDisplayHomeAsUpEnabled(false);
 				getActionBar().setDisplayShowHomeEnabled(false);
 	}
@@ -82,13 +84,14 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_menu, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView  searchView = (SearchView) menu.findItem(R.id.menu_search)
+        searchView = (SearchView) menu.findItem(R.id.menu_search)
                 .getActionView();
         searchView.setSearchableInfo(searchManager
                 .getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(this);
         searchView.setOnSearchClickListener(this);
         searchView.setOnCloseListener(this);
+        searchView.setIconified(true);
         return super.onCreateOptionsMenu(menu);        
     }
 	 @Override
@@ -106,6 +109,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 			findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
 			InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
 		    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+
 			return false;
 		}
 
@@ -132,12 +136,21 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 
 						Toast.makeText(this, "Inga resultat", Toast.LENGTH_SHORT).show();
 					}
-					SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
-					SwipeViewFragment.pageChangeListener.onPageSelected(0);
-			        SwipeViewFragment.mPager.setCurrentItem(0);	 
-			        /*if(getSupportFragmentManager().findFragmentByTag("listFrag").is){
+					if(MainActivity.productList.size() == 1){
+						SwipeViewFragment.mPager.setSwipeable(false);
+						SwipeViewFragment.pageChangeListener.onPageSelected(0);
+				        SwipeViewFragment.mPager.setCurrentItem(0);
+					}
+					else{
+						SwipeViewFragment.mPager.setSwipeable(true);
+						SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
+						SwipeViewFragment.pageChangeListener.onPageSelected(0);
+				        SwipeViewFragment.mPager.setCurrentItem(0);
+				    }
+			        if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
 			        	ListViewFragment.adapter.notifyDataSetChanged();
-			        }*/
+			        }
+			        	//ListViewFragment.adapter.notifyDataSetChanged();
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}

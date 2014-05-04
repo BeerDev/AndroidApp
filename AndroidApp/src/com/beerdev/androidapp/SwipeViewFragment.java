@@ -1,40 +1,16 @@
 package com.beerdev.androidapp;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.json.JSONException;
-
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.app.ActionBar;
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
@@ -77,7 +53,7 @@ public class SwipeViewFragment extends Fragment {
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
      */
-    public static ViewPager mPager;
+    public static CustomViewPager mPager;
 
     /**
      * An integer that holds the current page of viewpager, is used in ScreenSlidePageFragment to update textviews.
@@ -98,15 +74,14 @@ public class SwipeViewFragment extends Fragment {
 		 final ViewGroup swipeView = (ViewGroup) inflater.inflate(R.layout.fragment_swipe, container, false);
     
         final SlidingUpPanelLayout layout = (SlidingUpPanelLayout) swipeView.findViewById(R.id.sliding_layout);
-        /*SOLVE WITH FRAGMENT TRANSACTION
-        Intent intent = getIntent();
+        Bundle extras = getActivity().getIntent().getExtras();
 
-        int pos = intent.getIntExtra("BildID", 0);*/        
+        int pos = extras.getInt("position", 0);        
         //Define the number of viewpages that shall be included in the scrollview
         NUM_PAGES = MainActivity.productList.size();
 
         // Instantiate a ViewPager and a PagerAdapter.
-        mPager = (ViewPager) swipeView.findViewById(R.id.pager);
+        mPager = (CustomViewPager) swipeView.findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         pageChangeListener = new OnPageChangeListener() {
@@ -137,7 +112,7 @@ public class SwipeViewFragment extends Fragment {
         };
         mPager.setOnPageChangeListener(pageChangeListener);
         pageChangeListener.onPageSelected(0);
-        mPager.setCurrentItem(0);	    
+        mPager.setCurrentItem(pos);	    
         return swipeView;
 	}
         

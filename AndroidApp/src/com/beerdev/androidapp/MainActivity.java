@@ -200,7 +200,7 @@ public class MainActivity extends Activity {
 				completeProductList = (ArrayList<HashMap<String,String>>) productList.clone();
 				Intent in = new Intent(getApplicationContext(),
 						FragmentManagerActivity.class);
-
+				in.putExtra("position", 0);
 				in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
 				in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(in);

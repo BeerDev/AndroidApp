@@ -23,6 +23,15 @@ public class ListViewFragment extends ListFragment{
 	 @Override
      public void onListItemClick(ListView l, View v, int position, long id) {
 		// Insert desired behavior here.
-         Log.i("DataListFragment", "Item clicked: " + id);
+		 getActivity()
+		 	.getIntent()
+		 	.putExtra("position", position);
+		 
+		 getActivity()
+			.getSupportFragmentManager()
+			.beginTransaction()
+			.replace(R.id.root_container, new SwipeViewFragment(), "swipeFrag")
+			.addToBackStack("swipeFrag")
+			.commit();
 	 }
 }
