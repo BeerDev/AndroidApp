@@ -255,7 +255,6 @@ public class MainActivity extends Activity {
 			wasOnline = true;
 			downloadFinished = false;
 			new GetProducts().execute();
-			
 
 		}
 		else if(!isOnline())
@@ -286,6 +285,7 @@ public void offlineMode(){
 			String info = Offc.getString(TAG_INFO);
 			String size = Offc.getString(TAG_SIZE);
 			String percent = Offc.getString(TAG_PERC);
+			String cat = Offc.getString(TAG_CAT);
 
 	      //Add your values in your `ArrayList` as below:
 			HashMap<String, String> hashlist = new HashMap<String,String>();
@@ -297,6 +297,7 @@ public void offlineMode(){
 			hashlist.put(TAG_INFO, info);
 			hashlist.put(TAG_SIZE, size);
 			hashlist.put(TAG_PERC, percent);
+			hashlist.put(TAG_CAT, cat);
 
 	     productList.add(hashlist);
 	     //getproductList.add(hashlist);
@@ -304,6 +305,14 @@ public void offlineMode(){
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		completeProductList = (ArrayList<HashMap<String,String>>) productList.clone();
+		Intent in = new Intent(getApplicationContext(),
+				FragmentManagerActivity.class);
+		in.putExtra("position", 0);
+		in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+		in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(in);
+		finish();
 }
 
 	public String loadJSONFromAsset() 

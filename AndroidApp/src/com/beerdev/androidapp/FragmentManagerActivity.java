@@ -8,6 +8,9 @@ import org.json.JSONException;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -17,7 +20,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
@@ -231,6 +233,34 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		        	//ListViewFragment.adapter.notifyDataSetChanged();
 			} catch (JSONException e) {
 				e.printStackTrace();
+			}
+		}
+		@Override
+	    protected void onPause(){
+	    	super.onPause();
+	    	ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo info = cm.getActiveNetworkInfo();
+			if (info != null && info.isConnectedOrConnecting()) {
+				MainActivity.wasOnline = true;
+				Log.d("onPauseSwipe", "wasOnline true");
+			}else{
+				MainActivity.wasOnline = false;
+				Log.d("onPauseSwipe", "wasOnline false");
+			}
+	    }
+		@Override
+		protected void onResume(){
+			super.onResume();
+			ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo info = cm.getActiveNetworkInfo();
+			if (info != null && info.isConnectedOrConnecting()) {
+				if(MainActivity.wasOnline == false){
+					Intent in = new Intent(getApplicationContext(), MainActivity.class);
+					startActivity(in);
+				}
+				Log.d("onResumeSwipe", "isOnline true");
+			}else{
+				Log.d("onResumeSwipe", "isOnline false");
 			}
 		}
 
