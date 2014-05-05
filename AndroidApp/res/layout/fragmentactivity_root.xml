@@ -10,18 +10,28 @@
 	    android:layout_height="match_parent"
 	    android:paddingTop="?android:attr/actionBarSize"/>
         
-    <RelativeLayout 
+        <LinearLayout
+            android:visibility="invisible"
             android:id="@+id/search_container"
-		    android:layout_width="match_parent"
-		    android:layout_height="match_parent"
-		    android:background="#80000000"
-		    android:visibility="invisible">
-        <ToggleButton 
-            android:id="@+id/choose_search"
             android:layout_width="fill_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:layout_marginTop="?android:attr/actionBarSize"
-            android:textOn="@string/toggle_ontext"
-            android:textOff="@string/toggle_offtext"/>
-    </RelativeLayout>
+            android:weightSum="1">
+            	<Button 
+            	    android:id="@+id/searchbutton_on"
+            	    android:layout_width="0dip"
+            	    android:layout_height="match_parent"
+            	    android:layout_weight="0.5"
+            	    android:text="@string/toggle_ontext" 
+            	    android:textColor="@color/halfTrans"
+   					android:background="@drawable/button_selected"/>
+            	<Button
+            	    android:id="@+id/searchbutton_off"
+            	    android:layout_width="0dip"
+            	    android:layout_height="match_parent"
+            	    android:layout_weight="0.5"
+            	    android:text="@string/toggle_offtext"
+            	    android:textColor="@color/white"
+   					android:background="@drawable/button_unselected"/>
+        </LinearLayout>
 </FrameLayout>

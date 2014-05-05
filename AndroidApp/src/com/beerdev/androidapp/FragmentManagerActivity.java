@@ -5,38 +5,40 @@ import java.util.HashMap;
 
 import org.json.JSONException;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public class FragmentManagerActivity extends SlidingFragmentActivity implements OnQueryTextListener, OnClickListener, OnCloseListener {
 	public static SlidingMenu sm;
-	private boolean mToggleChecked = false;
+	private boolean mToggleChecked = true;
 	private SearchView searchView;
 	private MenuItem filter;
+	private Button nameButton, catButton;
+	public static String tagToggleButton, searchText ="";
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		// set the Above View
 		// set the Behind View
 			setContentView(R.layout.fragmentactivity_root);
@@ -54,24 +56,56 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				MenuFragment mFrag2 = new MenuFragment();
 				t2.replace(R.id.menu_frame, mFrag2);
 				t2.commit();
+				
+				nameButton = (Button) findViewById(R.id.searchbutton_on);
+				catButton = (Button) findViewById(R.id.searchbutton_off);
+				nameButton.setOnClickListener(new OnClickListener(){
 
-				ToggleButton tb = (ToggleButton) findViewById(R.id.choose_search);
-				tb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-				    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-				        if(isChecked)
-				        {
-				            Log.d("alarmCheck","ALARM SET TO TRUE");
-				            mToggleChecked = true;
-				        }
-				        else
-				        {
-				            Log.d("alarmCheck","ALARM SET TO FALSE");
-				            mToggleChecked = false;
-				        }
-				    }
+					@Override
+					public void onClick(View v) {
+						int white = getResources().getColor(R.color.white);
+						int halfTrans = getResources().getColor(R.color.halfTrans);
+						if(mToggleChecked){
+							nameButton.setBackgroundResource(R.drawable.button_unselected);
+							nameButton.setTextColor(white);
+							catButton.setBackgroundResource(R.drawable.button_selected);
+							catButton.setTextColor(halfTrans);
+							mToggleChecked = false;
+						}
+						else{
+							nameButton.setBackgroundResource(R.drawable.button_selected);
+							nameButton.setTextColor(halfTrans);
+							catButton.setBackgroundResource(R.drawable.button_unselected);
+							catButton.setTextColor(white);
+							mToggleChecked = true;
+						}	
+						search();
+					}
 				});
+				catButton.setOnClickListener(new OnClickListener(){
+
+					@Override
+					public void onClick(View v) {
+						int white = getResources().getColor(R.color.white);
+						int halfTrans = getResources().getColor(R.color.halfTrans);
+						if(mToggleChecked){
+							nameButton.setBackgroundResource(R.drawable.button_unselected);
+							nameButton.setTextColor(white);
+							catButton.setBackgroundResource(R.drawable.button_selected);
+							catButton.setTextColor(halfTrans);
+							mToggleChecked = false;
+						}
+						else{
+							nameButton.setBackgroundResource(R.drawable.button_selected);
+							nameButton.setTextColor(halfTrans);
+							catButton.setBackgroundResource(R.drawable.button_unselected);
+							catButton.setTextColor(white);
+							mToggleChecked = true;
+						}
+						search();
+					}
+				});
+				
 				// customize the SlidingMenu
 				sm = getSlidingMenu();
 				sm.setShadowWidthRes(R.dimen.shadow_width);
@@ -81,7 +115,6 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				sm.showSecondaryMenu();
 				sm.setMode(SlidingMenu.RIGHT);
 				sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
-				//setSlidingActionBarEnabled(false);
 				getActionBar().setDisplayHomeAsUpEnabled(false);
 				getActionBar().setDisplayShowHomeEnabled(false);
 	}
@@ -98,6 +131,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
         searchView.setOnSearchClickListener(this);
         searchView.setOnCloseListener(this);
         filter = menu.findItem(R.id.menu_filter);
+        searchView.setIconifiedByDefault(true);
         //searchView.setIconified(true);
         return super.onCreateOptionsMenu(menu);        
     }
@@ -133,48 +167,14 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 
 		@Override
 		public boolean onQueryTextChange(String newText) {
-
+			
 			findViewById(R.id.search_container).setVisibility(View.VISIBLE);
 			InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
 		    if(!imm.isActive()){
 				imm.toggleSoftInput(0, InputMethodManager.SHOW_IMPLICIT);
 		    }
-				try {
-					ArrayList<HashMap<String,String>> tempProductList = (ArrayList<HashMap<String, String>>) MainActivity.productList.clone();
-					String cat;
-					if(mToggleChecked){
-						cat = "Kategori";
-					}
-					else{
-						cat = "Artikelnamn";
-					}
-					
-					Sort.Filter(newText, cat);
-					Log.i("INFO", Integer.toString(MainActivity.productList.size()));
-					if(MainActivity.productList.size()==0){
-						MainActivity.productList = (ArrayList<HashMap<String, String>>) tempProductList.clone();
-
-						Toast.makeText(this, "Inga resultat", Toast.LENGTH_SHORT).show();
-					}
-					if(MainActivity.productList.size() == 1){
-						SwipeViewFragment.mPager.setSwipeable(false);
-						SwipeViewFragment.pageChangeListener.onPageSelected(0);
-				        SwipeViewFragment.mPager.setCurrentItem(0);
-					}
-					else{
-						SwipeViewFragment.mPager.setSwipeable(true);
-						SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
-						SwipeViewFragment.pageChangeListener.onPageSelected(0);
-				        SwipeViewFragment.mPager.setCurrentItem(0);
-				    }
-			        if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
-			        	ListViewFragment.adapter.notifyDataSetChanged();
-			        }
-			        	//ListViewFragment.adapter.notifyDataSetChanged();
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-
+		    searchText = newText;
+		    search();
 			return false;
 		}
 		@Override
@@ -186,12 +186,82 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		@Override
 		public boolean onClose() {
 			findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
+
+			SwipeViewFragment.mPager.setSwipeable(true); 
 			filter.setVisible(true);
 			filter.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-			//filter.setIcon(R.drawable.filter);
-			//filter.setEnabled(true);
 			InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
 		    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 			return false;
 		}
+		private void search(){
+			try {
+				ArrayList<HashMap<String,String>> tempProductList = (ArrayList<HashMap<String, String>>) MainActivity.productList.clone();
+
+				if(mToggleChecked){
+					tagToggleButton = "Artikelnamn";
+				}
+				else{
+					tagToggleButton = "Kategori";
+				}
+				
+				Sort.Filter(searchText, tagToggleButton);
+				Log.i("INFO", Integer.toString(MainActivity.productList.size()));
+				if(MainActivity.productList.size()==0){
+					MainActivity.productList = (ArrayList<HashMap<String, String>>) tempProductList.clone();
+
+					Toast.makeText(this, "Inga resultat", Toast.LENGTH_SHORT).show();
+				}
+				
+				
+				if(MainActivity.productList.size() == 1){
+					SwipeViewFragment.mPager.setSwipeable(false);
+					SwipeViewFragment.pageChangeListener.onPageSelected(0);
+			        SwipeViewFragment.mPager.setCurrentItem(0);
+				}
+				else{
+					SwipeViewFragment.mPager.setSwipeable(true);
+					SwipeViewFragment.NUM_PAGES = MainActivity.productList.size();
+					SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
+					SwipeViewFragment.pageChangeListener.onPageSelected(0);
+			        SwipeViewFragment.mPager.setCurrentItem(0);
+			    }
+				
+		        if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
+		        	ListViewFragment.adapter.notifyDataSetChanged();
+		        }
+		        	//ListViewFragment.adapter.notifyDataSetChanged();
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		@Override
+	    protected void onPause(){
+	    	super.onPause();
+	    	ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo info = cm.getActiveNetworkInfo();
+			if (info != null && info.isConnectedOrConnecting()) {
+				MainActivity.wasOnline = true;
+				Log.d("onPauseSwipe", "wasOnline true");
+			}else{
+				MainActivity.wasOnline = false;
+				Log.d("onPauseSwipe", "wasOnline false");
+			}
+	    }
+		@Override
+		protected void onResume(){
+			super.onResume();
+			ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo info = cm.getActiveNetworkInfo();
+			if (info != null && info.isConnectedOrConnecting()) {
+				if(MainActivity.wasOnline == false){
+					Intent in = new Intent(getApplicationContext(), MainActivity.class);
+					startActivity(in);
+				}
+				Log.d("onResumeSwipe", "isOnline true");
+			}else{
+				Log.d("onResumeSwipe", "isOnline false");
+			}
+		}
+
 }

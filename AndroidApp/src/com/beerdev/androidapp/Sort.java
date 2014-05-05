@@ -64,14 +64,14 @@ public class Sort {
         });
 	}
 	
-	public static void Filter(String word, String cat) throws JSONException{
+	public static void Filter(String word, String tag) throws JSONException{
 		MainActivity.productList.clear();
 		// Getting JSON Array node
 		//filterProductList=new ArrayList<HashMap<String, String>>();
 		// looping through All products
 		for (int i = 0; i < MainActivity.completeProductList.size();i++) 
 		{
-			String c = MainActivity.completeProductList.get(i).get(cat);
+			String c = MainActivity.completeProductList.get(i).get(tag);
 
 			if(c.toLowerCase().contains(word.toLowerCase()))
 			{			

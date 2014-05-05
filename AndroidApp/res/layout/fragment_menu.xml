@@ -17,7 +17,7 @@
             android:layout_height="93dp"
             android:clickable="true"
             android:layout_gravity="center_vertical|left"
-            android:layout_marginLeft="@dimen/abc_action_button_min_width"
+            android:layout_marginLeft="20dp"
             android:background="@drawable/galleri" />
 
         <ImageView
@@ -25,7 +25,7 @@
             android:layout_width="93dp"
             android:layout_height="93dp"
             android:layout_gravity="right|center_vertical"
-            android:layout_marginLeft="@dimen/abc_action_button_min_width"
+            android:layout_marginLeft="20dp"
             android:background="@drawable/lista" />
 
     </LinearLayout>
@@ -41,7 +41,7 @@
             android:layout_width="93dp"
             android:layout_height="93dp"
             android:layout_gravity="center_vertical|left"
-            android:layout_marginLeft="@dimen/abc_action_button_min_width"
+            android:layout_marginLeft="20dp"
             android:background="@drawable/oltyper" />
 
         <ImageView
@@ -49,8 +49,8 @@
             android:layout_width="93dp"
             android:layout_height="93dp"
             android:layout_gravity="right|center_vertical"
-            android:layout_marginLeft="@dimen/abc_action_button_min_width"
-            android:layout_marginRight="@dimen/abc_action_button_min_width"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/kistan" />
 
     </LinearLayout>
@@ -64,7 +64,7 @@
             android:id="@+id/imageUtvecklare"
             android:layout_width="93dp"
             android:layout_height="93dp"
-            android:layout_marginLeft="135dip"
+            android:layout_marginLeft="100dip"
             android:background="@drawable/utvecklare" />
 
     </LinearLayout>
