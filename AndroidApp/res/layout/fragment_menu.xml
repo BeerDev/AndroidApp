@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="3"
+    android:background="#80000000">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageGalleri"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:clickable="true"
+            android:layout_gravity="center_vertical|left"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/galleri" />
+
+        <ImageView
+            android:id="@+id/imageLista"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/lista" />
+
+    </LinearLayout>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageOltyper"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_gravity="center_vertical|left"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/oltyper" />
+
+        <ImageView
+            android:id="@+id/imageKistan"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/kistan" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/imageUtvecklare"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_marginLeft="100dip"
+            android:background="@drawable/utvecklare" />
+
+    </LinearLayout>
+</LinearLayout>  

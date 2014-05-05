@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp" 
+    android:layout_marginTop="20dip">
+    
+    <!-- Name Label -->
+    <ImageView
+        android:id="@+id/listImageURL"
+        android:layout_width="20dip"
+        android:layout_height="50dip" />
+
+    <TextView
+        android:id="@+id/listNamn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="5dip"
+        android:paddingTop="15dip"
+        android:paddingLeft="20dip"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:shadowColor="#000000"
+	    android:shadowDx="-3"
+	    android:shadowDy="3"
+	    android:shadowRadius="1.1"
+        android:textStyle="bold" 
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>
