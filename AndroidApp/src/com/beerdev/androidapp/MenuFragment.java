@@ -60,7 +60,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
         		getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
-	    			.replace(R.id.root_container, new SwipeViewFragment(), "swipeFrag")
+	    			.replace(R.id.root_container, new AboutCategories(), "categoriesFrag")
 	    			.addToBackStack("swipeFrag")
 	    			.commit();
 

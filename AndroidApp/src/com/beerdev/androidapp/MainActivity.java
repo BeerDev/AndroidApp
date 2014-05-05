@@ -223,7 +223,7 @@ public class MainActivity extends Activity {
 			Log.d("onPauseMain", "wasOnline false");
 		}
     }
-	@Override
+	@Override 
 	protected void onResume(){
 		super.onResume();
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
