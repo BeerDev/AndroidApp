@@ -47,7 +47,7 @@ public class SwipeViewFragment extends Fragment {
     /**
      * The number of pages to show in the viewpager.
      */
-    private static int NUM_PAGES;
+    public static int NUM_PAGES;
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -73,7 +73,6 @@ public class SwipeViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		 final ViewGroup swipeView = (ViewGroup) inflater.inflate(R.layout.fragment_swipe, container, false);
 		 //setHasOptionsMenu(false);
-		 
         final SlidingUpPanelLayout layout = (SlidingUpPanelLayout) swipeView.findViewById(R.id.sliding_layout);
         Bundle extras = getActivity().getIntent().getExtras();
 
