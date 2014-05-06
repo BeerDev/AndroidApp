@@ -30,15 +30,18 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public class FragmentManagerActivity extends SlidingFragmentActivity implements OnQueryTextListener, OnClickListener, OnCloseListener {
 	public static SlidingMenu sm;
-	private boolean mToggleChecked = true;
-	private SearchView searchView;
+	public static boolean mToggleChecked = true;
+	public static SearchView searchView;
 	private MenuItem filter;
-	private Button nameButton, catButton;
+	public static Button nameButton, catButton;
 	public static String tagToggleButton, searchText ="";
+
+	public static Context globalContext = null;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		FragmentManagerActivity.globalContext = this;
 		// set the Above View
 		// set the Behind View
 			setContentView(R.layout.fragmentactivity_root);
@@ -61,24 +64,11 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				catButton = (Button) findViewById(R.id.searchbutton_off);
 				nameButton.setOnClickListener(new OnClickListener(){
 
+				
 					@Override
 					public void onClick(View v) {
-						int white = getResources().getColor(R.color.white);
-						int halfTrans = getResources().getColor(R.color.halfTrans);
-						if(mToggleChecked){
-							nameButton.setBackgroundResource(R.drawable.button_unselected);
-							nameButton.setTextColor(white);
-							catButton.setBackgroundResource(R.drawable.button_selected);
-							catButton.setTextColor(halfTrans);
-							mToggleChecked = false;
-						}
-						else{
-							nameButton.setBackgroundResource(R.drawable.button_selected);
-							nameButton.setTextColor(halfTrans);
-							catButton.setBackgroundResource(R.drawable.button_unselected);
-							catButton.setTextColor(white);
-							mToggleChecked = true;
-						}	
+						FragmentManagerActivity.mToggleChecked=true;
+						setToggleButton();
 						search();
 					}
 				});
@@ -86,22 +76,8 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 
 					@Override
 					public void onClick(View v) {
-						int white = getResources().getColor(R.color.white);
-						int halfTrans = getResources().getColor(R.color.halfTrans);
-						if(mToggleChecked){
-							nameButton.setBackgroundResource(R.drawable.button_unselected);
-							nameButton.setTextColor(white);
-							catButton.setBackgroundResource(R.drawable.button_selected);
-							catButton.setTextColor(halfTrans);
-							mToggleChecked = false;
-						}
-						else{
-							nameButton.setBackgroundResource(R.drawable.button_selected);
-							nameButton.setTextColor(halfTrans);
-							catButton.setBackgroundResource(R.drawable.button_unselected);
-							catButton.setTextColor(white);
-							mToggleChecked = true;
-						}
+						FragmentManagerActivity.mToggleChecked=false;
+						setToggleButton();
 						search();
 					}
 				});
@@ -264,4 +240,24 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 			}
 		}
 
+		public static void setToggleButton(){
+			int white=FragmentManagerActivity.globalContext.getResources().getColor(R.color.white);
+			int halfTrans = FragmentManagerActivity.globalContext.getResources().getColor(R.color.halfTrans);
+			if(mToggleChecked){
+				nameButton.setBackgroundResource(R.drawable.button_selected);
+				nameButton.setTextColor(halfTrans);
+				catButton.setBackgroundResource(R.drawable.button_unselected);
+				catButton.setTextColor(white);
+			}
+			else{
+				nameButton.setBackgroundResource(R.drawable.button_unselected);
+				nameButton.setTextColor(white);
+				catButton.setBackgroundResource(R.drawable.button_selected);
+				catButton.setTextColor(halfTrans);
+			}
+		}
+	public static void color(){
+		int color = FragmentManagerActivity.globalContext.getResources().getColor(R.color.white);
+		
+	}
 }
