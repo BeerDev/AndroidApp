@@ -1,15 +1,9 @@
 package com.beerdev.androidapp;
 
 //testar
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -24,10 +18,9 @@ public class AboutKistanFragment extends Fragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		 ViewGroup kistanView = (ViewGroup) inflater.inflate(R.layout.fragment_aboutkistan, container, false);
-		 
-		 /*SOLVE WITH FRAGMENTS
-		Intent intent = getIntent();
-		productList =(ArrayList<HashMap<String,String>>) intent.getSerializableExtra("productList");*/
+		 FragmentManagerActivity.menu.findItem(R.id.menu_filter).setVisible(false);
+		 FragmentManagerActivity.menu.findItem(R.id.menu_search).setVisible(false);
+		 getActivity().findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
 		 return kistanView;
 	}
 }

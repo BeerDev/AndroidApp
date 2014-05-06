@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -32,13 +33,14 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	public static SlidingMenu sm;
 	private boolean mToggleChecked = true;
 	private SearchView searchView;
+	public static Menu menu = null;
 	private MenuItem filter;
 	private Button nameButton, catButton;
 	public static String tagToggleButton, searchText ="";
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		// set the Above View
 		// set the Behind View
 			setContentView(R.layout.fragmentactivity_root);
@@ -121,7 +123,8 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation_menu, menu);
+		this.menu = menu;
+		getMenuInflater().inflate(R.menu.navigation_menu, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.menu_search)
                 .getActionView();

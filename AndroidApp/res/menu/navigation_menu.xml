@@ -26,5 +26,5 @@
 	    		  	android:title="Sortera på pris"
 	    		  	android:showAsAction="ifRoom"/>
 	    	</menu>
-    	</item>"
+    	</item>
 </menu>

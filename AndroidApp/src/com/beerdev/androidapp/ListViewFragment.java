@@ -2,6 +2,7 @@ package com.beerdev.androidapp;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -14,7 +15,11 @@ public class ListViewFragment extends ListFragment{
 	@Override 
 	public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        
+        if(!(FragmentManagerActivity.menu == null)){
+			 FragmentManagerActivity.menu.findItem(R.id.menu_filter).setVisible(true);
+			 FragmentManagerActivity.menu.findItem(R.id.menu_search).setVisible(true);
+			 getActivity().findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
+		 }
         // Initially there is no data 
         setEmptyText("No Data Here");
 		// Getting adapter by passing xml data ArrayList
@@ -35,5 +40,4 @@ public class ListViewFragment extends ListFragment{
 			.addToBackStack("swipeFrag")
 			.commit();
 	 }
-
 }

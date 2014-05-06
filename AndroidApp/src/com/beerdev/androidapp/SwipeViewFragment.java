@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +74,13 @@ public class SwipeViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		 final ViewGroup swipeView = (ViewGroup) inflater.inflate(R.layout.fragment_swipe, container, false);
 		 //setHasOptionsMenu(false);
-        final SlidingUpPanelLayout layout = (SlidingUpPanelLayout) swipeView.findViewById(R.id.sliding_layout);
+		 if(!(FragmentManagerActivity.menu == null)){
+			 FragmentManagerActivity.menu.findItem(R.id.menu_filter).setVisible(true);
+			 FragmentManagerActivity.menu.findItem(R.id.menu_search).setVisible(true);
+
+			 getActivity().findViewById(R.id.search_container).setVisibility(View.INVISIBLE); 
+		 }
+	     final SlidingUpPanelLayout layout = (SlidingUpPanelLayout) swipeView.findViewById(R.id.sliding_layout);
         Bundle extras = getActivity().getIntent().getExtras();
 
         int pos = extras.getInt("position", 0);        
