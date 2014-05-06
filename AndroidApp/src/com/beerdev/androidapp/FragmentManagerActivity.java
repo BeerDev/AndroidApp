@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -31,20 +30,15 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public class FragmentManagerActivity extends SlidingFragmentActivity implements OnQueryTextListener, OnClickListener, OnCloseListener {
 	public static SlidingMenu sm;
-	public static Menu menu = null;
-	public static boolean mToggleChecked = true;
-	public static SearchView searchView;
+	private boolean mToggleChecked = true;
+	private SearchView searchView;
 	private MenuItem filter;
-	public static Button nameButton, catButton;
+	private Button nameButton, catButton;
 	public static String tagToggleButton, searchText ="";
-
-	public static Context globalContext = null;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	
-		FragmentManagerActivity.globalContext = this;
+		
 		// set the Above View
 		// set the Behind View
 			setContentView(R.layout.fragmentactivity_root);
@@ -67,11 +61,24 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				catButton = (Button) findViewById(R.id.searchbutton_off);
 				nameButton.setOnClickListener(new OnClickListener(){
 
-				
 					@Override
 					public void onClick(View v) {
-						FragmentManagerActivity.mToggleChecked=true;
-						setToggleButton();
+						int white = getResources().getColor(R.color.white);
+						int halfTrans = getResources().getColor(R.color.halfTrans);
+						if(mToggleChecked){
+							nameButton.setBackgroundResource(R.drawable.button_unselected);
+							nameButton.setTextColor(white);
+							catButton.setBackgroundResource(R.drawable.button_selected);
+							catButton.setTextColor(halfTrans);
+							mToggleChecked = false;
+						}
+						else{
+							nameButton.setBackgroundResource(R.drawable.button_selected);
+							nameButton.setTextColor(halfTrans);
+							catButton.setBackgroundResource(R.drawable.button_unselected);
+							catButton.setTextColor(white);
+							mToggleChecked = true;
+						}	
 						search();
 					}
 				});
@@ -79,8 +86,22 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 
 					@Override
 					public void onClick(View v) {
-						FragmentManagerActivity.mToggleChecked=false;
-						setToggleButton();
+						int white = getResources().getColor(R.color.white);
+						int halfTrans = getResources().getColor(R.color.halfTrans);
+						if(mToggleChecked){
+							nameButton.setBackgroundResource(R.drawable.button_unselected);
+							nameButton.setTextColor(white);
+							catButton.setBackgroundResource(R.drawable.button_selected);
+							catButton.setTextColor(halfTrans);
+							mToggleChecked = false;
+						}
+						else{
+							nameButton.setBackgroundResource(R.drawable.button_selected);
+							nameButton.setTextColor(halfTrans);
+							catButton.setBackgroundResource(R.drawable.button_unselected);
+							catButton.setTextColor(white);
+							mToggleChecked = true;
+						}
 						search();
 					}
 				});
@@ -100,8 +121,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-		this.menu = menu;
-		getMenuInflater().inflate(R.menu.navigation_menu, menu);
+        getMenuInflater().inflate(R.menu.navigation_menu, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.menu_search)
                 .getActionView();
@@ -244,24 +264,4 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 			}
 		}
 
-		public static void setToggleButton(){
-			int white=FragmentManagerActivity.globalContext.getResources().getColor(R.color.white);
-			int halfTrans = FragmentManagerActivity.globalContext.getResources().getColor(R.color.halfTrans);
-			if(mToggleChecked){
-				nameButton.setBackgroundResource(R.drawable.button_selected);
-				nameButton.setTextColor(halfTrans);
-				catButton.setBackgroundResource(R.drawable.button_unselected);
-				catButton.setTextColor(white);
-			}
-			else{
-				nameButton.setBackgroundResource(R.drawable.button_unselected);
-				nameButton.setTextColor(white);
-				catButton.setBackgroundResource(R.drawable.button_selected);
-				catButton.setTextColor(halfTrans);
-			}
-		}
-	public static void color(){
-		int color = FragmentManagerActivity.globalContext.getResources().getColor(R.color.white);
-		
-	}
 }

@@ -22,9 +22,7 @@ public class AboutUsFragment extends Fragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		 ViewGroup aboutusView = (ViewGroup) inflater.inflate(R.layout.fragment_aboutus, container, false);
-		 FragmentManagerActivity.menu.findItem(R.id.menu_filter).setVisible(false);
-		 FragmentManagerActivity.menu.findItem(R.id.menu_search).setVisible(false);
-		 getActivity().findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
+		 
 		 return aboutusView;
 	}
 }
