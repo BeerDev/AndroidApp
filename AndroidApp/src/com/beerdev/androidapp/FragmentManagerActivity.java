@@ -124,53 +124,11 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			break;
 	    		case R.id.menu_filter_sortName:
 	    			Sort.sortAlphabetic();
-	    			if(SwipeViewFragment.NUM_PAGES == 1 && ((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
-						
-						SwipeViewFragment.mPager.setSwipeable(false);
-						SwipeViewFragment.pageChangeListener.onPageSelected(0);
-				        SwipeViewFragment.mPager.setCurrentItem(0);
-				        //Set Image when there is only one Beer showing
-				        ImageView ivBeer = (ImageView) findViewById(R.id.imageViewDemo);
-					        String image_url = MainActivity.productList.get(0).get("URL");
-					        ImageLoader imgLoader = new ImageLoader(this);
-					        imgLoader.DisplayImageIcon(image_url, ivBeer);			
-
-					}
-					else if (((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
-						SwipeViewFragment.mPager.setSwipeable(true);
-						SwipeViewFragment.NUM_PAGES = MainActivity.productList.size();
-						SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
-						SwipeViewFragment.pageChangeListener.onPageSelected(0);
-				        SwipeViewFragment.mPager.setCurrentItem(0);
-				    }
-	    			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
-			        	ListViewFragment.adapter.notifyDataSetChanged();
-			        }
+	    			updateViewsAfterFilter();
 	    			break;
 	    		case R.id.menu_filter_sortPrice:
 	    			Sort.sortPrice();
-	    			if(SwipeViewFragment.NUM_PAGES == 1 && ((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
-						
-						SwipeViewFragment.mPager.setSwipeable(false);
-						SwipeViewFragment.pageChangeListener.onPageSelected(0);
-				        SwipeViewFragment.mPager.setCurrentItem(0);
-				        //Set Image when there is only one Beer showing
-				        ImageView ivBeer = (ImageView) findViewById(R.id.imageViewDemo);
-					        String image_url = MainActivity.productList.get(0).get("URL");
-					        ImageLoader imgLoader = new ImageLoader(this);
-					        imgLoader.DisplayImageIcon(image_url, ivBeer);			
-
-					}
-					else if (((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
-						SwipeViewFragment.mPager.setSwipeable(true);
-						SwipeViewFragment.NUM_PAGES = MainActivity.productList.size();
-						SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
-						SwipeViewFragment.pageChangeListener.onPageSelected(0);
-				        SwipeViewFragment.mPager.setCurrentItem(0);
-				    }
-	    			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
-			        	ListViewFragment.adapter.notifyDataSetChanged();
-			        }
+	    			updateViewsAfterFilter();
 	    			break;
 	    		}
 	    		return true;
@@ -231,31 +189,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 
 					Toast.makeText(this, "Inga resultat", Toast.LENGTH_SHORT).show();
 				}
-				
-				
-				if(SwipeViewFragment.NUM_PAGES == 1 && ((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
-					
-					SwipeViewFragment.mPager.setSwipeable(false);
-					SwipeViewFragment.pageChangeListener.onPageSelected(0);
-			        SwipeViewFragment.mPager.setCurrentItem(0);
-			        //Set Image when there is only one Beer showing
-			        ImageView ivBeer = (ImageView) findViewById(R.id.imageViewDemo);
-				        String image_url = MainActivity.productList.get(0).get("URL");
-				        ImageLoader imgLoader = new ImageLoader(this);
-				        imgLoader.DisplayImageIcon(image_url, ivBeer);			
-
-				}
-				else if (((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
-					SwipeViewFragment.mPager.setSwipeable(true);
-					SwipeViewFragment.NUM_PAGES = MainActivity.productList.size();
-					SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
-					SwipeViewFragment.pageChangeListener.onPageSelected(0);
-			        SwipeViewFragment.mPager.setCurrentItem(0);
-			    }
-				
-		        if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
-		        	ListViewFragment.adapter.notifyDataSetChanged();
-		        }
+				updateViewsAfterFilter();
 		        	//ListViewFragment.adapter.notifyDataSetChanged();
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -305,5 +239,30 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				catButton.setBackgroundResource(R.drawable.button_selected);
 				catButton.setTextColor(halfTrans);
 			}
+		}
+		private void updateViewsAfterFilter(){
+			if(SwipeViewFragment.NUM_PAGES == 1 && ((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
+				
+				SwipeViewFragment.mPager.setSwipeable(false);
+				SwipeViewFragment.pageChangeListener.onPageSelected(0);
+		        SwipeViewFragment.mPager.setCurrentItem(0);
+		        //Set Image when there is only one Beer showing
+		        ImageView ivBeer = (ImageView) findViewById(R.id.imageViewDemo);
+			        String image_url = MainActivity.productList.get(0).get("URL");
+			        ImageLoader imgLoader = new ImageLoader(this);
+			        imgLoader.DisplayImageIcon(image_url, ivBeer);			
+
+			}
+			else if (((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
+				SwipeViewFragment.mPager.setSwipeable(true);
+				SwipeViewFragment.NUM_PAGES = MainActivity.productList.size();
+				SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
+				SwipeViewFragment.pageChangeListener.onPageSelected(0);
+		        SwipeViewFragment.mPager.setCurrentItem(0);
+		    }
+			
+	        if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
+	        	ListViewFragment.adapter.notifyDataSetChanged();
+	        }
 		}
 }
