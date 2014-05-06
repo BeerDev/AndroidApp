@@ -124,12 +124,50 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			break;
 	    		case R.id.menu_filter_sortName:
 	    			Sort.sortAlphabetic();
+	    			if(SwipeViewFragment.NUM_PAGES == 1 && ((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
+						
+						SwipeViewFragment.mPager.setSwipeable(false);
+						SwipeViewFragment.pageChangeListener.onPageSelected(0);
+				        SwipeViewFragment.mPager.setCurrentItem(0);
+				        //Set Image when there is only one Beer showing
+				        ImageView ivBeer = (ImageView) findViewById(R.id.imageViewDemo);
+					        String image_url = MainActivity.productList.get(0).get("URL");
+					        ImageLoader imgLoader = new ImageLoader(this);
+					        imgLoader.DisplayImageIcon(image_url, ivBeer);			
+
+					}
+					else if (((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
+						SwipeViewFragment.mPager.setSwipeable(true);
+						SwipeViewFragment.NUM_PAGES = MainActivity.productList.size();
+						SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
+						SwipeViewFragment.pageChangeListener.onPageSelected(0);
+				        SwipeViewFragment.mPager.setCurrentItem(0);
+				    }
 	    			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
 			        	ListViewFragment.adapter.notifyDataSetChanged();
 			        }
 	    			break;
 	    		case R.id.menu_filter_sortPrice:
 	    			Sort.sortPrice();
+	    			if(SwipeViewFragment.NUM_PAGES == 1 && ((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
+						
+						SwipeViewFragment.mPager.setSwipeable(false);
+						SwipeViewFragment.pageChangeListener.onPageSelected(0);
+				        SwipeViewFragment.mPager.setCurrentItem(0);
+				        //Set Image when there is only one Beer showing
+				        ImageView ivBeer = (ImageView) findViewById(R.id.imageViewDemo);
+					        String image_url = MainActivity.productList.get(0).get("URL");
+					        ImageLoader imgLoader = new ImageLoader(this);
+					        imgLoader.DisplayImageIcon(image_url, ivBeer);			
+
+					}
+					else if (((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
+						SwipeViewFragment.mPager.setSwipeable(true);
+						SwipeViewFragment.NUM_PAGES = MainActivity.productList.size();
+						SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
+						SwipeViewFragment.pageChangeListener.onPageSelected(0);
+				        SwipeViewFragment.mPager.setCurrentItem(0);
+				    }
 	    			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
 			        	ListViewFragment.adapter.notifyDataSetChanged();
 			        }
@@ -160,11 +198,6 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		}
 		@Override
 		public void onClick(View v) {
-			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
-				FrameLayout.LayoutParams relLay = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
-				relLay.setMargins(0, android.R.attr.actionBarSize, 0, 0);
-				findViewById(R.id.search_container).setLayoutParams(relLay);
-			}
 			findViewById(R.id.search_container).setVisibility(View.VISIBLE);
 			filter.setVisible(false);
 			
