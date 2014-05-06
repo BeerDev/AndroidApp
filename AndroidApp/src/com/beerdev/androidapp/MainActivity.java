@@ -162,20 +162,20 @@ public class MainActivity extends Activity {
 						String cat = c.getString(TAG_CAT);
 						
 						// tmp hashmap for single contact
-						HashMap<String, String> contact = new HashMap<String, String>();
+						HashMap<String, String> product = new HashMap<String, String>();
 
 						// Adding each child node to HashMap key => value
-						contact.put(TAG_ID, id);
-						contact.put(TAG_NAME, name);
-						contact.put(TAG_PATH, path);
-						contact.put(TAG_PRICE, pris);
-						contact.put(TAG_INFO, info);
-						contact.put(TAG_SIZE, size);
-						contact.put(TAG_PERC, percent);
-						contact.put(TAG_CAT, cat);
+						product.put(TAG_ID, id);
+						product.put(TAG_NAME, name);
+						product.put(TAG_PATH, path);
+						product.put(TAG_PRICE, pris);
+						product.put(TAG_INFO, info);
+						product.put(TAG_SIZE, size);
+						product.put(TAG_PERC, percent);
+						product.put(TAG_CAT, cat);
 
 						// adding contact to contact list
-						productList.add(contact);
+						productList.add(product);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();

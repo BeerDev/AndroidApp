@@ -88,19 +88,19 @@ public class Sort {
 				String percent = MainActivity.completeProductList.get(i).get(TAG_PERC);
 				String cat = MainActivity.completeProductList.get(i).get(TAG_CAT);
 
-				HashMap<String, String> contact = new HashMap<String, String>();
+				HashMap<String, String> product = new HashMap<String, String>();
 
 				// Adding each child node to HashMap key => value
-				contact.put(TAG_ID, id);
-				contact.put(TAG_NAME, name);
-				contact.put(TAG_PATH, path);
-				contact.put(TAG_PRIS, pris);
-				contact.put(TAG_INFO, info);
-				contact.put(TAG_SIZE, size);
-				contact.put(TAG_PERC, percent);
-				contact.put(TAG_CAT, cat);
+				product.put(TAG_ID, id);
+				product.put(TAG_NAME, name);
+				product.put(TAG_PATH, path);
+				product.put(TAG_PRIS, pris);
+				product.put(TAG_INFO, info);
+				product.put(TAG_SIZE, size);
+				product.put(TAG_PERC, percent);
+				product.put(TAG_CAT, cat);
 				// adding contact to contact list
-				MainActivity.productList.add(contact);
+				MainActivity.productList.add(product);
 			}
 		} 
 		return;

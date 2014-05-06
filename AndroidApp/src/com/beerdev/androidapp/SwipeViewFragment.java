@@ -75,7 +75,7 @@ public class SwipeViewFragment extends Fragment {
 		 final ViewGroup swipeView = (ViewGroup) inflater.inflate(R.layout.fragment_swipe, container, false);
 		 //setHasOptionsMenu(false);
 		 if(!(FragmentManagerActivity.menu == null)){
-			 if(FragmentManagerActivity.searchView.isIconified()){
+			 if(!(FragmentManagerActivity.menu.findItem(R.id.menu_filter).isVisible())){
 				 FragmentManagerActivity.menu.findItem(R.id.menu_filter).setVisible(true);
 				 FragmentManagerActivity.menu.findItem(R.id.menu_search).setVisible(true);
 			 }

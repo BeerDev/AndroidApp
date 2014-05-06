@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
@@ -158,6 +159,11 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		}
 		@Override
 		public void onClick(View v) {
+			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
+				FrameLayout.LayoutParams relLay = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
+				relLay.setMargins(0, android.R.attr.actionBarSize, 0, 0);
+				findViewById(R.id.search_container).setLayoutParams(relLay);
+			}
 			findViewById(R.id.search_container).setVisibility(View.VISIBLE);
 			filter.setVisible(false);
 			
