@@ -42,6 +42,8 @@ public class Sort {
 	 */
 	private static final String TAG_SIZE = "Storlek";
 	
+	private static final String TAG_CAT = "Kategori";
+	
 	/**
 	 * JSON Node for finding percent of beer
 	 */
@@ -84,6 +86,7 @@ public class Sort {
 				String info = MainActivity.completeProductList.get(i).get(TAG_INFO);
 				String size = MainActivity.completeProductList.get(i).get(TAG_SIZE);
 				String percent = MainActivity.completeProductList.get(i).get(TAG_PERC);
+				String cat = MainActivity.completeProductList.get(i).get(TAG_CAT);
 
 				HashMap<String, String> contact = new HashMap<String, String>();
 
@@ -94,7 +97,8 @@ public class Sort {
 				contact.put(TAG_PRIS, pris);
 				contact.put(TAG_INFO, info);
 				contact.put(TAG_SIZE, size);
-				contact.put(TAG_PERC, percent);	
+				contact.put(TAG_PERC, percent);
+				contact.put(TAG_CAT, cat);
 				// adding contact to contact list
 				MainActivity.productList.add(contact);
 			}
