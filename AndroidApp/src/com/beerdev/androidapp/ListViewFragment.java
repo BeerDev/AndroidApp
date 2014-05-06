@@ -16,9 +16,11 @@ public class ListViewFragment extends ListFragment{
 	public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if(!(FragmentManagerActivity.menu == null)){
-			 FragmentManagerActivity.menu.findItem(R.id.menu_filter).setVisible(true);
-			 FragmentManagerActivity.menu.findItem(R.id.menu_search).setVisible(true);
-			 getActivity().findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
+			 if(FragmentManagerActivity.searchView.isIconified()){
+				 FragmentManagerActivity.menu.findItem(R.id.menu_filter).setVisible(true);
+				 FragmentManagerActivity.menu.findItem(R.id.menu_search).setVisible(true);
+			 }
+			 getActivity().findViewById(R.id.search_container).setVisibility(View.INVISIBLE); 
 		 }
         // Initially there is no data 
         setEmptyText("No Data Here");

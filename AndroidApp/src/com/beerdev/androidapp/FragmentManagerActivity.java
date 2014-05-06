@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -260,8 +259,4 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				catButton.setTextColor(halfTrans);
 			}
 		}
-	public static void color(){
-		int color = FragmentManagerActivity.globalContext.getResources().getColor(R.color.white);
-		
-	}
 }
