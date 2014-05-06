@@ -44,7 +44,7 @@
         <!-- Information om Pilsner -->
 
         <TextView
-            android:id="@+id/PilsnerHeadTextContent"
+            android:id="@+id/pilsnerHeadTextContent"
             style="@style/TitleText"
             android:text="@string/pilsnerHead" />
 
@@ -56,7 +56,7 @@
         <!-- Information om Bitter -->
 
         <TextView
-            android:id="@+id/BitterHeadTextContent"
+            android:id="@+id/bitterHeadTextContent"
             style="@style/TitleText"
             android:text="@string/bitterHead" />
 
