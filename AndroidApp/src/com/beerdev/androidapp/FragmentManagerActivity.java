@@ -17,9 +17,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
@@ -183,19 +185,26 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				
 				Sort.Filter(searchText, tagToggleButton);
 				Log.i("INFO", Integer.toString(MainActivity.productList.size()));
-				if(MainActivity.productList.size()==0){
+				if(MainActivity.productList.size()==0 && ((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
 					MainActivity.productList = (ArrayList<HashMap<String, String>>) tempProductList.clone();
 
 					Toast.makeText(this, "Inga resultat", Toast.LENGTH_SHORT).show();
 				}
 				
 				
-				if(MainActivity.productList.size() == 1){
+				if(SwipeViewFragment.NUM_PAGES == 1 && ((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
+					
 					SwipeViewFragment.mPager.setSwipeable(false);
 					SwipeViewFragment.pageChangeListener.onPageSelected(0);
 			        SwipeViewFragment.mPager.setCurrentItem(0);
+			        //Set Image when there is only one Beer showing
+			        ImageView ivBeer = (ImageView) findViewById(R.id.imageViewDemo);
+				        String image_url = MainActivity.productList.get(0).get("URL");
+				        ImageLoader imgLoader = new ImageLoader(this);
+				        imgLoader.DisplayImageIcon(image_url, ivBeer);			
+
 				}
-				else{
+				else if (((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
 					SwipeViewFragment.mPager.setSwipeable(true);
 					SwipeViewFragment.NUM_PAGES = MainActivity.productList.size();
 					SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
@@ -256,8 +265,4 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				catButton.setTextColor(halfTrans);
 			}
 		}
-	public static void color(){
-		int color = FragmentManagerActivity.globalContext.getResources().getColor(R.color.white);
-		
-	}
 }

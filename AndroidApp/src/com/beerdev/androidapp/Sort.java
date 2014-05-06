@@ -98,6 +98,7 @@ public class Sort {
 				// adding contact to contact list
 				MainActivity.productList.add(contact);
 			}
+			
 		} 
 		return;
 	}
