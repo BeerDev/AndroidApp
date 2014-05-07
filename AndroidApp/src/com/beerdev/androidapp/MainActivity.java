@@ -13,6 +13,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.SensorListener;
+import android.hardware.SensorManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -94,7 +96,7 @@ public class MainActivity extends Activity {
 	 */
 	JSONArray products = null;
 	JSONArray productsOff = null;
-	
+
 
 	public static boolean wasOnline;
 	public boolean downloadFinished;
@@ -102,7 +104,7 @@ public class MainActivity extends Activity {
 	 * Hashmap for the products
 	 */
 	public static ArrayList<HashMap<String, String>> productList;
-	
+
 	public static ArrayList<HashMap<String, String>> completeProductList;
 
 
@@ -113,11 +115,9 @@ public class MainActivity extends Activity {
 
 		productList = new ArrayList<HashMap<String, String>>();
 		//getproductList = new ArrayList<HashMap<String, String>>();
-		
+
 		CheckingNetwork();	
 	}
-
-
 
 	/**
 	 * Async task class to get json by making HTTP call
@@ -160,7 +160,7 @@ public class MainActivity extends Activity {
 						String size = c.getString(TAG_SIZE);
 						String percent = c.getString(TAG_PERC);
 						String cat = c.getString(TAG_CAT);
-						
+
 						// tmp hashmap for single contact
 						HashMap<String, String> contact = new HashMap<String, String>();
 
@@ -180,7 +180,7 @@ public class MainActivity extends Activity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-				
+
 				downloadFinished = true;
 			} else {
 				Log.i("ServiceHandler", "Couldn't get any data from the url");
@@ -211,9 +211,9 @@ public class MainActivity extends Activity {
 		}
 	}
 	@Override
-    protected void onPause(){
-    	super.onPause();
-    	ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	protected void onPause(){
+		super.onPause();
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo info = cm.getActiveNetworkInfo();
 		if (info != null && info.isConnectedOrConnecting()) {
 			wasOnline = true;
@@ -222,7 +222,11 @@ public class MainActivity extends Activity {
 			wasOnline = false;
 			Log.d("onPauseMain", "wasOnline false");
 		}
-    }
+				
+
+		super.onPause();
+	}
+
 	@Override 
 	protected void onResume(){
 		super.onResume();
@@ -237,49 +241,52 @@ public class MainActivity extends Activity {
 		}else{
 			Log.d("onResumeMain", "isOnline false");
 		}
+		
+		super.onResume();
+		
 	}
 
-	public boolean isOnline(){
-		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo info = cm.getActiveNetworkInfo();
-		if (info != null && info.isConnectedOrConnecting()) {
-		    return true;
-		}
-		return false;
+public boolean isOnline(){
+	ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	NetworkInfo info = cm.getActiveNetworkInfo();
+	if (info != null && info.isConnectedOrConnecting()) {
+		return true;
 	}
+	return false;
+}
 
-	public void CheckingNetwork(){
+public void CheckingNetwork(){
 
-		if(isOnline()){
-			// Calling async task to get json
-			wasOnline = true;
-			downloadFinished = false;
-			new GetProducts().execute();
-			
+	if(isOnline()){
+		// Calling async task to get json
+		wasOnline = true;
+		downloadFinished = false;
+		new GetProducts().execute();
 
-		}
-		else if(!isOnline())
-		{
-			Toast.makeText(this, "No internet connection..", Toast.LENGTH_LONG).show();
-			offlineMode();	
-			wasOnline = false;		
-		}
+
 	}
+	else if(!isOnline())
+	{
+		Toast.makeText(this, "No internet connection..", Toast.LENGTH_LONG).show();
+		offlineMode();	
+		wasOnline = false;		
+	}
+}
 
 
 public void offlineMode(){
-		//JSONObject obj;
-		try {
-			JSONObject obj = new JSONObject(loadJSONFromAsset());
+	//JSONObject obj;
+	try {
+		JSONObject obj = new JSONObject(loadJSONFromAsset());
 
-	    productsOff = obj.getJSONArray("Produkter");
-	   // ArrayList<HashMap<String, String>> productList= new ArrayList<HashMap<String, String>>();
+		productsOff = obj.getJSONArray("Produkter");
+		// ArrayList<HashMap<String, String>> productList= new ArrayList<HashMap<String, String>>();
 
 
-	    for (int i = 0; i < productsOff.length(); i++) 
-	      {
-	       JSONObject Offc = productsOff.getJSONObject(i);
-	        String id = Offc.getString(TAG_ID);
+		for (int i = 0; i < productsOff.length(); i++) 
+		{
+			JSONObject Offc = productsOff.getJSONObject(i);
+			String id = Offc.getString(TAG_ID);
 			String name = Offc.getString(TAG_NAME);
 			String path = Offc.getString(TAG_PATH);
 			String pris = Offc.getString(TAG_PRIS);
@@ -287,7 +294,7 @@ public void offlineMode(){
 			String size = Offc.getString(TAG_SIZE);
 			String percent = Offc.getString(TAG_PERC);
 
-	      //Add your values in your `ArrayList` as below:
+			//Add your values in your `ArrayList` as below:
 			HashMap<String, String> hashlist = new HashMap<String,String>();
 
 			hashlist.put(TAG_ID, id);
@@ -298,36 +305,36 @@ public void offlineMode(){
 			hashlist.put(TAG_SIZE, size);
 			hashlist.put(TAG_PERC, percent);
 
-	     productList.add(hashlist);
-	     //getproductList.add(hashlist);
-	      }
-		} catch (JSONException e) {
-			e.printStackTrace();
+			productList.add(hashlist);
+			//getproductList.add(hashlist);
 		}
+	} catch (JSONException e) {
+		e.printStackTrace();
+	}
 }
 
-	public String loadJSONFromAsset() 
-	{
-	    String json = null;
-	    	    try {
+public String loadJSONFromAsset() 
+{
+	String json = null;
+	try {
 
-	        InputStream is = getResources().getAssets().open("JsonAndroidOffline.json");
+		InputStream is = getResources().getAssets().open("JsonAndroidOffline.json");
 
-	        int size = is.available();
+		int size = is.available();
 
-	        byte[] buffer = new byte[size];
+		byte[] buffer = new byte[size];
 
-	        is.read(buffer);
+		is.read(buffer);
 
-	        is.close();
+		is.close();
 
-	        json = new String(buffer, "UTF-8");
-	        return json;
+		json = new String(buffer, "UTF-8");
+		return json;
 
-	    } catch (IOException ex) {
-	        ex.printStackTrace();
-	        return null;
-	    }
-
+	} catch (IOException ex) {
+		ex.printStackTrace();
+		return null;
 	}
+
+}
 }

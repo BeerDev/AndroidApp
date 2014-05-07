@@ -3,10 +3,13 @@
     package="com.beerdev.androidapp"
     android:versionCode="1"
     android:versionName="1.0" >
-
+    
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="19" />
+    
+    <!-- Accelerometer -->
+   <!-- <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" /> -->
     
     <!-- Internet permission -->
     <uses-permission android:name="android.permission.INTERNET" />
