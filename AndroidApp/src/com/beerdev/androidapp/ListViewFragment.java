@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 public class ListViewFragment extends ListFragment{
 	private ListView lv;
-	public static LazyAdapter adapter;
+	public static FastScrollAdapter fastScrollAdapter;
 	
 	@Override 
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -27,9 +27,18 @@ public class ListViewFragment extends ListFragment{
         // Initially there is no data 
         setEmptyText("No Data Here");
 		// Getting adapter by passing xml data ArrayList
-        adapter=new LazyAdapter(getActivity(), MainActivity.productList);      
-        setListAdapter(adapter);
-	}
+        fastScrollAdapter=new FastScrollAdapter(getActivity(), MainActivity.productList);      
+        setListAdapter(fastScrollAdapter);
+        getListView().setScrollingCacheEnabled(true);
+        if(FragmentManagerActivity.fastScrollEnabled){
+            getListView().setFastScrollEnabled(true);
+            getListView().setFastScrollAlwaysVisible(true);
+        }
+        else{
+            getListView().setFastScrollEnabled(false);
+            getListView().setFastScrollAlwaysVisible(false);	
+        }
+    }
 	 @Override
      public void onListItemClick(ListView l, View v, int position, long id) {
 		// Insert desired behavior here.

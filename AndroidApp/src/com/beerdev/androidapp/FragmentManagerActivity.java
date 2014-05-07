@@ -17,6 +17,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +44,8 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	private MenuItem filter, cross, searchItem, navigation;
 	public static Button nameButton, catButton;
 	public static String tagToggleButton, searchText ="";
+	
+	public static boolean fastScrollEnabled = true;
 
 	// The following are used for the shake detection
 	private SensorManager mSensorManager;
@@ -169,11 +172,14 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			}
 	    			break;
 	    		case R.id.menu_filter_sortName:
+	    			this.fastScrollEnabled = true;
 	    			Sort.sortAlphabetic();
-
-	    			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
-			        	ListViewFragment.adapter.notifyDataSetChanged();
-			        }
+	    			ListViewFragment listFragName = (ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag"); 
+	    			if(listFragName.isVisible()){
+	    		        listFragName.getListView().setFastScrollEnabled(true);
+	    		        listFragName.getListView().setFastScrollAlwaysVisible(true);
+	    		        listFragName.fastScrollAdapter.notifyDataSetChanged();
+	    			}
 	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
 	    			{
 	    				SwipeViewFragment.pageChangeListener.onPageSelected(0);
@@ -182,10 +188,14 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			}
 	    			break;
 	    		case R.id.menu_filter_sortPrice:
+	    			this.fastScrollEnabled = false;
 	    			Sort.sortPrice();
-	    			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
-			        	ListViewFragment.adapter.notifyDataSetChanged();
-			        }
+	    			ListViewFragment listFragPrice = (ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag"); 
+	    			if(listFragPrice.isVisible()){
+	    		        listFragPrice.getListView().setFastScrollEnabled(false);
+	    		        listFragPrice.getListView().setFastScrollAlwaysVisible(false);
+	    		        listFragPrice.fastScrollAdapter.notifyDataSetChanged();
+	    			}
 	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
 	    			{
 	    				SwipeViewFragment.pageChangeListener.onPageSelected(0);
@@ -197,7 +207,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    		case R.id.menu_close_search:
 	    			searchView.setQuery("", false);
 	    			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
-			        	ListViewFragment.adapter.notifyDataSetChanged();
+			        	ListViewFragment.fastScrollAdapter.notifyDataSetChanged();
 			        }
 	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
 	    			{
@@ -363,7 +373,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		}
 
 		if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
-			ListViewFragment.adapter.notifyDataSetChanged();
+			ListViewFragment.fastScrollAdapter.notifyDataSetChanged();
 		}
 	}
 	private void setLayoutMargins(){
