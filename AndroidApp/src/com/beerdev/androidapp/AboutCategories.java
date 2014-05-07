@@ -2,6 +2,7 @@ package com.beerdev.androidapp;
 
 import org.json.JSONException;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.view.ViewGroup;
 
 /**
@@ -23,11 +25,13 @@ public class AboutCategories extends Fragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		 ViewGroup categoryView = (ViewGroup) inflater.inflate(R.layout.fragment_categories, container, false);
+		 //Remove items from menubar
 		 FragmentManagerActivity.menu.findItem(R.id.menu_filter).setVisible(false);
 		 FragmentManagerActivity.menu.findItem(R.id.menu_search).setVisible(false);
-
+		 
+		 //Remove searchcontainer
 		 getActivity().findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
-
+		 
 		 		View aleButton = categoryView.findViewById(R.id.aleHeadTextContent);
 		 		View lagerButton = categoryView.findViewById(R.id.lagerHeadTextContent);
 		 		View pilsnerButton = categoryView.findViewById(R.id.PilsnerHeadTextContent);
