@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/testbild">
+    android:id="@+id/root_view"
+    android:background="@drawable/bakgrund">
 	
     <RelativeLayout
         android:id="@+id/root_container"
@@ -34,4 +35,5 @@
             	    android:textColor="@color/white"
    					android:background="@drawable/button_unselected"/>
         </LinearLayout>
+        
 </FrameLayout>

@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
 	/**
 	 * JSON Node for finding price
 	 */
-	private static final String TAG_PRIS = "Utpris exkl moms";
+	public static final String TAG_PRICE = "Utpris exkl moms";
 
 	/**
 	 * JSON Node for finding description of beer
@@ -87,7 +87,7 @@ public class MainActivity extends Activity {
 	/**
 	 * JSON Node for finding percent of beer
 	 */
-	private static final String TAG_CAT = "Kategori";
+	public static final String TAG_CAT = "Kategori";
 
 	/**
 	 * Products JSONArray
@@ -155,27 +155,27 @@ public class MainActivity extends Activity {
 						String id = c.getString(TAG_ID);
 						String name = c.getString(TAG_NAME);
 						String path = c.getString(TAG_PATH);
-						String pris = c.getString(TAG_PRIS);
+						String pris = c.getString(TAG_PRICE);
 						String info = c.getString(TAG_INFO);
 						String size = c.getString(TAG_SIZE);
 						String percent = c.getString(TAG_PERC);
 						String cat = c.getString(TAG_CAT);
 						
 						// tmp hashmap for single contact
-						HashMap<String, String> contact = new HashMap<String, String>();
+						HashMap<String, String> product = new HashMap<String, String>();
 
 						// Adding each child node to HashMap key => value
-						contact.put(TAG_ID, id);
-						contact.put(TAG_NAME, name);
-						contact.put(TAG_PATH, path);
-						contact.put(TAG_PRIS, pris);
-						contact.put(TAG_INFO, info);
-						contact.put(TAG_SIZE, size);
-						contact.put(TAG_PERC, percent);
-						contact.put(TAG_CAT, cat);
+						product.put(TAG_ID, id);
+						product.put(TAG_NAME, name);
+						product.put(TAG_PATH, path);
+						product.put(TAG_PRICE, pris);
+						product.put(TAG_INFO, info);
+						product.put(TAG_SIZE, size);
+						product.put(TAG_PERC, percent);
+						product.put(TAG_CAT, cat);
 
 						// adding contact to contact list
-						productList.add(contact);
+						productList.add(product);
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -281,7 +281,7 @@ public void offlineMode(){
 	        String id = Offc.getString(TAG_ID);
 			String name = Offc.getString(TAG_NAME);
 			String path = Offc.getString(TAG_PATH);
-			String pris = Offc.getString(TAG_PRIS);
+			String pris = Offc.getString(TAG_PRICE);
 			String info = Offc.getString(TAG_INFO);
 			String size = Offc.getString(TAG_SIZE);
 			String percent = Offc.getString(TAG_PERC);
@@ -293,7 +293,7 @@ public void offlineMode(){
 			hashlist.put(TAG_ID, id);
 			hashlist.put(TAG_NAME, name);
 			hashlist.put(TAG_PATH, path);
-			hashlist.put(TAG_PRIS, pris);
+			hashlist.put(TAG_PRICE, pris);
 			hashlist.put(TAG_INFO, info);
 			hashlist.put(TAG_SIZE, size);
 			hashlist.put(TAG_PERC, percent);
