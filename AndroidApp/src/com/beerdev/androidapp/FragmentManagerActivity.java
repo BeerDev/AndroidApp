@@ -144,8 +144,9 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 
 		@Override
 		public boolean onQueryTextChange(String newText) {
-			
 			findViewById(R.id.search_container).setVisibility(View.VISIBLE);
+			setLayoutMargins();
+			
 			InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
 		    if(!imm.isActive()){
 				imm.toggleSoftInput(0, InputMethodManager.SHOW_IMPLICIT);
@@ -156,14 +157,15 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		}
 		@Override
 		public void onClick(View v) {
-			findViewById(R.id.search_container).setVisibility(View.VISIBLE);
-			filter.setVisible(false);
 			
+			findViewById(R.id.search_container).setVisibility(View.VISIBLE);
+			setLayoutMargins();
+			filter.setVisible(false);
 		}
 		@Override
 		public boolean onClose() {
 			findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
-
+			setLayoutMargins();
 			SwipeViewFragment.mPager.setSwipeable(true); 
 			filter.setVisible(true);
 			filter.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -264,5 +266,21 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	        if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
 	        	ListViewFragment.adapter.notifyDataSetChanged();
 	        }
+		}
+		private void setLayoutMargins(){
+			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
+				FrameLayout.LayoutParams relLay = (FrameLayout.LayoutParams) findViewById(R.id.root_container).getLayoutParams();
+				int dpValue = 50; // margin in dips
+				float d = getResources().getDisplayMetrics().density;
+				int margin = (int)(dpValue * d); 
+				Log.i("actionbarSize", Integer.toString(margin));
+				relLay.setMargins(0, margin, 0, 0);
+				findViewById(R.id.root_container).setLayoutParams(relLay);
+			}
+			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
+				FrameLayout.LayoutParams relLay = (FrameLayout.LayoutParams) findViewById(R.id.root_container).getLayoutParams();
+				relLay.setMargins(0, 0, 0, 0);
+				findViewById(R.id.root_container).setLayoutParams(relLay);
+			}
 		}
 }

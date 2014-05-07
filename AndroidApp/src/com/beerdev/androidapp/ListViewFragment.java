@@ -14,7 +14,9 @@ public class ListViewFragment extends ListFragment{
         super.onActivityCreated(savedInstanceState);
         if(!(FragmentManagerActivity.menu == null)){
 			 if(!(FragmentManagerActivity.menu.findItem(R.id.menu_filter).isVisible())){
-				 FragmentManagerActivity.menu.findItem(R.id.menu_filter).setVisible(true);
+				 if(FragmentManagerActivity.searchView.isIconified()){
+					 FragmentManagerActivity.menu.findItem(R.id.menu_filter).setVisible(true); 
+				 }
 				 FragmentManagerActivity.menu.findItem(R.id.menu_search).setVisible(true);
 			 }
 			 getActivity().findViewById(R.id.search_container).setVisibility(View.INVISIBLE); 

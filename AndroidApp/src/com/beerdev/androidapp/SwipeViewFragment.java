@@ -72,11 +72,13 @@ public class SwipeViewFragment extends Fragment {
     EditText editsearch;
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		 final ViewGroup swipeView = (ViewGroup) inflater.inflate(R.layout.fragment_swipe, container, false);
+		final ViewGroup swipeView = (ViewGroup) inflater.inflate(R.layout.fragment_swipe, container, false);
 		 //setHasOptionsMenu(false);
 		 if(!(FragmentManagerActivity.menu == null)){
 			 if(!(FragmentManagerActivity.menu.findItem(R.id.menu_filter).isVisible())){
-				 FragmentManagerActivity.menu.findItem(R.id.menu_filter).setVisible(true);
+				 if(FragmentManagerActivity.searchView.isIconified()){
+					 FragmentManagerActivity.menu.findItem(R.id.menu_filter).setVisible(true); 
+				 }
 				 FragmentManagerActivity.menu.findItem(R.id.menu_search).setVisible(true);
 			 }
 			 getActivity().findViewById(R.id.search_container).setVisibility(View.INVISIBLE); 
