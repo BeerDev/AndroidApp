@@ -67,7 +67,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 					Random random = new Random();
 					int min=0;
 					int max=SwipeViewFragment.NUM_PAGES-1;
-					int randomNumber = random.nextInt(max-min) + min;
+					int randomNumber = random.nextInt(max);
 					
 					SwipeViewFragment.pageChangeListener.onPageSelected(randomNumber);
 					SwipeViewFragment.mPager.setCurrentItem(randomNumber);
