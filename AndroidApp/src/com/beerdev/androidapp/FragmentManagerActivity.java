@@ -127,12 +127,25 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
 			        	ListViewFragment.adapter.notifyDataSetChanged();
 			        }
+	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
+	    			{
+	    				SwipeViewFragment.pageChangeListener.onPageSelected(0);
+				        SwipeViewFragment.mPager.setCurrentItem(0);
+	    				SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
+	    			}
 	    			break;
 	    		case R.id.menu_filter_sortPrice:
 	    			Sort.sortPrice();
 	    			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
 			        	ListViewFragment.adapter.notifyDataSetChanged();
 			        }
+	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
+	    			{
+	    				SwipeViewFragment.pageChangeListener.onPageSelected(0);
+				        SwipeViewFragment.mPager.setCurrentItem(0);
+	    				SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
+	    				
+	    			}
 	    			break;
 	    		}
 	    		return true;
@@ -160,10 +173,18 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		}
 		@Override
 		public void onClick(View v) {
+			
 			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
-				FrameLayout.LayoutParams relLay = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
-				relLay.setMargins(0, android.R.attr.actionBarSize, 0, 0);
-				findViewById(R.id.search_container).setLayoutParams(relLay);
+			//	FrameLayout.LayoutParams relLay = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
+			//	relLay.setMargins(0, android.R.attr.actionBarSize, 0, 0);
+				if(findViewById(R.id.root_container).getPaddingTop()==0)
+				{
+					
+						findViewById(R.id.root_container).setPadding(0, 300, 0, 0);
+				}
+				else{
+					findViewById(R.id.root_container).setPadding(0, 0, 0, 0);
+				}
 			}
 			findViewById(R.id.search_container).setVisibility(View.VISIBLE);
 			filter.setVisible(false);
