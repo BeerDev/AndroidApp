@@ -28,6 +28,7 @@ public class AboutCategories extends Fragment {
 		 //Remove items from menubar
 		 FragmentManagerActivity.menu.findItem(R.id.menu_filter).setVisible(false);
 		 FragmentManagerActivity.menu.findItem(R.id.menu_search).setVisible(false);
+		 FragmentManagerActivity.menu.findItem(R.id.menu_close_search).setVisible(false);
 		 
 		 //Remove searchcontainer
 		 getActivity().findViewById(R.id.search_container).setVisibility(View.INVISIBLE);

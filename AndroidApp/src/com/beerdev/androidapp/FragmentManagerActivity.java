@@ -40,7 +40,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	public static Menu menu = null;
 	public static boolean mToggleChecked = true;
 	public static SearchView searchView;
-	private MenuItem filter;
+	private MenuItem filter, cross, searchItem, navigation;
 	public static Button nameButton, catButton;
 	public static String tagToggleButton, searchText ="";
 
@@ -145,9 +145,15 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
         searchView.setOnQueryTextListener(this);
         searchView.setOnSearchClickListener(this);
         searchView.setOnCloseListener(this);
-        filter = menu.findItem(R.id.menu_filter);
         searchView.setIconifiedByDefault(true);
-        //searchView.setIconified(true);
+        
+        
+        filter = menu.findItem(R.id.menu_filter);
+        cross = menu.findItem(R.id.menu_close_search);
+        searchItem = menu.findItem(R.id.menu_search);
+        navigation = menu.findItem(R.id.menu_navigation);
+        
+        cross.setVisible(false);
         return super.onCreateOptionsMenu(menu);        
     }
 	 @Override
@@ -188,6 +194,22 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    				
 	    			}
 	    			break;
+	    		case R.id.menu_close_search:
+	    			searchView.setQuery("", false);
+	    			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
+			        	ListViewFragment.adapter.notifyDataSetChanged();
+			        }
+	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
+	    			{
+	    				SwipeViewFragment.pageChangeListener.onPageSelected(0);
+				        SwipeViewFragment.mPager.setCurrentItem(0);
+	    				SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
+	    				
+	    			}
+	    			cross.setVisible(false);
+	    			searchView.setIconified(true);
+	    			searchItem.setVisible(true);
+	    			break;
 	    		}
 	    		return true;
 	    	}
@@ -197,7 +219,9 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 			setLayoutMargins(findViewById(R.id.root_view), this);
 			InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
 		    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-
+		    cross.setVisible(true);
+		    filter.setVisible(true);
+		    searchItem.setVisible(false);
 			return false;
 		}
 

@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 public class SwipeViewFragment extends Fragment {
-    private static final String TAG = "DemoActivity";
 
     /**
      * A textview to show the name of the beer
