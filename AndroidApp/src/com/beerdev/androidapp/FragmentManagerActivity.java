@@ -164,11 +164,29 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			break;
 	    		case R.id.menu_filter_sortName:
 	    			Sort.sortAlphabetic();
-	    			updateViewsAfterFilter();
+
+	    			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
+			        	ListViewFragment.adapter.notifyDataSetChanged();
+			        }
+	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
+	    			{
+	    				SwipeViewFragment.pageChangeListener.onPageSelected(0);
+				        SwipeViewFragment.mPager.setCurrentItem(0);
+	    				SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
+	    			}
 	    			break;
 	    		case R.id.menu_filter_sortPrice:
 	    			Sort.sortPrice();
-	    			updateViewsAfterFilter();
+	    			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
+			        	ListViewFragment.adapter.notifyDataSetChanged();
+			        }
+	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
+	    			{
+	    				SwipeViewFragment.pageChangeListener.onPageSelected(0);
+				        SwipeViewFragment.mPager.setCurrentItem(0);
+	    				SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
+	    				
+	    			}
 	    			break;
 	    		}
 	    		return true;
