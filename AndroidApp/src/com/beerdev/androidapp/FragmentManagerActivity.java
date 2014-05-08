@@ -17,7 +17,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,7 +45,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	public static String tagToggleButton, searchText ="";
 	
 	public static boolean fastScrollEnabled = true;
-
+	public static boolean categorySearchShowInput = true;
 	// The following are used for the shake detection
 	private SensorManager mSensorManager;
 	private Sensor mAccelerometer;
@@ -240,7 +239,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 			findViewById(R.id.search_container).setVisibility(View.VISIBLE);
 			setLayoutMargins(findViewById(R.id.root_view), this);
 			InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-		    if(!imm.isActive()){
+		    if(!imm.isActive() && categorySearchShowInput){
 				imm.toggleSoftInput(0, InputMethodManager.SHOW_IMPLICIT);
 		    }
 		    searchText = newText;

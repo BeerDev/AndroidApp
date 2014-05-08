@@ -6,12 +6,10 @@ import java.util.HashMap;
 import java.util.Set;
 
 import android.app.Activity;
-import android.database.Cursor;
-import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AlphabetIndexer;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -59,14 +57,15 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable, Sectio
         alphaIndexer = new HashMap<String, Integer>();
         int size = productsData.size();
         for (int x = 0; x < size; x++) {
-            String s = productsData.get(x).get("Artikelnamn");
-
-			// get the first letter of the store
-            String ch =  s.substring(0, 1);
-            ch = ch.toUpperCase();
-		
-			// HashMap will prevent duplicates
-            alphaIndexer.put(ch, x);
+            String articleName = productsData.get(x).get("Artikelnamn");
+            Log.d("articleName", articleName);
+			// get the first letter of the name
+            String firstChar =  articleName.substring(0, 1);
+            Log.d("firstChar", firstChar);
+            firstChar = firstChar.toUpperCase();
+            if (!alphaIndexer.containsKey(firstChar)) {
+                alphaIndexer.put(firstChar, x);
+            }
         }
         Set<String> sectionLetters = alphaIndexer.keySet();
         
@@ -77,7 +76,7 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable, Sectio
             Collections.sort(sectionList);
  
             sections = new String[sectionList.size()];
- 
+            
             sectionList.toArray(sections);
         
     }
@@ -181,7 +180,6 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable, Sectio
 
 	@Override
 	public int getSectionForPosition(int position) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 }

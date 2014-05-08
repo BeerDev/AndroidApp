@@ -1,18 +1,13 @@
 package com.beerdev.androidapp;
 
-import org.json.JSONException;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 /**
  * A view to show information about the developmentteam and the application
@@ -173,8 +168,10 @@ public class AboutCategories extends Fragment {
 	    			.replace(R.id.root_container, new ListViewFragment(), "listFrag")
 	    			.addToBackStack("listFrag")
 	    			.commit();
-					}
-			 });
+					 //Hide inputmethodmanager
+					FragmentManagerActivity.categorySearchShowInput = false;
+			 }
+		 });
 
 		 impStoutButton.setOnClickListener(new OnClickListener(){
 			 @Override

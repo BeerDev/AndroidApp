@@ -124,7 +124,7 @@ public class ImageLoader {
             int width_tmp=o.outWidth, height_tmp=o.outHeight;
             int scale=1;
             while(true){
-                if(width_tmp/2<REQUIRED_SIZE || height_tmp/2<REQUIRED_SIZE)
+                if(width_tmp/2<28 || height_tmp/2<70)
                     break;
                 width_tmp/=2;
                 height_tmp/=2;
