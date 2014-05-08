@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swAboutKistan"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/llAboutKistan"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:orientation="vertical"
@@ -11,12 +13,12 @@
         android:weightSum="1" >
 
         <TextView
-            android:id="@+id/omKistanHeader"
+            android:id="@+id/tvAboutKistanHeader"
             style="@style/HeadLineText"
             android:text="@string/kistan" />
 
         <TextView
-            android:id="@+id/OmKistanTextContent"
+            android:id="@+id/tvAboutKistanTextContent"
             style="@style/BodyText"
             android:text="@string/omKistan" />
     </LinearLayout>

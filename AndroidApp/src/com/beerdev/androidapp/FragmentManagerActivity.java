@@ -357,7 +357,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 			SwipeViewFragment.pageChangeListener.onPageSelected(0);
 			SwipeViewFragment.mPager.setCurrentItem(0);
 			//Set Image when there is only one Beer showing
-			ImageView ivBeer = (ImageView) findViewById(R.id.imageViewDemo);
+			ImageView ivBeer = (ImageView) findViewById(R.id.ivSwipeImage);
 			String image_url = MainActivity.productList.get(0).get("URL");
 			ImageLoader imgLoader = new ImageLoader(this);
 			imgLoader.DisplayImageIcon(image_url, ivBeer);			
