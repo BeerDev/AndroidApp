@@ -1,16 +1,13 @@
 package com.beerdev.androidapp;
 
-import org.json.JSONException;
-
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 /**
  * A view to show information about the developmentteam and the application
@@ -23,11 +20,14 @@ public class AboutCategories extends Fragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		 ViewGroup categoryView = (ViewGroup) inflater.inflate(R.layout.fragment_categories, container, false);
+		 //Remove items from menubar
 		 FragmentManagerActivity.menu.findItem(R.id.menu_filter).setVisible(false);
 		 FragmentManagerActivity.menu.findItem(R.id.menu_search).setVisible(false);
-
+		 FragmentManagerActivity.menu.findItem(R.id.menu_close_search).setVisible(false);
+		 
+		 //Remove searchcontainer
 		 getActivity().findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
-
+		 
 		 		View aleButton = categoryView.findViewById(R.id.aleHeadTextContent);
 		 		View lagerButton = categoryView.findViewById(R.id.lagerHeadTextContent);
 		 		View pilsnerButton = categoryView.findViewById(R.id.PilsnerHeadTextContent);
@@ -168,8 +168,10 @@ public class AboutCategories extends Fragment {
 	    			.replace(R.id.root_container, new ListViewFragment(), "listFrag")
 	    			.addToBackStack("listFrag")
 	    			.commit();
-					}
-			 });
+					 //Hide inputmethodmanager
+					FragmentManagerActivity.categorySearchShowInput = false;
+			 }
+		 });
 
 		 impStoutButton.setOnClickListener(new OnClickListener(){
 			 @Override

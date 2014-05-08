@@ -12,6 +12,11 @@
 	        android:showAsAction="ifRoom"
 	        android:actionViewClass="android.widget.SearchView"/>
     	<item
+    	    android:id="@+id/menu_close_search"
+    	    android:icon="@drawable/cross"
+    	    android:orderInCategory="0"
+    	    android:showAsAction="ifRoom"/>
+    	<item
     	    android:id="@+id/menu_filter"
     	    android:icon="@drawable/filter"
     	    android:orderInCategory="50"

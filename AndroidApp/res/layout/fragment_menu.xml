@@ -9,9 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:layout_weight="1"
-        android:weightSum="1">
-
-        <ImageView
+        android:weightSum="3">
+         <TextView
+       		 android:layout_width="0dp"
+       		 android:layout_height="match_parent"
+       		 android:layout_weight="1"
+        />
+       <ImageView
             android:id="@+id/imageGalleri"
             android:layout_width="93dp"
             android:layout_height="93dp"
@@ -19,7 +23,11 @@
             android:layout_gravity="center_vertical|left"
             android:layout_marginLeft="20dp"
             android:background="@drawable/galleri" />
-
+         <TextView
+       		 android:layout_width="0dp"
+       		 android:layout_height="match_parent"
+       		 android:layout_weight="1"
+        />
         <ImageView
             android:id="@+id/imageLista"
             android:layout_width="93dp"
@@ -34,8 +42,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:layout_weight="1"
-        android:weightSum="1">
+        android:weightSum="3">
 
+             <TextView
+       		 android:layout_width="0dp"
+       		 android:layout_height="match_parent"
+       		 android:layout_weight="1"
+        />
         <ImageView
             android:id="@+id/imageOltyper"
             android:layout_width="93dp"
@@ -43,6 +56,11 @@
             android:layout_gravity="center_vertical|left"
             android:layout_marginLeft="20dp"
             android:background="@drawable/oltyper" />
+         <TextView
+       		 android:layout_width="0dp"
+       		 android:layout_height="match_parent"
+       		 android:layout_weight="1"
+        />
 
         <ImageView
             android:id="@+id/imageKistan"
@@ -56,16 +74,26 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content" 
-        android:layout_weight="1">
-
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        >
+		 <TextView
+       		 android:layout_width="0dp"
+       		 android:layout_height="match_parent"
+       		 android:layout_weight="2"
+        />
         <ImageView
             android:id="@+id/imageUtvecklare"
             android:layout_width="93dp"
             android:layout_height="93dp"
-            android:layout_marginLeft="100dip"
             android:background="@drawable/utvecklare" />
-
+        <TextView
+       		 android:layout_width="0dp"
+       		 android:layout_height="match_parent"
+       		 android:layout_weight="1"
+        />
     </LinearLayout>
 </LinearLayout>  
