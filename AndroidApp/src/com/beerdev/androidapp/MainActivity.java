@@ -8,7 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -18,8 +17,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 /**
@@ -35,7 +32,6 @@ public class MainActivity extends Activity {
 	/**
 	 * Show if no internet connection
 	 */
-	private ProgressDialog netDialog;
 
 	/**
 	 * URL to get products JSON
@@ -190,6 +186,7 @@ public class MainActivity extends Activity {
 			return null;
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
@@ -266,6 +263,7 @@ public class MainActivity extends Activity {
 	}
 
 
+@SuppressWarnings("unchecked")
 public void offlineMode(){
 		//JSONObject obj;
 		try {

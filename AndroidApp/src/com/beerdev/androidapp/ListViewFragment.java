@@ -9,7 +9,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ListView;
 
 public class ListViewFragment extends ListFragment{
-	private ListView mListView;
 	public static FastScrollAdapter fastScrollAdapter;
 	
 	@Override 

@@ -1,18 +1,11 @@
 package com.beerdev.androidapp;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 
 /**
  * A view to show information about the developmentteam and the application

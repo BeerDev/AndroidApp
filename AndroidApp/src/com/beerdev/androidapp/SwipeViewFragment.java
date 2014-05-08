@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-
 public class SwipeViewFragment extends Fragment {
 
     /**
@@ -66,7 +64,6 @@ public class SwipeViewFragment extends Fragment {
     public static OnPageChangeListener pageChangeListener;
 
 
-    private boolean isChangedStat = false;
     EditText editsearch;
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,7 +79,6 @@ public class SwipeViewFragment extends Fragment {
 			 getActivity().findViewById(R.id.search_container).setVisibility(View.INVISIBLE); 
 			 FragmentManagerActivity.setLayoutMargins(getActivity().findViewById(R.id.root_view), getActivity());
 		 }
-	     final SlidingUpPanelLayout layout = (SlidingUpPanelLayout) swipeView.findViewById(R.id.sliding_layout);
         Bundle extras = getActivity().getIntent().getExtras();
 
         int pos = extras.getInt("position", 0);        

@@ -40,7 +40,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	public static Menu menu = null;
 	public static boolean mToggleChecked = true;
 	public static SearchView searchView;
-	private MenuItem filter, cross, searchItem, navigation;
+	private MenuItem filter, cross, searchItem;
 	public static Button nameButton, catButton;
 	public static String tagToggleButton, searchText ="";
 	
@@ -137,7 +137,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-		this.menu = menu;
+		FragmentManagerActivity.menu = menu;
 		getMenuInflater().inflate(R.menu.navigation_menu, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.menu_search)
@@ -153,7 +153,6 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
         filter = menu.findItem(R.id.menu_filter);
         cross = menu.findItem(R.id.menu_close_search);
         searchItem = menu.findItem(R.id.menu_search);
-        navigation = menu.findItem(R.id.menu_navigation);
         
         cross.setVisible(false);
         return super.onCreateOptionsMenu(menu);        
@@ -171,13 +170,13 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			}
 	    			break;
 	    		case R.id.menu_filter_sortName:
-	    			this.fastScrollEnabled = true;
+	    			FragmentManagerActivity.fastScrollEnabled = true;
 	    			Sort.sortAlphabetic();
 	    			ListViewFragment listFragName = (ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag"); 
 	    			if(listFragName.isVisible()){
 	    		        listFragName.getListView().setFastScrollEnabled(true);
 	    		        listFragName.getListView().setFastScrollAlwaysVisible(true);
-	    		        listFragName.fastScrollAdapter.notifyDataSetChanged();
+	    		        ListViewFragment.fastScrollAdapter.notifyDataSetChanged();
 	    			}
 	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
 	    			{
@@ -187,13 +186,13 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			}
 	    			break;
 	    		case R.id.menu_filter_sortPrice:
-	    			this.fastScrollEnabled = false;
+	    			FragmentManagerActivity.fastScrollEnabled = false;
 	    			Sort.sortPrice();
 	    			ListViewFragment listFragPrice = (ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag"); 
 	    			if(listFragPrice.isVisible()){
 	    		        listFragPrice.getListView().setFastScrollEnabled(false);
 	    		        listFragPrice.getListView().setFastScrollAlwaysVisible(false);
-	    		        listFragPrice.fastScrollAdapter.notifyDataSetChanged();
+	    		        ListViewFragment.fastScrollAdapter.notifyDataSetChanged();
 	    			}
 	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
 	    			{
@@ -263,6 +262,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 			return false;
 		}
+	@SuppressWarnings("unchecked")
 	private void search(){
 		try {
 			ArrayList<HashMap<String,String>> tempProductList = (ArrayList<HashMap<String, String>>) MainActivity.productList.clone();
