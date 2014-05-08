@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -50,10 +51,13 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	private ShakeDetector mShakeDetector;
 
 	public static Context globalContext = null;
+	
+	public static ArrayList<HashMap<String,String>> tempProductList=null; 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 
 		// ShakeDetector initialization
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -100,9 +104,8 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 
 		nameButton = (Button) findViewById(R.id.searchbutton_on);
 		catButton = (Button) findViewById(R.id.searchbutton_off);
+		
 		nameButton.setOnClickListener(new OnClickListener(){
-
-
 			@Override
 			public void onClick(View v) {
 				FragmentManagerActivity.mToggleChecked=true;
@@ -110,8 +113,8 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				search();
 			}
 		});
+		
 		catButton.setOnClickListener(new OnClickListener(){
-
 			@Override
 			public void onClick(View v) {
 				FragmentManagerActivity.mToggleChecked=false;
@@ -210,6 +213,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				imm.toggleSoftInput(0, InputMethodManager.SHOW_IMPLICIT);
 		    }
 		    searchText = newText;
+		   // SwipeViewFragment.NUM_PAGES = MainActivity.productList.size();
 		    search();
 			return false;
 		}
@@ -221,6 +225,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		}
 		@Override
 		public boolean onClose() {
+			MainActivity.productList=MainActivity.completeProductList;
 			findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
 			setLayoutMargins(findViewById(R.id.root_view), this);	
 			SwipeViewFragment.mPager.setSwipeable(true); 
@@ -232,7 +237,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		}
 	private void search(){
 		try {
-			ArrayList<HashMap<String,String>> tempProductList = (ArrayList<HashMap<String, String>>) MainActivity.productList.clone();
+			tempProductList = (ArrayList<HashMap<String, String>>) MainActivity.productList.clone();
 
 			if(mToggleChecked){
 				tagToggleButton = "Artikelnamn";
@@ -243,13 +248,9 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 
 			Sort.Filter(searchText, tagToggleButton);
 			Log.i("INFO", Integer.toString(MainActivity.productList.size()));
-			if(MainActivity.productList.size()==0 && ((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
-				MainActivity.productList = (ArrayList<HashMap<String, String>>) tempProductList.clone();
-
-				Toast.makeText(this, "Inga resultat", Toast.LENGTH_SHORT).show();
-			}
+			
 			updateViewsAfterFilter();
-			//ListViewFragment.adapter.notifyDataSetChanged();
+			ListViewFragment.adapter.notifyDataSetChanged();
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -318,28 +319,65 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		}
 	}
 	private void updateViewsAfterFilter(){
-		if(SwipeViewFragment.NUM_PAGES == 1 && ((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
+		
+		if(!MainActivity.productList.isEmpty()){
+			tempProductList = (ArrayList<HashMap<String, String>>) MainActivity.productList.clone();
+		}
+		else if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
+			MainActivity.productList = (ArrayList<HashMap<String, String>>) MainActivity.completeProductList.clone();
+			Toast.makeText(this, Integer.toString(MainActivity.productList.size()), Toast.LENGTH_SHORT).show();
+			ListViewFragment.adapter.notifyDataSetChanged();
+		}
 
-			SwipeViewFragment.mPager.setSwipeable(false);
-			SwipeViewFragment.pageChangeListener.onPageSelected(0);
-			SwipeViewFragment.mPager.setCurrentItem(0);
-			//Set Image when there is only one Beer showing
+		if(SwipeViewFragment.NUM_PAGES == 0 && ((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
+			MainActivity.productList = (ArrayList<HashMap<String, String>>) MainActivity.completeProductList.clone();
+			Toast.makeText(this, "Inga resultat", Toast.LENGTH_SHORT).show();
+		}
+		
+		else if(MainActivity.productList.size() == 0 && ((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
+			Toast.makeText(this, Integer.toString(MainActivity.productList.size()), Toast.LENGTH_SHORT).show();
+			MainActivity.productList = (ArrayList<HashMap<String, String>>) tempProductList.clone();
+			Toast.makeText(this, "Inga resultat", Toast.LENGTH_SHORT).show();
 			ImageView ivBeer = (ImageView) findViewById(R.id.imageViewDemo);
 			String image_url = MainActivity.productList.get(0).get("URL");
 			ImageLoader imgLoader = new ImageLoader(this);
-			imgLoader.DisplayImageIcon(image_url, ivBeer);			
+			imgLoader.DisplayImage(image_url, BaseAdapter.NO_SELECTION,ivBeer);
+			
+			Toast.makeText(this, "Ett resultat", Toast.LENGTH_SHORT).show();
+			SwipeViewFragment.mPager.setSwipeable(false);
+			SwipeViewFragment.pageChangeListener.onPageSelected(0);
+			SwipeViewFragment.mPager.setCurrentItem(0);
+		}
+		
+		else if(SwipeViewFragment.NUM_PAGES == 1 && ((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
+		{
+
+			//Set Image when there is only one Beer showing
+				
+			ImageView ivBeer = (ImageView) findViewById(R.id.imageViewDemo);
+			String image_url = MainActivity.productList.get(0).get("URL");
+			ImageLoader imgLoader = new ImageLoader(this);
+			imgLoader.DisplayImage(image_url, BaseAdapter.NO_SELECTION,ivBeer);
+			
+			Toast.makeText(this, "Ett resultat", Toast.LENGTH_SHORT).show();
+			SwipeViewFragment.mPager.setSwipeable(false);
+			SwipeViewFragment.pageChangeListener.onPageSelected(0);
+			SwipeViewFragment.mPager.setCurrentItem(0);
+			
+							
 
 		}
-		else if (((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
+		else if((boolean) getSupportFragmentManager().findFragmentByTag("swipeFrag").isVisible()){
 			SwipeViewFragment.mPager.setSwipeable(true);
 			SwipeViewFragment.NUM_PAGES = MainActivity.productList.size();
 			SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
 			SwipeViewFragment.pageChangeListener.onPageSelected(0);
 			SwipeViewFragment.mPager.setCurrentItem(0);
 		}
-
+		
 		if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
-			ListViewFragment.adapter.notifyDataSetChanged();
+			Toast.makeText(this, "ListView uppdateras", Toast.LENGTH_SHORT).show();
+			ListViewFragment.adapter.notifyDataSetChanged();	
 		}
 	}
 	private void setLayoutMargins(){

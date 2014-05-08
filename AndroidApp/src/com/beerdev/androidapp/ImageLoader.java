@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.app.FragmentActivity;
 import android.widget.ImageView;
   /**
    * A class to load image to view
@@ -29,6 +30,7 @@ import android.widget.ImageView;
    *
    */
 public class ImageLoader {
+	public static int thumb; 
   
     public static MemoryCache memoryCache=new MemoryCache();
     FileCache fileCache;
@@ -48,21 +50,23 @@ public class ImageLoader {
      * @param loader - Image to view when other image is downloading
      * @param imageView - Which ImageView to put downloaded image
      */
-    public void DisplayImageIcon(String url, ImageView imageView)
+    public void DisplayImageIcon(String url,int loader, ImageView imageView)
     {
+    	thumb=1;
         imageViews.put(imageView, url);
-        Bitmap bitmap=memoryCache.get(url);
+        Bitmap bitmap=memoryCache.get(url+"thumb");
         if(bitmap!=null)
             imageView.setImageBitmap(bitmap);
         else
         {
             queuePhoto(url, imageView);
-            imageView.setImageResource(stub_id);
+            imageView.setImageResource(loader);
         }
     }
     
     public void DisplayImage(String url, int loader, ImageView imageView)
     {
+    	thumb=2;
         stub_id = R.drawable.placeholder;;
         
         imageViews.put(imageView, url);
@@ -84,7 +88,9 @@ public class ImageLoader {
   
     private Bitmap getBitmap(String url)
     {
-        File f=fileCache.getFile(url);
+        File f = null;
+  
+   		f=fileCache.getFile(url);
   
         //from SD cache
         Bitmap b = decodeFile(f);
@@ -111,20 +117,60 @@ public class ImageLoader {
         }
     }
   
+    private Bitmap getBitmapThumb(String url)
+    {
+        File f = null;
+  
+   		f=fileCache.getFileThumb(url);
+  
+        //from SD cache
+        Bitmap b = decodeFile(f);
+        if(b!=null)
+            return b;
+  
+        //from web
+        try {
+            Bitmap bitmap=null;
+            URL imageUrl = new URL(url);
+            HttpURLConnection conn = (HttpURLConnection)imageUrl.openConnection();
+            conn.setConnectTimeout(30000);
+            conn.setReadTimeout(30000);
+            conn.setInstanceFollowRedirects(true);
+            InputStream is=conn.getInputStream();
+            OutputStream os = new FileOutputStream(f);
+            Utils.CopyStream(is, os);
+            os.close();
+            bitmap = decodeFile(f);
+            return bitmap;
+        } catch (Exception ex){
+           ex.printStackTrace();
+           return null;
+        }
+    }
+    
+    
+    
     //decodes image and scales it to reduce memory consumption
     private Bitmap decodeFile(File f){
+    	//Converting pix to dp
+    /*	int dpValue = 50; // margin in dips
+		float d = FragmentManagerActivity.globalContext.getResources().getDisplayMetrics().density;
+		int thumbWidth = 28;
+		int thumbHeight = 70;
+		*/
+    	
         try {
+        	if(thumb==2){
             //decode image size
             BitmapFactory.Options o = new BitmapFactory.Options();
             o.inJustDecodeBounds = true;
             BitmapFactory.decodeStream(new FileInputStream(f),null,o);
-  
             //Find the correct scale value. It should be the power of 2.
-            final int REQUIRED_SIZE=150;
+            final int REQUIRED_SIZE=150; 
             int width_tmp=o.outWidth, height_tmp=o.outHeight;
             int scale=1;
             while(true){
-                if(width_tmp/2<REQUIRED_SIZE || height_tmp/2<REQUIRED_SIZE)
+                if(width_tmp/2<REQUIRED_SIZE|| height_tmp/2<REQUIRED_SIZE)
                     break;
                 width_tmp/=2;
                 height_tmp/=2;
@@ -135,10 +181,36 @@ public class ImageLoader {
             BitmapFactory.Options o2 = new BitmapFactory.Options();
             o2.inSampleSize=scale;
             return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
-        } catch (FileNotFoundException e) {}
+        	}
+            else if(thumb==1){
+            	 //decode image size
+                BitmapFactory.Options o = new BitmapFactory.Options();
+                o.inJustDecodeBounds = true;
+                BitmapFactory.decodeStream(new FileInputStream(f),null,o);
+                //Find the correct scale value. It should be the power of 2.
+                final int REQUIRED_SIZE=150;
+                int width_tmp=o.outWidth, height_tmp=o.outHeight;
+                int scale=1;
+                while(true){
+                    if(width_tmp/2<36 || height_tmp/2<90)
+                        break;
+                    width_tmp/=2;
+                    height_tmp/=2;
+                    scale*=2;
+                }
+                  //decode with inSampleSize
+                    BitmapFactory.Options o2 = new BitmapFactory.Options();
+                    o2.inSampleSize=scale;
+                    return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
+                
+            } 
+        }
+        catch (FileNotFoundException e) {}
         return null;
-    }
-  
+     }
+   
+
+    
     /**
      * Task for the queue
      * @author BeerDev
@@ -164,7 +236,12 @@ public class ImageLoader {
         public void run() {
             if(imageViewReused(photoToLoad))
                 return;
-            Bitmap bmp=getBitmap(photoToLoad.url);
+            
+			Bitmap bmp;
+			if(thumb==1)
+            bmp = getBitmapThumb(photoToLoad.url);
+			else
+				bmp= getBitmap(photoToLoad.url);
             memoryCache.put(photoToLoad.url, bmp);
             if(imageViewReused(photoToLoad))
                 return;

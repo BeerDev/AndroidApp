@@ -95,6 +95,8 @@ public class MainActivity extends Activity {
 	JSONArray products = null;
 	JSONArray productsOff = null;
 	
+	public static int status = 1;
+	
 
 	public static boolean wasOnline;
 	public boolean downloadFinished;
@@ -110,7 +112,7 @@ public class MainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		
 		productList = new ArrayList<HashMap<String, String>>();
 		//getproductList = new ArrayList<HashMap<String, String>>();
 		
@@ -177,8 +179,10 @@ public class MainActivity extends Activity {
 						// adding contact to contact list
 						productList.add(product);
 					}
+					
 				} catch (JSONException e) {
 					e.printStackTrace();
+					offlineMode(); 
 				}
 				
 				downloadFinished = true;
@@ -206,8 +210,10 @@ public class MainActivity extends Activity {
 				startActivity(in);
 				finish();
 			}
-			if (pDialog.isShowing())
+			if (pDialog.isShowing()){
 				pDialog.dismiss();
+			}
+			
 		}
 	}
 	@Override
@@ -252,6 +258,7 @@ public class MainActivity extends Activity {
 
 		if(isOnline()){
 			// Calling async task to get json
+			
 			wasOnline = true;
 			downloadFinished = false;
 			new GetProducts().execute();
@@ -268,6 +275,7 @@ public class MainActivity extends Activity {
 
 public void offlineMode(){
 		//JSONObject obj;
+	
 		try {
 			JSONObject obj = new JSONObject(loadJSONFromAsset());
 

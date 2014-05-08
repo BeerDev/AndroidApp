@@ -1,10 +1,15 @@
 package com.beerdev.androidapp;
 
+import java.util.zip.Inflater;
+
+import com.beerdev.androidapp.R.integer;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 public class ListViewFragment extends ListFragment{

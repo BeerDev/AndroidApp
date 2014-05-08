@@ -15,6 +15,7 @@ public class FileCache {
 	 * Path to the place where the files is caching
 	 */
     private File cacheDir;
+    private File cacheDirThumb;
     
     /**
      * Initialize the cacheDirectory
@@ -23,11 +24,18 @@ public class FileCache {
     public FileCache(Context context){
         //Find the dir to save cached images
         if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
-            cacheDir=new File(android.os.Environment.getExternalStorageDirectory(),"TempImages");
+            cacheDir=new File(android.os.Environment.getExternalStorageDirectory(),"BeerDevImages");
         else
             cacheDir=context.getCacheDir();
         if(!cacheDir.exists())
             cacheDir.mkdirs();
+        
+        if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
+            cacheDirThumb=new File(android.os.Environment.getExternalStorageDirectory(),"BeerDevImagesThumb");
+        else
+            cacheDirThumb=context.getCacheDir();
+        if(!cacheDirThumb.exists())
+            cacheDirThumb.mkdirs();
     }
   
     /**
@@ -38,6 +46,13 @@ public class FileCache {
     public File getFile(String url){
         String filename=String.valueOf(url.hashCode());
         File f = new File(cacheDir, filename);
+        return f;
+  
+    }
+    
+    public File getFileThumb(String url){
+        String filename=String.valueOf(url.hashCode());
+        File f = new File(cacheDirThumb, filename);
         return f;
   
     }
