@@ -50,7 +50,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 
 	public static Context globalContext = null;
 
-	@Override
+	@Override 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
