@@ -58,10 +58,8 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable, Sectio
         int size = productsData.size();
         for (int x = 0; x < size; x++) {
             String articleName = productsData.get(x).get("Artikelnamn");
-            Log.d("articleName", articleName);
-			// get the first letter of the name
+           // get the first letter of the name
             String firstChar =  articleName.substring(0, 1);
-            Log.d("firstChar", firstChar);
             firstChar = firstChar.toUpperCase();
             if (!alphaIndexer.containsKey(firstChar)) {
                 alphaIndexer.put(firstChar, x);
@@ -159,7 +157,7 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable, Sectio
         protected void publishResults(CharSequence prefix, FilterResults results) {
             productsData = (ArrayList<HashMap<String, String>>) results.values;
             if (results.count > 0) {
-            	MainActivity.productList=productsData;
+            	MainActivity.productList=(ArrayList<HashMap<String, String>>) productsData.clone();
                 notifyDataSetChanged();
             } else {
             	notifyDataSetInvalidated();

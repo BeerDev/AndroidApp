@@ -30,14 +30,14 @@ public class ListViewFragment extends ListFragment{
 		// Getting adapter by passing xml data ArrayList
         fastScrollAdapter=new FastScrollAdapter(getActivity(), MainActivity.productList); 
         setListAdapter(fastScrollAdapter);
-        if(FragmentManagerActivity.fastScrollEnabled){
+        /*if(FragmentManagerActivity.fastScrollEnabled){
             getListView().setFastScrollEnabled(true);
             getListView().setFastScrollAlwaysVisible(true);
         }
         else{
             getListView().setFastScrollEnabled(false);	
             getListView().setFastScrollAlwaysVisible(false);
-        }
+        }*/
     }
 	 @Override
      public void onListItemClick(ListView l, View v, int position, long id) {

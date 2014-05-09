@@ -15,20 +15,19 @@ public class Sort {
 	public static void sortAlphabetic(){
 		Collections.sort( MainActivity.productList, new Comparator<HashMap<String,String>>(){
             public int compare( HashMap<String,String> one, HashMap<String,String> two ) {
-                return one.get("Artikelnamn").compareTo(two.get("Artikelnamn"));
+                return one.get(MainActivity.TAG_NAME).compareTo(two.get(MainActivity.TAG_NAME));
             }
         });
 	}
 	public static void sortPrice(){
 		Collections.sort( MainActivity.productList, new Comparator<HashMap<String,String>>(){
             public int compare( HashMap<String,String> one, HashMap<String,String> two ) {
-                return Integer.parseInt(one.get("Utpris exkl moms")) - (Integer.parseInt(two.get("Utpris exkl moms")));
+                return Integer.parseInt(one.get(MainActivity.TAG_PRICE)) - (Integer.parseInt(two.get(MainActivity.TAG_PRICE)));
             }
         });
 	}
 	
 	public static void Filter(String word, String tag) throws JSONException{
-		Log.d("Filter", "Complete productlist size: " + Integer.toString(MainActivity.completeProductList.size()));
 		MainActivity.productList.clear();
 		// Getting JSON Array node
 		//filterProductList=new ArrayList<HashMap<String, String>>();

@@ -69,14 +69,45 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		mShakeDetector.setOnShakeListener(new OnShakeListener() {
 			@Override
 			public void onShake(int count) {
-				if (((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
+				if (((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()&&MainActivity.productList.size()>1){
 
 					Random random = new Random();
-					int max=SwipeViewFragment.NUM_PAGES-1;
+					int max=MainActivity.productList.size()-1;
 					int randomNumber = random.nextInt(max);
-					
-					SwipeViewFragment.pageChangeListener.onPageSelected(randomNumber);
-					SwipeViewFragment.mPager.setCurrentItem(randomNumber);
+					if(MainActivity.productList.size() == 0){
+						MainActivity.productList = (ArrayList<HashMap<String, String>>) tempProductList.clone();
+						ImageView ivBeer = (ImageView) findViewById(R.id.ivSwipeImage);
+						String image_url = MainActivity.productList.get(0).get("URL");
+						ImageLoader imgLoader = new ImageLoader(globalContext);
+						imgLoader.DisplayImage(image_url, BaseAdapter.NO_SELECTION,ivBeer);
+						SwipeViewFragment.mPager.setSwipeable(false);
+						Log.i("SwipeView", "MainActivity.productList.size() == 0");
+					}
+					else if(SwipeViewFragment.NUM_PAGES == 1) 
+					{
+						//Set Image when there is only one Beer showing		
+						ImageView ivBeer = (ImageView) findViewById(R.id.ivSwipeImage);
+						String image_url = MainActivity.productList.get(0).get("URL");
+						ImageLoader imgLoader = new ImageLoader(globalContext);
+						imgLoader.DisplayImage(image_url, BaseAdapter.NO_SELECTION,ivBeer);
+						
+						SwipeViewFragment.mPager.setSwipeable(false);
+						SwipeViewFragment.pageChangeListener.onPageSelected(0);
+						SwipeViewFragment.mPager.setCurrentItem(0);
+						Log.d("SwipeView", "NUM_PAGES == 1");
+					}
+					else{
+						SwipeViewFragment.mPager.setSwipeable(true);
+						SwipeViewFragment.NUM_PAGES = MainActivity.productList.size();
+						SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
+						SwipeViewFragment.pageChangeListener.onPageSelected(randomNumber);
+						SwipeViewFragment.mPager.setCurrentItem(randomNumber);
+						Log.d("SwipeView", "else statement");
+					}
+					if(MainActivity.productList.size()>2){
+						SwipeViewFragment.mPager.setSwipeable(true);
+						
+					}
 				}
 				else {
 					Log.i(null, "Swipe View not showing");
@@ -173,12 +204,12 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			}
 	    			break;
 	    		case R.id.menu_filter_sortName:
-	    			FragmentManagerActivity.fastScrollEnabled = true;
+	    			//FragmentManagerActivity.fastScrollEnabled = true;
 	    			Sort.sortAlphabetic();
 	    			ListViewFragment listFragName = (ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag"); 
 	    			if(listFragName.isVisible()){
-	    		        listFragName.getListView().setFastScrollEnabled(true);
-	    		        listFragName.getListView().setFastScrollAlwaysVisible(true);
+	    		       // listFragName.getListView().setFastScrollEnabled(true);
+	    		       // listFragName.getListView().setFastScrollAlwaysVisible(true);
 	    		        ListViewFragment.fastScrollAdapter.notifyDataSetChanged();
 	    			}
 	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
@@ -189,12 +220,12 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			}
 	    			break;
 	    		case R.id.menu_filter_sortPrice:
-	    			FragmentManagerActivity.fastScrollEnabled = false;
+	    			//FragmentManagerActivity.fastScrollEnabled = false;
 	    			Sort.sortPrice();
 	    			ListViewFragment listFragPrice = (ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag"); 
 	    			if(listFragPrice.isVisible()){
-	    		        listFragPrice.getListView().setFastScrollEnabled(false);
-	    		        listFragPrice.getListView().setFastScrollAlwaysVisible(false);
+	    		        //listFragPrice.getListView().setFastScrollEnabled(false);
+	    		        //listFragPrice.getListView().setFastScrollAlwaysVisible(false);
 	    		        ListViewFragment.fastScrollAdapter.notifyDataSetChanged();
 	    			}
 	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
@@ -207,19 +238,23 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			break;
 	    		case R.id.menu_close_search:
 	    			searchView.setQuery("", false);
-	    			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
-			        	ListViewFragment.fastScrollAdapter.notifyDataSetChanged();
-			        }
-	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
+	    			MainActivity.productList = (ArrayList<HashMap<String, String>>) MainActivity.completeProductList.clone();
+	    			if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
 	    			{
 	    				SwipeViewFragment.pageChangeListener.onPageSelected(0);
 				        SwipeViewFragment.mPager.setCurrentItem(0);
 	    				SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
 	    				
 	    			}
+	    		  	ListViewFragment.fastScrollAdapter.notifyDataSetChanged();
+				     
 	    			cross.setVisible(false);
 	    			searchView.setIconified(true);
 	    			searchItem.setVisible(true);
+	    			 InputMethodManager imm2 = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+		    			if(imm2.isActive()){
+		    				imm2.hideSoftInputFromWindow(findViewById(R.id.root_view).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+		    			}
 	    			break;
 	    		}
 	    		return true;
@@ -297,7 +332,8 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				ImageLoader imgLoader = new ImageLoader(this);
 				imgLoader.DisplayImage(image_url, BaseAdapter.NO_SELECTION,ivBeer);
 				SwipeViewFragment.mPager.setSwipeable(false);
-				Log.i("SwipeView", "MainActivity.productList.size() == 0");
+				Log.i("SwipeView", Integer.toString(MainActivity.productList.size()));
+				Log.d("SwipeView", "MainActivity.productList.size() == 0");
 			}
 			else if(SwipeViewFragment.NUM_PAGES == 1) 
 			{
@@ -310,7 +346,10 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				SwipeViewFragment.mPager.setSwipeable(false);
 				SwipeViewFragment.pageChangeListener.onPageSelected(0);
 				SwipeViewFragment.mPager.setCurrentItem(0);
+
+				Log.i("SwipeView", Integer.toString(MainActivity.productList.size()));
 				Log.d("SwipeView", "NUM_PAGES == 1");
+				SwipeViewFragment.NUM_PAGES = MainActivity.productList.size();
 			}
 			else{
 				SwipeViewFragment.mPager.setSwipeable(true);
@@ -318,6 +357,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
 				SwipeViewFragment.pageChangeListener.onPageSelected(0);
 				SwipeViewFragment.mPager.setCurrentItem(0);
+				Log.i("SwipeView", Integer.toString(MainActivity.productList.size()));
 				Log.d("SwipeView", "else statement");
 			}
 		}

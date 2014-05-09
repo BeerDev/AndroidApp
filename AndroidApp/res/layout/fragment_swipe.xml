@@ -13,7 +13,7 @@
         android:gravity="bottom"
         sothree:dragView="@+id/name"
         sothree:overlay="true"
-        sothree:panelHeight="120dp"
+        sothree:panelHeight="100dp"
         sothree:paralaxOffset="0dp"
         sothree:shadowHeight="4dp" >
 
@@ -36,7 +36,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#80000000"
+            android:id="@+id/sliding_up_panel"
+            android:background="#50000000"
             android:clickable="true"
             android:focusable="true"
             android:orientation="vertical" >
@@ -49,7 +50,7 @@
 			    android:background="@drawable/upn"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -57,7 +58,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center_vertical|left"
+                    android:gravity="left"
                     android:paddingLeft="10dp"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -66,7 +67,7 @@
                     android:id="@+id/beerPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|right"
+                    android:gravity="right"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:textSize="18sp"
@@ -75,7 +76,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -91,7 +92,7 @@
                     android:id="@+id/beerPercent"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|right"
+                    android:gravity="right"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:textSize="18sp" />
@@ -107,7 +108,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center_vertical|left"
+                    android:gravity="left"
                     android:paddingLeft="10dp"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -116,7 +117,7 @@
                     android:id="@+id/beerSize"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|right"
+                    android:gravity="right"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:textSize="18sp"
