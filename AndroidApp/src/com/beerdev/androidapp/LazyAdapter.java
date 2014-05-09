@@ -126,7 +126,7 @@ public class LazyAdapter extends BaseAdapter implements Filterable{
             } else {
                 return new FilterResults();
             }
-        }
+        } 
 
         @SuppressWarnings("unchecked")
         protected void publishResults(CharSequence prefix, FilterResults results) {
