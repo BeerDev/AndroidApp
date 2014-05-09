@@ -44,6 +44,8 @@ public class SwipeViewFragment extends Fragment {
     
     public static TextView tvBeerBrew;
     
+    public static TextView tvBeerType;
+    
     public static final String SAVED_STATE_ACTION_BAR_HIDDEN = "saved_state_action_bar_hidden";
     
     /**
@@ -114,13 +116,17 @@ public class SwipeViewFragment extends Fragment {
                 tvBeerPercent = (TextView) swipeView.findViewById(R.id.beerPercent);
                 tvBeerInfo = (TextView) swipeView.findViewById(R.id.beerInfo);
                 tvBeerBrew = (TextView) swipeView.findViewById(R.id.beerBrew);
+                tvBeerType = (TextView) swipeView.findViewById(R.id.beerType);
                 
                 tvBeerName.setText(MainActivity.productList.get(position).get("Artikelnamn"));
                 tvBeerPrice.setText(MainActivity.productList.get(position).get("Utpris exkl moms")+" kr*");
-                tvBeerSize.setText(MainActivity.productList.get(position).get("Storlek")+" ml*");
+                tvBeerSize.setText(MainActivity.productList.get(position).get("Storlek")+" ml");
                 tvBeerPercent.setText(MainActivity.productList.get(position).get("Alkoholhalt")+" %");
                 tvBeerInfo.setText(MainActivity.productList.get(position).get("Info"));
-            	
+                tvBeerType.setText(MainActivity.productList.get(position).get("Kategori"));
+                tvBeerBrew.setText(MainActivity.productList.get(position).get("Bryggeri"));
+                
+                
             }
         };
         mPager.setOnPageChangeListener(pageChangeListener);

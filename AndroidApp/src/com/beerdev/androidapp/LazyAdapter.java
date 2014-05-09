@@ -83,7 +83,7 @@ public class LazyAdapter extends BaseAdapter implements Filterable{
         int loader = R.drawable.placeholder;
         imageLoader.DisplayImage(product.get(MainActivity.TAG_PATH),NO_SELECTION, thumbnailImage);
         productName.setText(product.get(MainActivity.TAG_NAME));
-        productCat.setText(product.get(MainActivity.TAG_CAT));
+        productCat.setText(product.get(MainActivity.TAG_TYPE));
         productPrice.setText(product.get(MainActivity.TAG_PRICE) + " kr*");
         
         return vi;
