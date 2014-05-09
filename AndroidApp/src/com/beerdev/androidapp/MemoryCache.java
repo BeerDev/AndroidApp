@@ -23,7 +23,10 @@ public class MemoryCache {
     }
   
     public void put(String id, Bitmap bitmap){
-        cache.put(id, new SoftReference<Bitmap>(bitmap));
+    	if(ImageLoader.thumb==1)
+        cache.put(id+"thumb", new SoftReference<Bitmap>(bitmap));
+    	else
+    		cache.put(id, new SoftReference<Bitmap>(bitmap));
     }
   
     public void clear() {

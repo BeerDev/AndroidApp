@@ -1,6 +1,5 @@
 package com.beerdev.androidapp;
 
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -10,6 +9,7 @@ import android.widget.ListView;
 
 public class ListViewFragment extends ListFragment{
 	public static FastScrollAdapter fastScrollAdapter;
+	public static ListView lv;
 	
 	@Override 
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -24,6 +24,7 @@ public class ListViewFragment extends ListFragment{
 			 getActivity().findViewById(R.id.search_container).setVisibility(View.INVISIBLE); 
 			 FragmentManagerActivity.setLayoutMargins(getActivity().findViewById(R.id.root_view), getActivity());
 		 }
+        lv = getListView();
         // Initially there is no data 
         setEmptyText("No Data Here");
 		// Getting adapter by passing xml data ArrayList

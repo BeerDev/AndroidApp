@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 import org.json.JSONException;
 
+import android.util.Log;
+
 public class Sort {
 	/**
 	 * JSON Node for finding id.
@@ -26,7 +28,7 @@ public class Sort {
 	/**
 	 * JSON Node for finding price
 	 */
-	private static final String TAG_PRIS = "Utpris exkl moms";
+	private static final String TAG_PRICE = "Utpris  exkl moms";
 	
 	/**
 	 * JSON Node for finding description of beer
@@ -63,43 +65,81 @@ public class Sort {
 	}
 	
 	public static void Filter(String word, String tag) throws JSONException{
+		Log.d("Filter", "Complete productlist size: " + Integer.toString(MainActivity.completeProductList.size()));
 		MainActivity.productList.clear();
 		// Getting JSON Array node
 		//filterProductList=new ArrayList<HashMap<String, String>>();
 		// looping through All products
-		for (int i = 0; i < MainActivity.completeProductList.size();i++) 
-		{
-			String c = MainActivity.completeProductList.get(i).get(tag);
-
-			if(c.toLowerCase().contains(word.toLowerCase()))
-			{			
-				//ListViewActivity.searchList.remove(i);
-
-				String id = MainActivity.completeProductList.get(i).get(TAG_ID);
-				String name = MainActivity.completeProductList.get(i).get(TAG_NAME);
-				String path = MainActivity.completeProductList.get(i).get(TAG_PATH);
-				String pris = MainActivity.completeProductList.get(i).get(TAG_PRIS);
-				String info = MainActivity.completeProductList.get(i).get(TAG_INFO);
-				String size = MainActivity.completeProductList.get(i).get(TAG_SIZE);
-				String percent = MainActivity.completeProductList.get(i).get(TAG_PERC);
-				String cat = MainActivity.completeProductList.get(i).get(TAG_CAT);
-
-				HashMap<String, String> product = new HashMap<String, String>();
-
-				// Adding each child node to HashMap key => value
-				product.put(TAG_ID, id);
-				product.put(TAG_NAME, name);
-				product.put(TAG_PATH, path);
-				product.put(TAG_PRIS, pris);
-				product.put(TAG_INFO, info);
-				product.put(TAG_SIZE, size);
-				product.put(TAG_PERC, percent);
-				product.put(TAG_CAT, cat);
-				// adding contact to contact list
-				MainActivity.productList.add(product);
-			}
-			
-		} 
+		if(tag=="Artikelnamn"){
+			for (int i = 0; i < MainActivity.completeProductList.size();i++) 
+			{
+				String c = MainActivity.completeProductList.get(i).get(tag);
+	
+				if(c.toLowerCase().contains(word.toLowerCase()))
+				{			
+					//ListViewActivity.searchList.remove(i);
+	
+					String id = MainActivity.completeProductList.get(i).get(TAG_ID);
+					String name = MainActivity.completeProductList.get(i).get(TAG_NAME);
+					String path = MainActivity.completeProductList.get(i).get(TAG_PATH);
+					String pris = MainActivity.completeProductList.get(i).get(TAG_PRICE);
+					String info = MainActivity.completeProductList.get(i).get(TAG_INFO);
+					String size = MainActivity.completeProductList.get(i).get(TAG_SIZE);
+					String percent = MainActivity.completeProductList.get(i).get(TAG_PERC);
+					String cat = MainActivity.completeProductList.get(i).get(TAG_CAT);
+	
+					HashMap<String, String> product = new HashMap<String, String>();
+	
+					// Adding each child node to HashMap key => value
+					product.put(TAG_ID, id);
+					product.put(TAG_NAME, name);
+					product.put(TAG_PATH, path);
+					product.put(TAG_PRICE, pris);
+					product.put(TAG_INFO, info);
+					product.put(TAG_SIZE, size);
+					product.put(TAG_PERC, percent);
+					product.put(TAG_CAT, cat);
+					// adding contact to contact list
+					MainActivity.productList.add(product);
+				}
+			} 
+		}
+		
+		else if(tag=="Kategori"){
+			for (int i = 0; i < MainActivity.completeProductList.size();i++) 
+			{
+				String c = MainActivity.completeProductList.get(i).get(tag);
+	
+				if(c.toLowerCase().startsWith(word.toLowerCase()))
+				{			
+					//ListViewActivity.searchList.remove(i);
+	
+					String id = MainActivity.completeProductList.get(i).get(TAG_ID);
+					String name = MainActivity.completeProductList.get(i).get(TAG_NAME);
+					String path = MainActivity.completeProductList.get(i).get(TAG_PATH);
+					String pris = MainActivity.completeProductList.get(i).get(TAG_PRICE);
+					String info = MainActivity.completeProductList.get(i).get(TAG_INFO);
+					String size = MainActivity.completeProductList.get(i).get(TAG_SIZE);
+					String percent = MainActivity.completeProductList.get(i).get(TAG_PERC);
+					String cat = MainActivity.completeProductList.get(i).get(TAG_CAT);
+	
+					HashMap<String, String> product = new HashMap<String, String>();
+	
+					// Adding each child node to HashMap key => value
+					product.put(TAG_ID, id);
+					product.put(TAG_NAME, name);
+					product.put(TAG_PATH, path);
+					product.put(TAG_PRICE, pris);
+					product.put(TAG_INFO, info);
+					product.put(TAG_SIZE, size);
+					product.put(TAG_PERC, percent);
+					product.put(TAG_CAT, cat);
+					// adding contact to contact list
+					MainActivity.productList.add(product);
+				}
+			} 
+		}
+		
 		return;
 	}
 }

@@ -46,12 +46,11 @@ public class AboutCategories extends Fragment {
 
 
 		 aleButton.setOnClickListener(new OnClickListener(){
-
 			@Override
 			public void onClick(View arg0) {
 				FragmentManagerActivity.mToggleChecked=false;
 				FragmentManagerActivity.setToggleButton();
-				FragmentManagerActivity.searchView.setQuery("ale", false);
+				FragmentManagerActivity.searchView.setQuery("Ale", false);
 				FragmentManagerActivity.searchView.setIconified(false);
 				
 				getActivity()
@@ -61,15 +60,13 @@ public class AboutCategories extends Fragment {
     			.addToBackStack("listFrag")
     			.commit();
 			}
-
 		 });
 
 		 lagerButton.setOnClickListener(new OnClickListener(){
-
 					public void onClick(View arg0) {
 						FragmentManagerActivity.mToggleChecked=false;
 						FragmentManagerActivity.setToggleButton();
-						FragmentManagerActivity.searchView.setQuery("lager", false);
+						FragmentManagerActivity.searchView.setQuery("Lager", false);
 						FragmentManagerActivity.searchView.setIconified(false);
 						
 						getActivity()
@@ -78,35 +75,32 @@ public class AboutCategories extends Fragment {
 		    			.replace(R.id.root_container, new ListViewFragment(), "listFrag")
 		    			.addToBackStack("listFrag")
 		    			.commit();
-				 
 				}
-
 			 });
 
 		 pilsnerButton.setOnClickListener(new OnClickListener(){
-
 			 @Override
 				public void onClick(View arg0) {
 					FragmentManagerActivity.mToggleChecked=false;
 					FragmentManagerActivity.setToggleButton();
-					FragmentManagerActivity.searchView.setQuery("pilsner", false);
+					FragmentManagerActivity.searchView.setQuery("Pilsner", false);
 					FragmentManagerActivity.searchView.setIconified(false);
-					
+
 					getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
 	    			.replace(R.id.root_container, new ListViewFragment(), "listFrag")
 	    			.addToBackStack("listFrag")
 	    			.commit();
-
-			 }
+			 	}
 			 });
+		 
 		 bitterButton.setOnClickListener(new OnClickListener(){
 			 @Override
 				public void onClick(View arg0) {
 					FragmentManagerActivity.mToggleChecked=false;
 					FragmentManagerActivity.setToggleButton();
-					FragmentManagerActivity.searchView.setQuery("bitter", false);
+					FragmentManagerActivity.searchView.setQuery("Bitter", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
 					getActivity()
@@ -123,7 +117,7 @@ public class AboutCategories extends Fragment {
 				public void onClick(View arg0) {
 					FragmentManagerActivity.mToggleChecked=false;
 					FragmentManagerActivity.setToggleButton();
-					FragmentManagerActivity.searchView.setQuery("ipa", false);
+					FragmentManagerActivity.searchView.setQuery("IPA", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
 					getActivity()
@@ -140,7 +134,7 @@ public class AboutCategories extends Fragment {
 				public void onClick(View arg0) {
 					FragmentManagerActivity.mToggleChecked=false;
 					FragmentManagerActivity.setToggleButton();
-					FragmentManagerActivity.searchView.setQuery("imperial/doubleipa", false);
+					FragmentManagerActivity.searchView.setQuery("Imperial/Double IPA", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
 					getActivity()
@@ -157,7 +151,7 @@ public class AboutCategories extends Fragment {
 				public void onClick(View arg0) {
 					FragmentManagerActivity.mToggleChecked=false;
 					FragmentManagerActivity.setToggleButton();
-					FragmentManagerActivity.searchView.setQuery("stout", false);
+					FragmentManagerActivity.searchView.setQuery("Stout", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
 					getActivity()
@@ -176,7 +170,7 @@ public class AboutCategories extends Fragment {
 				public void onClick(View arg0) {
 					FragmentManagerActivity.mToggleChecked=false;
 					FragmentManagerActivity.setToggleButton();
-					FragmentManagerActivity.searchView.setQuery("imperial stout", false);
+					FragmentManagerActivity.searchView.setQuery("Imperial Stout", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
 					getActivity()
@@ -193,7 +187,7 @@ public class AboutCategories extends Fragment {
 				public void onClick(View arg0) {
 					FragmentManagerActivity.mToggleChecked=false;
 					FragmentManagerActivity.setToggleButton();
-					FragmentManagerActivity.searchView.setQuery("porter", false);
+					FragmentManagerActivity.searchView.setQuery("Porter", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
 					getActivity()
@@ -210,7 +204,7 @@ public class AboutCategories extends Fragment {
 				public void onClick(View arg0) {
 					FragmentManagerActivity.mToggleChecked=false;
 					FragmentManagerActivity.setToggleButton();
-					FragmentManagerActivity.searchView.setQuery("veteöl", false);
+					FragmentManagerActivity.searchView.setQuery("Veteöl", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
 					getActivity()
@@ -227,7 +221,7 @@ public class AboutCategories extends Fragment {
 				public void onClick(View arg0) {
 					FragmentManagerActivity.mToggleChecked=false;
 					FragmentManagerActivity.setToggleButton();
-					FragmentManagerActivity.searchView.setQuery("trappist/abbey", false);
+					FragmentManagerActivity.searchView.setQuery("Trappist/Abbey", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
 					getActivity()
@@ -244,7 +238,7 @@ public class AboutCategories extends Fragment {
 				public void onClick(View arg0) {
 					FragmentManagerActivity.mToggleChecked=false;
 					FragmentManagerActivity.setToggleButton();
-					FragmentManagerActivity.searchView.setQuery("lambik/fruktöl", false);
+					FragmentManagerActivity.searchView.setQuery("Lambik/Fruktöl", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
 					getActivity()
@@ -261,7 +255,7 @@ public class AboutCategories extends Fragment {
 				public void onClick(View arg0) {
 					FragmentManagerActivity.mToggleChecked=false;
 					FragmentManagerActivity.setToggleButton();
-					FragmentManagerActivity.searchView.setQuery("barley wine", false);
+					FragmentManagerActivity.searchView.setQuery("Barley Wine", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
 					getActivity()
@@ -278,7 +272,7 @@ public class AboutCategories extends Fragment {
 				public void onClick(View arg0) {
 					FragmentManagerActivity.mToggleChecked=false;
 					FragmentManagerActivity.setToggleButton();
-					FragmentManagerActivity.searchView.setQuery("saison", false);
+					FragmentManagerActivity.searchView.setQuery("Saison", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
 					getActivity()
@@ -289,12 +283,13 @@ public class AboutCategories extends Fragment {
 	    			.commit();
 					}
 			 });
+		 
 		 surButton.setOnClickListener(new OnClickListener(){
 			 @Override
 				public void onClick(View arg0) {
 					FragmentManagerActivity.mToggleChecked=false;
 					FragmentManagerActivity.setToggleButton();
-					FragmentManagerActivity.searchView.setQuery("suröl", false);
+					FragmentManagerActivity.searchView.setQuery("Suröl", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
 					getActivity()
@@ -311,7 +306,7 @@ public class AboutCategories extends Fragment {
 				public void onClick(View arg0) {
 					FragmentManagerActivity.mToggleChecked=false;
 					FragmentManagerActivity.setToggleButton();
-					FragmentManagerActivity.searchView.setQuery("mjöd", false);
+					FragmentManagerActivity.searchView.setQuery("Mjöd", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
 					getActivity()
@@ -328,7 +323,7 @@ public class AboutCategories extends Fragment {
 				public void onClick(View arg0) {
 					FragmentManagerActivity.mToggleChecked=false;
 					FragmentManagerActivity.setToggleButton();
-					FragmentManagerActivity.searchView.setQuery("specialöl", false);
+					FragmentManagerActivity.searchView.setQuery("Specialöl", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
 					getActivity()

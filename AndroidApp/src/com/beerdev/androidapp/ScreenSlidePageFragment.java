@@ -56,7 +56,7 @@ public class ScreenSlidePageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.childfragment_swipe, container, false);
+                R.layout.childfragment_swipe, container, false); 
         
         ivBeer = (ImageView) rootView.findViewById(R.id.ivSwipeImage);
 

@@ -1,12 +1,12 @@
 package com.beerdev.androidapp;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Set;
+import java.util.Map;
 
 import android.app.Activity;
-import android.util.Log;
+import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +14,6 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 /**
@@ -22,16 +21,14 @@ import android.widget.TextView;
  * @author BeerDev
  *
  */
-public class FastScrollAdapter extends BaseAdapter implements Filterable, SectionIndexer{
+public class LazyAdapter extends BaseAdapter implements Filterable{
     /**
      * Activity related to the LazyAdapter
      */
     private Activity activity;
+    
 	private ItemsFilter mFilter;
 
-	private HashMap<String, Integer> alphaIndexer;
-    private String[] sections;
-	
 	public ArrayList<HashMap<String, String>> productsData;
 	public ArrayList<HashMap<String, String>> allProductsData;
     /**
@@ -46,38 +43,13 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable, Sectio
     MemoryCache memoryCache;
     
     @SuppressWarnings("unchecked")
-	public FastScrollAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
+	public LazyAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
         activity = a;
         productsData = (ArrayList<HashMap<String, String>>) d;
         allProductsData = (ArrayList<HashMap<String, String>>) productsData.clone();
         inflater = (LayoutInflater)activity.getLayoutInflater();
         imageLoader=new ImageLoader(activity.getApplicationContext());
         memoryCache=new MemoryCache();
-        
-        alphaIndexer = new HashMap<String, Integer>();
-        int size = productsData.size();
-        for (int x = 0; x < size; x++) {
-            String articleName = productsData.get(x).get("Artikelnamn");
-            Log.d("articleName", articleName);
-			// get the first letter of the name
-            String firstChar =  articleName.substring(0, 1);
-            Log.d("firstChar", firstChar);
-            firstChar = firstChar.toUpperCase();
-            if (!alphaIndexer.containsKey(firstChar)) {
-                alphaIndexer.put(firstChar, x);
-            }
-        }
-        Set<String> sectionLetters = alphaIndexer.keySet();
-        
-        
-	    // create a list from the set to sort
-            ArrayList<String> sectionList = new ArrayList<String>(sectionLetters); 
- 
-            Collections.sort(sectionList);
- 
-            sections = new String[sectionList.size()];
-            
-            sectionList.toArray(sections);
         
     }
 
@@ -95,7 +67,7 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable, Sectio
     
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
-        if(convertView==null)
+        if(convertView==null) 
             vi = inflater.inflate(R.layout.list_item, null);
         
         // Getting relevant information
@@ -108,6 +80,7 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable, Sectio
         product = productsData.get(position);
         
         // Setting all values in listview
+        int loader = R.drawable.placeholder;
         imageLoader.DisplayImageIcon(product.get(MainActivity.TAG_PATH),NO_SELECTION, thumbnailImage);
         productName.setText(product.get(MainActivity.TAG_NAME));
         productCat.setText(product.get(MainActivity.TAG_CAT));
@@ -153,7 +126,7 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable, Sectio
             } else {
                 return new FilterResults();
             }
-        }
+        } 
 
         @SuppressWarnings("unchecked")
         protected void publishResults(CharSequence prefix, FilterResults results) {
@@ -166,19 +139,4 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable, Sectio
             }
         }
     }
-
-	@Override
-	public Object[] getSections() {
-		return sections;
-	}
-
-	@Override
-	public int getPositionForSection(int sectionIndex) {
-		return alphaIndexer.get(sections[sectionIndex]);
-	}
-
-	@Override
-	public int getSectionForPosition(int position) {
-		return 0;
-	}
 }

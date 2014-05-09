@@ -1,5 +1,8 @@
 package com.beerdev.androidapp;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -37,6 +40,20 @@ public class MenuFragment extends Fragment implements OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
         	case R.id.imageGalleri:
+        		if(MainActivity.productList.isEmpty()){
+        			MainActivity.productList = (ArrayList<HashMap<String, String>>) MainActivity.completeProductList.clone();
+        			FragmentManagerActivity.searchView.setQuery("", false);
+        			FragmentManagerActivity.searchView.setIconified(true);	
+        			ListViewFragment.fastScrollAdapter.notifyDataSetChanged();
+        			/*getActivity().findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
+        			FragmentManagerActivity.setLayoutMargins(getActivity().findViewById(R.id.root_view), getActivity());
+        			SwipeViewFragment.mPager.setSwipeable(true); 
+        			FragmentManagerActivity.menu.getItem(R.id.menu_filter).setVisible(true);
+        			FragmentManagerActivity.menu.getItem(R.id.menu_filter).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        			InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        		    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+        			*/
+        		}
         		getActivity()
         			.getSupportFragmentManager()
         			.beginTransaction()
