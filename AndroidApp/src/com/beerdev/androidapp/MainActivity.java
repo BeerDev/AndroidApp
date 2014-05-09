@@ -68,22 +68,25 @@ public class MainActivity extends Activity {
 	/**
 	 * JSON Node for finding description of beer
 	 */
-	private static final String TAG_INFO = "Info";
+	public static final String TAG_INFO = "Info";
 
 	/**
 	 * JSON Node for finding size of beer
 	 */
-	private static final String TAG_SIZE = "Storlek";
+	public static final String TAG_SIZE = "Storlek";
 
 	/**
 	 * JSON Node for finding percent of beer
 	 */
-	private static final String TAG_PERC = "Alkoholhalt";
+	public static final String TAG_PERC = "Alkoholhalt";
 
 	/**
 	 * JSON Node for finding percent of beer
 	 */
-	public static final String TAG_CAT = "Kategori";
+	public static final String TAG_TYPE = "Kategori";
+	
+
+	public static final String TAG_BREW = "Bryggeri";
 
 	/**
 	 * Products JSONArray
@@ -157,7 +160,8 @@ public class MainActivity extends Activity {
 						String info = c.getString(TAG_INFO);
 						String size = c.getString(TAG_SIZE);
 						String percent = c.getString(TAG_PERC);
-						String cat = c.getString(TAG_CAT);
+						String type = c.getString(TAG_TYPE);
+						String brew = c.getString(TAG_BREW);
 						
 						// tmp hashmap for single contact
 						HashMap<String, String> product = new HashMap<String, String>();
@@ -170,7 +174,8 @@ public class MainActivity extends Activity {
 						product.put(TAG_INFO, info);
 						product.put(TAG_SIZE, size);
 						product.put(TAG_PERC, percent);
-						product.put(TAG_CAT, cat);
+						product.put(TAG_TYPE, type);
+						product.put(TAG_BREW, brew);
 
 						// adding contact to contact list
 						productList.add(product);
@@ -283,29 +288,31 @@ public void offlineMode(){
 
 	    for (int i = 0; i < productsOff.length(); i++) 
 	      {
-	       JSONObject Offc = productsOff.getJSONObject(i);
-	        String id = Offc.getString(TAG_ID);
-			String name = Offc.getString(TAG_NAME);
-			String path = Offc.getString(TAG_PATH);
-			String pris = Offc.getString(TAG_PRICE);
-			String info = Offc.getString(TAG_INFO);
-			String size = Offc.getString(TAG_SIZE);
-			String percent = Offc.getString(TAG_PERC);
-			String cat = Offc.getString(TAG_CAT);
+	       JSONObject c = productsOff.getJSONObject(i);
+	        String id = c.getString(TAG_ID);
+			String name = c.getString(TAG_NAME);
+			String path = c.getString(TAG_PATH);
+			String pris = c.getString(TAG_PRICE);
+			String info = c.getString(TAG_INFO);
+			String size = c.getString(TAG_SIZE);
+			String percent = c.getString(TAG_PERC);
+			String type = c.getString(TAG_TYPE);
+			String brew = c.getString(TAG_BREW);
 
 	      //Add your values in your `ArrayList` as below:
-			HashMap<String, String> hashlist = new HashMap<String,String>();
+			HashMap<String, String> product = new HashMap<String,String>();
 
-			hashlist.put(TAG_ID, id);
-			hashlist.put(TAG_NAME, name);
-			hashlist.put(TAG_PATH, path);
-			hashlist.put(TAG_PRICE, pris);
-			hashlist.put(TAG_INFO, info);
-			hashlist.put(TAG_SIZE, size);
-			hashlist.put(TAG_PERC, percent);
-			hashlist.put(TAG_CAT, cat);
+			product.put(TAG_ID, id);
+			product.put(TAG_NAME, name);
+			product.put(TAG_PATH, path);
+			product.put(TAG_PRICE, pris);
+			product.put(TAG_INFO, info);
+			product.put(TAG_SIZE, size);
+			product.put(TAG_PERC, percent);
+			product.put(TAG_TYPE, type);
+			product.put(TAG_BREW, brew);
 
-	     productList.add(hashlist);
+	     productList.add(product);
 	     //getproductList.add(hashlist);
 	      }
 		} catch (JSONException e) {

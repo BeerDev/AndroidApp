@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/root_view"
-    android:background="@drawable/bakgrund1iphone5">
+    android:background="@drawable/bakgrund">
 	
     <RelativeLayout
         android:id="@+id/root_container"

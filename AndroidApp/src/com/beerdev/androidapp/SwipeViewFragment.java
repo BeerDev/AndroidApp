@@ -44,6 +44,10 @@ public class SwipeViewFragment extends Fragment {
      */
     public static TextView tvBeerInfo;
     
+    public static TextView tvBeerBrew;
+
+    public static TextView tvBeerType;
+    
     public static final String SAVED_STATE_ACTION_BAR_HIDDEN = "saved_state_action_bar_hidden";
     
     /**
@@ -137,12 +141,16 @@ public class SwipeViewFragment extends Fragment {
                 tvBeerSize = (TextView) swipeView.findViewById(R.id.beerSize);
                 tvBeerPercent = (TextView) swipeView.findViewById(R.id.beerPercent);
                 tvBeerInfo = (TextView) swipeView.findViewById(R.id.beerInfo);
+                tvBeerType = (TextView) swipeView.findViewById(R.id.beerType);
+                tvBeerBrew= (TextView) swipeView.findViewById(R.id.beerBrew);
                 
-                tvBeerName.setText(MainActivity.productList.get(position).get("Artikelnamn"));
-                tvBeerPrice.setText(MainActivity.productList.get(position).get("Utpris exkl moms")+" kr*");
-                tvBeerSize.setText(MainActivity.productList.get(position).get("Storlek")+" ml*");
-                tvBeerPercent.setText(MainActivity.productList.get(position).get("Alkoholhalt")+" %");
-                tvBeerInfo.setText(MainActivity.productList.get(position).get("Info"));
+                tvBeerName.setText(MainActivity.productList.get(position).get(MainActivity.TAG_NAME));
+                tvBeerPrice.setText(MainActivity.productList.get(position).get(MainActivity.TAG_PRICE)+" kr*");
+                tvBeerSize.setText(MainActivity.productList.get(position).get(MainActivity.TAG_SIZE)+" ml");
+                tvBeerPercent.setText(MainActivity.productList.get(position).get(MainActivity.TAG_PERC)+" %");
+                tvBeerInfo.setText(MainActivity.productList.get(position).get(MainActivity.TAG_INFO));
+                tvBeerType.setText(MainActivity.productList.get(position).get(MainActivity.TAG_TYPE));
+                tvBeerBrew.setText(MainActivity.productList.get(position).get(MainActivity.TAG_BREW));
             	
             }
         };
