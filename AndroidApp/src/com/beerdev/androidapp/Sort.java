@@ -30,7 +30,7 @@ public class Sort {
 	/**
 	 * JSON Node for finding price
 	 */
-	private static final String TAG_PRIS = "Utpris exkl moms";
+	private static final String TAG_PRIS = "Utpris";
 	
 	/**
 	 * JSON Node for finding description of beer
