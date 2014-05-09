@@ -36,11 +36,11 @@ public class MainActivity extends Activity {
 	 * Show if no internet connection
 	 */
 	private ProgressDialog netDialog;
-
+ 
 	/**
 	 * URL to get products JSON
 	 */
-	private static String url = "http://www.beerdev.info/sortimentA.json";
+	private static String url = "http://beerdev.info/sortimentA.json";
 
 	/**
 	 * JSON Node for finding products
@@ -83,7 +83,7 @@ public class MainActivity extends Activity {
 	 * JSON Node for finding percent of beer
 	 */
 	private static final String TAG_PERC = "Alkoholhalt";
-
+ 
 	/**
 	 * JSON Node for finding percent of beer
 	 */
