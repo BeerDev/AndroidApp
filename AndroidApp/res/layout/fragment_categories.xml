@@ -2,18 +2,20 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/svAboutCat"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="20dp">
 
     <LinearLayout
        	android:id="@+id/llAboutCat"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:orientation="vertical"
-        android:paddingBottom="20dp"
-        android:weightSum="1" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/kategoriTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/HeadLineText"
             android:text="@string/kategoriHead" />
 
@@ -21,11 +23,17 @@
 
         <TextView
             android:id="@+id/aleHeadTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/TitleText"
             android:text="@string/aleHead" />
 
         <TextView
             android:id="@+id/aleBodyTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/aleBody" />
 
@@ -33,11 +41,17 @@
 
         <TextView
             android:id="@+id/lagerHeadTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/TitleText"
             android:text="@string/lagerHead" />
 
         <TextView
             android:id="@+id/lagerBodyTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/lagerBody" />
 
@@ -45,11 +59,17 @@
 
         <TextView
             android:id="@+id/PilsnerHeadTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/TitleText"
             android:text="@string/pilsnerHead" />
 
         <TextView
             android:id="@+id/pilsnerBodyTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/pilsnerBody" />
 
@@ -57,11 +77,17 @@
 
         <TextView
             android:id="@+id/BitterHeadTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/TitleText"
             android:text="@string/bitterHead" />
 
         <TextView
             android:id="@+id/bitterBodyTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/bitterBody" />
 
@@ -69,11 +95,17 @@
 
         <TextView
             android:id="@+id/ipaHeadTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/TitleText"
             android:text="@string/ipaHead" />
 
         <TextView
             android:id="@+id/ipaBodyTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/ipaBody" />
 
@@ -81,11 +113,17 @@
 
         <TextView
             android:id="@+id/impIpaHeadTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/TitleText"
             android:text="@string/impIpaHead" />
 
         <TextView
             android:id="@+id/impIpaBodyTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/impIpaBody" />
 
@@ -93,11 +131,17 @@
 
         <TextView
             android:id="@+id/stoutHeadTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/TitleText"
             android:text="@string/stoutHead" />
 
         <TextView
             android:id="@+id/stoutBodyTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/stoutBody" />
 
@@ -105,11 +149,17 @@
 
         <TextView
             android:id="@+id/impStoutHeadTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/TitleText"
             android:text="@string/impStoutHead" />
 
         <TextView
             android:id="@+id/impStoutBodyTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/impStoutBody" />
 
@@ -117,11 +167,17 @@
 
         <TextView
             android:id="@+id/porterHeadTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/TitleText"
             android:text="@string/porterHead" />
 
         <TextView
             android:id="@+id/porterBodyTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/porterBody" />
 
@@ -129,11 +185,17 @@
 
         <TextView
             android:id="@+id/veteHeadTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/TitleText"
             android:text="@string/veteHead" />
 
         <TextView
             android:id="@+id/veteBodyTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/veteBody" />
 
@@ -141,11 +203,17 @@
 
         <TextView
             android:id="@+id/trappistHeadTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/TitleText"
             android:text="@string/trappistHead" />
 
         <TextView
             android:id="@+id/trappistBodyTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/trappistBody" />
 
@@ -153,11 +221,17 @@
 
         <TextView
             android:id="@+id/lambikHeadTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/TitleText"
             android:text="@string/lambikHead" />
 
         <TextView
             android:id="@+id/lambikBodyTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/lambikBody" />
 
@@ -165,11 +239,17 @@
 
         <TextView
             android:id="@+id/barleyHeadTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/TitleText"
             android:text="@string/barleyHead" />
 
         <TextView
             android:id="@+id/barleyBodyTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/barleyBody" />
 
@@ -177,11 +257,17 @@
 
         <TextView
             android:id="@+id/saisonHeadTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/TitleText"
             android:text="@string/saisonHead" />
 
         <TextView
             android:id="@+id/saisonBodyTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/saisonBody" />
 
@@ -189,11 +275,17 @@
 
         <TextView
             android:id="@+id/surHeadTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/TitleText"
             android:text="@string/surHead" />
 
         <TextView
             android:id="@+id/surBodyTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/surBody" />
 
@@ -201,11 +293,17 @@
 
         <TextView
             android:id="@+id/mjodHeadTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/TitleText"
             android:text="@string/mjodHead" />
 
         <TextView
             android:id="@+id/mjodBodyTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/mjodBody" />
 
@@ -213,11 +311,17 @@
 
         <TextView
             android:id="@+id/specHeadTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/TitleText"
             android:text="@string/specHead" />
 
         <TextView
             android:id="@+id/specBodyTextContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/specBody" />
     </LinearLayout>
