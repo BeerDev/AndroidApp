@@ -42,6 +42,8 @@ public class SwipeViewFragment extends Fragment {
      */
     public static TextView tvBeerInfo;
     
+    public static TextView tvBeerBrew;
+    
     public static final String SAVED_STATE_ACTION_BAR_HIDDEN = "saved_state_action_bar_hidden";
     
     /**
@@ -111,6 +113,7 @@ public class SwipeViewFragment extends Fragment {
                 tvBeerSize = (TextView) swipeView.findViewById(R.id.beerSize);
                 tvBeerPercent = (TextView) swipeView.findViewById(R.id.beerPercent);
                 tvBeerInfo = (TextView) swipeView.findViewById(R.id.beerInfo);
+                tvBeerBrew = (TextView) swipeView.findViewById(R.id.beerBrew);
                 
                 tvBeerName.setText(MainActivity.productList.get(position).get("Artikelnamn"));
                 tvBeerPrice.setText(MainActivity.productList.get(position).get("Utpris exkl moms")+" kr*");
