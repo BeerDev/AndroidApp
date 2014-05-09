@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -43,7 +44,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	private MenuItem filter, cross, searchItem, navigation;
 	public static Button nameButton, catButton;
 	public static String tagToggleButton, searchText ="";
-	
+
 	public static boolean fastScrollEnabled = true;
 	public static boolean categorySearchShowInput = true;
 	// The following are used for the shake detection
@@ -70,7 +71,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 					Random random = new Random();
 					int max=SwipeViewFragment.NUM_PAGES-1;
 					int randomNumber = random.nextInt(max);
-					
+
 					SwipeViewFragment.pageChangeListener.onPageSelected(randomNumber);
 					SwipeViewFragment.mPager.setCurrentItem(randomNumber);
 				}
@@ -135,134 +136,140 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		getActionBar().setDisplayShowHomeEnabled(false);
 	}
 	@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
 		this.menu = menu;
 		getMenuInflater().inflate(R.menu.navigation_menu, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.menu_search)
-                .getActionView();
-        searchView.setSearchableInfo(searchManager
-                .getSearchableInfo(getComponentName()));
-        searchView.setOnQueryTextListener(this);
-        searchView.setOnSearchClickListener(this);
-        searchView.setOnCloseListener(this);
-        searchView.setIconifiedByDefault(true);
-        
-        
-        filter = menu.findItem(R.id.menu_filter);
-        cross = menu.findItem(R.id.menu_close_search);
-        searchItem = menu.findItem(R.id.menu_search);
-        navigation = menu.findItem(R.id.menu_navigation);
-        
-        cross.setVisible(false);
-        return super.onCreateOptionsMenu(menu);        
-    }
-	 @Override
-	    public boolean onOptionsItemSelected(MenuItem item) {
-	    	switch (item.getItemId()) {
-	    		case R.id.menu_navigation:
-	    			toggle();
-	    			
-	    			 //Hide inputmethodmanager
-	    			 InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-	    			if(imm.isActive()){
-	    				imm.hideSoftInputFromWindow(findViewById(R.id.root_view).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-	    			}
-	    			break;
-	    		case R.id.menu_filter_sortName:
-	    			this.fastScrollEnabled = true;
-	    			Sort.sortAlphabetic();
-	    			ListViewFragment listFragName = (ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag"); 
-	    			if(listFragName.isVisible()){
-	    		        listFragName.getListView().setFastScrollEnabled(true);
-	    		        listFragName.getListView().setFastScrollAlwaysVisible(true);
-	    		        listFragName.fastScrollAdapter.notifyDataSetChanged();
-	    			}
-	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
-	    			{
-	    				SwipeViewFragment.pageChangeListener.onPageSelected(0);
-				        SwipeViewFragment.mPager.setCurrentItem(0);
-	    				SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
-	    			}
-	    			break;
-	    		case R.id.menu_filter_sortPrice:
-	    			this.fastScrollEnabled = false;
-	    			Sort.sortPrice();
-	    			ListViewFragment listFragPrice = (ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag"); 
-	    			if(listFragPrice.isVisible()){
-	    		        listFragPrice.getListView().setFastScrollEnabled(false);
-	    		        listFragPrice.getListView().setFastScrollAlwaysVisible(false);
-	    		        listFragPrice.fastScrollAdapter.notifyDataSetChanged();
-	    			}
-	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
-	    			{
-	    				SwipeViewFragment.pageChangeListener.onPageSelected(0);
-				        SwipeViewFragment.mPager.setCurrentItem(0);
-	    				SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
-	    				
-	    			}
-	    			break;
-	    		case R.id.menu_close_search:
-	    			searchView.setQuery("", false);
-	    			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
-			        	ListViewFragment.fastScrollAdapter.notifyDataSetChanged();
-			        }
-	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
-	    			{
-	    				SwipeViewFragment.pageChangeListener.onPageSelected(0);
-				        SwipeViewFragment.mPager.setCurrentItem(0);
-	    				SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
-	    				
-	    			}
-	    			cross.setVisible(false);
-	    			searchView.setIconified(true);
-	    			searchItem.setVisible(true);
-	    			break;
-	    		}
-	    		return true;
-	    	}
-	 @Override
-		public boolean onQueryTextSubmit(String query) {
-			findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
-			setLayoutMargins(findViewById(R.id.root_view), this);
-			InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-		    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-		    cross.setVisible(true);
-		    filter.setVisible(true);
-		    searchItem.setVisible(false);
-			return false;
-		}
+		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		searchView = (SearchView) menu.findItem(R.id.menu_search)
+				.getActionView();
+		searchView.setSearchableInfo(searchManager
+				.getSearchableInfo(getComponentName()));
+		searchView.setOnQueryTextListener(this);
+		searchView.setOnSearchClickListener(this);
+		searchView.setOnCloseListener(this);
+		searchView.setIconifiedByDefault(true);
 
-		@Override
-		public boolean onQueryTextChange(String newText) {
-			findViewById(R.id.search_container).setVisibility(View.VISIBLE);
-			setLayoutMargins(findViewById(R.id.root_view), this);
+
+		filter = menu.findItem(R.id.menu_filter);
+		cross = menu.findItem(R.id.menu_close_search);
+		searchItem = menu.findItem(R.id.menu_search);
+		navigation = menu.findItem(R.id.menu_navigation);
+
+		cross.setVisible(false);
+		return super.onCreateOptionsMenu(menu);        
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_navigation:
+			toggle();
+
+			//Hide inputmethodmanager
 			InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-		    if(!imm.isActive() && categorySearchShowInput){
-				imm.toggleSoftInput(0, InputMethodManager.SHOW_IMPLICIT);
-		    }
-		    searchText = newText;
-		    search();
-			return false;
+			if(imm.isActive()){
+				imm.hideSoftInputFromWindow(findViewById(R.id.root_view).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+			}
+			break;
+		case R.id.menu_filter_sortName:
+			this.fastScrollEnabled = true;
+			Sort.sortAlphabetic();
+			ListViewFragment listFragName = (ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag"); 
+			if(listFragName.isVisible()){
+				listFragName.getListView().setFastScrollEnabled(true);
+				listFragName.getListView().setFastScrollAlwaysVisible(true);
+				listFragName.fastScrollAdapter.notifyDataSetChanged();
+			}
+			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
+			{
+				SwipeViewFragment.pageChangeListener.onPageSelected(0);
+				SwipeViewFragment.mPager.setCurrentItem(0);
+				SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
+			}
+			break;
+		case R.id.menu_filter_sortPrice:
+			this.fastScrollEnabled = false;
+			Sort.sortPrice();
+			ListViewFragment listFragPrice = (ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag"); 
+			if(listFragPrice.isVisible()){
+				listFragPrice.getListView().setFastScrollEnabled(false);
+				listFragPrice.getListView().setFastScrollAlwaysVisible(false);
+				listFragPrice.fastScrollAdapter.notifyDataSetChanged();
+			}
+			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
+			{
+				SwipeViewFragment.pageChangeListener.onPageSelected(0);
+				SwipeViewFragment.mPager.setCurrentItem(0);
+				SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
+
+			}
+			break;
+		case R.id.menu_close_search:
+			searchView.setQuery("", false);
+			if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
+				ListViewFragment.fastScrollAdapter.notifyDataSetChanged();
+				Log.i(null, "hoooola");
+			}
+		
+		else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
+		{
+			SwipeViewFragment.pageChangeListener.onPageSelected(0);
+			SwipeViewFragment.mPager.setCurrentItem(0);
+			SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
+
+
 		}
-		@Override
-		public void onClick(View v) {
-			findViewById(R.id.search_container).setVisibility(View.VISIBLE);
-			setLayoutMargins(findViewById(R.id.root_view), this);
-			filter.setVisible(false);
+		cross.setVisible(false);
+		searchView.setIconified(true);
+		searchItem.setVisible(true);
+
+		break;
 		}
-		@Override
-		public boolean onClose() {
-			findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
-			setLayoutMargins(findViewById(R.id.root_view), this);	
-			SwipeViewFragment.mPager.setSwipeable(true); 
-			filter.setVisible(true);
-			filter.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-			InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-		    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-			return false;
+		return true;
+		
+	}
+	@Override
+	public boolean onQueryTextSubmit(String query) {
+		findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
+		setLayoutMargins(findViewById(R.id.root_view), this);
+		InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(findViewById(R.id.root_view).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+		//imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+		cross.setVisible(true);
+		filter.setVisible(true);
+		searchItem.setVisible(false);
+		return false;
+	}
+
+	@Override
+	public boolean onQueryTextChange(String newText) {
+		findViewById(R.id.search_container).setVisibility(View.VISIBLE);
+		setLayoutMargins(findViewById(R.id.root_view), this);
+		InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+		if(!imm.isActive() && categorySearchShowInput){
+			imm.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY);
 		}
+		searchText = newText;
+		search();
+		return false;
+	}
+	@Override
+	public void onClick(View v) {
+		findViewById(R.id.search_container).setVisibility(View.VISIBLE);
+		setLayoutMargins(findViewById(R.id.root_view), this);
+		filter.setVisible(false);
+	}
+	@Override
+	public boolean onClose() {
+		findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
+		setLayoutMargins(findViewById(R.id.root_view), this);	
+		SwipeViewFragment.mPager.setSwipeable(true); 
+		filter.setVisible(true);
+		filter.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+		imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+		return false;
+	}
 	private void search(){
 		try {
 			ArrayList<HashMap<String,String>> tempProductList = (ArrayList<HashMap<String, String>>) MainActivity.productList.clone();
@@ -288,20 +295,20 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		}
 	}
 	public static void setLayoutMargins(View rootView, FragmentActivity activity){
-			FrameLayout.LayoutParams relLay = (FrameLayout.LayoutParams) rootView.findViewById(R.id.root_container).getLayoutParams();
-			if(((ListViewFragment) activity.getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible() 
-					&& (rootView.findViewById(R.id.search_container).getVisibility() == View.VISIBLE)){
-				int dpValue = 50; // margin in dips
-				float d = activity.getResources().getDisplayMetrics().density;
-				int margin = (int)(dpValue * d); 
-				Log.i("actionbarSize", Integer.toString(margin));
-				relLay.setMargins(0, margin, 0, 0);
-				rootView.findViewById(R.id.root_container).setLayoutParams(relLay);
-			}
-			else{
-				relLay.setMargins(0, 0, 0, 0);
-				rootView.findViewById(R.id.root_container).setLayoutParams(relLay);
-			}
+		FrameLayout.LayoutParams relLay = (FrameLayout.LayoutParams) rootView.findViewById(R.id.root_container).getLayoutParams();
+		if(((ListViewFragment) activity.getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible() 
+				&& (rootView.findViewById(R.id.search_container).getVisibility() == View.VISIBLE)){
+			int dpValue = 50; // margin in dips
+			float d = activity.getResources().getDisplayMetrics().density;
+			int margin = (int)(dpValue * d); 
+			Log.i("actionbarSize", Integer.toString(margin));
+			relLay.setMargins(0, margin, 0, 0);
+			rootView.findViewById(R.id.root_container).setLayoutParams(relLay);
+		}
+		else{
+			relLay.setMargins(0, 0, 0, 0);
+			rootView.findViewById(R.id.root_container).setLayoutParams(relLay);
+		}
 	}
 	@Override
 	protected void onPause(){
