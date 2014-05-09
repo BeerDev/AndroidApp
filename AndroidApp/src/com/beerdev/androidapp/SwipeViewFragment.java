@@ -6,13 +6,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelSlideListener;
 
 public class SwipeViewFragment extends Fragment {
     private static final String TAG = "DemoActivity";
@@ -83,9 +86,32 @@ public class SwipeViewFragment extends Fragment {
 			 getActivity().findViewById(R.id.search_container).setVisibility(View.INVISIBLE); 
 			 FragmentManagerActivity.setLayoutMargins(getActivity().findViewById(R.id.root_view), getActivity());
 		 }
-	     final SlidingUpPanelLayout layout = (SlidingUpPanelLayout) swipeView.findViewById(R.id.sliding_layout);
+	     final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout) swipeView.findViewById(R.id.sliding_layout);
         Bundle extras = getActivity().getIntent().getExtras();
+        mLayout.setPanelSlideListener(new PanelSlideListener() {
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+            }
 
+            @Override
+            public void onPanelExpanded(View panel) {
+                ImageView downArrow = (ImageView) swipeView.findViewById(R.id.ivUpPanelArrow);
+                downArrow.setBackgroundResource(R.drawable.downn);
+            }
+
+            @Override
+            public void onPanelCollapsed(View panel) {
+                ImageView upArrow = (ImageView) swipeView.findViewById(R.id.ivUpPanelArrow);
+                upArrow.setBackgroundResource(R.drawable.upn);
+
+            }
+
+            @Override
+            public void onPanelAnchored(View panel) {
+                Log.i(TAG, "onPanelAnchored");
+
+            }
+        });
         int pos = extras.getInt("position", 0);        
         //Define the number of viewpages that shall be included in the scrollview
         NUM_PAGES = MainActivity.productList.size();

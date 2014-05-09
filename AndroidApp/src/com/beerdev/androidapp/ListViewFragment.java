@@ -13,7 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 public class ListViewFragment extends ListFragment{
-	private ListView lv;
+	public static ListView lv;
 	public static LazyAdapter adapter;
 	
 	@Override 
@@ -29,6 +29,7 @@ public class ListViewFragment extends ListFragment{
 			 getActivity().findViewById(R.id.search_container).setVisibility(View.INVISIBLE); 
 			 FragmentManagerActivity.setLayoutMargins(getActivity().findViewById(R.id.root_view), getActivity());
 		 }
+        lv = getListView();
         // Initially there is no data 
         setEmptyText("No Data Here");
 		// Getting adapter by passing xml data ArrayList
