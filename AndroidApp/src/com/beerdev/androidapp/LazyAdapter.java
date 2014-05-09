@@ -67,7 +67,7 @@ public class LazyAdapter extends BaseAdapter implements Filterable{
     
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
-        if(convertView==null)
+        if(convertView==null) 
             vi = inflater.inflate(R.layout.list_item, null);
         
         // Getting relevant information

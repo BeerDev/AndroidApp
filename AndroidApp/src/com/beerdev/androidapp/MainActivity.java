@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
 	/**
 	 * URL to get products JSON
 	 */
-	private static String url = "http://www.beerdev.tk/sortimentA.json";
+	private static String url = "http://www.beerdev.info/sortimentA.json";
 
 	/**
 	 * JSON Node for finding products
@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
 	/**
 	 * JSON Node for finding price
 	 */
-	public static final String TAG_PRICE = "Utpris exkl moms";
+	public static final String TAG_PRICE = "Utpris";
 
 	/**
 	 * JSON Node for finding description of beer
