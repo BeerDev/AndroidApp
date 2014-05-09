@@ -225,7 +225,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		}
 		@Override
 		public boolean onClose() {
-			MainActivity.productList=MainActivity.completeProductList;
+			MainActivity.productList=(ArrayList<HashMap<String, String>>)MainActivity.completeProductList.clone();
 			findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
 			setLayoutMargins(findViewById(R.id.root_view), this);	
 			SwipeViewFragment.mPager.setSwipeable(true); 
@@ -252,6 +252,44 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 			updateViewsAfterFilter();
 		} catch (JSONException e) {
 			e.printStackTrace();
+		}
+	}
+	private void updateViewsAfterFilter(){
+		
+		if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
+			if(MainActivity.productList.size() == 0){
+				MainActivity.productList = (ArrayList<HashMap<String, String>>) tempProductList.clone();
+				ImageView ivBeer = (ImageView) findViewById(R.id.imageViewDemo);
+				String image_url = MainActivity.productList.get(0).get("URL");
+				ImageLoader imgLoader = new ImageLoader(this);
+				imgLoader.DisplayImage(image_url, BaseAdapter.NO_SELECTION,ivBeer);
+				SwipeViewFragment.mPager.setSwipeable(false);
+				Log.i("SwipeView", "MainActivity.productList.size() == 0");
+			}
+			else if(SwipeViewFragment.NUM_PAGES == 1) 
+			{
+				//Set Image when there is only one Beer showing		
+				ImageView ivBeer = (ImageView) findViewById(R.id.imageViewDemo);
+				String image_url = MainActivity.productList.get(0).get("URL");
+				ImageLoader imgLoader = new ImageLoader(this);
+				imgLoader.DisplayImage(image_url, BaseAdapter.NO_SELECTION,ivBeer);
+				
+				SwipeViewFragment.mPager.setSwipeable(false);
+				SwipeViewFragment.pageChangeListener.onPageSelected(0);
+				SwipeViewFragment.mPager.setCurrentItem(0);
+				Log.d("SwipeView", "NUM_PAGES == 1");
+			}
+			else{
+				SwipeViewFragment.mPager.setSwipeable(true);
+				SwipeViewFragment.NUM_PAGES = MainActivity.productList.size();
+				SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
+				SwipeViewFragment.pageChangeListener.onPageSelected(0);
+				SwipeViewFragment.mPager.setCurrentItem(0);
+				Log.d("SwipeView", "else statement");
+			}
+		}
+		if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
+			ListViewFragment.adapter.notifyDataSetChanged();
 		}
 	}
 	public static void setLayoutMargins(View rootView, FragmentActivity activity){
@@ -317,45 +355,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 			catButton.setTextColor(halfTrans);
 		}
 	}
-	private void updateViewsAfterFilter(){
-		
-		if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
-			if(MainActivity.productList.size() == 0){
-				MainActivity.productList = (ArrayList<HashMap<String, String>>) tempProductList.clone();
-				ImageView ivBeer = (ImageView) findViewById(R.id.imageViewDemo);
-				String image_url = MainActivity.productList.get(0).get("URL");
-				ImageLoader imgLoader = new ImageLoader(this);
-				imgLoader.DisplayImage(image_url, BaseAdapter.NO_SELECTION,ivBeer);
-				SwipeViewFragment.mPager.setSwipeable(false);
-				Log.i("SwipeView", "MainActivity.productList.size() == 0");
-			}
-			else if(SwipeViewFragment.NUM_PAGES == 1) 
-			{
-				//Set Image when there is only one Beer showing		
-				ImageView ivBeer = (ImageView) findViewById(R.id.imageViewDemo);
-				String image_url = MainActivity.productList.get(0).get("URL");
-				ImageLoader imgLoader = new ImageLoader(this);
-				imgLoader.DisplayImage(image_url, BaseAdapter.NO_SELECTION,ivBeer);
-				
-				SwipeViewFragment.mPager.setSwipeable(false);
-				SwipeViewFragment.pageChangeListener.onPageSelected(0);
-				SwipeViewFragment.mPager.setCurrentItem(0);
-				Log.d("SwipeView", "NUM_PAGES == 1");
-			}
-			else{
-				SwipeViewFragment.mPager.setSwipeable(true);
-				SwipeViewFragment.NUM_PAGES = MainActivity.productList.size();
-				SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
-				SwipeViewFragment.pageChangeListener.onPageSelected(0);
-				SwipeViewFragment.mPager.setCurrentItem(0);
-				Log.d("SwipeView", "else statement");
-			}
-		}
-		if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
-				ListViewFragment.adapter.notifyDataSetChanged();
-				Log.i("ListView", "notifydatasetchange");
-		}
-	}
+	
 	private void setLayoutMargins(){
 		if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
 			FrameLayout.LayoutParams relLay = (FrameLayout.LayoutParams) findViewById(R.id.root_container).getLayoutParams();

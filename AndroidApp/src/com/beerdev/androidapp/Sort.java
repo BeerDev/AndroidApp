@@ -67,6 +67,7 @@ public class Sort {
 	}
 	
 	public static void Filter(String word, String tag) throws JSONException{
+		Log.d("Filter", "Complete productlist size: " + Integer.toString(MainActivity.completeProductList.size()));
 		MainActivity.productList.clear();
 		// Getting JSON Array node
 		//filterProductList=new ArrayList<HashMap<String, String>>();

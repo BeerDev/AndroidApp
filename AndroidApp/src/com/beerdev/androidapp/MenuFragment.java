@@ -47,6 +47,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
         			MainActivity.productList = (ArrayList<HashMap<String, String>>) MainActivity.completeProductList.clone();
         			FragmentManagerActivity.searchView.setQuery("", false);
         			FragmentManagerActivity.searchView.setIconified(true);	
+        			ListViewFragment.adapter.notifyDataSetChanged();
         			/*getActivity().findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
         			FragmentManagerActivity.setLayoutMargins(getActivity().findViewById(R.id.root_view), getActivity());
         			SwipeViewFragment.mPager.setSwipeable(true); 
