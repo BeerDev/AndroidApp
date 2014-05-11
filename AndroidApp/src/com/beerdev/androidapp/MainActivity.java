@@ -140,7 +140,6 @@ public class MainActivity extends Activity {
 
 			// Making a request to url and getting response
 			jsonStr = sh.makeServiceCall(url, ServiceHandler.GET);
-			Log.d("Response: ", "> " + jsonStr);
 
 			if (jsonStr != null) {
 				try {
@@ -225,10 +224,8 @@ public class MainActivity extends Activity {
 		NetworkInfo info = cm.getActiveNetworkInfo();
 		if (info != null && info.isConnectedOrConnecting()) {
 			wasOnline = true;
-			Log.d("onPauseMain", "wasOnline true");
 		}else{
 			wasOnline = false;
-			Log.d("onPauseMain", "wasOnline false");
 		}
     }
 	@Override 
@@ -240,10 +237,7 @@ public class MainActivity extends Activity {
 			if(wasOnline == false){
 				new GetProducts().execute();
 				Sort.sortAlphabetic();
-			}
-			Log.d("onResumeMain", "isOnline true");
-		}else{
-			Log.d("onResumeMain", "isOnline false");
+			}	
 		}
 	}
 

@@ -7,6 +7,8 @@ import java.util.Random;
 import org.json.JSONException;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +19,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +31,6 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
-import android.widget.Toast;
 
 import com.beerdev.androidapp.ShakeDetector.OnShakeListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -59,8 +59,11 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-
+		notify("onCreate");
+		if (savedInstanceState != null) {
+	        MainActivity.productList = (ArrayList<HashMap<String,String>>) savedInstanceState.getSerializable("productList"); 
+	        notify(Integer.toString(MainActivity.productList.size()));
+	    }
 		// ShakeDetector initialization
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		mAccelerometer = mSensorManager
@@ -81,7 +84,6 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 						ImageLoader imgLoader = new ImageLoader(globalContext);
 						imgLoader.DisplayImage(image_url, BaseAdapter.NO_SELECTION,ivBeer);
 						SwipeViewFragment.mPager.setSwipeable(false);
-						Log.i("SwipeView", "MainActivity.productList.size() == 0");
 					}
 					else if(SwipeViewFragment.NUM_PAGES == 1) 
 					{
@@ -94,7 +96,6 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 						SwipeViewFragment.mPager.setSwipeable(false);
 						SwipeViewFragment.pageChangeListener.onPageSelected(0);
 						SwipeViewFragment.mPager.setCurrentItem(0);
-						Log.d("SwipeView", "NUM_PAGES == 1");
 					}
 					else{
 						SwipeViewFragment.mPager.setSwipeable(true);
@@ -102,15 +103,11 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 						SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
 						SwipeViewFragment.pageChangeListener.onPageSelected(randomNumber);
 						SwipeViewFragment.mPager.setCurrentItem(randomNumber);
-						Log.d("SwipeView", "else statement");
 					}
 					if(MainActivity.productList.size()>2){
 						SwipeViewFragment.mPager.setSwipeable(true);
 						
 					}
-				}
-				else {
-					Log.i(null, "Swipe View not showing");
 				}
 				// handleShakeEvent(count);
 			}
@@ -315,7 +312,6 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 			}
 
 			Sort.Filter(searchText, tagToggleButton);
-			Log.i("Search", Integer.toString(MainActivity.productList.size()));
 			
 			updateViewsAfterFilter();
 		} catch (JSONException e) {
@@ -332,8 +328,6 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				ImageLoader imgLoader = new ImageLoader(this);
 				imgLoader.DisplayImage(image_url, BaseAdapter.NO_SELECTION,ivBeer);
 				SwipeViewFragment.mPager.setSwipeable(false);
-				Log.i("SwipeView", Integer.toString(MainActivity.productList.size()));
-				Log.d("SwipeView", "MainActivity.productList.size() == 0");
 			}
 			else if(SwipeViewFragment.NUM_PAGES == 1) 
 			{
@@ -347,8 +341,6 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				SwipeViewFragment.pageChangeListener.onPageSelected(0);
 				SwipeViewFragment.mPager.setCurrentItem(0);
 
-				Log.i("SwipeView", Integer.toString(MainActivity.productList.size()));
-				Log.d("SwipeView", "NUM_PAGES == 1");
 				SwipeViewFragment.NUM_PAGES = MainActivity.productList.size();
 			}
 			else{
@@ -357,8 +349,6 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				SwipeViewFragment.mPager.getAdapter().notifyDataSetChanged();
 				SwipeViewFragment.pageChangeListener.onPageSelected(0);
 				SwipeViewFragment.mPager.setCurrentItem(0);
-				Log.i("SwipeView", Integer.toString(MainActivity.productList.size()));
-				Log.d("SwipeView", "else statement");
 			}
 		}
 		if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
@@ -372,7 +362,6 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				int dpValue = 50; // margin in dips
 				float d = activity.getResources().getDisplayMetrics().density;
 				int margin = (int)(dpValue * d); 
-				Log.i("actionbarSize", Integer.toString(margin));
 				relLay.setMargins(0, margin, 0, 0);
 				rootView.findViewById(R.id.root_container).setLayoutParams(relLay);
 			}
@@ -380,36 +369,6 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				relLay.setMargins(0, 0, 0, 0);
 				rootView.findViewById(R.id.root_container).setLayoutParams(relLay);
 			}
-	}
-	@Override
-	protected void onPause(){
-		super.onPause();
-		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo info = cm.getActiveNetworkInfo();
-		if (info != null && info.isConnectedOrConnecting()) {
-			MainActivity.wasOnline = true;
-			Log.d("onPauseSwipe", "wasOnline true");
-		}else{
-			MainActivity.wasOnline = false;
-			Log.d("onPauseSwipe", "wasOnline false");
-		}
-		mSensorManager.unregisterListener(mShakeDetector);
-	}
-	@Override
-	protected void onResume(){
-		super.onResume();
-		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo info = cm.getActiveNetworkInfo();
-		if (info != null && info.isConnectedOrConnecting()) {
-			if(MainActivity.wasOnline == false){
-				Intent in = new Intent(getApplicationContext(), MainActivity.class);
-				startActivity(in);
-			}
-			Log.d("onResumeSwipe", "isOnline true");
-		}else{
-			Log.d("onResumeSwipe", "isOnline false");
-		}
-		mSensorManager.registerListener(mShakeDetector, mAccelerometer,    SensorManager.SENSOR_DELAY_UI);
 	}
 
 	public static void setToggleButton(){
@@ -428,20 +387,69 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 			catButton.setTextColor(halfTrans);
 		}
 	}
-	private void setLayoutMargins(){
-		if(((ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag")).isVisible()){
-			FrameLayout.LayoutParams relLay = (FrameLayout.LayoutParams) findViewById(R.id.root_container).getLayoutParams();
-			int dpValue = 50; // margin in dips
-			float d = getResources().getDisplayMetrics().density;
-			int margin = (int)(dpValue * d); 
-			Log.i("actionbarSize", Integer.toString(margin));
-			relLay.setMargins(0, margin, 0, 0);
-			findViewById(R.id.root_container).setLayoutParams(relLay);
+	@Override
+	protected void onPause(){
+		super.onPause();
+		notify("onPause");
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = cm.getActiveNetworkInfo();
+		if (info != null && info.isConnectedOrConnecting()) {
+			MainActivity.wasOnline = true;
+		}else{
+			MainActivity.wasOnline = false;
 		}
-		else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible()){
-			FrameLayout.LayoutParams relLay = (FrameLayout.LayoutParams) findViewById(R.id.root_container).getLayoutParams();
-			relLay.setMargins(0, 0, 0, 0);
-			findViewById(R.id.root_container).setLayoutParams(relLay);
-		}
+		mSensorManager.unregisterListener(mShakeDetector);
 	}
+	@Override
+	protected void onResume(){
+		super.onResume();
+		notify("onResume");
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = cm.getActiveNetworkInfo();
+		if (info != null && info.isConnectedOrConnecting()) {
+			if(MainActivity.wasOnline == false){
+				Intent in = new Intent(getApplicationContext(), MainActivity.class);
+				startActivity(in);
+			}
+		}
+		mSensorManager.registerListener(mShakeDetector, mAccelerometer,    SensorManager.SENSOR_DELAY_UI);
+	}
+	@Override
+	  protected void onStop() {
+	    super.onStop();
+	    notify("onStop");
+	  }
+
+	  @Override
+	  protected void onDestroy() {
+	    super.onDestroy();
+	    notify("onDestroy");
+	  }
+
+	@Override
+	  protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		if (savedInstanceState != null) {
+	        MainActivity.productList = (ArrayList<HashMap<String,String>>) savedInstanceState.getSerializable("productList"); 
+	        notify(Integer.toString(MainActivity.productList.size()));
+	    }
+		super.onRestoreInstanceState(savedInstanceState);
+	    notify("onRestoreInstanceState");
+	  }
+
+	  @Override
+	  protected void onSaveInstanceState(Bundle outState) {
+	    super.onSaveInstanceState(outState);
+	    outState.putSerializable("productList", MainActivity.productList);
+	    notify("onSaveInstanceState");
+	  }
+	  private void notify(String methodName) {
+		    String name = this.getClass().getName();
+		    String[] strings = name.split("\\.");
+		    Notification noti = new Notification.Builder(this)
+		        .setContentTitle(methodName + " " + strings[strings.length - 1]).setAutoCancel(true)
+		        .setSmallIcon(R.drawable.ic_launcher)
+		        .setContentText(name).build();
+		    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		    notificationManager.notify((int) System.currentTimeMillis(), noti);
+		  }
 }

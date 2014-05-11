@@ -94,7 +94,7 @@ public class SwipeViewFragment extends Fragment {
         Bundle extras = getActivity().getIntent().getExtras();
         mLayout.setPanelSlideListener(new PanelSlideListener() {
         	ImageView ivArrow = (ImageView) swipeView.findViewById(R.id.ivUpPanelArrow);
-            LinearLayout llUpPanel = (LinearLayout) swipeView.findViewById(R.id.sliding_up_panel);
+            LinearLayout llUpPanel = (LinearLayout) swipeView.findViewById(R.id.llSwipeSlidingUpPanel);
             @Override
             public void onPanelSlide(View panel, float slideOffset) {
             }
