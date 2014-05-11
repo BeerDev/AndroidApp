@@ -26,7 +26,14 @@
             android:layout_gravity="center_horizontal"
             style="@style/BodyText"
             android:text="@string/aboutustext" />
+        <ImageButton 
+	        android:id="@+id/ibFacebook"
+		    android:layout_width="100dp"
+		    android:layout_height="35dp"
+		    android:layout_gravity="center"
+		    android:layout_marginTop="10dp"
+		    android:background="@drawable/facebook"/>
 
     </LinearLayout>
-
+	
 </ScrollView>

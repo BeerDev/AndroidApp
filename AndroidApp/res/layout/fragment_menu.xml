@@ -37,23 +37,20 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content" 
 	        android:layout_weight="1">
-
-        <ImageView
-            android:id="@+id/imageOltyper"
-            android:layout_width="93dp"
-            android:layout_height="93dp"
-            android:layout_gravity="center_vertical|left"
-            android:layout_marginLeft="20dp"
-            android:background="@drawable/oltyper" />
-
-        <ImageView
-            android:id="@+id/imageKistan"
-            android:layout_width="93dp"
-            android:layout_height="93dp"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/kistan" />
+			<ImageView
+	            android:id="@+id/imageBarcode"
+	            android:layout_width="93dp"
+	            android:layout_height="93dp"
+	            android:layout_gravity="left|center_vertical"
+	            android:layout_marginLeft="20dp"
+	            android:background="@drawable/barscan" />
+	        <ImageView
+	            android:id="@+id/imageOltyper"
+	            android:layout_width="93dp"
+	            android:layout_height="93dp"
+	            android:layout_gravity="center_vertical|right"
+	            android:layout_marginLeft="20dp"
+	            android:background="@drawable/oltyper" />
 
     </LinearLayout>
 
@@ -63,20 +60,19 @@
 	        android:layout_weight="1">
 
         <ImageView
+            android:id="@+id/imageKistan"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/kistan" />
+        <ImageView
             android:id="@+id/imageUtvecklare"
             android:layout_width="93dp"
             android:layout_height="93dp"
-            android:layout_gravity="center_vertical|left"
+            android:layout_gravity="center_vertical|right"
             android:layout_marginLeft="20dp"
             android:background="@drawable/utvecklare" />
 
-        <ImageView
-            android:id="@+id/imageBarcode"
-            android:layout_width="93dp"
-            android:layout_height="93dp"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/barscan" />
 
     </LinearLayout></LinearLayout>  
