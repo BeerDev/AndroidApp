@@ -50,6 +50,7 @@ public class Sort {
 					String percent = MainActivity.completeProductList.get(i).get(MainActivity.TAG_PERC);
 					String type = MainActivity.completeProductList.get(i).get(MainActivity.TAG_TYPE);
 					String brew = MainActivity.completeProductList.get(i).get(MainActivity.TAG_BREW);
+					String barcode = MainActivity.completeProductList.get(i).get(MainActivity.TAG_BARCODE);
 					
 					HashMap<String, String> product = new HashMap<String, String>();
 	
@@ -63,6 +64,7 @@ public class Sort {
 					product.put(MainActivity.TAG_PERC, percent);
 					product.put(MainActivity.TAG_TYPE, type);
 					product.put(MainActivity.TAG_BREW, brew);
+					product.put(MainActivity.TAG_BARCODE, barcode);
 					// adding contact to contact list
 					MainActivity.productList.add(product);
 				}
@@ -85,6 +87,7 @@ public class Sort {
 					String percent = MainActivity.completeProductList.get(i).get(MainActivity.TAG_PERC);
 					String type = MainActivity.completeProductList.get(i).get(MainActivity.TAG_TYPE);
 					String brew = MainActivity.completeProductList.get(i).get(MainActivity.TAG_BREW);
+					String barcode = MainActivity.completeProductList.get(i).get(MainActivity.TAG_BARCODE);
 					
 					HashMap<String, String> product = new HashMap<String, String>();
 	
@@ -98,6 +101,7 @@ public class Sort {
 					product.put(MainActivity.TAG_PERC, percent);
 					product.put(MainActivity.TAG_TYPE, type);
 					product.put(MainActivity.TAG_BREW, brew);
+					product.put(MainActivity.TAG_BARCODE, barcode);
 					// adding contact to contact list
 					MainActivity.productList.add(product);
 				}

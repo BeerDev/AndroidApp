@@ -5,18 +5,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="3"
+    android:paddingTop="50dp"
+    android:paddingBottom="100dp"
     android:background="#80000000">
     <LinearLayout
         android:id="@+id/llMenuFirstContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
-        android:layout_weight="1"
-        android:weightSum="3">
-         <TextView
-       		 android:layout_width="0dp"
-       		 android:layout_height="match_parent"
-       		 android:layout_weight="1"
-        />
+        android:layout_weight="1">
+        
        <ImageView
             android:id="@+id/imageGalleri"
             android:layout_width="93dp"
@@ -25,11 +22,7 @@
             android:layout_gravity="center_vertical|left"
             android:layout_marginLeft="20dp"
             android:background="@drawable/galleri" />
-         <TextView
-       		 android:layout_width="0dp"
-       		 android:layout_height="match_parent"
-       		 android:layout_weight="1"
-        />
+       
         <ImageView
             android:id="@+id/imageLista"
             android:layout_width="93dp"
@@ -41,16 +34,10 @@
     </LinearLayout>
 
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:layout_weight="1"
-        android:weightSum="3">
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="1">
 
-             <TextView
-       		 android:layout_width="0dp"
-       		 android:layout_height="match_parent"
-       		 android:layout_weight="1"
-        />
         <ImageView
             android:id="@+id/imageOltyper"
             android:layout_width="93dp"
@@ -58,11 +45,6 @@
             android:layout_gravity="center_vertical|left"
             android:layout_marginLeft="20dp"
             android:background="@drawable/oltyper" />
-         <TextView
-       		 android:layout_width="0dp"
-       		 android:layout_height="match_parent"
-       		 android:layout_weight="1"
-        />
 
         <ImageView
             android:id="@+id/imageKistan"
@@ -75,27 +57,26 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="4"
-        >
-		 <TextView
-       		 android:layout_width="0dp"
-       		 android:layout_height="match_parent"
-       		 android:layout_weight="2"
-        />
+        <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="1">
+
         <ImageView
             android:id="@+id/imageUtvecklare"
             android:layout_width="93dp"
             android:layout_height="93dp"
+            android:layout_gravity="center_vertical|left"
+            android:layout_marginLeft="20dp"
             android:background="@drawable/utvecklare" />
-        <TextView
-       		 android:layout_width="0dp"
-       		 android:layout_height="match_parent"
-       		 android:layout_weight="1"
-        />
-    </LinearLayout>
-</LinearLayout>  
+
+        <ImageView
+            android:id="@+id/imageBarcode"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/barscan" />
+
+    </LinearLayout></LinearLayout>  

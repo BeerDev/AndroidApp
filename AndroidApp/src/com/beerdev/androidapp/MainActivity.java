@@ -88,6 +88,7 @@ public class MainActivity extends Activity {
 
 	public static final String TAG_BREW = "Bryggeri";
 
+	public static final String TAG_BARCODE = "Streckkod";
 	/**
 	 * Products JSONArray
 	 */
@@ -161,6 +162,7 @@ public class MainActivity extends Activity {
 						String percent = c.getString(TAG_PERC);
 						String type = c.getString(TAG_TYPE);
 						String brew = c.getString(TAG_BREW);
+						String barcode = c.getString(TAG_BARCODE);
 						
 						// tmp hashmap for single contact
 						HashMap<String, String> product = new HashMap<String, String>();
@@ -175,6 +177,7 @@ public class MainActivity extends Activity {
 						product.put(TAG_PERC, percent);
 						product.put(TAG_TYPE, type);
 						product.put(TAG_BREW, brew);
+						product.put(TAG_BARCODE, barcode);
 
 						// adding contact to contact list
 						productList.add(product);
@@ -292,6 +295,7 @@ public void offlineMode(){
 			String percent = c.getString(TAG_PERC);
 			String type = c.getString(TAG_TYPE);
 			String brew = c.getString(TAG_BREW);
+			String barcode = c.getString(TAG_BARCODE);
 
 	      //Add your values in your `ArrayList` as below:
 			HashMap<String, String> product = new HashMap<String,String>();
@@ -305,6 +309,7 @@ public void offlineMode(){
 			product.put(TAG_PERC, percent);
 			product.put(TAG_TYPE, type);
 			product.put(TAG_BREW, brew);
+			product.put(TAG_BARCODE, barcode);
 
 	     productList.add(product);
 	     //getproductList.add(hashlist);

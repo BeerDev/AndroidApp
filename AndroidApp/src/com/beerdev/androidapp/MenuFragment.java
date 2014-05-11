@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.zxing.integration.android.IntentIntegrator;
 
 public class MenuFragment extends Fragment implements OnClickListener{
 	
@@ -25,12 +28,14 @@ public class MenuFragment extends Fragment implements OnClickListener{
 		ImageView imgOltyper = (ImageView) menuView.findViewById(R.id.imageOltyper);
 		ImageView imgKistan= (ImageView) menuView.findViewById(R.id.imageKistan);
 		ImageView imgUtvecklare = (ImageView) menuView.findViewById(R.id.imageUtvecklare);
+		ImageView imgBarcode = (ImageView) menuView.findViewById(R.id.imageBarcode);
 		
 		imgGalleri.setOnClickListener(this);
 		imgLista.setOnClickListener(this);
 		imgOltyper.setOnClickListener(this);
 		imgKistan.setOnClickListener(this);
 		imgUtvecklare.setOnClickListener(this);
+		imgBarcode.setOnClickListener(this);
 
 		return menuView;
     }
@@ -102,6 +107,23 @@ public class MenuFragment extends Fragment implements OnClickListener{
 
         		FragmentManagerActivity.sm.toggle();
                 break;
+        	case R.id.imageBarcode:
+        		if(MainActivity.productList.isEmpty()){
+      			  Toast.makeText(getActivity(), "Finns inga produkter att scanna!", Toast.LENGTH_LONG).show();
+        		}
+        		else{
+            		IntentIntegrator integrator = new IntentIntegrator(getActivity());
+    				integrator.initiateScan();
+            		getActivity()
+    	    			.getSupportFragmentManager()
+    	    			.beginTransaction()
+    	    			.replace(R.id.root_container, new SwipeViewFragment(), "swipeFrag")
+    	    			.addToBackStack("swipeFrag")
+    	    			.commit();
+
+            		FragmentManagerActivity.sm.toggle();
+        		}
+        		break;
         }
     }
 

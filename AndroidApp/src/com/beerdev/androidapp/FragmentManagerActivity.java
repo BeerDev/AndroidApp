@@ -7,8 +7,6 @@ import java.util.Random;
 import org.json.JSONException;
 
 import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -29,10 +27,13 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.Toast;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
 
 import com.beerdev.androidapp.ShakeDetector.OnShakeListener;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
@@ -59,11 +60,6 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		notify("onCreate");
-		if (savedInstanceState != null) {
-	        MainActivity.productList = (ArrayList<HashMap<String,String>>) savedInstanceState.getSerializable("productList"); 
-	        notify(Integer.toString(MainActivity.productList.size()));
-	    }
 		// ShakeDetector initialization
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		mAccelerometer = mSensorManager
@@ -141,6 +137,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				FragmentManagerActivity.mToggleChecked=true;
 				setToggleButton();
 				search();
+
 			}
 		});
 		
@@ -387,10 +384,29 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 			catButton.setTextColor(halfTrans);
 		}
 	}
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+		
+		if(resultCode == RESULT_OK){
+			  if (scanResult != null) {
+				  for(int i = 0; i < MainActivity.productList.size();i++){
+					  String barcode = MainActivity.productList.get(i).get(MainActivity.TAG_BARCODE);
+					  if(barcode.compareTo(scanResult.getContents()) == 0){
+							SwipeViewFragment.pageChangeListener.onPageSelected(i);
+							SwipeViewFragment.mPager.setCurrentItem(i);
+							//Toast.makeText(this, scanResult.getContents(), Toast.LENGTH_LONG).show();
+							break;
+					  }
+				  }
+			  }
+		}
+		else if(resultCode == RESULT_CANCELED){
+			  Toast.makeText(this, "Ingen produkt blev skannad!", Toast.LENGTH_LONG).show();	  	
+		}
+	}
 	@Override
 	protected void onPause(){
 		super.onPause();
-		notify("onPause");
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo info = cm.getActiveNetworkInfo();
 		if (info != null && info.isConnectedOrConnecting()) {
@@ -403,7 +419,6 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	@Override
 	protected void onResume(){
 		super.onResume();
-		notify("onResume");
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo info = cm.getActiveNetworkInfo();
 		if (info != null && info.isConnectedOrConnecting()) {
@@ -414,42 +429,4 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		}
 		mSensorManager.registerListener(mShakeDetector, mAccelerometer,    SensorManager.SENSOR_DELAY_UI);
 	}
-	@Override
-	  protected void onStop() {
-	    super.onStop();
-	    notify("onStop");
-	  }
-
-	  @Override
-	  protected void onDestroy() {
-	    super.onDestroy();
-	    notify("onDestroy");
-	  }
-
-	@Override
-	  protected void onRestoreInstanceState(Bundle savedInstanceState) {
-		if (savedInstanceState != null) {
-	        MainActivity.productList = (ArrayList<HashMap<String,String>>) savedInstanceState.getSerializable("productList"); 
-	        notify(Integer.toString(MainActivity.productList.size()));
-	    }
-		super.onRestoreInstanceState(savedInstanceState);
-	    notify("onRestoreInstanceState");
-	  }
-
-	  @Override
-	  protected void onSaveInstanceState(Bundle outState) {
-	    super.onSaveInstanceState(outState);
-	    outState.putSerializable("productList", MainActivity.productList);
-	    notify("onSaveInstanceState");
-	  }
-	  private void notify(String methodName) {
-		    String name = this.getClass().getName();
-		    String[] strings = name.split("\\.");
-		    Notification noti = new Notification.Builder(this)
-		        .setContentTitle(methodName + " " + strings[strings.length - 1]).setAutoCancel(true)
-		        .setSmallIcon(R.drawable.ic_launcher)
-		        .setContentText(name).build();
-		    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		    notificationManager.notify((int) System.currentTimeMillis(), noti);
-		  }
 }
