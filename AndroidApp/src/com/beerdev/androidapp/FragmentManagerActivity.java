@@ -386,18 +386,23 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	}
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-		
+		Boolean foundProduct = false;
 		if(resultCode == RESULT_OK){
+			
 			  if (scanResult != null) {
 				  for(int i = 0; i < MainActivity.productList.size();i++){
 					  String barcode = MainActivity.productList.get(i).get(MainActivity.TAG_BARCODE);
 					  if(barcode.compareTo(scanResult.getContents()) == 0){
 							SwipeViewFragment.pageChangeListener.onPageSelected(i);
 							SwipeViewFragment.mPager.setCurrentItem(i);
-							//Toast.makeText(this, scanResult.getContents(), Toast.LENGTH_LONG).show();
-							break;
+							foundProduct = true;
+						break;
 					  }
 				  }
+				  if(!foundProduct){
+					  Toast.makeText(this, "Produkten finns ej i sortimentet!", Toast.LENGTH_LONG).show();				
+				  }
+				  Toast.makeText(this, scanResult.getContents(), Toast.LENGTH_LONG).show();	  	
 			  }
 		}
 		else if(resultCode == RESULT_CANCELED){
