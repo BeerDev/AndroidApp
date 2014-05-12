@@ -3,9 +3,8 @@ package com.beerdev.androidapp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-
 import org.json.JSONException;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
@@ -31,7 +30,6 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
-
 import com.beerdev.androidapp.ShakeDetector.OnShakeListener;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -41,7 +39,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	public static Menu menu = null;
 	public static boolean mToggleChecked = true;
 	public static SearchView searchView;
-	private MenuItem filter, cross, searchItem;
+	private MenuItem navigation, filter, cross, searchItem;
 	public static Button nameButton, catButton;
 	public static String tagToggleButton, searchText ="";
 	
@@ -183,15 +181,23 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
         searchView.setOnCloseListener(this);
         searchView.setIconifiedByDefault(true);
         
-        
+        navigation = menu.findItem(R.id.menu_navigation);
         filter = menu.findItem(R.id.menu_filter);
         cross = menu.findItem(R.id.menu_close_search);
         searchItem = menu.findItem(R.id.menu_search);
-        
+       
+        navigation.setVisible(true);
+        navigation.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        filter.setVisible(true);
+        filter.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         cross.setVisible(false);
+        searchItem.setVisible(true);
+        searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        
         return super.onCreateOptionsMenu(menu);        
     }
-	 @Override
+
+	@Override
 	    public boolean onOptionsItemSelected(MenuItem item) {
 	    	switch (item.getItemId()) {
 	    		case R.id.menu_navigation:
@@ -208,8 +214,8 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			Sort.sortAlphabetic();
 	    			ListViewFragment listFragName = (ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag"); 
 	    			if(listFragName.isVisible()){
-	    		       // listFragName.getListView().setFastScrollEnabled(true);
-	    		       // listFragName.getListView().setFastScrollAlwaysVisible(true);
+	    		        listFragName.getListView().setFastScrollEnabled(true);
+	    		        listFragName.getListView().setFastScrollAlwaysVisible(true);
 	    		        ListViewFragment.fastScrollAdapter.notifyDataSetChanged();
 	    			}
 	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
@@ -224,8 +230,10 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			Sort.sortPrice();
 	    			ListViewFragment listFragPrice = (ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag"); 
 	    			if(listFragPrice.isVisible()){
-	    		        //listFragPrice.getListView().setFastScrollEnabled(false);
-	    		        //listFragPrice.getListView().setFastScrollAlwaysVisible(false);
+	    		        listFragPrice.getListView().setFastScrollEnabled(true);
+	    		        listFragPrice.getListView().setFastScrollAlwaysVisible(true);
+	    		        ListViewFragment.fastScrollAdapter = new FastScrollAdapter(this, MainActivity.productList);
+	    		        ListViewFragment.lv.setAdapter(ListViewFragment.fastScrollAdapter);
 	    		        ListViewFragment.fastScrollAdapter.notifyDataSetChanged();
 	    			}
 	    			else if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
@@ -237,7 +245,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			}
 	    			break;
 	    		case R.id.menu_close_search:
-	    			searchView.setQuery("", false);
+	    			searchView.setQuery("", true);
 	    			MainActivity.productList = (ArrayList<HashMap<String, String>>) MainActivity.completeProductList.clone();
 	    			if(((SwipeViewFragment) getSupportFragmentManager().findFragmentByTag("swipeFrag")).isVisible())
 	    			{
@@ -251,6 +259,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			cross.setVisible(false);
 	    			searchView.setIconified(true);
 	    			searchItem.setVisible(true);
+	    			navigation.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 	    			 InputMethodManager imm2 = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
 		    			if(imm2.isActive()){
 		    				imm2.hideSoftInputFromWindow(findViewById(R.id.root_view).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -268,6 +277,8 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		    cross.setVisible(true);
 		    filter.setVisible(true);
 		    searchItem.setVisible(false);
+		    navigation.setVisible(true);
+			navigation.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 			return false;
 		}
 
@@ -288,7 +299,10 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		public void onClick(View v) {
 			findViewById(R.id.search_container).setVisibility(View.VISIBLE);
 			setLayoutMargins(findViewById(R.id.root_view), this);
-			filter.setVisible(false);
+			filter.setVisible(true); 
+			filter.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+			navigation.setVisible(false);
+			//navigation.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		}
 		@Override
 		public boolean onClose() {
@@ -296,14 +310,20 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 			findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
 			setLayoutMargins(findViewById(R.id.root_view), this);	
 			SwipeViewFragment.mPager.setSwipeable(true); 
-			filter.setVisible(true);
-			filter.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 			InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
 		    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-			return false;
+		    navigation.setVisible(true);
+	        navigation.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+	        filter.setVisible(true);
+	        filter.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+	        cross.setVisible(false);
+	        searchItem.setVisible(true);
+	        searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		    return false;
 		}
 	@SuppressWarnings("unchecked")
 	private void search(){
+		
 		try {
 			tempProductList = (ArrayList<HashMap<String, String>>) MainActivity.productList.clone();
 
@@ -400,6 +420,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		super.onResume();
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo info = cm.getActiveNetworkInfo();
+		
 		if (info != null && info.isConnectedOrConnecting()) {
 			if(MainActivity.wasOnline == false){
 				Intent in = new Intent(getApplicationContext(), MainActivity.class);

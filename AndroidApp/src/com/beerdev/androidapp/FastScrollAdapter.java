@@ -22,7 +22,7 @@ import android.widget.TextView;
  * @author BeerDev
  *
  */
-public class FastScrollAdapter extends BaseAdapter implements Filterable, SectionIndexer{
+public class FastScrollAdapter extends BaseAdapter implements Filterable{
     /**
      * Activity related to the LazyAdapter
      */
@@ -53,7 +53,7 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable, Sectio
         inflater = (LayoutInflater)activity.getLayoutInflater();
         imageLoader=new ImageLoader(activity.getApplicationContext());
         memoryCache=new MemoryCache();
-        
+        /*
         alphaIndexer = new HashMap<String, Integer>();
         int size = productsData.size();
         for (int x = 0; x < size; x++) {
@@ -77,6 +77,7 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable, Sectio
             
             sectionList.toArray(sections);
         
+        */
     }
 
     public int getCount() {
@@ -164,6 +165,7 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable, Sectio
             }
         }
     }
+    /*
 
 	@Override
 	public Object[] getSections() {
@@ -179,4 +181,5 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable, Sectio
 	public int getSectionForPosition(int position) {
 		return 0;
 	}
+	*/
 }

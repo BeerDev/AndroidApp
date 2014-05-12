@@ -53,6 +53,8 @@ public class AboutCategories extends Fragment {
 				FragmentManagerActivity.searchView.setQuery("Ale", false);
 				FragmentManagerActivity.searchView.setIconified(false);
 				
+			menuBarFix();
+				
 				getActivity()
     			.getSupportFragmentManager()
     			.beginTransaction()
@@ -69,6 +71,8 @@ public class AboutCategories extends Fragment {
 						FragmentManagerActivity.searchView.setQuery("Lager", false);
 						FragmentManagerActivity.searchView.setIconified(false);
 						
+						menuBarFix();
+							
 						getActivity()
 		    			.getSupportFragmentManager()
 		    			.beginTransaction()
@@ -85,7 +89,9 @@ public class AboutCategories extends Fragment {
 					FragmentManagerActivity.setToggleButton();
 					FragmentManagerActivity.searchView.setQuery("Pilsner", false);
 					FragmentManagerActivity.searchView.setIconified(false);
-
+					
+					menuBarFix();
+						
 					getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -103,6 +109,8 @@ public class AboutCategories extends Fragment {
 					FragmentManagerActivity.searchView.setQuery("Bitter", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
+					menuBarFix();
+						
 					getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -120,6 +128,8 @@ public class AboutCategories extends Fragment {
 					FragmentManagerActivity.searchView.setQuery("IPA", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
+					menuBarFix();
+						
 					getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -137,6 +147,8 @@ public class AboutCategories extends Fragment {
 					FragmentManagerActivity.searchView.setQuery("Imperial/Double IPA", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
+					menuBarFix();
+						
 					getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -154,6 +166,8 @@ public class AboutCategories extends Fragment {
 					FragmentManagerActivity.searchView.setQuery("Stout", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
+					menuBarFix();
+						
 					getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -173,6 +187,8 @@ public class AboutCategories extends Fragment {
 					FragmentManagerActivity.searchView.setQuery("Imperial Stout", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
+					menuBarFix();
+						
 					getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -190,6 +206,8 @@ public class AboutCategories extends Fragment {
 					FragmentManagerActivity.searchView.setQuery("Porter", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
+					menuBarFix();
+						
 					getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -207,6 +225,8 @@ public class AboutCategories extends Fragment {
 					FragmentManagerActivity.searchView.setQuery("Veteöl", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
+					menuBarFix();
+						
 					getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -224,6 +244,8 @@ public class AboutCategories extends Fragment {
 					FragmentManagerActivity.searchView.setQuery("Trappist/Abbey", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
+					menuBarFix();
+						
 					getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -241,6 +263,8 @@ public class AboutCategories extends Fragment {
 					FragmentManagerActivity.searchView.setQuery("Lambik/Fruktöl", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
+					menuBarFix();
+						
 					getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -258,6 +282,8 @@ public class AboutCategories extends Fragment {
 					FragmentManagerActivity.searchView.setQuery("Barley Wine", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
+					menuBarFix();
+						
 					getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -275,6 +301,8 @@ public class AboutCategories extends Fragment {
 					FragmentManagerActivity.searchView.setQuery("Saison", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
+					menuBarFix();
+						
 					getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -292,6 +320,8 @@ public class AboutCategories extends Fragment {
 					FragmentManagerActivity.searchView.setQuery("Suröl", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
+					menuBarFix();
+						
 					getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -309,6 +339,8 @@ public class AboutCategories extends Fragment {
 					FragmentManagerActivity.searchView.setQuery("Mjöd", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
+					menuBarFix();
+						
 					getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -326,6 +358,8 @@ public class AboutCategories extends Fragment {
 					FragmentManagerActivity.searchView.setQuery("Specialöl", false);
 					FragmentManagerActivity.searchView.setIconified(false);
 					
+					menuBarFix();
+						
 					getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -336,5 +370,11 @@ public class AboutCategories extends Fragment {
 			 });
 
 		 return categoryView;
+	}
+	private void menuBarFix(){
+		//Fixing Menu bar
+		FragmentManagerActivity.menu.findItem(R.id.menu_filter).setVisible(true);
+		 FragmentManagerActivity.menu.findItem(R.id.menu_search).setVisible(true);
+		 FragmentManagerActivity.menu.findItem(R.id.menu_close_search).setVisible(false);
 	}
 }

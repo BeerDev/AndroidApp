@@ -3,7 +3,7 @@
 		<item
 	        android:id="@+id/menu_navigation"
 	        android:icon="@drawable/menu"
-	        android:orderInCategory="100"
+	        android:orderInCategory="150"
 	        android:showAsAction="always"/>
     	<item
 	        android:id="@+id/menu_search"
@@ -14,12 +14,12 @@
     	<item
     	    android:id="@+id/menu_close_search"
     	    android:icon="@drawable/cross"
-    	    android:orderInCategory="0"
+    	    android:orderInCategory="50"
     	    android:showAsAction="ifRoom"/>
     	<item
     	    android:id="@+id/menu_filter"
     	    android:icon="@drawable/filter"
-    	    android:orderInCategory="50"
+    	    android:orderInCategory="100"
     	    android:showAsAction="ifRoom">
     		<menu>
 	    		<item 
