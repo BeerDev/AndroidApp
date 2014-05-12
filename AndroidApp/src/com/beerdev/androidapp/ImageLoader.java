@@ -121,7 +121,7 @@ public class ImageLoader {
     {
         File f = null;
   
-   		f=fileCache.getFileThumb(url);
+   		f=fileCache.getFileThumb(url); 
   
         //from SD cache
         Bitmap b = decodeFile(f);
