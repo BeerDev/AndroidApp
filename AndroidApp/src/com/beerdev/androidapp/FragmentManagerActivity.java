@@ -60,6 +60,9 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		
+		new BitmapDownloadTask().execute();
+		
 		super.onCreate(savedInstanceState);
 		if (savedInstanceState != null) {
 	        MainActivity.productList = (ArrayList<HashMap<String,String>>) savedInstanceState.getSerializable("productList"); 
@@ -165,6 +168,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
 		getActionBar().setDisplayHomeAsUpEnabled(false);
 		getActionBar().setDisplayShowHomeEnabled(false);
+		
 	}
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -484,4 +488,5 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    super.onSaveInstanceState(outState);
 	    outState.putSerializable("productList", MainActivity.productList);
 	  }
+	  
 }

@@ -39,7 +39,7 @@ public class ImageLoader {
   
     public ImageLoader(Context context){
         fileCache=new FileCache(context);
-        executorService=Executors.newFixedThreadPool(5);
+        executorService=Executors.newFixedThreadPool(7);
     }
   
     int stub_id = R.drawable.placeholder;
@@ -54,7 +54,7 @@ public class ImageLoader {
     {
     	thumb=1;
         imageViews.put(imageView, url);
-        Bitmap bitmap=memoryCache.get(url+"thumb");
+        Bitmap bitmap=memoryCache.get(url);
         if(bitmap!=null)
             imageView.setImageBitmap(bitmap);
         else
@@ -67,8 +67,6 @@ public class ImageLoader {
     public void DisplayImage(String url, int loader, ImageView imageView)
     {
     	thumb=2;
-        stub_id = R.drawable.placeholder;;
-        
         imageViews.put(imageView, url);
         Bitmap bitmap=memoryCache.get(url);
         if(bitmap!=null)

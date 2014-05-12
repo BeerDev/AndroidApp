@@ -107,7 +107,7 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable{
         product = productsData.get(position);
         
         // Setting all values in listview
-        imageLoader.DisplayImageIcon(product.get(MainActivity.TAG_PATH),NO_SELECTION, thumbnailImage);
+        imageLoader.DisplayImage(product.get(MainActivity.TAG_PATH),NO_SELECTION, thumbnailImage);
         productName.setText(product.get(MainActivity.TAG_NAME));
         productCat.setText(product.get(MainActivity.TAG_TYPE));
         productPrice.setText(product.get(MainActivity.TAG_PRICE) + " kr*");
