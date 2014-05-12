@@ -14,7 +14,7 @@
         android:gravity="bottom"
         sothree:dragView="@+id/name"
         sothree:overlay="true"
-        sothree:panelHeight="100dp"
+        sothree:panelHeight="110dp"
         sothree:paralaxOffset="0dp"
         sothree:shadowHeight="4dp" >
 
@@ -54,7 +54,7 @@
             <LinearLayout
                 android:id="@+id/llSlideUpFirstContainer"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:orientation="horizontal" >
 
                 <TextView
