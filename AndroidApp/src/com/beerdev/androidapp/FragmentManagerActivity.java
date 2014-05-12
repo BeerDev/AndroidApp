@@ -59,6 +59,8 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.fragmentactivity_root);
+
 		notify("onCreate");
 		if (savedInstanceState != null) {
 	        MainActivity.productList = (ArrayList<HashMap<String,String>>) savedInstanceState.getSerializable("productList"); 
@@ -116,7 +118,6 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		FragmentManagerActivity.globalContext = this;
 		// set the Above View
 		// set the Behind View
-		setContentView(R.layout.fragmentactivity_root);
 
 		FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
 		SwipeViewFragment mSwipeFrag = new SwipeViewFragment();
