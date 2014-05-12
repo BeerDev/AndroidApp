@@ -108,6 +108,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
         		FragmentManagerActivity.sm.toggle();
                 break;
         	case R.id.imageBarcode:
+        		//MainActivity.productList = (ArrayList<HashMap<String, String>>) MainActivity.completeProductList.clone();
         		if(MainActivity.productList.isEmpty()){
       			  Toast.makeText(getActivity(), "Finns inga produkter att scanna!", Toast.LENGTH_LONG).show();
         		}

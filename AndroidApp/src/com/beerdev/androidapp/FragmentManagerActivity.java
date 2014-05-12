@@ -3,7 +3,9 @@ package com.beerdev.androidapp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+
 import org.json.JSONException;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Notification;
@@ -32,6 +34,7 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
+
 import com.beerdev.androidapp.ShakeDetector.OnShakeListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -416,15 +419,22 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		if(resultCode == RESULT_OK){
 			
 			  if (scanResult != null) {
-				  for(int i = 0; i < MainActivity.productList.size();i++){
-					  String barcode = MainActivity.productList.get(i).get(MainActivity.TAG_BARCODE);
-					  if(barcode.compareTo(scanResult.getContents()) == 0){
+				  
+				  for(int i = 0; i < MainActivity.completeProductList.size();i++){
+					  String barcode = MainActivity.completeProductList.get(i).get(MainActivity.TAG_BARCODE);
+					  if(barcode.compareTo(scanResult.getContents())==0){
+						  MainActivity.productList = (ArrayList<HashMap<String, String>>) MainActivity.completeProductList.clone();
+		        			FragmentManagerActivity.searchView.setQuery("", false);
+		        			FragmentManagerActivity.searchView.setIconified(true);	
+						  Log.i("SCANN MSG", Integer.toString(i));
 							SwipeViewFragment.pageChangeListener.onPageSelected(i);
 							SwipeViewFragment.mPager.setCurrentItem(i);
+							
 							foundProduct = true;
 						break;
 					  }
 				  }
+				  
 				  if(!foundProduct){
 					  Toast.makeText(this, "Produkten finns ej i sortimentet!", Toast.LENGTH_LONG).show();				
 				  }
