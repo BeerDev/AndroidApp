@@ -1,0 +1,74 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme for API 11+. This theme completely replaces
+        AppBaseTheme from res/values/styles.xml on API 11+ devices.
+    -->
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+        <!-- API 11 theme customizations can go here. -->
+		<item name="android:windowActionBarOverlay">true</item>
+
+    </style>
+	
+	<!-- the theme applied to the application or activity -->
+    <style name="CustomActionBarTheme"
+           parent="@android:style/Theme.Holo">
+        <item name="android:windowActionBarOverlay">true</item>
+        
+    </style>
+    <style name="NoActionBar" parent="android:Theme.Holo">
+	    <item name="android:windowActionBar">true</item>
+	    <item name="android:windowNoTitle">true</item>
+	</style>
+
+     <!-- Alla stora rubriker. -->
+    <style name="HeadLineText">
+        <item name="android:ems">10</item> 
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:shadowDx">-3</item>
+        <item name="android:shadowDy">3</item>
+        <item name="android:shadowRadius">1.1</item>
+        <item name="android:shadowColor">#000000</item>
+    </style>
+    
+    
+    <!--  Används på de olika öltyperna. Ale, lager osv. -->
+    <style name="TitleText">
+        <item name="android:ems">10</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:shadowDx">-3</item>
+        <item name="android:shadowDy">3</item>
+        <item name="android:shadowRadius">1.1</item>
+        <item name="android:shadowColor">#000000</item>
+   </style>
+   
+    <!-- All brödtext i appen. -->
+    <style name="BodyText">
+        <item name="android:ems">10</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">left</item>
+        <item name="android:shadowDx">-2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">1.1</item>
+        <item name="android:shadowColor">#000000</item>
+        
+   </style> 
+   <!-- Listvyns text --> 
+   <style name="ListText">   
+      	<item name="android:textColor">#FFFFFF</item>
+      	<item name="android:textSize">16sp</item>
+      	<item name="android:shadowColor">#000000</item>
+      	<item name="android:shadowDx">-3</item>
+      	<item name="android:shadowDy">3</item>
+      	<item name="android:shadowRadius">1.1</item>
+   </style>
+   </resources>

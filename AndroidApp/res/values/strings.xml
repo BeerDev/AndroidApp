@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Kistans Ölsortiment</string>
+    <string name="hello_world">Hello world</string>
+    <string name="image_slide">Image slider</string>
+    <string name="action_search">Search</string>
+    <string name="search_hint">Sök...</string>
+    <string name="action_settings">Settings</string>
+    <string name="toggle_ontext">Artikelnamn</string>
+    <string name="toggle_offtext">Kategori</string>
+    <string name="listImage">ListImage</string>
+    <string name="aboutustext">
+Applikationen är skapad av BeerDev, en projektgrupp bestående av 9 KTH studenter. Appen skapades i en IT-projektkurs under våren 2014 och finns både till iOS och Android.
+
+\n\nVi som har skapat applikationen är Maxim Frisk, Anne Golinski, Joakim Larsson, Jesper Nowak, Lina Poon, Christopher State, Patrik Stigeborn, Emma Ström och Jonathan Strömgren.
+
+\n\nApplikationen är skapad för att få en överblick över ölutbudet i Kistan. 
+</string>
+    <string name="beerdev">BeerDev</string>
+    <string name="observera">*Observera att alla priser gälller medlemmar i INsektionen. </string>
+     <string name="kistanheader">Kistan</string>
+    <string name="omKistan"> Kistan är INsektionens sektionslokal belägen i Kista. Med sina cirka 120 olika sorters öl är Kistan en av Stockholms mest välsorterade sektionslokaler gällande ölutbud. 
+        
+\n \nKistan är vanligtvis öppen på tisdagar och torsdagar med sektionens mästerier bakom baren. Även på vissa fredagar kan en pubkväll smyga sig in. 
+
+\n \nKistans breda sortiment består av allt från vardagliga öltyper så som Ale, Lager, Pilsner till det lite mera ovanliga så som Trappis/Abbey, Lambik, Barley Wine och Saison. Givetvis finns även alkoholfri öl. 
+
+\n \nKistans konstbeklädda väggar skapar en gemytlig känsla i din mage, dem matchas ihop bra med en tydlig eftersmak av hemtrevlighet och gemensak. 
+
+\n \nVälkommen! </string>
+
+    <string-array name="search_array">
+        <item>Namn</item>
+        <item>Kategorier</item>
+    </string-array>
+
+    <string name="kategoriHead">Öltyper</string>
+    <string name="aleHead">Ale</string>
+    <string name="lagerHead">Lager</string>
+    <string name="pilsnerHead">Pilsner</string>
+    <string name="bitterHead">Bitter</string>
+    <string name="ipaHead">Indian Pale Ale (IPA)</string>
+    <string name="impIpaHead">Imperial/Double IPA</string>
+    <string name="apaHead">American Pale Ale (APA)</string>
+    <string name="stoutHead">Stout</string>
+    <string name="impStoutHead">Imperial Stout</string>
+    <string name="porterHead">Porter</string>
+    <string name="veteHead">Veteöl</string>
+    <string name="trappistHead">Trappist/Abbey</string>
+    <string name="lambikHead">Lambik/Fruktöl</string>
+    <string name="barleyHead">Barley Wine</string>
+    <string name="saisonHead">Saison</string>
+    <string name="surHead">Suröl</string>
+    <string name="mjodHead">Mjöd</string>
+    <string name="specHead">Specialöl</string>
+    
+    <string name="aleBody">
+        Ale är en typ av öl som bryggs från mältat korn med hjälp av varm fermentation och bryggeriets jäst. 
+        Jästen jäser ölet snabbt, vilket ger en söt, fyllig och fruktig smak. 
+        De flesta Ale innehåller humle, vilket bevarar ölet och ger en bitter örtsmak som balanserar upp sötman från malten. 
+        </string>
+        
+    <string name="lagerBody">Lager är en typ av öl som fermenteras och processas vid låga temperaturer. 
+        Ljus Lager är den mest konsumerade och kommersiellt tillgängliga stilen av öl i världen. Bock, Pilsner och Märzen är alla stilar av lager. 
+        Det finns också Mörk Lager, såsom Dunkel och Schwarz. 
+        Termen Lager är besläktat med ligrs, gotiska för "plats för liggande (ner)".
+        </string>
+        
+    <string name="pilsnerBody">Pilsner (även Pilsener eller helt enkelt Pils) är en typ av Ljus Lager. Det tog sitt namn från staden Pilsen (Plzeň, Böhmen, Tjeckien, där det började tillverkas 1842). Det ursprungliga ölet, Pilsner Urquell, produceras fortfarande där i dagens läge. Pilsner är en ljus, underjäst och förhållandevis beskt öl.</string>
+
+    <string name="bitterBody">Bitter är en överjäst öl och en engelsk term för Pale Ale. Överjäst öl kännetecknas av att jästen ger betydligt mer smak (ofta fruktig smak) till ölet än vid underjäsning. När det gäller Bitter, är det dock vanligt att doften är betydligt fylligare och fruktigare än vad smaken sedan är. Bitters varierar i färg från guld till mörkt bärnstensfärgade och med en styrka på 3-7%. </string>
+        
+    <string name="ipaBody">India Pale Ale eller IPA är en ölstil inom den bredare kategorin Pale Ale. De bryggdes först i England på 1800-talet.
+        En typisk IPA känns normalt igen på sin doft och smak av humle, sin färg som sträcker sig från guld till bärnstensfärgad, och avsaknaden av den rostad karaktär som mörkare öl besitter. </string>
+    
+    <string name="impIpaBody">Karaktäristiskt för en Imperial/Double IPA är att de är lite starkare för att de har mer humle än en vanlig IPA, även mer malt läggs till för att balansera upp humlen.
+        Imperial/Double IPA får då en stark humlekaraktär och hög alkoholhalt som närmar Barley Wine i styrka, men utan den fulla maltigheten av Barley Wine. </string>
+        
+    <string name="apaBody">En American Pale Ale tenderar till att använda aningen fräschare jäst och aningen mer humle än dess närbesläktade Indian Pale Ale. I grund och botten är dock en American Pale Ale mer eller mindre en Indian Pale Ale gjort på amerikanska humlesorter. Typiska amerikanska humlesorter är Cascade, Zeus, och Columbus/Tomahawk. 
+Pale Ale i sig är en ölsort där ljus karamellmalt används i bryggprocessen. </string>
+
+    <string name="stoutBody">Stout är en mörk öl som görs med rostad malt, rostat korn, humle, vatten och jäst. Stout var traditionellt samlingsnamnet för de starkaste och kraftigaste Porter, typiskt 7-8%, som produceras av ett bryggeri. En stout behöver nödvändigtvis inte vara mörk i färgen eftersom det finns även ljusa Stouts.
+        Det finns ett antal varianter, inklusive Baltiska Porter, torr Stout och Imperial Stout. </string>
+    
+    <string name="impStoutBody">Imperial Stout, även känd som Russian Imperial Stout eller Imperial Russian Stout, är en stark mörk öl eller Stout i samma stil som det bryggdes på 1700-talet av Thrale’s Brewery i London. Kännetecknande för en Stout är att en förhållandevis stor mängd rostad malt, samt rostat omältat korn, används i bryggprocessen, därav den mörka färgen. Den har en hög alkoholhalt, oftast över 9%.</string>
+    
+    <string name="porterBody">En klar internationell definition av skillnaden mellan Porter och Stout finns inte. Porter är en stark, svart-brun ölsort, som har en besk, frisk och aromatisk smak. En del av det till Porterbryggningen använda maltet rostas starkt, varigenom dess dextrin och maltos karamelliseras, vilket ger smak åt Portern.
+        Brygden avtappas länge innan den används, så att en fullständig efterjäsning på buteljerna kan äga rum. </string>
+    
+    <string name="veteBody">Veteöl är en öl som bryggs med en stor andel vete, utöver mältat korn. Veteöl är oftast överjäst (som krävs enligt lag i Tyskland). De viktigaste sorterna är Weissbier (inkluderar Hefeweizen), Witbier, och de sura sorter, exempelvis Lambik, Berliner Weisse och Gose. Vetet ger en mildare, friskare ton med låg humlebeska och ölet får en smak som istället domineras av jästens olika fruktiga aromer.
+        Ölet serveras ofta i höga glas för att kunna hantera den kraftiga skumbildningen som vetemalten orsakar.</string>
+    
+    <string name="trappistBody">Trappistöl bryggs av Trappistbryggerier. Åtta kloster - sex i Belgien, ett i Nederländerna och ett i Österrike - brygger för närvarande öl och säljer det som en autentisk Trappist produkt. Trappistöl har alltså ingen speciell lukt eller smak utan definieras av att det bryggs i ett kloster av munkar. Gemensamt för många Trappistöler är dock att ölet är överjäst, mycket smakrikt och har en alkoholhalt mellan 6-11%. 
+        Andra kännetäcken är stora mängder malt och toner av kryddor, örter, pomerans eller mörkt råsocker. </string>
+    
+    <string name="lambikBody">Lambik är mycket syrlig i karaktären, och har mycket liten kolsyra. Lambik är en typ av öl som bryggs traditionellt i regionen Pajottenland, Belgien (sydväst om Bryssel) och även i Bryssel på Cantillon Brewery och Museum. I dagens läge är Lambik huvudsakligen konsumerad efter efterjäsningsprocessen, vilket resulterar i öl som Gueuze eller Kriek Lambik.
+        Det är vanligt att i denna typen av öl att tillsätta hallon, persika, svarta vinbär, vindruvor eller jordgubbar. </string>
+    
+    <string name="barleyBody">Barley Wine är en variant av en stark Ale som har sitt ursprung i England. Det finns två huvudsakliga stilar Barley Wine: den amerikanska, som tenderar att vara bryggd med mer humle och därmed mer bitter med färger från bärnstensbärgat till ljusbrunt. Sedan finns det den engelska, den tenderar att vara mindra humleaktig och därmed mindre bitter med mer variation i färg som sträcker sig från rödguld till becksvart. Barley wine bryggs från en maltlösning med hög sockerhalt. Namnet kommer av att alkholhalten kan vara lika hög som hos vin, men råvaran är korn och inte frukt, så enligt de flesta definitioner är det att betrakta som ett öl. </string>
+    
+    <string name="saisonBody">Saison, franska för säsong, är en brett definerad Pale Ale som i allmänhet är mycket kolsyrad, fruktig, kryddig, och har influenser från Saison Dupont Vieille Provision.
+        Ölet bryggs traditionellt i belgiska bondgårdar under årets svalare månader för att lagras och sedan drickas av lantarbetare under sommarmånaderna.</string>
+    
+    <string name="surBody">Suröl är en ölstil som kännetecknas av sin avsiktligt sura, skarpa och syrliga smak. I teorin kan vilken typ av öl som helst vara Suröl, men i praktiken är de vanligaste Surölerna belgiska Lambiks, Gueuzes och Flandern Red Ale.</string>
+    
+    <string name="mjodBody">Mjöd, ibland även kallat honungsvin, är en dryck som får sin etanolhalt genom jäsning av honung. Även andra råvaror får förekomma i ett mjöd.
+        Vid tillverkning av mjöd används ofta samma tekniker som för vin, förutom att man använder vatten och honung istället för druvsaft. Mjöd betyder på ryska honung.</string>
+    
+    <string name="specBody">Under denna kategori har vi lagt öler som inte riktigt passar in under någon annan. I denna kategori finns tillexempel öl med kraftig smaksättning av ingefära. </string>
+       
+</resources>

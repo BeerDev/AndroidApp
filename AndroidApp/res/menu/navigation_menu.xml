@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+		<item
+	        android:id="@+id/menu_navigation"
+	        android:icon="@drawable/menu"
+	        android:orderInCategory="150"
+	        android:showAsAction="always"/>
+    	<item
+	        android:id="@+id/menu_search"
+	        android:icon="@drawable/search"
+	        android:orderInCategory="0"
+	        android:showAsAction="ifRoom"
+	        android:actionViewClass="android.widget.SearchView"/>
+    	<item
+    	    android:id="@+id/menu_close_search"
+    	    android:icon="@drawable/cross"
+    	    android:orderInCategory="50"
+    	    android:showAsAction="ifRoom"/>
+    	<item
+    	    android:id="@+id/menu_filter"
+    	    android:icon="@drawable/filter"
+    	    android:orderInCategory="100"
+    	    android:showAsAction="ifRoom">
+    		<menu>
+	    		<item 
+		    	    android:id="@+id/menu_filter_sortName"
+		    	    android:title="Sortera på namn"
+		    	    android:showAsAction="ifRoom"/>
+	    		<item
+	    		  	android:id="@+id/menu_filter_sortPrice"
+	    		  	android:title="Sortera på pris"
+	    		  	android:showAsAction="ifRoom"/>
+	    	</menu>
+    	</item>
+</menu>
