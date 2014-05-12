@@ -52,6 +52,7 @@
 			    android:layout_height="30dp"
 			    android:background="@drawable/upn"/>
             <LinearLayout
+                android:id="@+id/llSlideUpFirstContainer"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:orientation="horizontal" >
@@ -78,6 +79,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/llSlideUpSecondContainer"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:orientation="horizontal" >
@@ -102,6 +104,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/llSlideUpThirdContainer"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="horizontal" >
