@@ -266,7 +266,7 @@ public class MainActivity extends Activity {
 		else if(!isOnline())
 		{
 			Toast.makeText(this, "No internet connection..", Toast.LENGTH_LONG).show();
-			offlineMode();	
+			offlineMode();
 			wasOnline = false;		
 		}
 	}

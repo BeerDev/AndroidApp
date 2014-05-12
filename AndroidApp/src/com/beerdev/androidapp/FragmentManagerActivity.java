@@ -63,7 +63,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		super.onCreate(savedInstanceState);
 		if (savedInstanceState != null) {
 	        MainActivity.productList = (ArrayList<HashMap<String,String>>) savedInstanceState.getSerializable("productList"); 
-	    }
+	    } 
 		// ShakeDetector initialization
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		mAccelerometer = mSensorManager
