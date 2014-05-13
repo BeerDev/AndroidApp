@@ -15,7 +15,6 @@ public class FileCache {
 	 * Path to the place where the files is caching
 	 */
     private File cacheDir;
-    private File cacheDirThumb;
     
     /**
      * Initialize the cacheDirectory
@@ -30,12 +29,6 @@ public class FileCache {
         if(!cacheDir.exists())
             cacheDir.mkdirs();
         
-        if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
-            cacheDirThumb=new File(android.os.Environment.getExternalStorageDirectory(),"BeerDevImages");
-        else
-            cacheDirThumb=context.getCacheDir();
-        if(!cacheDirThumb.exists())
-            cacheDirThumb.mkdirs();
     }
   
     /**
@@ -50,12 +43,6 @@ public class FileCache {
   
     }
     
-    public File getFileThumb(String url){
-        String filename=String.valueOf(url.hashCode());
-        File f = new File(cacheDirThumb, filename);
-        return f;
-  
-    }
     /**
      * Clears all the files in the cacheDir
      */

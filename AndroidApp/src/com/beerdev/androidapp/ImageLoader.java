@@ -19,7 +19,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.widget.ImageView;
   /**
    * A class to load image to view
@@ -116,38 +116,6 @@ public class ImageLoader {
            return null;
         }
     }
-  
-    private Bitmap getBitmapThumb(String url)
-    {
-        File f = null;
-  
-   		f=fileCache.getFileThumb(url);
-  
-        //from SD cache
-        Bitmap b = decodeFile(f);
-        if(b!=null)
-            return b;
-  
-        //from web
-        try {
-            Bitmap bitmap=null;
-            URL imageUrl = new URL(url);
-            HttpURLConnection conn = (HttpURLConnection)imageUrl.openConnection();
-            conn.setConnectTimeout(30000);
-            conn.setReadTimeout(30000);
-            conn.setInstanceFollowRedirects(true);
-            InputStream is=conn.getInputStream();
-            OutputStream os = new FileOutputStream(f);
-            Utils.CopyStream(is, os);
-            os.close();
-            bitmap = decodeFile(f);
-            return bitmap;
-        } catch (Exception ex){
-           ex.printStackTrace();
-           return null;
-        }
-    }
-    
     
     
     //decodes image and scales it to reduce memory consumption
@@ -162,6 +130,8 @@ public class ImageLoader {
         try {
         	if(thumb==2){
             //decode image size
+
+            	Log.d("IMAGE-------------", "HFUEHFUEHFUHFEH");
             BitmapFactory.Options o = new BitmapFactory.Options();
             o.inJustDecodeBounds = true;
             BitmapFactory.decodeStream(new FileInputStream(f),null,o);
@@ -185,6 +155,7 @@ public class ImageLoader {
         	}
             else if(thumb==1){
             	 //decode image size
+            	Log.d("THUMBNAIL-------------", "HFUEHFUEHFUHFEH");
                 BitmapFactory.Options o = new BitmapFactory.Options();
                 o.inJustDecodeBounds = true;
                 BitmapFactory.decodeStream(new FileInputStream(f),null,o);
@@ -239,9 +210,6 @@ public class ImageLoader {
                 return;
             
 			Bitmap bmp;
-			if(thumb==1)
-            bmp = getBitmapThumb(photoToLoad.url);
-			else
 				bmp= getBitmap(photoToLoad.url);
             memoryCache.put(photoToLoad.url, bmp);
             if(imageViewReused(photoToLoad))

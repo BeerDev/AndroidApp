@@ -280,7 +280,6 @@ public void offlineMode(){
 			JSONObject obj = new JSONObject(loadJSONFromAsset());
 
 	    productsOff = obj.getJSONArray("Produkter");
-	    ArrayList<HashMap<String, String>> productList= new ArrayList<HashMap<String, String>>();
 
 
 	    for (int i = 0; i < productsOff.length(); i++) 
@@ -289,7 +288,7 @@ public void offlineMode(){
 	        String id = c.getString(TAG_ID);
 			String name = c.getString(TAG_NAME);
 			String path = c.getString(TAG_PATH);
-			String pris = c.getString("TAG_PRIS");
+			String pris = c.getString(TAG_PRICE);
 			String info = c.getString(TAG_INFO);
 			String size = c.getString(TAG_SIZE);
 			String percent = c.getString(TAG_PERC);
@@ -310,9 +309,10 @@ public void offlineMode(){
 			product.put(TAG_TYPE, type);
 			product.put(TAG_BREW, brew);
 			product.put(TAG_BARCODE, barcode);
-
-	     productList.add(product);
-	     //getproductList.add(hashlist);
+			
+			// adding contact to contact list
+			productList.add(product);
+			//getproductList.add(hashlist);
 	      }
 		} catch (JSONException e) {
 			e.printStackTrace();
