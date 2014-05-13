@@ -39,7 +39,7 @@ public class ImageLoader {
   
     public ImageLoader(Context context){
         fileCache=new FileCache(context);
-        executorService=Executors.newFixedThreadPool(7);
+        executorService=Executors.newFixedThreadPool(15);
     }
   
     int stub_id = R.drawable.placeholder;
@@ -86,81 +86,76 @@ public class ImageLoader {
   
     private Bitmap getBitmap(String url)
     {
-        File f = null;
-  
-   		f=fileCache.getFile(url);
-  
-        //from SD cache
-        Bitmap b = decodeFile(f);
-        if(b!=null)
-            return b;
-  
-        //from web
-        try {
-            Bitmap bitmap=null;
-            URL imageUrl = new URL(url);
-            HttpURLConnection conn = (HttpURLConnection)imageUrl.openConnection();
-            conn.setConnectTimeout(30000);
-            conn.setReadTimeout(30000);
-            conn.setInstanceFollowRedirects(true);
-            InputStream is=conn.getInputStream();
-            OutputStream os = new FileOutputStream(f);
-            Utils.CopyStream(is, os);
-            os.close();
-            bitmap = decodeFile(f);
-            return bitmap;
-        } catch (Exception ex){
-           ex.printStackTrace();
-           return null;
-        }
-    }
-  
-    private Bitmap getBitmapThumb(String url)
-    {
-        File f = null;
-  
-   		f=fileCache.getFileThumb(url);
-  
-        //from SD cache
-        Bitmap b = decodeFile(f);
-        if(b!=null)
-            return b;
-  
-        //from web
-        try {
-            Bitmap bitmap=null;
-            URL imageUrl = new URL(url);
-            HttpURLConnection conn = (HttpURLConnection)imageUrl.openConnection();
-            conn.setConnectTimeout(30000);
-            conn.setReadTimeout(30000);
-            conn.setInstanceFollowRedirects(true);
-            InputStream is=conn.getInputStream();
-            OutputStream os = new FileOutputStream(f);
-            Utils.CopyStream(is, os);
-            os.close();
-            bitmap = decodeFile(f);
-            return bitmap;
-        } catch (Exception ex){
-           ex.printStackTrace();
-           return null;
-        }
+        File f = fileCache.getFile(url);;
+        Bitmap b = null;
+        
+   		
+   		if(thumb==1){
+   			b = decodeFileThumb(f);
+   		}
+   		else if(thumb == 2){
+   			b = decodeFile(f);
+   		
+   		}
+   		if(b!=null)
+				return b;
+		
+   		else{
+   			b = decodeFile(f);
+   			if(b!=null)
+   	            return b;
+   	  
+   	        //from web
+   	        try {
+   	            Bitmap bitmap=null;
+   	            URL imageUrl = new URL(url);
+   	            HttpURLConnection conn = (HttpURLConnection)imageUrl.openConnection();
+   	            conn.setConnectTimeout(30000);
+   	            conn.setReadTimeout(30000);
+   	            conn.setInstanceFollowRedirects(true);
+   	            InputStream is=conn.getInputStream();
+   	            OutputStream os = new FileOutputStream(f);
+   	            Utils.CopyStream(is, os);
+   	            os.close();
+   	            bitmap = decodeFile(f);
+   	            return bitmap;
+   	        } catch (Exception ex){
+   	           ex.printStackTrace();
+   	        }
+   		}
+   	   return null;
     }
     
-    
+    private Bitmap decodeFileThumb(File f){
+    	try{   
+        	BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(new FileInputStream(f),null,o);
+            //Find the correct scale value. It should be the power of 2.
+
+            int width_tmp=o.outWidth, height_tmp=o.outHeight;
+            int scale=1;
+            while(true){
+                if(width_tmp/2<36|| height_tmp/2<90)
+                    break;
+                width_tmp/=2;
+                height_tmp/=2;
+                scale*=2;
+            }
+            
+            //decode with inSampleSize
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize=scale;
+            return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
+        }
+        catch (FileNotFoundException e) {}
+            return null;   	          
+        }
     
     //decodes image and scales it to reduce memory consumption
     private Bitmap decodeFile(File f){
-    	//Converting pix to dp
-    /*	int dpValue = 50; // margin in dips
-		float d = FragmentManagerActivity.globalContext.getResources().getDisplayMetrics().density;
-		int thumbWidth = 28;
-		int thumbHeight = 70;
-		*/
-    	
-        try {
-        	if(thumb==2){
-            //decode image size
-            BitmapFactory.Options o = new BitmapFactory.Options();
+        try{   
+        	BitmapFactory.Options o = new BitmapFactory.Options();
             o.inJustDecodeBounds = true;
             BitmapFactory.decodeStream(new FileInputStream(f),null,o);
             //Find the correct scale value. It should be the power of 2.
@@ -180,33 +175,10 @@ public class ImageLoader {
             BitmapFactory.Options o2 = new BitmapFactory.Options();
             o2.inSampleSize=scale;
             return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
-        	}
-            else if(thumb==1){
-            	 //decode image size
-                BitmapFactory.Options o = new BitmapFactory.Options();
-                o.inJustDecodeBounds = true;
-                BitmapFactory.decodeStream(new FileInputStream(f),null,o);
-                //Find the correct scale value. It should be the power of 2.
-                final int REQUIRED_SIZE=150;
-                int width_tmp=o.outWidth, height_tmp=o.outHeight;
-                int scale=1;
-                while(true){
-                    if(width_tmp/2<36 || height_tmp/2<90)
-                        break;
-                    width_tmp/=2;
-                    height_tmp/=2;
-                    scale*=2;
-                }
-                  //decode with inSampleSize
-                    BitmapFactory.Options o2 = new BitmapFactory.Options();
-                    o2.inSampleSize=scale;
-                    return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
-                
-            } 
         }
         catch (FileNotFoundException e) {}
-        return null;
-     }
+            return null;   	          
+    }
    
 
     
@@ -233,14 +205,10 @@ public class ImageLoader {
   
         @Override
         public void run() {
-            if(imageViewReused(photoToLoad))
+        	if(imageViewReused(photoToLoad))
                 return;
-            
-			Bitmap bmp;
-			if(thumb==1)
-            bmp = getBitmapThumb(photoToLoad.url);
-			else
-				bmp= getBitmap(photoToLoad.url);
+        	
+            Bitmap bmp=getBitmap(photoToLoad.url);
             memoryCache.put(photoToLoad.url, bmp);
             if(imageViewReused(photoToLoad))
                 return;

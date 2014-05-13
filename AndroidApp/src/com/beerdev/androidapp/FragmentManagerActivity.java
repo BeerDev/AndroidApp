@@ -1,13 +1,22 @@
 package com.beerdev.androidapp;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+
 import org.json.JSONException;
-import android.annotation.SuppressLint;
+
 import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +24,9 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -32,6 +43,7 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
+
 import com.beerdev.androidapp.ShakeDetector.OnShakeListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -58,11 +70,14 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	
 	public static ArrayList<HashMap<String,String>> tempProductList=null; 
 
+	private FileCache fileCache;
+
+    // Progress Dialog
+    private ProgressDialog pDialog;
+
+    public static final int progress_bar_type = 0;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
-		new BitmapDownloadTask().execute();
-		
 		super.onCreate(savedInstanceState);
 		if (savedInstanceState != null) {
 	        MainActivity.productList = (ArrayList<HashMap<String,String>>) savedInstanceState.getSerializable("productList"); 
@@ -169,6 +184,18 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		getActionBar().setDisplayHomeAsUpEnabled(false);
 		getActionBar().setDisplayShowHomeEnabled(false);
 		
+
+        fileCache=new FileCache(this);
+		String[] ur = new String[MainActivity.completeProductList.size()];
+		
+		for (int i = 0; i < MainActivity.completeProductList.size(); i++) {
+			String url = MainActivity.completeProductList.get(i).get(MainActivity.TAG_PATH);
+			ur[i] = url;
+			Log.d("Url", ur[i]);
+		}
+        new DownloadFileFromURLs().execute(ur);
+	//	new BitmapDownloadTask1().execute();
+	//	new BitmapDownloadTask2().execute();
 	}
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -488,5 +515,68 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    super.onSaveInstanceState(outState);
 	    outState.putSerializable("productList", MainActivity.productList);
 	  }
+	  /**
+	     * Background Async Task to download file
+	     * */
+	    class DownloadFileFromURLs extends AsyncTask<String, String, String> {
+
+	        /**
+	         * Before starting background thread Show Progress Bar Dialog
+	         * */
+	        @Override
+	        protected void onPreExecute() {
+	            super.onPreExecute();
+	            pDialog.show();
+	        }
+
+	        /**
+	         * Downloading file in background thread
+	         * */
+	        @Override
+	        protected String doInBackground(String... f_url) {
+	            int count;
+	            try {
+	            	Log.d("url length", Integer.toString(f_url.length));
+	                for (int i = 0; i < f_url.length; i++) {
+
+	                    File f = fileCache.getFile(f_url[i]);
+	                    if(f==null){
+	           	            URL imageUrl = new URL(f_url[i]);
+	           	            HttpURLConnection conn = (HttpURLConnection)imageUrl.openConnection();
+	           	            conn.setConnectTimeout(30000);
+	           	            conn.setReadTimeout(30000);
+	           	            conn.setInstanceFollowRedirects(true);
+	           	            InputStream input=conn.getInputStream();
+	           	            OutputStream output = new FileOutputStream(f);
+	           	            Utils.CopyStream(input, output);
+		                    // flushing output
+		                    output.flush();
+	
+		                    // closing streams
+		                    output.close();
+		                    input.close();
+	                    }
+	                }
+	            } catch (Exception e) {
+	                Log.e("Error: ", e.getMessage());
+	            }
+
+	            return null;
+	        }
+
+	        /**
+	         * After completing background task Dismiss the progress dialog
+	         * **/
+	        @Override
+	        protected void onPostExecute(String file_url) {
+	            // dismiss the dialog after the file was downloaded
+	        	pDialog.dismiss();
+	            // Displaying downloaded image into image view
+	            // Reading image path from sdcard
+	            // setting downloaded into image view
+	            // my_image.setImageDrawable(Drawable.createFromPath(imagePath));
+	        }
+
+	    }
 	  
 }

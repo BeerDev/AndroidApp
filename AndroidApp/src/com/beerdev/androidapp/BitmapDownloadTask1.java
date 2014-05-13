@@ -10,9 +10,8 @@ import java.net.URL;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
-class BitmapDownloadTask extends AsyncTask<Void, Void, Void> {
+class BitmapDownloadTask1 extends AsyncTask<Void, Void, Void> {
 	
 	private ProgressDialog pDialog;
 
@@ -24,12 +23,13 @@ class BitmapDownloadTask extends AsyncTask<Void, Void, Void> {
 		// Showing progress dialog
 		pDialog = new ProgressDialog(FragmentManagerActivity.globalContext);
 
+		Log.i("STARTING WITH DOWNLOAD","DOWNLOAD STARTING_-----");
 	}
 
 	@Override
 	protected Void doInBackground(Void... arg0) {
 		// looping through All products
-		for (int i = 0; i < MainActivity.completeProductList.size(); i++) {
+		for (int i = 0; i < MainActivity.completeProductList.size(); i = i + 2) {
 			String url = MainActivity.completeProductList.get(i).get(MainActivity.TAG_PATH);
 			
 			//Check if file exist
