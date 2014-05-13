@@ -31,7 +31,7 @@ public class FileCache {
             cacheDir.mkdirs();
         
         if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
-            cacheDirThumb=new File(android.os.Environment.getExternalStorageDirectory(),"BeerDevImagesThumb");
+            cacheDirThumb=new File(android.os.Environment.getExternalStorageDirectory(),"BeerDevImages");
         else
             cacheDirThumb=context.getCacheDir();
         if(!cacheDirThumb.exists())
