@@ -39,7 +39,7 @@ public class ImageLoader {
   
     public ImageLoader(Context context){
         fileCache=new FileCache(context);
-        executorService=Executors.newFixedThreadPool(5);
+        executorService=Executors.newFixedThreadPool(10);
     }
   
     int stub_id = R.drawable.placeholder;
@@ -121,17 +121,10 @@ public class ImageLoader {
     //decodes image and scales it to reduce memory consumption
     private Bitmap decodeFile(File f){
     	//Converting pix to dp
-    /*	int dpValue = 50; // margin in dips
-		float d = FragmentManagerActivity.globalContext.getResources().getDisplayMetrics().density;
-		int thumbWidth = 28;
-		int thumbHeight = 70;
-		*/
-    	
+
         try {
         	if(thumb==2){
             //decode image size
-
-            	Log.d("IMAGE-------------", "HFUEHFUEHFUHFEH");
             BitmapFactory.Options o = new BitmapFactory.Options();
             o.inJustDecodeBounds = true;
             BitmapFactory.decodeStream(new FileInputStream(f),null,o);
@@ -155,7 +148,6 @@ public class ImageLoader {
         	}
             else if(thumb==1){
             	 //decode image size
-            	Log.d("THUMBNAIL-------------", "HFUEHFUEHFUHFEH");
                 BitmapFactory.Options o = new BitmapFactory.Options();
                 o.inJustDecodeBounds = true;
                 BitmapFactory.decodeStream(new FileInputStream(f),null,o);
