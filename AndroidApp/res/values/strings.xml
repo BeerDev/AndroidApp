@@ -18,7 +18,7 @@ Applikationen är skapad av BeerDev, en projektgrupp bestående av 9 KTH student
 \n\nApplikationen är skapad för att få en överblick över ölutbudet i Kistan. 
 </string>
     <string name="beerdev">BeerDev</string>
-    <string name="observera">*Observera att alla priser gälller medlemmar i INsektionen. </string>
+    <string name="observera">*Observera att alla priser gäller medlemmar i INsektionen. </string>
      <string name="kistanheader">Kistan</string>
     <string name="omKistan"> Kistan är INsektionens sektionslokal belägen i Kista. Med sina cirka 120 olika sorters öl är Kistan en av Stockholms mest välsorterade sektionslokaler gällande ölutbud. 
         

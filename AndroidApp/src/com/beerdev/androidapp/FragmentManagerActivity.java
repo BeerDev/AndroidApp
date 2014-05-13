@@ -426,7 +426,6 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 						  MainActivity.productList = (ArrayList<HashMap<String, String>>) MainActivity.completeProductList.clone();
 		        			FragmentManagerActivity.searchView.setQuery("", false);
 		        			FragmentManagerActivity.searchView.setIconified(true);	
-						  Log.i("SCANN MSG", Integer.toString(i));
 							SwipeViewFragment.pageChangeListener.onPageSelected(i);
 							SwipeViewFragment.mPager.setCurrentItem(i);
 							
@@ -437,8 +436,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				  
 				  if(!foundProduct){
 					  Toast.makeText(this, "Produkten finns ej i sortimentet!", Toast.LENGTH_LONG).show();				
-				  }
-				  Toast.makeText(this, scanResult.getContents(), Toast.LENGTH_LONG).show();	  	
+				  }	
 			  }
 		}
 		else if(resultCode == RESULT_CANCELED){
