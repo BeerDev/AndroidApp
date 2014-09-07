@@ -42,6 +42,9 @@ public class MainActivity extends Activity {
 	 * JSON Node for finding products
 	 */
 	private static final String TAG_Produkter="Produkter";
+	private static final String TAG_Beer="Beer";
+	private static final String TAG_Cider="Cider";
+	private static final String TAG_Sprit="Sprit";
 
 	public static String jsonStr;
 
@@ -104,6 +107,9 @@ public class MainActivity extends Activity {
 	 * Hashmap for the products
 	 */
 	public static ArrayList<HashMap<String, String>> productList;
+	public static ArrayList<HashMap<String, String>> beerList;
+	public static ArrayList<HashMap<String, String>> ciderList;
+	public static ArrayList<HashMap<String, String>> spritList;
 	
 	public static ArrayList<HashMap<String, String>> completeProductList;
 
@@ -257,10 +263,16 @@ public class MainActivity extends Activity {
 
 		if(isOnline()){
 			// Calling async task to get json
-			
+			/*
 			wasOnline = true;
 			downloadFinished = false;
 			new GetProducts().execute();
+			*/
+			
+			Toast.makeText(this, "Offline mode enable..", Toast.LENGTH_LONG).show();
+			offlineMode();
+			wasOnline = true;
+			
 
 		}
 		else if(!isOnline())
@@ -278,13 +290,56 @@ public void offlineMode(){
 	
 		try {
 			JSONObject obj = new JSONObject(loadJSONFromAsset());
+			products = obj.getJSONArray(TAG_Produkter);
+			beerList=createProductList(products);
+			
+			products = obj.getJSONArray(TAG_Cider);
+			ciderList=createProductList(products);
+	   
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		completeProductList = (ArrayList<HashMap<String,String>>) productList.clone();
+		Intent in = new Intent(getApplicationContext(),
+				FragmentManagerActivity.class);
+		in.putExtra("position", 0);
+		in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+		in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(in);
+		finish();
+}
 
-	    productsOff = obj.getJSONArray("Produkter");
+	
+	public String loadJSONFromAsset() 
+	{
+	    String json = null;
+	    	    try {
 
+	        InputStream is = getResources().getAssets().open("JsonAndroidOffline.json");
 
-	    for (int i = 0; i < productsOff.length(); i++) 
+	        int size = is.available();
+
+	        byte[] buffer = new byte[size];
+
+	        is.read(buffer);
+
+	        is.close();
+
+	        json = new String(buffer, "UTF-8");
+	        return json;
+
+	    } catch (IOException ex) {
+	        ex.printStackTrace();
+	        return null;
+	    }
+
+	}
+	
+	private ArrayList<HashMap<String, String>> createProductList(JSONArray products) throws JSONException {
+	// TODO Auto-generated method stub
+		 for (int i = 0; i < products.length(); i++) 
 	      {
-	       JSONObject c = productsOff.getJSONObject(i);
+	       JSONObject c = products.getJSONObject(i);
 	        String id = c.getString(TAG_ID);
 			String name = c.getString(TAG_NAME);
 			String path = c.getString(TAG_PATH);
@@ -314,41 +369,6 @@ public void offlineMode(){
 			productList.add(product);
 			//getproductList.add(hashlist);
 	      }
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		completeProductList = (ArrayList<HashMap<String,String>>) productList.clone();
-		Intent in = new Intent(getApplicationContext(),
-				FragmentManagerActivity.class);
-		in.putExtra("position", 0);
-		in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
-		in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		startActivity(in);
-		finish();
+		 return productList;
 }
-
-	public String loadJSONFromAsset() 
-	{
-	    String json = null;
-	    	    try {
-
-	        InputStream is = getResources().getAssets().open("JsonAndroidOffline.json");
-
-	        int size = is.available();
-
-	        byte[] buffer = new byte[size];
-
-	        is.read(buffer);
-
-	        is.close();
-
-	        json = new String(buffer, "UTF-8");
-	        return json;
-
-	    } catch (IOException ex) {
-	        ex.printStackTrace();
-	        return null;
-	    }
-
-	}
 }

@@ -1,5 +1,6 @@
 package com.beerdev.androidapp;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelSlideListener;
@@ -90,11 +92,12 @@ public class SwipeViewFragment extends Fragment {
 		 }
 
 	     final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout) swipeView.findViewById(R.id.sliding_layout);
-
+	        
         Bundle extras = getActivity().getIntent().getExtras();
         mLayout.setPanelSlideListener(new PanelSlideListener() {
         	ImageView ivArrow = (ImageView) swipeView.findViewById(R.id.ivUpPanelArrow);
             LinearLayout llUpPanel = (LinearLayout) swipeView.findViewById(R.id.llSwipeSlidingUpPanel);
+            
             @Override
             public void onPanelSlide(View panel, float slideOffset) {
             }
@@ -115,6 +118,8 @@ public class SwipeViewFragment extends Fragment {
             }
 
         });
+        
+        
         int pos = extras.getInt("position", 0);        
         //Define the number of viewpages that shall be included in the scrollview
         NUM_PAGES = MainActivity.productList.size();
@@ -155,7 +160,8 @@ public class SwipeViewFragment extends Fragment {
         };
         mPager.setOnPageChangeListener(pageChangeListener);
         pageChangeListener.onPageSelected(0);
-        mPager.setCurrentItem(pos);	    
+        mPager.setCurrentItem(pos);	   
+        
         return swipeView;
 	}
     /**
@@ -188,6 +194,5 @@ public class SwipeViewFragment extends Fragment {
         public int getCount() {
             return NUM_PAGES;
         }
-
     }
 }
