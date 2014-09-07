@@ -129,6 +129,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		t.add(mListFrag, "listFrag");
 		t.hide(mListFrag);
 		t.commit();
+		
 
 		setBehindContentView(R.layout.menu_frame);
 		FragmentTransaction t2 = this.getSupportFragmentManager().beginTransaction();

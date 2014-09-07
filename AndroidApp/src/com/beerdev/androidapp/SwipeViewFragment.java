@@ -1,25 +1,33 @@
 package com.beerdev.androidapp;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelSlideListener;
 
-public class SwipeViewFragment extends Fragment {
+public class SwipeViewFragment extends ListFragment {
 
     /**
      * A textview to show the name of the beer
@@ -50,6 +58,8 @@ public class SwipeViewFragment extends Fragment {
 
     public static TextView tvBeerType;
     
+    public static int posi;
+    
     public static final String SAVED_STATE_ACTION_BAR_HIDDEN = "saved_state_action_bar_hidden";
     
     /**
@@ -74,6 +84,10 @@ public class SwipeViewFragment extends Fragment {
     private PagerAdapter mPagerAdapter;
     public static OnPageChangeListener pageChangeListener;
 
+    public static ListAdapter SwipeShoppingAdapter;
+	public static ListView lv;
+
+    
 
     EditText editsearch;
 	@Override
@@ -93,6 +107,11 @@ public class SwipeViewFragment extends Fragment {
 
 	     final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout) swipeView.findViewById(R.id.sliding_layout);
 	        
+	     
+	     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+	    	        android.R.layout.simple_list_item_1, MainActivity.shoppingProductList);
+	    	    setListAdapter(adapter);
+	     
         Bundle extras = getActivity().getIntent().getExtras();
         mLayout.setPanelSlideListener(new PanelSlideListener() {
         	ImageView ivArrow = (ImageView) swipeView.findViewById(R.id.ivUpPanelArrow);
@@ -100,6 +119,7 @@ public class SwipeViewFragment extends Fragment {
             
             @Override
             public void onPanelSlide(View panel, float slideOffset) {
+            	
             }
 
             @Override
@@ -137,7 +157,7 @@ public class SwipeViewFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-
+            	posi= position;
                 /*Update textviews from here because the minimum length of viewpager is 2
                  *this is only for position 0.*/
                 tvBeerName = (TextView) swipeView.findViewById(R.id.beerName);
@@ -161,6 +181,7 @@ public class SwipeViewFragment extends Fragment {
         mPager.setOnPageChangeListener(pageChangeListener);
         pageChangeListener.onPageSelected(0);
         mPager.setCurrentItem(pos);	   
+        
         
         return swipeView;
 	}

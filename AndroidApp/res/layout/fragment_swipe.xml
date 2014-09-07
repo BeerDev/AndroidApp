@@ -176,7 +176,7 @@
     <LinearLayout
             android:layout_width="130dp"
             android:layout_height="200dp"
-            android:id="@+id/llSwipeLikesPanel"
+            android:id="@+id/llSwipeShoppingPanel"
             android:background="#50000000"
             android:clickable="false"
             android:focusable="false"
@@ -184,7 +184,28 @@
             android:layout_marginLeft="215dp"
             android:layout_marginTop="50dp"
             android:weightSum="10">
-        
+            
+            <ImageView
+        android:id="@+id/ivClearShoppList"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/cross"
+        android:clickable="true"
+        android:contentDescription="@string/hello_world" 
+        android:layout_gravity="right"
+        />
+ 
+         <ListView
+            android:id="@android:id/list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:drawSelectorOnTop="false" 
+            android:layout_weight="9"
+            >
+        </ListView>
+
+     <!--  
          <TextView
    			android:id="@+id/tvLikesbeerName"
     		android:layout_width="wrap_content"
@@ -194,17 +215,38 @@
             android:textSize="12sp"
         	android:textStyle="bold"
         	android:layout_weight="9" />
+       -->
 
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/llSwipeShoppingPriceOBuy"
+            android:clickable="false"
+            android:focusable="false"
+            android:orientation="horizontal" 
+           android:layout_weight="1">
+            
+        <TextView
+   			android:id="@+id/tvLikesbeerBuyNow"
+    		android:layout_width="wrap_content"
+   		    android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:textSize="16sp"
+        	android:textStyle="bold" 
+        	android:text="PAY!"/>
+        
     	<TextView
    			android:id="@+id/tvLikesbeerPrice"
     		android:layout_width="wrap_content"
    		    android:layout_height="wrap_content"
             android:layout_gravity="right"
-           
             android:textSize="18sp"
         	android:textStyle="bold" 
-        	android:layout_weight="1"/>
+        	android:layout_marginLeft="50dp"
+        	/>
+    	
+    	
             </LinearLayout>
   
-
+</LinearLayout>
 </RelativeLayout>

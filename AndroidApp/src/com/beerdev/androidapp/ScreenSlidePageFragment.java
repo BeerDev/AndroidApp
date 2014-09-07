@@ -1,6 +1,8 @@
 
 package com.beerdev.androidapp;
 
+import java.util.ArrayList;
+
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,9 +58,37 @@ public class ScreenSlidePageFragment extends Fragment {
         mPageNumber = getArguments() != null ? getArguments().getInt(ARG_PAGE) : 0;
         
         Log.i("onCreate mPageNumber", Integer.toString(mPageNumber));
+        
+        
+        ImageView ivCross = (ImageView) getActivity().findViewById(R.id.ivClearShoppList);
+        ivCross.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				//MainActivity.shoppingProductList.clear();
+				//MainActivity.shoppingProductList=new ArrayList<String>();
+				MainActivity.shoppingSum=0;
+				
+				while(MainActivity.shoppingProductList.size() >0)
+    			{
+    				MainActivity.shoppingProductList.remove(0);    				
+    			}
+				if(MainActivity.shoppingSum!=0)
+    			{
+    				((TextView) getActivity().findViewById(R.id.tvLikesbeerPrice)).setText(Integer.toString(MainActivity.shoppingSum));
+    				(getActivity().findViewById(R.id.llSwipeShoppingPanel)).setVisibility(View.VISIBLE);
+    			}else{
+    				((TextView) getActivity().findViewById(R.id.tvLikesbeerPrice)).setText("");
+    				(getActivity().findViewById(R.id.llSwipeShoppingPanel)).setVisibility(View.INVISIBLE);
+    			}
+			}
+        	
+        });
+        
+        
     }
     
-    @Override
+    @SuppressLint("NewApi") @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
@@ -72,32 +103,55 @@ public class ScreenSlidePageFragment extends Fragment {
         imgLoader.DisplayImage(image_url, loader, ivBeer);
 
         
-        final ImageView ivHeart = (ImageView) rootView.findViewById(R.id.ivSwipeHeart);
+        final ImageView ivHeart = (ImageView) rootView.findViewById(R.id.ivSwipeHeart);        
         ivHeart.setOnClickListener(new View.OnClickListener() {
         	@SuppressLint("NewApi") public void onClick(View v){
         		//Drawable bg = ivHeart.getBackground();
         		//Comparing Drawables
         		
         		Drawable fDraw = ivHeart.getBackground();
-        		Drawable sDraw = getResources().getDrawable(R.drawable.heart);
+        		Drawable sDraw = getResources().getDrawable(R.drawable.price);
         		Bitmap bitmap = ((BitmapDrawable)fDraw).getBitmap();
         		Bitmap bitmap2 = ((BitmapDrawable)sDraw).getBitmap();
+        		String beername= (String)SwipeViewFragment.tvBeerName.getText();
+    			int beerprice=Integer.parseInt((String) MainActivity.productList.get(SwipeViewFragment.posi).get(MainActivity.TAG_PRICE));
+    			
         		if(bitmap == bitmap2)
         		{
-        			ivHeart.setBackground(getResources().getDrawable(R.drawable.heart_ifylld));
-        			String beername=(String) SwipeViewFragment.tvBeerName.getText();
-        			String beerprice=(String) SwipeViewFragment.tvBeerPrice.getText();
-        			((TextView) getActivity().findViewById(R.id.tvLikesbeerName)).setText(beername);
-        			((TextView) getActivity().findViewById(R.id.tvLikesbeerPrice)).setText(beerprice);
+        			ivHeart.setBackground(getResources().getDrawable(R.drawable.price));
+        			MainActivity.shoppingProductList.add(beername);
+        			MainActivity.shoppingSum=MainActivity.shoppingSum+beerprice;
         		}
-        		else{
+        /*		else{
         			ivHeart.setBackground(getResources().getDrawable(R.drawable.heart));
-        			
-        			((TextView) getActivity().findViewById(R.id.tvLikesbeerName)).setText("");
-        			((TextView) getActivity().findViewById(R.id.tvLikesbeerPrice)).setText("");
+        			MainActivity.shoppingSum=MainActivity.shoppingSum-beerprice;
+        			for(int j=0; j<3;j++){
+        			for(int i=0; i < MainActivity.shoppingProductList.size();i++)
+        			{
+        				if(MainActivity.shoppingProductList.get(i).equals(beername))
+        				{
+        					MainActivity.shoppingProductList.remove(i);
+        				}
+        				
+        			}
+        			}
+
         		}
+       	*/
+        		if(MainActivity.shoppingSum!=0)
+    			{
+    				((TextView) getActivity().findViewById(R.id.tvLikesbeerPrice)).setText(Integer.toString(MainActivity.shoppingSum));
+    				(getActivity().findViewById(R.id.llSwipeShoppingPanel)).setVisibility(View.VISIBLE);
+    			}else{
+    				((TextView) getActivity().findViewById(R.id.tvLikesbeerPrice)).setText("");
+    				(getActivity().findViewById(R.id.llSwipeShoppingPanel)).setVisibility(View.INVISIBLE);
+    			}
         	}});
+  
+        
         
         return rootView;
     }
+    
+  
 }

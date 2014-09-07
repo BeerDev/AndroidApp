@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -113,6 +114,9 @@ public class MainActivity extends Activity {
 	
 	public static ArrayList<HashMap<String, String>> completeProductList;
 
+	public static ArrayList<String> shoppingProductList;
+	public static int shoppingSum;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -120,6 +124,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		productList = new ArrayList<HashMap<String, String>>();
+		shoppingProductList = new ArrayList<String>();
 		//getproductList = new ArrayList<HashMap<String, String>>();
 		
 		CheckingNetwork();	

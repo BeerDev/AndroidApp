@@ -18,7 +18,7 @@
         android:id="@+id/ivSwipeHeart"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/heart"
+        android:background="@drawable/price"
         android:clickable="true"
         android:contentDescription="@string/hello_world" 
         android:layout_gravity="top"/>
