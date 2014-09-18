@@ -77,4 +77,27 @@
             android:background="@drawable/utvecklare" />
 
 
-    </LinearLayout></LinearLayout>  
+    </LinearLayout>
+<LinearLayout
+            android:id="@+id/llMenuThirdContainer"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="1">
+        <TextView
+            android:id="@+id/menuTestLink"
+            android:layout_width="112dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.66"
+            android:text="TestLink" />
+        
+        <TextView
+            android:id="@+id/menuReceiptLink"
+            android:layout_width="112dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.66"
+            android:text="Receipt" />
+        
+        
+        </LinearLayout>
+
+</LinearLayout>  

@@ -31,9 +31,11 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beerdev.androidapp.ShakeDetector.OnShakeListener;
@@ -125,9 +127,12 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
 		SwipeViewFragment mSwipeFrag = new SwipeViewFragment();
 		ListViewFragment mListFrag = new ListViewFragment();
+		ReceiptViewFragment mReceiptFrag = new ReceiptViewFragment();
 		t.replace(R.id.root_container, mSwipeFrag, "swipeFrag");
 		t.add(mListFrag, "listFrag");
+		t.add(mReceiptFrag, "receiptFrag");
 		t.hide(mListFrag);
+		t.hide(mReceiptFrag);
 		t.commit();
 		
 
@@ -167,7 +172,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		sm.setFadeDegree(0.35f);
 		sm.showSecondaryMenu();
 		sm.setMode(SlidingMenu.RIGHT);
-		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 		getActionBar().setDisplayHomeAsUpEnabled(false);
 		getActionBar().setDisplayShowHomeEnabled(false);
 	}
@@ -199,7 +204,20 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
         searchItem.setVisible(true);
         searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         
-        return super.onCreateOptionsMenu(menu);        
+        
+        
+        if(((ReceiptViewFragment) getSupportFragmentManager().findFragmentByTag("receiptFrag")).isVisible()){
+			
+			LinearLayout pay =(LinearLayout) findViewById(R.id.llReceiptLastPay);
+			pay.setVisibility(View.VISIBLE);
+		}else{
+			LinearLayout pay =(LinearLayout) findViewById(R.id.llReceiptLastPay);
+			pay.setVisibility(View.GONE);
+		}
+        
+        
+        
+        return super.onCreateOptionsMenu(menu);     
     }
 
 	@Override
@@ -232,6 +250,17 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			break;
 	    		case R.id.menu_filter_sortPrice:
 	    			//FragmentManagerActivity.fastScrollEnabled = false;
+	    			
+	    			if(((ReceiptViewFragment) getSupportFragmentManager().findFragmentByTag("receiptFrag")).isVisible()){
+	    				
+	    				Button pay =(Button) findViewById(R.id.bvReceiptLastPay);
+	    				pay.setVisibility(View.VISIBLE);
+	    			}else{
+	    				TextView pay =(TextView) findViewById(R.id.bvReceiptLastPay);
+	    				pay.setVisibility(View.GONE);
+	    			}
+	    			
+	    			
 	    			Sort.sortPrice();
 	    			ListViewFragment listFragPrice = (ListViewFragment) getSupportFragmentManager().findFragmentByTag("listFrag"); 
 	    			if(listFragPrice.isVisible()){
@@ -397,6 +426,16 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				relLay.setMargins(0, 0, 0, 0);
 				rootView.findViewById(R.id.root_container).setLayoutParams(relLay);
 			}
+			
+			if(((ReceiptViewFragment) activity.getSupportFragmentManager().findFragmentByTag("receiptFrag")).isVisible()){
+				
+				LinearLayout pay =(LinearLayout) activity.findViewById(R.id.llReceiptLastPay);
+				pay.setVisibility(View.VISIBLE);
+			}else{
+				LinearLayout pay =(LinearLayout) activity.findViewById(R.id.llReceiptLastPay);
+				pay.setVisibility(View.GONE);
+			}
+			
 	}
 
 	public static void setToggleButton(){

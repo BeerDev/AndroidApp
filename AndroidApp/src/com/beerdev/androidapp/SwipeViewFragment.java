@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -87,6 +88,7 @@ public class SwipeViewFragment extends ListFragment {
     public static ListAdapter SwipeShoppingAdapter;
 	public static ListView lv;
 
+	FSmallArrayAdapter arrayAdapter;
     
 
     EditText editsearch;
@@ -108,9 +110,17 @@ public class SwipeViewFragment extends ListFragment {
 	     final SlidingUpPanelLayout mLayout = (SlidingUpPanelLayout) swipeView.findViewById(R.id.sliding_layout);
 	        
 	     
-	     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
 	    	        android.R.layout.simple_list_item_1, MainActivity.shoppingProductList);
 	    	    setListAdapter(adapter);
+	 
+	    	    //---
+	   
+	    //	    arrayAdapter = new FSmallArrayAdapter(getActivity(),R.layout.fragment_swipe,MainActivity.productList.get(0));
+	    //	    setListAdapter(arrayAdapter);
+	       
+	    	    
+	    	    //--
 	     
         Bundle extras = getActivity().getIntent().getExtras();
         mLayout.setPanelSlideListener(new PanelSlideListener() {

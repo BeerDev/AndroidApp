@@ -9,7 +9,42 @@
         android:id="@+id/root_container"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:paddingTop="?android:attr/actionBarSize"/>
+	    android:paddingTop="?android:attr/actionBarSize">
+
+        <LinearLayout
+            android:id="@+id/llReceiptLastPay"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:background="#80000000"
+            android:orientation="horizontal"
+            android:visibility="invisible"
+            android:weightSum="1" >
+
+            <TextView
+                android:id="@+id/tvReceiptLastPayText"
+                style="@style/ListText"
+                android:layout_width="166dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.81"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp" />
+
+            <Button
+                android:id="@+id/bvReceiptLastPay"
+                style="@style/ListText"
+                android:layout_width="99dp"
+                android:layout_height="62dp"
+                android:layout_marginBottom="18dp"
+                android:gravity="center"
+                android:paddingRight="20dp"
+                android:text="Pay"
+                android:layout_gravity="right" />
+
+        </LinearLayout>
+	
+</RelativeLayout>
         
         <LinearLayout
             android:visibility="invisible"

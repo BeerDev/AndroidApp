@@ -1,7 +1,32 @@
 
 package com.beerdev.androidapp;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+
+
+
+
+
+
+
+
+
+
+
+import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -9,13 +34,16 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A fragmentclass for each page in the viewpager
@@ -68,6 +96,7 @@ public class ScreenSlidePageFragment extends Fragment {
 				//MainActivity.shoppingProductList.clear();
 				//MainActivity.shoppingProductList=new ArrayList<String>();
 				MainActivity.shoppingSum=0;
+				MainActivity.completeShoppingList.clear();
 				
 				while(MainActivity.shoppingProductList.size() >0)
     			{
@@ -84,6 +113,62 @@ public class ScreenSlidePageFragment extends Fragment {
 			}
         	
         });
+        
+       TextView pay = ((TextView) getActivity().findViewById(R.id.tvLikesbeerBuyNow));
+       pay.setOnClickListener(new OnClickListener(){
+
+		@Override
+		public void onClick(View v) {
+			//we add produkter, date, totSum
+		/*	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			
+			JSONObject obj = new JSONObject();
+			JSONArray list = new JSONArray();
+			JSONArray head = new JSONArray();
+			try {
+				for(int i=0; i < MainActivity.shoppingProductList.size();i++)
+    			{
+					String item =MainActivity.shoppingProductList.get(i).toString();
+    					list.put(item);
+    			}
+				
+			//	head.add(obj);
+			//	obj.put("produkter", list);
+				
+				obj.put("produkter", list);
+				obj.put("date", dateFormat.format(date));
+				obj.put("totSum", MainActivity.shoppingSum);
+			 try {	
+				InputStream inputStream = getResources().getAssets().open("receipt.json");
+				File jsonFilePath = createFileFromInputStream(inputStream);
+				FileWriter jsonFileWriter = new FileWriter(jsonFilePath);           
+				jsonFileWriter.write(obj.toString());
+				jsonFileWriter.flush();
+				jsonFileWriter.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+					e.printStackTrace();
+			}
+				            
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			*/
+			
+			getActivity()
+			.getSupportFragmentManager()
+			.beginTransaction()
+			.replace(R.id.root_container, new ReceiptViewFragment(), "ReceiptFrag")
+			.addToBackStack("ReceiptFrag")
+			.commit();
+			
+		}
+    	   
+       });
+        
         
         
     }
@@ -119,6 +204,9 @@ public class ScreenSlidePageFragment extends Fragment {
         		if(bitmap == bitmap2)
         		{
         			ivHeart.setBackground(getResources().getDrawable(R.drawable.price));
+        		//	MainActivity.completeShoppingList.add(MainActivity.completeProductList.get(SwipeViewFragment.posi));
+        			addToShoppingList();
+        			
         			MainActivity.shoppingProductList.add(beername);
         			MainActivity.shoppingSum=MainActivity.shoppingSum+beerprice;
         		}
@@ -153,5 +241,62 @@ public class ScreenSlidePageFragment extends Fragment {
         return rootView;
     }
     
-  
+    public void addToShoppingList(){
+    	
+    	HashMap<String, String> c = MainActivity.completeProductList.get(SwipeViewFragment.posi);
+
+		String id = c.get(MainActivity.TAG_ID);
+		String name = c.get(MainActivity.TAG_NAME);
+		String path = c.get(MainActivity.TAG_PATH);
+		String pris = c.get(MainActivity.TAG_PRICE);
+		String info = c.get(MainActivity.TAG_INFO);
+		String size = c.get(MainActivity.TAG_SIZE);
+		String percent = c.get(MainActivity.TAG_PERC);
+		String type = c.get(MainActivity.TAG_TYPE);
+		String brew = c.get(MainActivity.TAG_BREW);
+		String barcode = c.get(MainActivity.TAG_BARCODE);
+		
+		// tmp hashmap for single contact
+		HashMap<String, String> addBeer = new HashMap<String, String>();
+
+		// Adding each child node to HashMap key => value
+		addBeer.put(MainActivity.TAG_ID, id);
+		addBeer.put(MainActivity.TAG_NAME, name);
+		addBeer.put(MainActivity.TAG_PATH, path);
+		addBeer.put(MainActivity.TAG_PRICE, pris);
+		addBeer.put(MainActivity.TAG_INFO, info);
+		addBeer.put(MainActivity.TAG_SIZE, size);
+		addBeer.put(MainActivity.TAG_PERC, percent);
+		addBeer.put(MainActivity.TAG_TYPE, type);
+		addBeer.put(MainActivity.TAG_BREW, brew);
+		addBeer.put(MainActivity.TAG_BARCODE, barcode);
+
+		// adding contact to contact list
+		MainActivity.completeShoppingList.add(addBeer);
+    	
+    }
+    
+    private File createFileFromInputStream(InputStream inputStream) {
+
+    	   try{
+    	      File f = new File("Receipt.json");
+    	      OutputStream outputStream = new FileOutputStream(f);
+    	      byte buffer[] = new byte[1024];
+    	      int length = 0;
+
+    	      while((length=inputStream.read(buffer)) > 0) {
+    	        outputStream.write(buffer,0,length);
+    	      }
+
+    	      outputStream.close();
+    	      inputStream.close();
+
+    	      return f;
+    	   }catch (IOException e) {
+    	         //Logging exception
+    	   }
+
+    	return null;
+    	}
+    
 }
