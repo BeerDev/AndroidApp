@@ -88,14 +88,16 @@
             android:layout_width="112dp"
             android:layout_height="30dp"
             android:layout_weight="0.66"
-            android:text="TestLink" />
+   			android:textSize="20sp"
+            android:text="ReceiptListLink" />
         
         <TextView
             android:id="@+id/menuReceiptLink"
             android:layout_width="112dp"
             android:layout_height="30dp"
             android:layout_weight="0.66"
-            android:text="Receipt" />        
+            android:textSize="20sp"
+            android:text="Receipt Activity" />        
         </LinearLayout>
  
 <LinearLayout
@@ -110,6 +112,7 @@
             android:layout_height="93dp"
             android:layout_gravity="center_vertical|right"
             android:layout_marginLeft="20dp"
+            android:textSize="20sp"
             android:text="Profile" />
     </LinearLayout>  
 </LinearLayout>
