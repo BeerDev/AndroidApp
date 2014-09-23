@@ -22,7 +22,7 @@ import android.widget.TextView;
  *
  */
 public class AboutReceiptFragment extends Fragment {
- 
+	public static FSmallReceiptAdapter ReceiptAdapter;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,15 +51,24 @@ public class AboutReceiptFragment extends Fragment {
 		  countryList.add("Anguilla");
 		  countryList.add("Netherlands Antilles");
 		  countryList.add("Antigua and Barbuda"); 
-		  
-		  //create an ArrayAdaptar from the String Array
-		  ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),
-		    R.layout.receipt_list_elem, countryList);
-		  ListView listView = (ListView) getActivity().findViewById(R.id.receiptListView);
-		  // Assign adapter to ListView
-		  listView.setAdapter(dataAdapter);
+		
 		  
 		  
+		 // ReceiptAdapter = new FSmallReceiptAdapter(getActivity(), MainActivity.completeShoppingList); 
+		  String[] values = new String[] { "Elemento 1", 
+                  "Elemento 2",
+                  "Elemento 3",
+                  "Elemento 4", 
+                  "Elemento 5", 
+                  "Elemento 6", 
+                  "Elemento 7", 
+                  "Elemento 8" 
+                 };
+		  ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+		            android.R.layout.simple_list_item_1, android.R.id.text1, countryList);;
+		  ListView listView = (ListView) getActivity().findViewById(R.id.lvReceiptListViewName);
+		//  listView.setAdapter(ReceiptAdapter);
+		
 		  
 			// HashMap<String, String> item = MainActivity.completeShoppingList.get(i);
 			 

@@ -28,9 +28,6 @@ public class FSmallArrayAdapter extends BaseAdapter implements Filterable{
      */
     private Activity activity;
 	private ItemsFilter mFilter;
-
-	private HashMap<String, Integer> alphaIndexer;
-    private String[] sections;
 	
 	public ArrayList<HashMap<String, String>> productsData;
 	public ArrayList<HashMap<String, String>> allProductsData;

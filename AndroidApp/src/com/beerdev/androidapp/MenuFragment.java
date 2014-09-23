@@ -10,6 +10,8 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -160,8 +162,8 @@ public class MenuFragment extends Fragment implements OnClickListener{
             
             case R.id.menuReceiptLink:
         		
-            	pay.setVisibility(View.GONE);
-        		getActivity()
+            /*	pay.setVisibility(View.GONE);
+            		getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
 	    			.replace(R.id.root_container, new AboutReceiptFragment(), "receiptFrag")
@@ -169,6 +171,11 @@ public class MenuFragment extends Fragment implements OnClickListener{
 	    			.commit();
 
     		FragmentManagerActivity.sm.toggle();
+		*/
+            	Intent myIntent = new Intent(getActivity().getApplicationContext(), AboutReceiptActivity.class);
+            	startActivity(myIntent);
+            	getActivity().finish();
+
             break;
             
         }

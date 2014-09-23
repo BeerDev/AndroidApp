@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:layout_marginTop="?android:attr/actionBarSize">
 
     <ImageView
         android:id="@+id/listImageURL"
-        android:layout_width="106dp"
-        android:layout_height="70dip"
+        android:layout_width="100dp"
+        android:layout_height="100dip"
         android:contentDescription="@string/listImage"
-        android:src="@drawable/kistan" />
+        android:background="@drawable/kistan" />
 
 		<TextView
 		    android:id="@+id/receiptNameKistan"
@@ -46,7 +47,6 @@
         style="@style/ListText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
         android:text="@string/info_kista_datum" />
 
     <!-- Lista artiklar -->
@@ -82,11 +82,24 @@
 			android:layout_height="wrap_content"        
 	        style="@style/ListText"
             android:text="**************************************"/>
- <ListView
-     android:id="@+id/receiptListView"
-     android:layout_width="fill_parent"
-     android:layout_height="132dp" />
-	
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal">
+		   
+		 <ListView
+		     android:id="@+id/lvReceiptListViewName"
+		     android:layout_width="wrap_content"
+		     android:layout_height="160dp" />
+		
+		 <ListView
+		     android:id="@+id/lvReceiptListViewPrice"
+		     android:layout_width="wrap_content"
+		     android:layout_height="140dp"
+		     android:gravity="right" 
+		     android:paddingRight="30dp"/>
+			
+ </LinearLayout>
  <TextView
 	        android:id="@+id/receiptStarsKistan2"
 		    android:layout_width="wrap_content"
@@ -119,5 +132,10 @@
 		       android:text="@string/info_kista_pris_tot" />
     
 	 </LinearLayout> 
-	
+
+	<Button
+	    android:layout_width="130dp"
+	    android:layout_height="fill_parent"
+	    android:text="Accept" />
+
 </LinearLayout>
