@@ -3,8 +3,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -115,13 +113,17 @@ public class MainActivity extends Activity {
 	public static ArrayList<HashMap<String, String>> completeProductList;
 
 	public static ArrayList<String> shoppingProductList;
+	public static ArrayList<HashMap<String, String>> completeShoppingList;
 	public static int shoppingSum;
+	
+	public static int currentCredit;
 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		currentCredit=500;
 		
 		productList = new ArrayList<HashMap<String, String>>();
 		shoppingProductList = new ArrayList<String>();
@@ -294,16 +296,25 @@ public void offlineMode(){
 		//JSONObject obj;
 	
 		try {
-			JSONObject obj = new JSONObject(loadJSONFromAsset());
+			JSONObject obj;
+			try {
+				obj = new JSONObject(loadJSONFromAsset(getResources().getAssets().open("JsonAndroidOffline.json")));
+			
 			products = obj.getJSONArray(TAG_Produkter);
 			beerList=createProductList(products);
+			//beerList.clear();
 			
 			products = obj.getJSONArray(TAG_Cider);
 			ciderList=createProductList(products);
-	   
+	   } catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		completeShoppingList=(ArrayList<HashMap<String,String>>) productList.clone();
+		completeShoppingList.clear();
 		completeProductList = (ArrayList<HashMap<String,String>>) productList.clone();
 		Intent in = new Intent(getApplicationContext(),
 				FragmentManagerActivity.class);
@@ -315,13 +326,10 @@ public void offlineMode(){
 }
 
 	
-	public String loadJSONFromAsset() 
+	public static String loadJSONFromAsset(InputStream is) 
 	{
 	    String json = null;
 	    	    try {
-
-	        InputStream is = getResources().getAssets().open("JsonAndroidOffline.json");
-
 	        int size = is.available();
 
 	        byte[] buffer = new byte[size];
@@ -340,7 +348,7 @@ public void offlineMode(){
 
 	}
 	
-	private ArrayList<HashMap<String, String>> createProductList(JSONArray products) throws JSONException {
+	public ArrayList<HashMap<String, String>> createProductList(JSONArray products) throws JSONException {
 	// TODO Auto-generated method stub
 		 for (int i = 0; i < products.length(); i++) 
 	      {

@@ -1,14 +1,23 @@
 package com.beerdev.androidapp;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
-public class ListViewFragment extends ListFragment{
-	public static FastScrollAdapter fastScrollAdapter;
+public class ReceiptViewFragment extends ListFragment{
+	public static FSmallArrayAdapter fastScrollAdapter;
 	public static ListView lv;
 	
 	@Override 
@@ -27,9 +36,18 @@ public class ListViewFragment extends ListFragment{
         lv = getListView();
         // Initially there is no data 
         setEmptyText("No Data Here");
+        
+		LinearLayout pay =(LinearLayout) getActivity().findViewById(R.id.llReceiptLastPay);
+		pay.setVisibility(View.VISIBLE);
+		
+		
 		// Getting adapter by passing xml data ArrayList
-        fastScrollAdapter=new FastScrollAdapter(getActivity(), MainActivity.productList); 
-        setListAdapter(fastScrollAdapter);
+        fastScrollAdapter=new FSmallArrayAdapter(getActivity(), MainActivity.completeShoppingList); 
+        setListAdapter(fastScrollAdapter);        
+        
+        TextView totSumText= (TextView) getActivity().findViewById(R.id.tvReceiptLastPayText);
+        totSumText.setText("Totala Summan: "+ Integer.toString(MainActivity.shoppingSum)+" kr");
+        
         if(FragmentManagerActivity.fastScrollEnabled){
             getListView().setFastScrollEnabled(true);
             getListView().setFastScrollAlwaysVisible(true);
@@ -38,24 +56,41 @@ public class ListViewFragment extends ListFragment{
             getListView().setFastScrollEnabled(false);	
             getListView().setFastScrollAlwaysVisible(false);
         }
+       
+        
+        //----
+
+        
+        //----
+        
     }
-	 @Override
+	 @SuppressLint("NewApi")
+	@Override
      public void onListItemClick(ListView l, View v, int position, long id) {
 		// Insert desired behavior here.
+	//	 if(clicked == 1){
+	//		 clicked = 1;
+		 
 		 getActivity()
 		 	.getIntent()
 		 	.putExtra("position", position);
+	
+		 MainActivity.shoppingSum = MainActivity.shoppingSum - Integer.parseInt(MainActivity.completeShoppingList.get(position).get(MainActivity.TAG_PRICE));
+		 MainActivity.completeShoppingList.remove(position);	
+		 MainActivity.shoppingProductList.remove(position); 
 		 
 		 getActivity()
 			.getSupportFragmentManager()
 			.beginTransaction()
-			.replace(R.id.root_container, new SwipeViewFragment(), "swipeFrag")
-			.addToBackStack("swipeFrag")
+			.replace(R.id.root_container, new ReceiptViewFragment(), "receiptFrag")
+			.addToBackStack("receiptFrag")
 			.commit();
+			
 		 //Hide inputmethodmanager
-		 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
 		if(imm.isActive()){
 			imm.hideSoftInputFromWindow(getActivity().findViewById(R.id.root_view).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 		}
+	//	clicked=1;
 	 }
 }

@@ -2,19 +2,20 @@ package com.beerdev.androidapp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -26,7 +27,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		 ViewGroup menuView = (ViewGroup) inflater.inflate(R.layout.fragment_menu, container, false);
 		 
-		//*******Functions For MENU*********
+		//*******Views For MENU*********
 	       
 		ImageView imgGalleri = (ImageView) menuView.findViewById(R.id.imageGalleri);
 		ImageView imgLista = (ImageView) menuView.findViewById(R.id.imageLista);
@@ -34,6 +35,11 @@ public class MenuFragment extends Fragment implements OnClickListener{
 		ImageView imgKistan= (ImageView) menuView.findViewById(R.id.imageKistan);
 		ImageView imgUtvecklare = (ImageView) menuView.findViewById(R.id.imageUtvecklare);
 		ImageView imgBarcode = (ImageView) menuView.findViewById(R.id.imageBarcode);
+		//Temp
+		TextView shoppList = (TextView) menuView.findViewById(R.id.menuTestLink);
+		TextView receipt = (TextView) menuView.findViewById(R.id.menuReceiptLink);
+		TextView txtProfile = (TextView) menuView.findViewById(R.id.menuTextProfile);
+
 		
 		imgGalleri.setOnClickListener(this);
 		imgLista.setOnClickListener(this);
@@ -41,6 +47,10 @@ public class MenuFragment extends Fragment implements OnClickListener{
 		imgKistan.setOnClickListener(this);
 		imgUtvecklare.setOnClickListener(this);
 		imgBarcode.setOnClickListener(this);
+		//Temp
+		shoppList.setOnClickListener(this);
+		receipt.setOnClickListener(this);
+		txtProfile.setOnClickListener(this);
 
 		return menuView;
     }
@@ -48,8 +58,11 @@ public class MenuFragment extends Fragment implements OnClickListener{
 
 	@Override
     public void onClick(View v) {
+		LinearLayout pay =(LinearLayout) getActivity().findViewById(R.id.llReceiptLastPay);
         switch (v.getId()) {
         	case R.id.imageGalleri:
+        		pay.setVisibility(View.GONE);
+        		
         		if(MainActivity.productList.isEmpty()){
         			MainActivity.productList = (ArrayList<HashMap<String, String>>) MainActivity.completeProductList.clone();
         			FragmentManagerActivity.searchView.setQuery("", false);
@@ -63,6 +76,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
         			InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         		    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
         			*/
+        			
         		}
         		getActivity()
         			.getSupportFragmentManager()
@@ -74,6 +88,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
         		FragmentManagerActivity.sm.toggle();
         		break;
         	case R.id.imageLista:
+        		pay.setVisibility(View.GONE);
         		getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -84,6 +99,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
         		FragmentManagerActivity.sm.toggle();
                 break;
         	case R.id.imageOltyper:
+        		pay.setVisibility(View.GONE);
         		getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -94,6 +110,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
         		FragmentManagerActivity.sm.toggle();
                 break;
         	case R.id.imageKistan:
+        		pay.setVisibility(View.GONE);
         		getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -103,6 +120,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
         		FragmentManagerActivity.sm.toggle();
                 break;
         	case R.id.imageUtvecklare:
+        		pay.setVisibility(View.GONE);
         		getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -113,6 +131,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
         		FragmentManagerActivity.sm.toggle();
                 break;
         	case R.id.imageBarcode:
+        		pay.setVisibility(View.GONE);
         		//MainActivity.productList = (ArrayList<HashMap<String, String>>) MainActivity.completeProductList.clone();
         		if(MainActivity.productList.isEmpty()){
       			  Toast.makeText(getActivity(), "Finns inga produkter att scanna!", Toast.LENGTH_LONG).show();
@@ -130,6 +149,43 @@ public class MenuFragment extends Fragment implements OnClickListener{
             		FragmentManagerActivity.sm.toggle();
         		}
         		break;
+        	case R.id.menuTestLink:        		
+        		getActivity()
+    			.getSupportFragmentManager()
+    			.beginTransaction()
+    			.replace(R.id.root_container, new ReceiptViewFragment(), "receiptFrag")
+    			.addToBackStack("receiptFrag")
+    			.commit();
+
+    		FragmentManagerActivity.sm.toggle();
+            break; 
+            case R.id.menuReceiptLink:
+        		
+            /*	pay.setVisibility(View.GONE);
+            		getActivity()
+	    			.getSupportFragmentManager()
+	    			.beginTransaction()
+	    			.replace(R.id.root_container, new AboutReceiptFragment(), "receiptFrag")
+	    			.addToBackStack("receiptFrag")
+	    			.commit();
+
+    		FragmentManagerActivity.sm.toggle();
+		*/
+            	Intent myIntent = new Intent(getActivity().getApplicationContext(), AboutReceiptActivity.class);
+            	startActivity(myIntent);
+            	getActivity().finish();
+
+            break;
+        	case R.id.menuTextProfile:
+        		pay.setVisibility(View.GONE);
+        		getActivity()
+    			.getSupportFragmentManager()
+    			.beginTransaction()
+    			.replace(R.id.root_container, new AboutProfileFragment(), "profileFrag")
+    			.addToBackStack("profileFrag")
+    			.commit();
+    		FragmentManagerActivity.sm.toggle();
+            break;
         }
     }
 
