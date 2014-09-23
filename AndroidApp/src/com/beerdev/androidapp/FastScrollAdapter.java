@@ -1,12 +1,8 @@
 package com.beerdev.androidapp;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Set;
-
 import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 /**
@@ -48,9 +43,9 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable{
     @SuppressWarnings("unchecked")
 	public FastScrollAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
         activity = a;
-        productsData = (ArrayList<HashMap<String, String>>) d;
+        productsData = d;
         allProductsData = (ArrayList<HashMap<String, String>>) productsData.clone();
-        inflater = (LayoutInflater)activity.getLayoutInflater();
+        inflater = activity.getLayoutInflater();
         imageLoader=new ImageLoader(activity.getApplicationContext());
         memoryCache=new MemoryCache();
         /*
@@ -80,19 +75,23 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable{
         */
     }
 
-    public int getCount() {
+    @Override
+	public int getCount() {
         return productsData.size();
     }
 
-    public Object getItem(int position) {
+    @Override
+	public Object getItem(int position) {
         return position;
     }
 
-    public long getItemId(int position) {
+    @Override
+	public long getItemId(int position) {
         return position;
     }
     
-    public View getView(int position, View convertView, ViewGroup parent) {
+    @Override
+	public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
         if(convertView==null)
             vi = inflater.inflate(R.layout.list_item, null);
@@ -154,7 +153,8 @@ public class FastScrollAdapter extends BaseAdapter implements Filterable{
             }
         }
 
-        @SuppressWarnings("unchecked")
+        @Override
+		@SuppressWarnings("unchecked")
         protected void publishResults(CharSequence prefix, FilterResults results) {
             productsData = (ArrayList<HashMap<String, String>>) results.values;
             if (results.count > 0) {

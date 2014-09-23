@@ -1,8 +1,6 @@
 
 package com.beerdev.androidapp;
 
-import java.util.ArrayList;
-
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -105,7 +103,8 @@ public class ScreenSlidePageFragment extends Fragment {
         
         final ImageView ivHeart = (ImageView) rootView.findViewById(R.id.ivSwipeHeart);        
         ivHeart.setOnClickListener(new View.OnClickListener() {
-        	@SuppressLint("NewApi") public void onClick(View v){
+        	@Override
+			@SuppressLint("NewApi") public void onClick(View v){
         		//Drawable bg = ivHeart.getBackground();
         		//Comparing Drawables
         		
@@ -114,7 +113,7 @@ public class ScreenSlidePageFragment extends Fragment {
         		Bitmap bitmap = ((BitmapDrawable)fDraw).getBitmap();
         		Bitmap bitmap2 = ((BitmapDrawable)sDraw).getBitmap();
         		String beername= (String)SwipeViewFragment.tvBeerName.getText();
-    			int beerprice=Integer.parseInt((String) MainActivity.productList.get(SwipeViewFragment.posi).get(MainActivity.TAG_PRICE));
+    			int beerprice=Integer.parseInt(MainActivity.productList.get(SwipeViewFragment.posi).get(MainActivity.TAG_PRICE));
     			
         		if(bitmap == bitmap2)
         		{

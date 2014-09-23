@@ -2,12 +2,6 @@ package com.beerdev.androidapp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -34,6 +29,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
 		ImageView imgKistan= (ImageView) menuView.findViewById(R.id.imageKistan);
 		ImageView imgUtvecklare = (ImageView) menuView.findViewById(R.id.imageUtvecklare);
 		ImageView imgBarcode = (ImageView) menuView.findViewById(R.id.imageBarcode);
+		TextView txtProfile = (TextView) menuView.findViewById(R.id.menuTextProfile);
 		
 		imgGalleri.setOnClickListener(this);
 		imgLista.setOnClickListener(this);
@@ -41,6 +37,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
 		imgKistan.setOnClickListener(this);
 		imgUtvecklare.setOnClickListener(this);
 		imgBarcode.setOnClickListener(this);
+		txtProfile.setOnClickListener(this);
 
 		return menuView;
     }
@@ -130,6 +127,15 @@ public class MenuFragment extends Fragment implements OnClickListener{
             		FragmentManagerActivity.sm.toggle();
         		}
         		break;
+        	case R.id.menuTextProfile:
+        		getActivity()
+    			.getSupportFragmentManager()
+    			.beginTransaction()
+    			.replace(R.id.root_container, new AboutProfileFragment(), "profileFrag")
+    			.addToBackStack("profileFrag")
+    			.commit();
+    		FragmentManagerActivity.sm.toggle();
+            break;
         }
     }
 

@@ -19,7 +19,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.widget.ImageView;
   /**
    * A class to load image to view
@@ -229,7 +228,8 @@ public class ImageLoader {
         Bitmap bitmap;
         PhotoToLoad photoToLoad;
         public BitmapDisplayer(Bitmap b, PhotoToLoad p){bitmap=b;photoToLoad=p;}
-        public void run()
+        @Override
+		public void run()
         {
             if(imageViewReused(photoToLoad))
                 return;
