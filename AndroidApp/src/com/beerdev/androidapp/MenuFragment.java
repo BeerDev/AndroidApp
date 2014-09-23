@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +30,11 @@ public class MenuFragment extends Fragment implements OnClickListener{
 		ImageView imgKistan= (ImageView) menuView.findViewById(R.id.imageKistan);
 		ImageView imgUtvecklare = (ImageView) menuView.findViewById(R.id.imageUtvecklare);
 		ImageView imgBarcode = (ImageView) menuView.findViewById(R.id.imageBarcode);
+
 		TextView txtProfile = (TextView) menuView.findViewById(R.id.menuTextProfile);
+		TextView shoppList = (TextView) menuView.findViewById(R.id.menuTestLink);
+		TextView receipt = (TextView) menuView.findViewById(R.id.menuReceiptLink);
+
 		
 		imgGalleri.setOnClickListener(this);
 		imgLista.setOnClickListener(this);
@@ -38,15 +43,20 @@ public class MenuFragment extends Fragment implements OnClickListener{
 		imgUtvecklare.setOnClickListener(this);
 		imgBarcode.setOnClickListener(this);
 		txtProfile.setOnClickListener(this);
-
+		shoppList.setOnClickListener(this);
+		receipt.setOnClickListener(this);
+		
 		return menuView;
     }
 	
 
 	@Override
     public void onClick(View v) {
+		LinearLayout pay =(LinearLayout) getActivity().findViewById(R.id.llReceiptLastPay);
         switch (v.getId()) {
         	case R.id.imageGalleri:
+        		pay.setVisibility(View.GONE);
+        		
         		if(MainActivity.productList.isEmpty()){
         			MainActivity.productList = (ArrayList<HashMap<String, String>>) MainActivity.completeProductList.clone();
         			FragmentManagerActivity.searchView.setQuery("", false);
@@ -60,6 +70,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
         			InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         		    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
         			*/
+        			
         		}
         		getActivity()
         			.getSupportFragmentManager()
@@ -71,6 +82,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
         		FragmentManagerActivity.sm.toggle();
         		break;
         	case R.id.imageLista:
+        		pay.setVisibility(View.GONE);
         		getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -81,6 +93,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
         		FragmentManagerActivity.sm.toggle();
                 break;
         	case R.id.imageOltyper:
+        		pay.setVisibility(View.GONE);
         		getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -91,6 +104,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
         		FragmentManagerActivity.sm.toggle();
                 break;
         	case R.id.imageKistan:
+        		pay.setVisibility(View.GONE);
         		getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -100,6 +114,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
         		FragmentManagerActivity.sm.toggle();
                 break;
         	case R.id.imageUtvecklare:
+        		pay.setVisibility(View.GONE);
         		getActivity()
 	    			.getSupportFragmentManager()
 	    			.beginTransaction()
@@ -110,6 +125,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
         		FragmentManagerActivity.sm.toggle();
                 break;
         	case R.id.imageBarcode:
+        		pay.setVisibility(View.GONE);
         		//MainActivity.productList = (ArrayList<HashMap<String, String>>) MainActivity.completeProductList.clone();
         		if(MainActivity.productList.isEmpty()){
       			  Toast.makeText(getActivity(), "Finns inga produkter att scanna!", Toast.LENGTH_LONG).show();
@@ -127,6 +143,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
             		FragmentManagerActivity.sm.toggle();
         		}
         		break;
+
         	case R.id.menuTextProfile:
         		getActivity()
     			.getSupportFragmentManager()
@@ -134,6 +151,31 @@ public class MenuFragment extends Fragment implements OnClickListener{
     			.replace(R.id.root_container, new AboutProfileFragment(), "profileFrag")
     			.addToBackStack("profileFrag")
     			.commit();
+    		FragmentManagerActivity.sm.toggle();
+            break;
+        		
+        	case R.id.menuTestLink:
+        		
+        		getActivity()
+    			.getSupportFragmentManager()
+    			.beginTransaction()
+    			.replace(R.id.root_container, new ReceiptViewFragment(), "receiptFrag")
+    			.addToBackStack("receiptFrag")
+    			.commit();
+
+    		FragmentManagerActivity.sm.toggle();
+            break;
+            
+            case R.id.menuReceiptLink:
+        		
+            	pay.setVisibility(View.GONE);
+        		getActivity()
+	    			.getSupportFragmentManager()
+	    			.beginTransaction()
+	    			.replace(R.id.root_container, new AboutReceiptFragment(), "receiptFrag")
+	    			.addToBackStack("receiptFrag")
+	    			.commit();
+
     		FragmentManagerActivity.sm.toggle();
             break;
         }

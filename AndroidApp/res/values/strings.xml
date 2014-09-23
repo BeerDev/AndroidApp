@@ -10,6 +10,17 @@
     <string name="toggle_ontext">Artikelnamn</string>
     <string name="toggle_offtext">Kategori</string>
     <string name="listImage">ListImage</string>
+    <string name="info_kistan_adress">Kistagången 16, 164 40 Kista</string>
+    <string name="info_kistan_namn">Kistan 2.0</string>
+    <string name="info_kistan_klubbmasteri">QMISK / TMEIT</string>
+    <string name="info_kistan_kvitto">KVITTO</string>
+    <string name="info_kista_datum">yyyy/mm/dd hh:mm:ss</string>
+    <string name="info_kista_artikel">Artikel</string>
+    <string name="info_kista_pris">Pris</string>
+    <string name="info_kista_attbetala">Att Betala</string>
+    <string name="info_kista_pris_tot">XXX kr</string>
+    
+    
     <string name="aboutustext">
 Applikationen är skapad av BeerDev, en projektgrupp bestående av 9 KTH studenter. Appen skapades i en IT-projektkurs under våren 2014 och finns både till iOS och Android.
 

@@ -78,6 +78,13 @@
 
 
     </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/llMenuThirdContainer4"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="1">
     <TextView
             android:id="@+id/menuTextProfile"
             android:layout_width="93dp"
@@ -86,3 +93,28 @@
             android:layout_marginLeft="20dp"
             android:text="Profile" />
     </LinearLayout>  
+
+<LinearLayout
+            android:id="@+id/llMenuThirdContainer5"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="1">
+        <TextView
+            android:id="@+id/menuTestLink"
+            android:layout_width="112dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.66"
+            android:text="TestLink" />
+        
+        <TextView
+            android:id="@+id/menuReceiptLink"
+            android:layout_width="112dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.66"
+            android:text="Receipt" />
+        
+        
+        </LinearLayout>
+
+</LinearLayout>  
+
