@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="12" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4.3"
+        android:background="#000"
+        android:orientation="vertical"
+        android:paddingTop="20dp" >
+	
+        <FrameLayout
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            
+            >
+        <ImageView
+            android:id="@+id/ivProfilePic"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/icon_mini"
+            android:contentDescription="@string/listImage" />
+
+        <ImageView
+            android:id="@+id/ivProfilePic2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/circle_profile"
+            android:contentDescription="@string/listImage" />
+        
+        </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:weightSum="3" >
+
+            <EditText
+                android:id="@+id/etProfileChangeName"
+                android:visibility="gone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:layout_weight="2" >
+
+                <requestFocus />
+            </EditText>
+
+            <TextView
+                android:id="@+id/tvProfilNamn"
+                android:visibility="visible"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Patrik Stigeborn"
+                android:textSize="20sp" 
+                android:layout_weight="2" />
+				<LinearLayout
+				    android:id="@+id/llProfilSetNameOK"
+		            android:layout_width="0dp"
+		            android:layout_height="wrap_content"
+		            android:gravity="right"
+		            android:orientation="horizontal"
+		            android:layout_weight="1" 
+		            >
+
+		            <Button
+		                android:id="@+id/bvProfilSetNameOK"
+		                android:visibility="gone"
+		                android:layout_width="wrap_content"
+		                android:layout_height="35dp"
+		                android:layout_gravity="center"
+		                android:layout_marginRight="40dp"
+		                android:layout_marginTop="0dp"
+		                android:text="OK!"
+		                android:textSize="14sp" />
+
+				</LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:textOff="Payments"
+        android:textOn="History" 
+        android:layout_gravity="center"/>
+
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:layout_weight="7.7"
+        android:orientation="vertical" 
+        android:background="#10000000">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginRight="20dp"
+           android:layout_marginTop="10dp"
+           android:background="#70000000"
+           android:orientation="horizontal"
+           android:weightSum="10" >
+
+           <TextView
+               android:id="@+id/tvProfilAbout"
+               android:layout_width="0dp"
+               android:layout_height="50dp"
+               android:layout_marginTop="5dp"
+               android:layout_weight="7"
+               android:gravity="center"
+               android:text="About"
+               android:textSize="20sp" />
+
+           <Button
+               android:id="@+id/Button01"
+               android:layout_width="0dp"
+               android:layout_height="35dp"
+               android:layout_gravity="center"
+               android:layout_marginLeft="170dp"
+               android:layout_marginTop="0dp"
+               android:layout_weight="2"
+               android:gravity="right"
+               android:text="0"
+               android:textSize="14sp" />
+       </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="#60000000"
+        android:orientation="horizontal"
+        android:weightSum="10" >
+
+        <TextView
+            android:id="@+id/tvProfilHistory"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="7"
+            android:gravity="center"
+            android:text="History"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/Button03"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="170dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="2"
+            android:gravity="right"
+            android:text="0"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:background="#70000000"
+        android:orientation="horizontal" 
+        android:weightSum="10">
+
+        <TextView
+            android:id="@+id/tvProfilSettings"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="Settings"
+            android:textSize="20sp" 
+            android:layout_weight="7"/>
+
+        <Button
+            android:id="@+id/Button02"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="170dp"
+            android:layout_marginTop="0dp"
+            android:gravity="right"
+            android:text="0"
+            android:textSize="14sp" 
+            android:layout_weight="2"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llProfilAddCredit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="10dp"
+        android:background="#70000000"
+        android:orientation="horizontal"
+        android:weightSum="3" >
+
+        <TextView
+            android:id="@+id/tvProfilAddCredit"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:clickable="true"
+            android:text="Add Credit"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
+</LinearLayout>

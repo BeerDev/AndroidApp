@@ -131,11 +131,11 @@
 		       android:paddingTop="20dp"
 		       android:text="@string/info_kista_pris_tot" />
     
-	 </LinearLayout> 
+	 </LinearLayout>
 
-	<Button
-	    android:layout_width="130dp"
-	    android:layout_height="fill_parent"
-	    android:text="Accept" />
+ <Button
+     android:layout_width="130dp"
+     android:layout_height="fill_parent"
+     android:text="&lt;--Back" />
 
 </LinearLayout>

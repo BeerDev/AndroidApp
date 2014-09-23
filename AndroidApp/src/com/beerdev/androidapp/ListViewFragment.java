@@ -1,6 +1,6 @@
 package com.beerdev.androidapp;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
@@ -53,7 +53,7 @@ public class ListViewFragment extends ListFragment{
 			.addToBackStack("swipeFrag")
 			.commit();
 		 //Hide inputmethodmanager
-		 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+		 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 		if(imm.isActive()){
 			imm.hideSoftInputFromWindow(getActivity().findViewById(R.id.root_view).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 		}

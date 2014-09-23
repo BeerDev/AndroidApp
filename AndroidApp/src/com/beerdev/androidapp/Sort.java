@@ -7,21 +7,21 @@ import java.util.HashMap;
 
 import org.json.JSONException;
 
-import android.util.Log;
-
 public class Sort {	
 	public static ArrayList<HashMap<String, String>> filterProductList;
 	
 	public static void sortAlphabetic(){
 		Collections.sort( MainActivity.productList, new Comparator<HashMap<String,String>>(){
-            public int compare( HashMap<String,String> one, HashMap<String,String> two ) {
+            @Override
+			public int compare( HashMap<String,String> one, HashMap<String,String> two ) {
                 return one.get(MainActivity.TAG_NAME).compareTo(two.get(MainActivity.TAG_NAME));
             }
         });
 	}
 	public static void sortPrice(){
 		Collections.sort( MainActivity.productList, new Comparator<HashMap<String,String>>(){
-            public int compare( HashMap<String,String> one, HashMap<String,String> two ) {
+            @Override
+			public int compare( HashMap<String,String> one, HashMap<String,String> two ) {
                 return Integer.parseInt(one.get(MainActivity.TAG_PRICE)) - (Integer.parseInt(two.get(MainActivity.TAG_PRICE)));
             }
         });

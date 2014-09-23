@@ -79,7 +79,7 @@
 
     </LinearLayout>
 <LinearLayout
-            android:id="@+id/llMenuThirdContainer"
+            android:id="@+id/llMenu4Container"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content" 
 	        android:layout_weight="1">
@@ -95,9 +95,21 @@
             android:layout_width="112dp"
             android:layout_height="30dp"
             android:layout_weight="0.66"
-            android:text="Receipt" />
-        
-        
+            android:text="Receipt" />        
         </LinearLayout>
+ 
+<LinearLayout
+            android:id="@+id/llMenu5Container"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="1">
 
-</LinearLayout>  
+    <TextView
+            android:id="@+id/menuTextProfile"
+            android:layout_width="93dp"
+            android:layout_height="93dp"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginLeft="20dp"
+            android:text="Profile" />
+    </LinearLayout>  
+</LinearLayout>

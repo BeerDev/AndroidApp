@@ -6,10 +6,6 @@ import java.util.Random;
 
 import org.json.JSONException;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -18,16 +14,14 @@ import android.hardware.SensorManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.BaseAdapter;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -49,7 +43,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	public static Menu menu = null;
 	public static boolean mToggleChecked = true;
 	public static SearchView searchView;
-	private MenuItem navigation, filter, cross, searchItem;
+	private MenuItem navigation, filter, cross, searchItem, creditItem;
 	public static Button nameButton, catButton;
 	public static String tagToggleButton, searchText ="";
 	
@@ -88,7 +82,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 						ImageView ivBeer = (ImageView) findViewById(R.id.ivSwipeImage);
 						String image_url = MainActivity.productList.get(0).get("URL");
 						ImageLoader imgLoader = new ImageLoader(globalContext);
-						imgLoader.DisplayImage(image_url, BaseAdapter.NO_SELECTION,ivBeer);
+						imgLoader.DisplayImage(image_url, Adapter.NO_SELECTION,ivBeer);
 						SwipeViewFragment.mPager.setSwipeable(false);
 					}
 					else if(SwipeViewFragment.NUM_PAGES == 1) 
@@ -97,7 +91,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 						ImageView ivBeer = (ImageView) findViewById(R.id.ivSwipeImage);
 						String image_url = MainActivity.productList.get(0).get("URL");
 						ImageLoader imgLoader = new ImageLoader(globalContext);
-						imgLoader.DisplayImage(image_url, BaseAdapter.NO_SELECTION,ivBeer);
+						imgLoader.DisplayImage(image_url, Adapter.NO_SELECTION,ivBeer);
 						
 						SwipeViewFragment.mPager.setSwipeable(false);
 						SwipeViewFragment.pageChangeListener.onPageSelected(0);
@@ -195,7 +189,11 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
         filter = menu.findItem(R.id.menu_filter);
         cross = menu.findItem(R.id.menu_close_search);
         searchItem = menu.findItem(R.id.menu_search);
+        creditItem=menu.findItem(R.id.menu_credit);
        
+        creditItem.setTitle("Credit = "+Integer.toString(MainActivity.currentCredit));
+        
+        creditItem.setVisible(true);
         navigation.setVisible(true);
         navigation.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         filter.setVisible(true);
@@ -227,7 +225,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			toggle();
 	    			
 	    			 //Hide inputmethodmanager
-	    			 InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+	    			 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 	    			if(imm.isActive()){
 	    				imm.hideSoftInputFromWindow(findViewById(R.id.root_view).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 	    			}
@@ -294,7 +292,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 	    			searchView.setIconified(true);
 	    			searchItem.setVisible(true);
 	    			navigation.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-	    			 InputMethodManager imm2 = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+	    			 InputMethodManager imm2 = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		    			if(imm2.isActive()){
 		    				imm2.hideSoftInputFromWindow(findViewById(R.id.root_view).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 		    			}
@@ -306,7 +304,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		public boolean onQueryTextSubmit(String query) {
 			findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
 			setLayoutMargins(findViewById(R.id.root_view), this);
-			InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 		    cross.setVisible(true);
 		    filter.setVisible(true);
@@ -320,7 +318,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 		public boolean onQueryTextChange(String newText) {
 			findViewById(R.id.search_container).setVisibility(View.VISIBLE);
 			setLayoutMargins(findViewById(R.id.root_view), this);
-			InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		    if(!imm.isActive() && categorySearchShowInput){
 				imm.toggleSoftInput(0, InputMethodManager.SHOW_IMPLICIT);
 		    }
@@ -344,7 +342,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 			findViewById(R.id.search_container).setVisibility(View.INVISIBLE);
 			setLayoutMargins(findViewById(R.id.root_view), this);	
 			SwipeViewFragment.mPager.setSwipeable(true); 
-			InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 		    navigation.setVisible(true);
 	        navigation.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -383,7 +381,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				ImageView ivBeer = (ImageView) findViewById(R.id.ivSwipeImage);
 				String image_url = MainActivity.productList.get(0).get("URL");
 				ImageLoader imgLoader = new ImageLoader(this);
-				imgLoader.DisplayImage(image_url, BaseAdapter.NO_SELECTION,ivBeer);
+				imgLoader.DisplayImage(image_url, Adapter.NO_SELECTION,ivBeer);
 				SwipeViewFragment.mPager.setSwipeable(false);
 			}
 			else if(SwipeViewFragment.NUM_PAGES == 1) 
@@ -392,7 +390,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 				ImageView ivBeer = (ImageView) findViewById(R.id.ivSwipeImage);
 				String image_url = MainActivity.productList.get(0).get("URL");
 				ImageLoader imgLoader = new ImageLoader(this);
-				imgLoader.DisplayImage(image_url, BaseAdapter.NO_SELECTION,ivBeer);
+				imgLoader.DisplayImage(image_url, Adapter.NO_SELECTION,ivBeer);
 				
 				SwipeViewFragment.mPager.setSwipeable(false);
 				SwipeViewFragment.pageChangeListener.onPageSelected(0);
@@ -454,6 +452,7 @@ public class FragmentManagerActivity extends SlidingFragmentActivity implements 
 			catButton.setTextColor(halfTrans);
 		}
 	}
+	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 		Boolean foundProduct = false;

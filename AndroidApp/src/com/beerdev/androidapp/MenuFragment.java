@@ -2,12 +2,8 @@ package com.beerdev.androidapp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -16,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,7 +27,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		 ViewGroup menuView = (ViewGroup) inflater.inflate(R.layout.fragment_menu, container, false);
 		 
-		//*******Functions For MENU*********
+		//*******Views For MENU*********
 	       
 		ImageView imgGalleri = (ImageView) menuView.findViewById(R.id.imageGalleri);
 		ImageView imgLista = (ImageView) menuView.findViewById(R.id.imageLista);
@@ -38,8 +35,11 @@ public class MenuFragment extends Fragment implements OnClickListener{
 		ImageView imgKistan= (ImageView) menuView.findViewById(R.id.imageKistan);
 		ImageView imgUtvecklare = (ImageView) menuView.findViewById(R.id.imageUtvecklare);
 		ImageView imgBarcode = (ImageView) menuView.findViewById(R.id.imageBarcode);
+		//Temp
 		TextView shoppList = (TextView) menuView.findViewById(R.id.menuTestLink);
 		TextView receipt = (TextView) menuView.findViewById(R.id.menuReceiptLink);
+		TextView txtProfile = (TextView) menuView.findViewById(R.id.menuTextProfile);
+
 		
 		imgGalleri.setOnClickListener(this);
 		imgLista.setOnClickListener(this);
@@ -47,9 +47,11 @@ public class MenuFragment extends Fragment implements OnClickListener{
 		imgKistan.setOnClickListener(this);
 		imgUtvecklare.setOnClickListener(this);
 		imgBarcode.setOnClickListener(this);
+		//Temp
 		shoppList.setOnClickListener(this);
 		receipt.setOnClickListener(this);
-		
+		txtProfile.setOnClickListener(this);
+
 		return menuView;
     }
 	
@@ -147,9 +149,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
             		FragmentManagerActivity.sm.toggle();
         		}
         		break;
-        		
-        	case R.id.menuTestLink:
-        		
+        	case R.id.menuTestLink:        		
         		getActivity()
     			.getSupportFragmentManager()
     			.beginTransaction()
@@ -158,8 +158,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
     			.commit();
 
     		FragmentManagerActivity.sm.toggle();
-            break;
-            
+            break; 
             case R.id.menuReceiptLink:
         		
             /*	pay.setVisibility(View.GONE);
@@ -177,7 +176,16 @@ public class MenuFragment extends Fragment implements OnClickListener{
             	getActivity().finish();
 
             break;
-            
+        	case R.id.menuTextProfile:
+        		pay.setVisibility(View.GONE);
+        		getActivity()
+    			.getSupportFragmentManager()
+    			.beginTransaction()
+    			.replace(R.id.root_container, new AboutProfileFragment(), "profileFrag")
+    			.addToBackStack("profileFrag")
+    			.commit();
+    		FragmentManagerActivity.sm.toggle();
+            break;
         }
     }
 

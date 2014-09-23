@@ -3,8 +3,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -117,12 +115,15 @@ public class MainActivity extends Activity {
 	public static ArrayList<String> shoppingProductList;
 	public static ArrayList<HashMap<String, String>> completeShoppingList;
 	public static int shoppingSum;
+	
+	public static int currentCredit;
 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		currentCredit=500;
 		
 		productList = new ArrayList<HashMap<String, String>>();
 		shoppingProductList = new ArrayList<String>();

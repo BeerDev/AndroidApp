@@ -65,6 +65,7 @@ public class AboutCategories extends Fragment {
 		 });
 
 		 lagerButton.setOnClickListener(new OnClickListener(){
+					@Override
 					public void onClick(View arg0) {
 						FragmentManagerActivity.mToggleChecked=false;
 						FragmentManagerActivity.setToggleButton();
